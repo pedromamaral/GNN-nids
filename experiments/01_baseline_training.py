@@ -57,11 +57,16 @@ def build_model(
     num_node_features: int,
     hidden_dim: int,
     dropout: float,
+    hidden_layers: int = 1,
 ) -> torch.nn.Module:
     if model_name == "gcn":
-        return GCN_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GCN_NIDS(
+            num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers
+        )
     if model_name == "gat":
-        return GAT_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GAT_NIDS(
+            num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers
+        )
     raise ValueError(f"Unsupported model type: {model_name}")
 
 
@@ -168,6 +173,7 @@ def run_training(args: argparse.Namespace) -> dict:
                 rebuild=args.rebuild_data,
                 window_size=window_size,
                 k=args.k,
+                ordered_windows=getattr(args, "ordered_windows", False),
             )
 
         num_node_features = (
@@ -179,6 +185,7 @@ def run_training(args: argparse.Namespace) -> dict:
             args.model,
             num_node_features=num_node_features,
             hidden_dim=args.hidden_dim,
+            hidden_layers=getattr(args, "layers", 1),
             dropout=args.dropout,
         )
 
@@ -315,6 +322,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--window-size", type=int, default=None)
     parser.add_argument("--k", type=int, default=5)
+    parser.add_argument(
+        "--layers",
+        type=int,
+        default=1,
+        help="Number of message-passing layers (GCNConv/GATConv). The linear classifier "
+             "on top is NOT a message-passing layer. Default 1 reproduces the original runs.",
+    )
+    parser.add_argument(
+        "--ordered-windows",
+        action="store_true",
+        help="Build graphs from capture-ordered windows instead of the shuffled split order.",
+    )
+
     parser.add_argument("--learning-rate", type=float, default=None)
     parser.add_argument("--weight-decay", type=float, default=None)
     parser.add_argument("--patience", type=int, default=None)

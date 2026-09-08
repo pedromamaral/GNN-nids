@@ -29,6 +29,7 @@ from training.trainer import Trainer
 
 from attacks.structural import edge_removal_attack
 from attacks.structural import edge_addition_attack
+from attacks.structural import malicious_degree_stats
 
 
 logging.basicConfig(
@@ -55,11 +56,15 @@ def set_seed(seed: int) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-def build_model(model_name: str, num_node_features: int, hidden_dim: int, dropout: float):
+def build_model(model_name: str, num_node_features: int, hidden_dim: int, dropout: float, hidden_layers: int = 1):
     if model_name == "gcn":
-        return GCN_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GCN_NIDS(
+            num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers
+        )
     if model_name == "gat":
-        return GAT_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GAT_NIDS(
+            num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers
+        )
     raise ValueError(f"Unsupported model type: {model_name}")
 
 
@@ -87,8 +92,22 @@ def append_csv(row: dict, path: Path) -> None:
         writer.writerow(row)
 
 
-def build_attacked_dataset(dataset, attack_name: str, rate: float, device: str):
+def build_attacked_dataset(
+    dataset,
+    attack_name: str,
+    rate: float,
+    device: str,
+    budget_reference: str = "candidate",
+    seed: int = 0,
+):
+    """Apply a RANDOM structural perturbation to every graph in the dataset.
+
+    These are noise baselines, not optimised adversarial attacks. ``seed`` makes
+    a repetition reproducible; run several repetitions and report mean +/- std,
+    because a single draw of a random perturbation carries real variance.
+    """
     attacked_graphs = []
+    generator = torch.Generator().manual_seed(int(seed))
 
     for data in dataset:
         data = data.to(device)
@@ -98,12 +117,16 @@ def build_attacked_dataset(dataset, attack_name: str, rate: float, device: str):
                 data,
                 perturbation_rate=rate,
                 attack_only_malicious=True,
+                budget_reference=budget_reference,
+                generator=generator,
             )
         elif attack_name == "edge_addition":
             adv_data = edge_addition_attack(
                 data,
                 perturbation_rate=rate,
                 attack_only_malicious=True,
+                budget_reference=budget_reference,
+                generator=generator,
             )
         else:
             raise ValueError(f"Unsupported attack: {attack_name}")
@@ -143,6 +166,7 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
         rebuild=False,
         window_size=window_size,
         k=args.k,
+        ordered_windows=getattr(args, "ordered_windows", False),
     )
 
     num_node_features = test_dataset[0].x.shape[1]
@@ -152,6 +176,7 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
         num_node_features=num_node_features,
         hidden_dim=args.hidden_dim,
         dropout=args.dropout,
+        hidden_layers=getattr(args, "layers", 1),
     )
 
     trainer = Trainer(
@@ -187,14 +212,36 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
         for rate in args.rates:
             logger.info("Running %s attack with perturbation_rate=%s", attack_name, rate)
 
-            attacked_dataset = build_attacked_dataset(
-                dataset=test_dataset,
-                attack_name=attack_name,
-                rate=rate,
-                device=trainer.device,
-            )
+            repeat_metrics = []
+            degree_before = None
+            degree_after = None
 
-            attacked_metrics = trainer.evaluate(attacked_dataset)
+            for repeat in range(getattr(args, "repeats", 1)):
+                attacked_dataset = build_attacked_dataset(
+                    dataset=test_dataset,
+                    attack_name=attack_name,
+                    rate=rate,
+                    device=trainer.device,
+                    budget_reference=getattr(args, "budget_reference", "candidate"),
+                    seed=seed + repeat,
+                )
+                repeat_metrics.append(trainer.evaluate(attacked_dataset))
+
+                if repeat == 0 and len(test_dataset) > 0:
+                    degree_before = malicious_degree_stats(test_dataset[0])
+                    degree_after = malicious_degree_stats(attacked_dataset[0])
+
+            def _agg(key, fn):
+                values = [m[key] for m in repeat_metrics if m.get(key) is not None]
+                return float(fn(values)) if values else None
+
+            attacked_metrics = {
+                key: _agg(key, np.mean)
+                for key in ("accuracy", "precision", "recall", "f1", "roc_auc")
+            }
+            attacked_std = {
+                key: _agg(key, np.std) for key in ("accuracy", "precision", "recall", "f1")
+            }
 
             row = {
                 "dataset": args.dataset,
@@ -215,6 +262,14 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
                 "delta_accuracy": clean_metrics["accuracy"] - attacked_metrics["accuracy"],
                 "delta_f1": clean_metrics["f1"] - attacked_metrics["f1"],
                 "delta_recall": clean_metrics["recall"] - attacked_metrics["recall"],
+                "repeats": getattr(args, "repeats", 1),
+                "budget_reference": getattr(args, "budget_reference", "candidate"),
+                "ordered_windows": getattr(args, "ordered_windows", False),
+                "attacked_accuracy_std": attacked_std["accuracy"],
+                "attacked_f1_std": attacked_std["f1"],
+                "attacked_recall_std": attacked_std["recall"],
+                "malicious_mean_degree_before": (degree_before or {}).get("mean_degree"),
+                "malicious_mean_degree_after": (degree_after or {}).get("mean_degree"),
             }
 
             append_csv(row, summary_csv)
@@ -228,6 +283,11 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
                     "f1": row["delta_f1"],
                     "recall": row["delta_recall"],
                 },
+                "std": attacked_std,
+                "repeats": getattr(args, "repeats", 1),
+                "budget_reference": getattr(args, "budget_reference", "candidate"),
+                "degree_before": degree_before,
+                "degree_after": degree_after,
             })
 
     save_json(results, run_dir / "metrics.json")
@@ -253,9 +313,35 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hidden-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.5)
     parser.add_argument("--k", type=int, default=5)
+    parser.add_argument(
+        "--layers",
+        type=int,
+        default=1,
+        help="Number of message-passing layers; must match the checkpoint being loaded.",
+    )
+
 
     parser.add_argument("--attacks", nargs="+", choices=["edge_removal", "edge_addition"], default=["edge_removal", "edge_addition"])
     parser.add_argument("--rates", nargs="+", type=float, default=[0.01, 0.03, 0.05, 0.10])
+    parser.add_argument(
+        "--budget-reference",
+        choices=["candidate", "total"],
+        default="candidate",
+        help="Edge population the perturbation rate refers to. 'candidate' (default) uses the "
+             "edges incident to malicious nodes for BOTH removal and addition, making the two "
+             "comparable. 'total' reproduces the earlier, non-comparable behaviour.",
+    )
+    parser.add_argument(
+        "--repeats",
+        type=int,
+        default=5,
+        help="Repetitions per configuration; these perturbations are random, so report mean +/- std.",
+    )
+    parser.add_argument(
+        "--ordered-windows",
+        action="store_true",
+        help="Build graphs from capture-ordered windows instead of the shuffled split order.",
+    )
 
     return parser.parse_args()
 

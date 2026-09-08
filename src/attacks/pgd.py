@@ -2,7 +2,19 @@
 PGD (Projected Gradient Descent) adversarial attack for PyTorch Geometric graphs.
 
 Iterative feature-space evasion attack: applies multiple FGSM-like steps with
-projection to maintain bounded perturbation.
+projection back into an L-inf epsilon-ball around the original features.
+
+Notes on the attack configuration
+---------------------------------
+With a sign-based update of fixed size ``alpha``, each masked coordinate moves
+by exactly ``alpha`` per step, so the boundary of the epsilon-ball is reached
+after ``ceil(epsilon / alpha)`` steps.  If ``alpha`` is too small relative to
+``epsilon`` the attack cannot traverse the ball; if it is too large the attack
+saturates on the first step and degenerates to FGSM.  Following Madry et al.,
+the default step size is ``alpha = 2.5 * epsilon / steps``, which lets the
+attack cross the ball roughly 2.5 times and therefore actually re-estimate the
+gradient direction along the way.  A random start inside the ball is enabled by
+default for the same reason.
 """
 
 from typing import Optional
@@ -12,115 +24,109 @@ import torch.nn.functional as F
 from torch_geometric.data import Data
 
 
+def default_step_size(epsilon: float, steps: int) -> float:
+    """Standard PGD step size heuristic (Madry et al.): 2.5 * epsilon / steps."""
+    return 2.5 * float(epsilon) / float(steps)
+
+
 def pgd_attack(
     model: nn.Module,
     data: Data,
     epsilon: float = 0.05,
-    alpha: float = 0.01,
+    alpha: Optional[float] = None,
     steps: int = 10,
     attack_only_malicious: bool = True,
     clip_min: Optional[float] = None,
     clip_max: Optional[float] = None,
+    random_start: bool = True,
+    generator: Optional[torch.Generator] = None,
 ) -> Data:
     """
-    Apply PGD (Projected Gradient Descent) attack to a PyTorch Geometric graph.
-
-    Iteratively applies FGSM-style updates to node features, then projects
-    perturbations back into an L∞ epsilon-ball around the original features.
+    Apply a PGD attack to the node features of a PyTorch Geometric graph.
 
     Args:
-        model: A GNN model (e.g., GCN_NIDS, GAT_NIDS). Must be differentiable
-               and support forward pass on PyG Data objects.
-        data: PyTorch Geometric Data object with:
-            - data.x: node features (num_nodes, num_features)
-            - data.edge_index: edge indices (2, num_edges)
-            - data.y: node labels (num_nodes,), binary where 0=benign, 1=attack
-        epsilon: L∞ bound on perturbation magnitude.
-        alpha: Step size for gradient ascent in each iteration.
+        model: A GNN model (e.g., GCN_NIDS, GAT_NIDS).
+        data: PyG Data object with ``x``, ``edge_index`` and ``y``
+            (binary labels, 0 = benign, 1 = malicious).
+        epsilon: L-inf bound on the perturbation.
+        alpha: Step size.  If ``None`` (recommended), ``2.5 * epsilon / steps``
+            is used.  Passing an explicit value that is much larger than
+            ``epsilon / steps`` makes PGD collapse onto FGSM.
         steps: Number of PGD iterations.
-        attack_only_malicious: If True, only perturb nodes where data.y == 1.
-                              If False, perturb all nodes.
-        clip_min: If provided, clamp adversarial features to be >= clip_min.
-        clip_max: If provided, clamp adversarial features to be <= clip_max.
+        attack_only_malicious: If True, only perturb nodes where ``y == 1``.
+        clip_min / clip_max: Optional bounds applied to the adversarial
+            features after every step (feature-domain validity).
+        random_start: If True, initialise the perturbation uniformly at random
+            inside the epsilon-ball instead of starting at the clean point.
+        generator: Optional ``torch.Generator`` for a reproducible random start.
 
     Returns:
-        A new PyTorch Geometric Data object with adversarial node features.
-        Preserves edge_index, y, and all other attributes.
+        A new Data object with adversarial node features.  ``edge_index``,
+        ``y`` and all other attributes are preserved.
 
     Raises:
-        ValueError: If epsilon, alpha, or steps are invalid (<=0).
-
-    Notes:
-        If attack_only_malicious=True and no malicious nodes exist, the original 
-        graph is returned unchanged.
+        ValueError: If ``epsilon``, ``alpha`` or ``steps`` are not positive.
     """
-    # Validate parameters
     if epsilon <= 0:
         raise ValueError(f"epsilon must be positive, got {epsilon}")
-    if alpha <= 0:
-        raise ValueError(f"alpha must be positive, got {alpha}")
     if steps <= 0:
         raise ValueError(f"steps must be positive, got {steps}")
 
+    if alpha is None:
+        alpha = default_step_size(epsilon, steps)
+    if alpha <= 0:
+        raise ValueError(f"alpha must be positive, got {alpha}")
+
     model.eval()
 
-    # Store original features and initialize adversarial features
-    x_original = data.x.clone().detach()
     device = data.x.device
-    x_adv = x_original.clone().detach().to(device)
+    x_original = data.x.detach().clone()
 
-    # Get the attack mask once
+    # Build the attack mask once (rows that are allowed to move).
     if attack_only_malicious:
-        mask = data.y == 1
-        if mask.sum() == 0:
-            # No malicious nodes to attack; return original data
-            data_adv = data.clone()
-            return data_adv
+        node_mask = data.y == 1
+        if node_mask.sum() == 0:
+            return data.clone()
+    else:
+        node_mask = torch.ones(data.num_nodes, dtype=torch.bool, device=device)
 
-    # Iterative attack
+    x_adv = x_original.clone()
+
+    if random_start:
+        noise = torch.empty_like(x_original).uniform_(-epsilon, epsilon, generator=generator)
+        x_adv[node_mask] = x_original[node_mask] + noise[node_mask]
+        if clip_min is not None:
+            x_adv = torch.clamp(x_adv, min=clip_min)
+        if clip_max is not None:
+            x_adv = torch.clamp(x_adv, max=clip_max)
+
     for _ in range(steps):
         x_adv = x_adv.detach().to(device).requires_grad_(True)
 
-        # Create a temporary data object with current adversarial features
         data_adv = data.clone()
         data_adv.x = x_adv
 
-        # Forward pass
         with torch.enable_grad():
             logits = model(data_adv)
+            loss = F.cross_entropy(logits[node_mask], data.y[node_mask])
 
-            # Compute loss on targeted nodes
-            if attack_only_malicious:
-                loss = F.cross_entropy(logits[mask], data.y[mask])
-            else:
-                loss = F.cross_entropy(logits, data.y)
-
-            # Compute gradient
             model.zero_grad(set_to_none=True)
             loss.backward()
             grad_sign = x_adv.grad.sign()
 
-        # Update with gradient ascent and projection
         with torch.no_grad():
-            if attack_only_malicious:
-                x_adv_updated = x_adv.detach().clone()
-                x_adv_updated[mask] = x_adv_updated[mask] + alpha * grad_sign[mask]
-                x_adv = x_adv_updated
-            else:
-                x_adv = x_adv.detach() + alpha * grad_sign
+            x_updated = x_adv.detach().clone()
+            x_updated[node_mask] = x_updated[node_mask] + alpha * grad_sign[node_mask]
 
-            # Project back into epsilon-ball
-            perturbation = x_adv - x_original
-            perturbation = torch.clamp(perturbation, min=-epsilon, max=epsilon)
+            # Project back into the L-inf epsilon-ball around the clean features.
+            perturbation = torch.clamp(x_updated - x_original, min=-epsilon, max=epsilon)
             x_adv = x_original + perturbation
 
-            # Optional feature clipping
             if clip_min is not None:
                 x_adv = torch.clamp(x_adv, min=clip_min)
             if clip_max is not None:
                 x_adv = torch.clamp(x_adv, max=clip_max)
 
-    # Create final adversarial data object
     data_adv = data.clone()
     data_adv.x = x_adv.detach()
     return data_adv

@@ -43,6 +43,7 @@ class NetworkFlowDataset(InMemoryDataset):
         rebuild: bool = False,
         window_size: int = 1000,
         k: int = 5,
+        ordered_windows: bool = False,
     ):
         """Initialize the dataset.
 
@@ -55,11 +56,18 @@ class NetworkFlowDataset(InMemoryDataset):
             rebuild: Force rebuild of processed data.
             window_size: Window size for graph construction.
             k: Number of nearest neighbors for graph construction.
+            ordered_windows: If True, sort the split indices before windowing so
+                that each graph is built from a contiguous block of flows in
+                capture order. If False (legacy default), windows are cut from
+                the shuffled order returned by the stratified split, which makes
+                each graph a random subsample of the whole capture rather than a
+                traffic window.
         """
         self.name = name
         self.split = split
         self.rebuild = rebuild
         self.k = k
+        self.ordered_windows = bool(ordered_windows)
         # Store provided root path so properties can be used before
         # PyTorch-Geometric's InMemoryDataset.__init__ sets up `self.root`.
         self._root_path = root
@@ -108,6 +116,12 @@ class NetworkFlowDataset(InMemoryDataset):
         """Return processed data directory path."""
         return os.path.join(self._root_path, "processed")
 
+    def _order_indices(self, indices):
+        """Optionally restore capture order before the flows are windowed."""
+        if self.ordered_windows:
+            return np.sort(np.asarray(indices))
+        return indices
+
     def _build_config_metadata(self) -> dict:
         """Create a compatibility metadata block for the current dataset config."""
         return {
@@ -117,6 +131,7 @@ class NetworkFlowDataset(InMemoryDataset):
             "k": self.k,
             "graph_method": "knn",
             "distance_metric": "cosine",
+            "ordered_windows": self.ordered_windows,
         }
 
     def _metadata_path(self) -> Path:
@@ -263,7 +278,7 @@ class NetworkFlowDataset(InMemoryDataset):
                 raise ValueError(f"Invalid split: {self.split}")
             
             # Apply split indices
-            df = full_df.iloc[indices].reset_index(drop=True)
+            df = full_df.iloc[self._order_indices(indices)].reset_index(drop=True)
             
             # Load or fit preprocessor
             if fit_preprocessor:
@@ -310,7 +325,7 @@ class NetworkFlowDataset(InMemoryDataset):
                 raise ValueError(f"Invalid split: {self.split}")
 
             # Apply split indices
-            df_split = df.iloc[indices].reset_index(drop=True)
+            df_split = df.iloc[self._order_indices(indices)].reset_index(drop=True)
 
             # Load or fit preprocessor
             if fit_preprocessor:
@@ -491,6 +506,7 @@ class NetworkFlowDataset(InMemoryDataset):
         rebuild: bool = False,
         window_size: int = 1000,
         k: int = 5,
+        ordered_windows: bool = False,
     ) -> "NetworkFlowDataset":
         """Create a network flow dataset.
 
@@ -520,6 +536,7 @@ class NetworkFlowDataset(InMemoryDataset):
             rebuild=rebuild,
             window_size=window_size,
             k=k,
+            ordered_windows=ordered_windows,
         )
 
         # Load statistics
@@ -535,6 +552,7 @@ def load_split_datasets(
     rebuild: bool = False,
     window_size: int = 1000,
     k: int = 5,
+    ordered_windows: bool = False,
 ) -> Tuple[NetworkFlowDataset, NetworkFlowDataset, NetworkFlowDataset]:
     """Load train, validation, and test datasets with formal split protocol.
 
@@ -550,7 +568,8 @@ def load_split_datasets(
     """
     logger.info(f"Loading train, validation, and test datasets for {name}...")
 
-    dataset_root = os.path.join(root, name, f"k_{k}")
+    cache_key = f"k_{k}_ordered" if ordered_windows else f"k_{k}"
+    dataset_root = os.path.join(root, name, cache_key)
 
     train_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -559,6 +578,7 @@ def load_split_datasets(
         rebuild=rebuild,
         window_size=window_size,
         k=k,
+        ordered_windows=ordered_windows,
     )
     validation_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -567,6 +587,7 @@ def load_split_datasets(
         rebuild=False,
         window_size=window_size,
         k=k,
+        ordered_windows=ordered_windows,
     )
     test_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -575,6 +596,7 @@ def load_split_datasets(
         rebuild=False,
         window_size=window_size,
         k=k,
+        ordered_windows=ordered_windows,
     )
 
     logger.info(
