@@ -7,6 +7,7 @@ import argparse
 import csv
 import json
 import logging
+import os
 import random
 import sys
 from datetime import datetime
@@ -48,12 +49,27 @@ def load_config(config_path: Path) -> dict:
         return yaml.safe_load(handle) or {}
 
 
-def set_seed(seed: int) -> None:
+def set_seed(seed: int, deterministic: bool = False) -> None:
+    """Seed every RNG used by the pipeline.
+
+    ``deterministic`` additionally forces deterministic kernels so that two runs
+    with the same seed produce identical numbers. Without it results can drift
+    in the last decimals between runs even at a fixed seed, which would make a
+    multi-seed study measure non-determinism on top of genuine training
+    variance.
+    """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+    if deterministic:
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+        os.environ["PYTHONHASHSEED"] = str(seed)
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
 
 def build_model(model_name: str, num_node_features: int, hidden_dim: int, dropout: float, hidden_layers: int = 1):
@@ -152,8 +168,11 @@ def validate_checkpoint_metadata(checkpoint_path: Path, expected_k: int) -> None
 def run_structural_attacks(args: argparse.Namespace) -> dict:
     config = load_config(DEFAULT_CONFIG_PATH)
     train_config = config.get("train", config)
-    seed = train_config.get("seed", 42)
-    set_seed(seed)
+    seed = (
+        args.seed if getattr(args, "seed", None) is not None
+        else train_config.get("seed", 42)
+    )
+    set_seed(seed, deterministic=getattr(args, "deterministic", False))
 
     device_config = train_config.get("device", "auto")
     window_size = args.window_size if args.window_size is not None else config.get("window_size", 1000)
@@ -265,6 +284,7 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
                 "repeats": getattr(args, "repeats", 1),
                 "budget_reference": getattr(args, "budget_reference", "candidate"),
                 "ordered_windows": getattr(args, "ordered_windows", False),
+                "seed": seed,
                 "attacked_accuracy_std": attacked_std["accuracy"],
                 "attacked_f1_std": attacked_std["f1"],
                 "attacked_recall_std": attacked_std["recall"],
@@ -313,6 +333,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hidden-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.5)
     parser.add_argument("--k", type=int, default=5)
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Training/eval seed. Overrides train.seed in the config. Vary this across "
+             "runs to measure model-level variance; it does NOT change the persisted "
+             "splits (fixed random_state=42) nor invalidate the graph caches.",
+    )
+    parser.add_argument(
+        "--deterministic",
+        action="store_true",
+        help="Force deterministic kernels so the same seed reproduces the same numbers.",
+    )
     parser.add_argument(
         "--layers",
         type=int,

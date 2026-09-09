@@ -5,6 +5,7 @@ import argparse
 import csv
 import json
 import logging
+import os
 import random
 import sys
 from datetime import datetime
@@ -44,12 +45,27 @@ def load_config(config_path: Path) -> dict:
         return yaml.safe_load(handle) or {}
 
 
-def set_seed(seed: int) -> None:
+def set_seed(seed: int, deterministic: bool = False) -> None:
+    """Seed every RNG used by the pipeline.
+
+    ``deterministic`` additionally forces deterministic kernels so that two runs
+    with the same seed produce identical numbers. Without it results can drift
+    in the last decimals between runs even at a fixed seed, which would make a
+    multi-seed study measure non-determinism on top of genuine training
+    variance.
+    """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+    if deterministic:
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+        os.environ["PYTHONHASHSEED"] = str(seed)
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
 
 def build_model(
@@ -114,9 +130,10 @@ def append_csv_summary(summary: dict, output_path: Path) -> Path:
     return output_path
 
 
-def create_run_directory(dataset: str, model: str, k: int, base_dir: Path = Path("results") / "runs") -> Path:
+def create_run_directory(dataset: str, model: str, k: int, base_dir: Path = Path("results") / "runs", seed=None) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_name = f"{timestamp}_{dataset}_{model}_k_{k}"
+    seed_tag = f"_seed_{seed}" if seed is not None else ""
+    run_name = f"{timestamp}_{dataset}_{model}_k_{k}{seed_tag}"
     run_dir = base_dir / run_name
     suffix = 0
     while run_dir.exists():
@@ -140,8 +157,11 @@ def setup_training_log(run_dir: Path) -> logging.Handler:
 def run_training(args: argparse.Namespace) -> dict:
     config = load_config(DEFAULT_CONFIG_PATH)
     train_config = config.get("train", config)
-    seed = train_config.get("seed", 42)
-    set_seed(seed)
+    seed = (
+        args.seed if getattr(args, "seed", None) is not None
+        else train_config.get("seed", 42)
+    )
+    set_seed(seed, deterministic=getattr(args, "deterministic", False))
 
     training_config = {
         "epochs": args.epochs if args.epochs is not None else train_config.get("epochs", 100),
@@ -154,7 +174,7 @@ def run_training(args: argparse.Namespace) -> dict:
 
     window_size = args.window_size if args.window_size is not None else config.get("window_size", 1000)
 
-    run_dir = create_run_directory(args.dataset, args.model, args.k)
+    run_dir = create_run_directory(args.dataset, args.model, args.k, seed=seed)
     run_id = run_dir.name
     timestamp = run_dir.name.split("_")[0]
 
@@ -205,6 +225,8 @@ def run_training(args: argparse.Namespace) -> dict:
             "k": args.k,
             "window_size": window_size,
             "hidden_dim": args.hidden_dim,
+            "seed": seed,
+            "deterministic": getattr(args, "deterministic", False),
             "dropout": args.dropout,
         }
 
@@ -249,6 +271,8 @@ def run_training(args: argparse.Namespace) -> dict:
                 "window_size": window_size,
                 "k": args.k,
                 "hidden_dim": args.hidden_dim,
+                "seed": seed,
+                "deterministic": getattr(args, "deterministic", False),
                 "dropout": args.dropout,
             },
         }
@@ -277,6 +301,8 @@ def run_training(args: argparse.Namespace) -> dict:
             "window_size": window_size,
             "k": args.k,
             "hidden_dim": args.hidden_dim,
+            "seed": seed,
+            "deterministic": getattr(args, "deterministic", False),
             "dropout": args.dropout,
             "learning_rate": training_config["learning_rate"],
             "weight_decay": training_config["weight_decay"],
@@ -322,6 +348,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--window-size", type=int, default=None)
     parser.add_argument("--k", type=int, default=5)
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Training/eval seed. Overrides train.seed in the config. Vary this across "
+             "runs to measure model-level variance; it does NOT change the persisted "
+             "splits (fixed random_state=42) nor invalidate the graph caches.",
+    )
+    parser.add_argument(
+        "--deterministic",
+        action="store_true",
+        help="Force deterministic kernels so the same seed reproduces the same numbers.",
+    )
     parser.add_argument(
         "--layers",
         type=int,
