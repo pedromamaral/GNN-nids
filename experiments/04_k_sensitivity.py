@@ -139,8 +139,8 @@ def build_baseline_args(
         device=experiment_args.device,
         dry_run=experiment_args.dry_run,
 
-        seed=experiment_args.training_seed,
-        deterministic=experiment_args.deterministic,
+        seed=experiment_getattr(args, "training_seed", 42),
+        deterministic=getattr(experiment_args, "deterministic", False),
     )
 
 
@@ -164,9 +164,9 @@ def build_feature_attack_args(
         alpha=experiment_args.alpha,
         steps=experiment_args.steps,
 
-        training_seed=experiment_args.training_seed,
-        attack_seed=experiment_args.attack_seed,
-        deterministic=experiment_args.deterministic,
+        training_seed=getattr(experiment_args, "training_seed", 42),
+        attack_seed=getattr(experiment_args, "attack_seed", 42),
+        deterministic=getattr(experiment_args, "deterministic", False),
     )
 
 
@@ -279,8 +279,8 @@ def run_k_sensitivity(args: argparse.Namespace) -> dict:
         dataset=args.dataset,
         model=args.model,
         k_values=args.k_values,
-        training_seed=args.training_seed,
-        attack_seed=args.attack_seed
+        training_seed=getattr(args, "training_seed", 42),
+        attack_seed=getattr(args, "attack_seed", 42)
     )
 
     summary_csv = experiment_dir / "k_sensitivity_summary.csv"
@@ -289,8 +289,8 @@ def run_k_sensitivity(args: argparse.Namespace) -> dict:
         "dataset": args.dataset,
         "model": args.model,
         "k_values": args.k_values,
-        "training_seed": args.training_seed,
-        "attack_seed": args.attack_seed,
+        "training_seed": getattr(args, "training_seed", 42),
+        "attack_seed": getattr(args, "attack_seed", 42),
         "deterministic": args.deterministic,
         "attacks": args.attacks,
         "epsilons": args.epsilons,
@@ -387,8 +387,8 @@ def run_k_sensitivity(args: argparse.Namespace) -> dict:
             k=k,
             baseline_result=baseline_result,
             feature_result=feature_result,
-            training_seed=args.training_seed,
-            attack_seed=args.attack_seed,
+            training_seed=getattr(args, "training_seed", 42),
+            attack_seed=getattr(args, "attack_seed", 42),
             deterministic=args.deterministic
         ):
             row = {

@@ -144,7 +144,7 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
     config = load_config(DEFAULT_CONFIG_PATH)
     train_config = config.get("train", config)
 
-    set_deterministic(args.deterministic)
+    set_deterministic(getattr(args, "deterministic", False))
 
     device_config = train_config.get("device", "auto")
     window_size = args.window_size if args.window_size is not None else train_config.get("window_size", 1000)
@@ -153,8 +153,8 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
         dataset=args.dataset,
         model=args.model,
         k=args.k,
-        training_seed=args.training_seed,
-        perturbation_seed=args.perturbation_seed
+        training_seed=getattr(args, "training_seed", 42),
+        perturbation_seed=getattr(args, "perturbation_seed", 42)
     )
 
     _, _, test_dataset = load_split_datasets(
@@ -186,21 +186,21 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
     )
 
     logger.info("Loading baseline checkpoint: %s", args.checkpoint)
-    validate_checkpoint_metadata(args.checkpoint, args.k, args.training_seed)
+    validate_checkpoint_metadata(args.checkpoint, args.k, getattr(args, "training_seed", 42))
     trainer.load_checkpoint(args.checkpoint)
 
     clean_metrics = trainer.evaluate(test_dataset)
 
     # Seed used for the random structural perturbation.
-    set_seed(args.perturbation_seed)
+    set_seed(getattr(args, "perturbation_seed", 42))
 
     results = {
         "dataset": args.dataset,
         "model": args.model,
         "checkpoint": str(args.checkpoint),
-        "training_seed": args.training_seed,
-        "perturbation_seed": args.perturbation_seed,
-        "deterministic": args.deterministic,
+        "training_seed": getattr(args, "training_seed", 42),
+        "perturbation_seed": getattr(args, "perturbation_seed", 42),
+        "deterministic": getattr(args, "deterministic", False),
         "window_size": window_size,
         "k": args.k,
         "clean_metrics": clean_metrics,
@@ -226,9 +226,9 @@ def run_structural_attacks(args: argparse.Namespace) -> dict:
                 "dataset": args.dataset,
                 "model": args.model,
                 "k": args.k,
-                "training_seed": args.training_seed,
-                "perturbation_seed": args.perturbation_seed,
-                "deterministic": args.deterministic,
+                "training_seed": getattr(args, "training_seed", 42),
+                "perturbation_seed": getattr(args, "perturbation_seed", 42),
+                "deterministic": getattr(args, "deterministic", False),
                 "attack": attack_name,
                 "perturbation_rate": rate,
                 "clean_accuracy": clean_metrics["accuracy"],

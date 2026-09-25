@@ -9,9 +9,13 @@ attacks. When attack_only_malicious=True, perturbations are restricted to
 connections involving malicious nodes.
 """
 
+import logging
+
 import torch
 from torch_geometric.data import Data
 from torch.nn.functional import cosine_similarity
+
+logger = logging.getLogger(__name__)
 
 
 def _get_candidate_pairs(
@@ -312,11 +316,21 @@ def edge_addition_attack(
 
         new_pairs.add(pair)
 
-    # Verify that the requested perturbation budget was achieved
+    # Report when the requested perturbation budget could not be achieved.
+    # This happens on small or already saturated graphs, where the number of
+    # non-existing connections from malicious nodes is smaller than the budget.
+    # The perturbation proceeds with the connections that could be placed, and
+    # the achieved count is recorded on the returned graph so that experiments
+    # can report the effective budget instead of the requested one.
     if len(new_pairs) < num_add:
-        raise RuntimeError(
-            f"Could only add {len(new_pairs)} of "
-            f"{num_add} requested logical edges."
+        logger.warning(
+            "Requested %d logical edges but only %d could be added "
+            "(graph has %d nodes and %d malicious source nodes); "
+            "proceeding with the achieved budget.",
+            num_add,
+            len(new_pairs),
+            int(data.num_nodes),
+            int(source_nodes.numel()),
         )
 
     # --------------------------------------------------------------

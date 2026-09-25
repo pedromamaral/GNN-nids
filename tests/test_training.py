@@ -149,8 +149,8 @@ class TestTrainingPipeline(unittest.TestCase):
         self.assertTrue(global_summary_csv.exists())
 
     def test_create_run_directory_uniqueness(self):
-        run_dir_1 = self.baseline_training.create_run_directory("nsl-kdd", "gcn", base_dir=Path(self.temp_dir) / "results" / "runs")
-        run_dir_2 = self.baseline_training.create_run_directory("nsl-kdd", "gcn", base_dir=Path(self.temp_dir) / "results" / "runs")
+        run_dir_1 = self.baseline_training.create_run_directory("nsl-kdd", "gcn", 5, 42, base_dir=Path(self.temp_dir) / "results" / "runs")
+        run_dir_2 = self.baseline_training.create_run_directory("nsl-kdd", "gcn", 5, 42, base_dir=Path(self.temp_dir) / "results" / "runs")
         self.assertNotEqual(run_dir_1, run_dir_2)
         self.assertTrue(run_dir_1.exists())
         self.assertTrue(run_dir_2.exists())

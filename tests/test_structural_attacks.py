@@ -141,8 +141,19 @@ class TestStructuralAttackExperiment(unittest.TestCase):
             with patch.object(module, "load_split_datasets", return_value=(None, None, dataset)), \
                  patch.object(module, "build_model", return_value=object()), \
                  patch.object(module, "Trainer", DummyTrainer), \
-                 patch.object(module, "create_attack_run_directory", return_value=output_dir):
-                with patch.object(sys, "argv", ["prog", "--checkpoint", "dummy.ckpt", "--dataset", "nsl-kdd"]):
+                 patch.object(module, "create_attack_run_directory", return_value=output_dir), \
+                 patch.object(module, "validate_checkpoint_metadata", return_value=None):
+                with patch.object(
+                    sys,
+                    "argv",
+                    [
+                        "prog",
+                        "--checkpoint", "dummy.ckpt",
+                        "--dataset", "nsl-kdd",
+                        "--training-seed", "42",
+                        "--perturbation-seed", "42",
+                    ],
+                ):
                     args = module.parse_args()
                     results = module.run_structural_attacks(args)
 

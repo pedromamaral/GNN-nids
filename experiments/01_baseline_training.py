@@ -144,9 +144,13 @@ def run_training(args: argparse.Namespace) -> dict:
     config = load_config(DEFAULT_CONFIG_PATH)
     train_config = config.get("train", config)
 
-    seed = args.seed if args.seed is not None else train_config.get("seed", 42)
+    seed = (
+        getattr(args, "seed", None)
+        if getattr(args, "seed", None) is not None
+        else train_config.get("seed", 42)
+    )
 
-    set_deterministic(args.deterministic)
+    set_deterministic(getattr(args, "deterministic", False))
     set_seed(seed)
 
     training_config = {
@@ -208,7 +212,7 @@ def run_training(args: argparse.Namespace) -> dict:
             "model": args.model,
             "k": args.k,
             "seed": seed,
-            "deterministic": args.deterministic,
+            "deterministic": getattr(args, "deterministic", False),
             "window_size": window_size,
             "hidden_dim": args.hidden_dim,
             "dropout": args.dropout,
@@ -255,7 +259,7 @@ def run_training(args: argparse.Namespace) -> dict:
                 "window_size": window_size,
                 "k": args.k,
                 "seed": seed,
-                "deterministic": args.deterministic,
+                "deterministic": getattr(args, "deterministic", False),
                 "hidden_dim": args.hidden_dim,
                 "dropout": args.dropout,
             },
@@ -285,7 +289,7 @@ def run_training(args: argparse.Namespace) -> dict:
             "window_size": window_size,
             "k": args.k,
             "seed": seed,
-            "deterministic": args.deterministic,
+            "deterministic": getattr(args, "deterministic", False),
             "hidden_dim": args.hidden_dim,
             "dropout": args.dropout,
             "learning_rate": training_config["learning_rate"],

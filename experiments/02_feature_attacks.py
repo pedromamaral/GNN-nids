@@ -172,12 +172,12 @@ def run_feature_attacks(args: argparse.Namespace) -> dict:
     config = load_config(DEFAULT_CONFIG_PATH)
     train_config = config.get("train", config)
 
-    set_deterministic(args.deterministic)
+    set_deterministic(getattr(args, "deterministic", False))
 
     device_config = train_config.get("device", "auto")
     window_size = args.window_size if args.window_size is not None else train_config.get("window_size", 1000)
 
-    run_dir = create_attack_run_directory(args.dataset, args.model, args.k, args.training_seed, args.attack_seed)
+    run_dir = create_attack_run_directory(args.dataset, args.model, args.k, getattr(args, "training_seed", 42), getattr(args, "attack_seed", 42))
 
     _, _, test_dataset = load_split_datasets(
         name=args.dataset,
@@ -208,21 +208,21 @@ def run_feature_attacks(args: argparse.Namespace) -> dict:
     )
 
     logger.info("Loading baseline checkpoint: %s", args.checkpoint)
-    validate_checkpoint_metadata(args.checkpoint, args.k, args.training_seed)
+    validate_checkpoint_metadata(args.checkpoint, args.k, getattr(args, "training_seed", 42))
     trainer.load_checkpoint(args.checkpoint)
 
     clean_metrics = trainer.evaluate(test_dataset)
 
     # Seed controlling stochastic feature attacks (PGD random start)
-    set_seed(args.attack_seed)
+    set_seed(getattr(args, "attack_seed", 42))
 
     results = {
         "dataset": args.dataset,
         "model": args.model,
         "k": args.k,
-        "training_seed": args.training_seed,
-        "attack_seed": args.attack_seed,
-        "deterministic": args.deterministic,
+        "training_seed": getattr(args, "training_seed", 42),
+        "attack_seed": getattr(args, "attack_seed", 42),
+        "deterministic": getattr(args, "deterministic", False),
         "checkpoint": str(args.checkpoint),
         "window_size": window_size,
         "clean_metrics": clean_metrics,
@@ -281,9 +281,9 @@ def run_feature_attacks(args: argparse.Namespace) -> dict:
                 "epsilon": epsilon,
                 "alpha": effective_alpha,
                 "steps": args.steps if attack_name == "pgd" else None,
-                "training_seed": args.training_seed,
-                "attack_seed": args.attack_seed,
-                "deterministic": args.deterministic,
+                "training_seed": getattr(args, "training_seed", 42),
+                "attack_seed": getattr(args, "attack_seed", 42),
+                "deterministic": getattr(args, "deterministic", False),
                 "checkpoint": str(args.checkpoint),
                 "clean_accuracy": clean_metrics["accuracy"],
                 "clean_precision": clean_metrics["precision"],

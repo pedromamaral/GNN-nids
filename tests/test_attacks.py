@@ -264,10 +264,14 @@ class TestAttacks(unittest.TestCase):
             clip_min=clip_min,
             clip_max=clip_max,
         )
-        
-        # All features should be within bounds
-        self.assertTrue((data_adv.x >= clip_min).all())
-        self.assertTrue((data_adv.x <= clip_max).all())
+
+        # Clipping applies to the perturbed (malicious) nodes only. Nodes the
+        # attack does not touch keep their original values, which may lie
+        # outside [clip_min, clip_max].
+        mask = self.data.y == 1
+        self.assertTrue((data_adv.x[mask] >= clip_min).all())
+        self.assertTrue((data_adv.x[mask] <= clip_max).all())
+        self.assertTrue(torch.equal(data_adv.x[~mask], self.data.x[~mask]))
 
     def test_pgd_invalid_epsilon_raises_error(self):
         """Test that PGD raises ValueError for invalid epsilon."""
