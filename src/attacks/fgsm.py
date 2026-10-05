@@ -10,6 +10,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.data import Data
 
+from .pgd import _frozen_feature_columns
+
 
 def fgsm_attack(
     model: nn.Module,
@@ -18,6 +20,7 @@ def fgsm_attack(
     attack_only_malicious: bool = True,
     clip_min: Optional[float] = None,
     clip_max: Optional[float] = None,
+    feature_mask: Optional[torch.Tensor] = None,
 ) -> Data:
     """
     Apply FGSM (Fast Gradient Sign Method) attack to a PyTorch Geometric graph.
@@ -37,6 +40,8 @@ def fgsm_attack(
                               If False, perturb all nodes.
         clip_min: If provided, clamp adversarial features to be >= clip_min.
         clip_max: If provided, clamp adversarial features to be <= clip_max.
+        feature_mask: Optional boolean tensor of shape (num_features,) marking
+                      the features the attacker controls. ``None`` means all.
 
     Returns:
         A new PyTorch Geometric Data object with adversarial node features.
@@ -91,6 +96,11 @@ def fgsm_attack(
             x_perturbed = torch.clamp(x_perturbed, min=clip_min)
         if clip_max is not None:
             x_perturbed = torch.clamp(x_perturbed, max=clip_max)
+
+        frozen_features = _frozen_feature_columns(feature_mask, x_perturbed.shape[1], device)
+        if frozen_features is not None:
+            x_original = data.x.detach().to(device)
+            x_perturbed[:, frozen_features] = x_original[:, frozen_features]
 
     # Create output data object with adversarial features
     data_adv.x = x_perturbed

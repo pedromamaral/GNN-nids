@@ -57,11 +57,12 @@ def build_model(
     num_node_features: int,
     hidden_dim: int,
     dropout: float,
+    hidden_layers: int = 1,
 ) -> torch.nn.Module:
     if model_name == "gcn":
-        return GCN_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GCN_NIDS(num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers)
     if model_name == "gat":
-        return GAT_NIDS(num_node_features, hidden_dim, dropout=dropout)
+        return GAT_NIDS(num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers)
     raise ValueError(f"Unsupported model type: {model_name}")
 
 
@@ -109,9 +110,18 @@ def append_csv_summary(summary: dict, output_path: Path) -> Path:
     return output_path
 
 
-def create_run_directory(dataset: str, model: str, k: int, seed: int, base_dir: Path = Path("results") / "runs") -> Path:
+def create_run_directory(
+    dataset: str,
+    model: str,
+    k: int,
+    seed: int,
+    base_dir: Path = Path("results") / "runs",
+    hidden_layers: int = 1,
+) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_name = f"{timestamp}_{dataset}_{model}_k_{k}_seed_{seed}"
+    # 1-layer runs keep the original naming so existing checkpoints stay discoverable.
+    layers_tag = f"_L{hidden_layers}" if hidden_layers != 1 else ""
+    run_name = f"{timestamp}_{dataset}_{model}_k_{k}{layers_tag}_seed_{seed}"
     run_dir = base_dir / run_name
     suffix = 0
     while run_dir.exists():
@@ -164,7 +174,8 @@ def run_training(args: argparse.Namespace) -> dict:
 
     window_size = (args.window_size if args.window_size is not None else train_config.get("window_size", 1000))
 
-    run_dir = create_run_directory(args.dataset, args.model, args.k, seed)
+    hidden_layers = getattr(args, "hidden_layers", 1)
+    run_dir = create_run_directory(args.dataset, args.model, args.k, seed, hidden_layers=hidden_layers)
     run_id = run_dir.name
     timestamp = run_dir.name.split("_")[0]
 
@@ -195,6 +206,7 @@ def run_training(args: argparse.Namespace) -> dict:
             num_node_features=num_node_features,
             hidden_dim=args.hidden_dim,
             dropout=args.dropout,
+            hidden_layers=hidden_layers,
         )
 
         trainer = Trainer(
@@ -215,6 +227,7 @@ def run_training(args: argparse.Namespace) -> dict:
             "deterministic": getattr(args, "deterministic", False),
             "window_size": window_size,
             "hidden_dim": args.hidden_dim,
+            "hidden_layers": hidden_layers,
             "dropout": args.dropout,
         }
 
@@ -261,6 +274,7 @@ def run_training(args: argparse.Namespace) -> dict:
                 "seed": seed,
                 "deterministic": getattr(args, "deterministic", False),
                 "hidden_dim": args.hidden_dim,
+                "hidden_layers": hidden_layers,
                 "dropout": args.dropout,
             },
         }
@@ -342,6 +356,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument("--device", default=None)
     parser.add_argument("--hidden-dim", type=int, default=64)
+    parser.add_argument("--hidden-layers", type=int, default=1, help="Number of message-passing layers (depth ablation).")
     parser.add_argument("--dropout", type=float, default=0.5)
     parser.add_argument("--rebuild-data", action="store_true")
     parser.add_argument("--dry-run", action="store_true")

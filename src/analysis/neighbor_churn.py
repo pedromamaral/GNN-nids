@@ -23,6 +23,33 @@ def rebuild_knn_graph(
     return builder.build_knn_graph(x, k=k, metric=metric, bidirectional=bidirectional)
 
 
+def knn_graph_tensors(
+    x,
+    k: int = 5,
+    metric: str = "cosine",
+    bidirectional: bool = True,
+):
+    """Rebuild the k-NN graph from a feature tensor, returning PyG-ready tensors.
+
+    Uses exactly the same construction as training (``FlowGraphBuilder``), so
+    ``knn_graph_tensors(data.x, k)`` reproduces ``data.edge_index`` for a clean
+    window. Returns ``(edge_index, edge_attr)`` on the device of ``x``;
+    ``edge_attr`` has shape (num_edges, 1), as produced by ``build_graph``.
+    """
+    import torch
+
+    device = x.device if isinstance(x, torch.Tensor) else torch.device("cpu")
+    x_np = x.detach().cpu().numpy() if isinstance(x, torch.Tensor) else np.asarray(x)
+    edge_index, edge_weights = rebuild_knn_graph(x_np, k=k, metric=metric, bidirectional=bidirectional)
+    edge_index_t = torch.as_tensor(edge_index, dtype=torch.long, device=device)
+    edge_attr_t = (
+        torch.as_tensor(edge_weights, dtype=torch.float32, device=device).view(-1, 1)
+        if len(edge_weights) > 0
+        else None
+    )
+    return edge_index_t, edge_attr_t
+
+
 def compute_neighbor_churn(
     original_edge_index: np.ndarray,
     attacked_edge_index: np.ndarray,

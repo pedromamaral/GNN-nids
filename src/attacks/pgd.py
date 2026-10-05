@@ -22,6 +22,7 @@ def pgd_attack(
     random_start: bool = True,
     clip_min: Optional[float] = None,
     clip_max: Optional[float] = None,
+    feature_mask: Optional[torch.Tensor] = None,
 ) -> Data:
     """
     Apply PGD (Projected Gradient Descent) attack to a PyTorch Geometric graph.
@@ -45,6 +46,9 @@ def pgd_attack(
                       inside the L∞ epsilon-ball before the iterative updates.
         clip_min: If provided, clamp adversarial features to be >= clip_min.
         clip_max: If provided, clamp adversarial features to be <= clip_max.
+        feature_mask: Optional boolean tensor of shape (num_features,) marking
+                      the features the attacker controls. Features outside the
+                      mask are never perturbed. ``None`` means all features.
 
     Returns:
         A new PyTorch Geometric Data object with adversarial node features.
@@ -83,6 +87,8 @@ def pgd_attack(
             return data_adv
     else:
         mask = torch.ones(data.num_nodes, dtype=torch.bool, device=device)
+
+    frozen_features = _frozen_feature_columns(feature_mask, x_original.shape[1], device)
 
 
     # ---------------------------------------------------------
@@ -123,6 +129,8 @@ def pgd_attack(
 
             # Guarantee untouched nodes remain unchanged
             x_adv[~mask] = x_original[~mask]
+            if frozen_features is not None:
+                x_adv[:, frozen_features] = x_original[:, frozen_features]
 
 
     # Iterative attack
@@ -171,8 +179,25 @@ def pgd_attack(
 
             # Guarantee untouched nodes remain unchanged
             x_adv[~mask] = x_original[~mask]
+            if frozen_features is not None:
+                x_adv[:, frozen_features] = x_original[:, frozen_features]
 
     # Create final adversarial data object
     data_adv = data.clone()
     data_adv.x = x_adv.detach()
     return data_adv
+
+def _frozen_feature_columns(
+    feature_mask: Optional[torch.Tensor],
+    num_features: int,
+    device: torch.device,
+) -> Optional[torch.Tensor]:
+    """Return a boolean column mask of features the attacker may NOT change."""
+    if feature_mask is None:
+        return None
+    feature_mask = torch.as_tensor(feature_mask, dtype=torch.bool, device=device).view(-1)
+    if feature_mask.numel() != num_features:
+        raise ValueError(
+            f"feature_mask has {feature_mask.numel()} entries but data has {num_features} features"
+        )
+    return ~feature_mask
