@@ -4,6 +4,20 @@ This repository contains the experimental framework developed for the dissertati
 
 The project investigates the robustness of flow-centric Graph Neural Network (GNN)-based Network Intrusion Detection Systems (NIDS) under feature-level adversarial perturbations and random structural perturbations. It also analyses neighbourhood stability and the influence of the k-nearest-neighbour (k-NN) graph construction parameter \(k\).
 
+> **Status (October 2026): paper work in progress.** The dissertation version is frozen at tag
+> `v1.0-thesis`. Work on `main` now extends it towards a journal paper on the coupling between
+> feature and structural perturbations in feature-derived (k-NN) flow graphs. See
+> [`docs/PAPER_ROADMAP.md`](docs/PAPER_ROADMAP.md) for the plan, the current phase and how to run it.
+> New since the thesis:
+>
+> - `experiments/05_decomposition.py` evaluates the same perturbed features on the original graph (A),
+>   the rebuilt graph with clean features (B) and the rebuilt graph with perturbed features (C).
+> - `experiments/05b_decomposition_report.py` aggregates the runs and applies the Phase 1 go/no-go rule.
+> - `scripts/run_phase1.sh` runs the whole Phase 1 grid.
+> - `src/attacks/construction_aware.py` adds a PGD variant that rebuilds the k-NN graph at every step.
+> - FGSM/PGD take an optional attacker-controllable `feature_mask`.
+> - `01_baseline_training.py --hidden-layers N` trains deeper models for the depth ablation.
+
 ## Overview
 
 Network flows are represented as graph nodes. For each fixed-size traffic window, a k-NN graph is constructed from flow-feature similarity using cosine similarity. The resulting connections are represented bidirectionally.
