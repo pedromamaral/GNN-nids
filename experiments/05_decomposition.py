@@ -89,7 +89,9 @@ def set_seed(seed: int) -> None:
 
 def set_deterministic(enabled: bool) -> None:
     if enabled:
-        torch.use_deterministic_algorithms(True)
+        # warn_only: some PyG scatter kernels have no deterministic CUDA implementation;
+        # an unattended server run should warn, not abort. Seeds are still fixed.
+        torch.use_deterministic_algorithms(True, warn_only=True)
         if torch.cuda.is_available():
             torch.backends.cudnn.deterministic = True
             torch.backends.cudnn.benchmark = False

@@ -138,6 +138,6 @@ checkpoints/
 # DOCKER
 # ==================================================
 
-.dockerignore
+# (.dockerignore is tracked: it keeps data/results/.git out of the image)
 
 .venv-test/

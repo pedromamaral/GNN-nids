@@ -7,7 +7,9 @@ The project investigates the robustness of flow-centric Graph Neural Network (GN
 > **Status (October 2026): paper work in progress.** The dissertation version is frozen at tag
 > `v1.0-thesis`. Work on `main` now extends it towards a journal paper on the coupling between
 > feature and structural perturbations in feature-derived (k-NN) flow graphs. See
-> [`docs/PAPER_ROADMAP.md`](docs/PAPER_ROADMAP.md) for the plan, the current phase and how to run it.
+> [`docs/PAPER_ROADMAP.md`](docs/PAPER_ROADMAP.md) for the plan, the current phase and how to run it,
+> and [`docs/RUNNING_ON_SERVERS.md`](docs/RUNNING_ON_SERVERS.md) for running the experiments in
+> containers on the GPU servers.
 > New since the thesis:
 >
 > - `experiments/05_decomposition.py` evaluates the same perturbed features on the original graph (A),

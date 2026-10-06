@@ -21,7 +21,9 @@ EPSILONS=${EPSILONS:-"0.05 0.10"}
 K=${K:-5}
 LAYERS=${LAYERS:-1}
 TRAIN_MISSING=${TRAIN_MISSING:-0}
-EXTRA_ARGS=${EXTRA_ARGS:-}
+EXTRA_ARGS=${EXTRA_ARGS:-}      # extra arguments for 05_decomposition.py
+TRAIN_ARGS=${TRAIN_ARGS:-}      # extra arguments for 01_baseline_training.py (e.g. "--epochs 3" for smoke runs)
+REPORT_DIR=${REPORT_DIR:-results/decomposition}
 PYTHON=${PYTHON:-python}
 
 layers_tag=""
@@ -40,8 +42,9 @@ for dataset in $DATASETS; do
       if [ -z "$ckpt" ]; then
         if [ "$TRAIN_MISSING" = "1" ]; then
           echo ">>> training $dataset $model seed=$seed (L=$LAYERS)"
+          # shellcheck disable=SC2086
           $PYTHON experiments/01_baseline_training.py --dataset "$dataset" --model "$model" --k "$K" \
-            --hidden-layers "$LAYERS" --seed "$seed" --deterministic
+            --hidden-layers "$LAYERS" --seed "$seed" --deterministic $TRAIN_ARGS
           ckpt=$(find_checkpoint "$dataset" "$model" "$seed")
         else
           echo "!!! no checkpoint for $dataset $model k=$K L=$LAYERS seed=$seed (set TRAIN_MISSING=1 to train)" >&2
@@ -57,4 +60,4 @@ for dataset in $DATASETS; do
   done
 done
 
-$PYTHON experiments/05b_decomposition_report.py
+$PYTHON experiments/05b_decomposition_report.py --results-dir "$REPORT_DIR"

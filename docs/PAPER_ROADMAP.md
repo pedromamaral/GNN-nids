@@ -24,7 +24,7 @@ The thesis evaluated every feature attack on the **original** graph, i.e. condit
 ## Phases and status
 
 ### Phase 0: setup (week 1)
-- [ ] Read GIANT (WWW 2026, doi:10.1145/3774904.3792601). Confirm it does not evaluate feature attacks on rebuilt similarity graphs.
+- [x] Read GIANT (WWW 2026, doi:10.1145/3774904.3792601). It targets address-derived graphs only (endpoint/host/line) and is injection-only; feature-derived k-NN graphs are not covered. Novelty confirmed 2026-10-06.
 - [ ] Agree authorship and reuse with João; collect his trained checkpoints and `results/` from the server.
 - [x] Thesis code tagged `v1.0-thesis`; test suite fixed (edge addition degrades instead of crashing).
 
@@ -75,6 +75,16 @@ If neither test passes anywhere, switch to the fallback paper (construction-as-d
 
 ## Running Phase 1
 
+On the GPU servers, use the container wrapper. `docs/RUNNING_ON_SERVERS.md` covers setup, data and how to split the grid across servers:
+
+```bash
+scripts/container.sh build && scripts/container.sh check-data
+GPU=0 scripts/container.sh smoke
+GPU=0 scripts/container.sh -d phase1
+```
+
+Without containers:
+
 ```bash
 # inside the Docker container / venv, from the repo root
 # 1. checkpoints: either João's (copy into results/runs/) or retrain:
@@ -112,4 +122,5 @@ Smoke run first: `EXTRA_ARGS="--max-windows 20" DATASETS=cicids2017-patator MODE
 
 | Date | Decision |
 |---|---|
+| 2026-10-06 | GIANT read in full: no overlap. Experiments run in containers via `scripts/container.sh` (see `docs/RUNNING_ON_SERVERS.md`). |
 | 2026-10-05 | Plan adopted: Phase 1 decomposition first, go/no-go at week 3. Optimised edge attacks (Nettack/Metattack) dropped: an attacker cannot edit edges in a feature-derived graph. Random edge perturbations are kept only as an upper-bound control. |

@@ -1,23 +1,41 @@
+# Experiment container. Code, data and results are bind-mounted from the host
+# checkout, so `git pull` updates the code without rebuilding the image.
+#
+# Use it through scripts/container.sh, which picks a project name per GPU so
+# several runs can share a server:
+#
+#   GPU=0 scripts/container.sh smoke          # quick end-to-end check
+#   GPU=1 scripts/container.sh -d phase1      # Phase 1 in the background
+#
+# Requires Docker Compose v2 ("docker compose") and the NVIDIA Container Toolkit.
 services:
-  gnn-experiments:
+  gnn:
     build:
       context: ..
       dockerfile: docker/Dockerfile
     image: gnn-adversarial-nids:latest
-    container_name: gnn_experiments
-    runtime: nvidia
+    working_dir: /workspace
+    # Run as the host user so results/ and data/graphs/ are not owned by root.
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
     environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - CUDA_VISIBLE_DEVICES=0
+      - HOME=/tmp
+      - MPLCONFIGDIR=/tmp/matplotlib
+      - PYTHONUNBUFFERED=1
+      - PYTHONHASHSEED=0
+      # Required by torch.use_deterministic_algorithms on CUDA (cuBLAS).
+      - CUBLAS_WORKSPACE_CONFIG=:4096:8
     volumes:
       - ..:/workspace
-      - ../data:/workspace/data
-      - ../results:/workspace/results
-      - ../logs:/workspace/logs
-    ports:
-      - '8888:8888'
-      - '6006:6006'
-    shm_size: '16gb'
+      # Raw datasets can live outside the checkout (e.g. a shared disk).
+      - ${DATA_RAW:-../data/raw}:/workspace/data/raw
+    shm_size: "8gb"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${GPU:-0}"]
+              capabilities: [gpu]
     stdin_open: true
     tty: true
     command: /bin/bash

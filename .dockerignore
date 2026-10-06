@@ -1,0 +1,15 @@
+# Keep the build context small: code is bind-mounted at run time and
+# data/results live on the host, so none of these belong in the image.
+.git
+**/__pycache__
+**/*.pyc
+.pytest_cache
+data/raw
+data/graphs
+data/processed
+results
+logs
+_stale_git_locks
+*.pt
+*.log
+.DS_Store
