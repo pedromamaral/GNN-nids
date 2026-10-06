@@ -2,12 +2,13 @@
 """Check that the raw files and split indices needed by an experiment are present.
 
 Usage (inside the container or a venv, from the repository root):
-    python scripts/check_data.py                       # Phase 1 defaults
-    python scripts/check_data.py cicids2017-ddos nsl-kdd
+    python scripts/check_data.py                       # the paper's main dataset
+    python scripts/check_data.py nf-unsw-nb15-v3 nf-ton-iot-v3
 
-CICIDS2017 is not downloaded automatically. Get the "MachineLearningCVE" CSVs
-from https://www.unb.ca/cic/datasets/ids-2017.html and place them in
-data/raw/cicids2017/ (or point DATA_RAW at the directory that holds them).
+Datasets are not downloaded automatically. NetFlow-v3 CSVs come from
+https://staff.itee.uq.edu.au/marius/NIDS_datasets/ and go in data/raw/netflow-v3/
+(or point DATA_RAW at a directory with the same sub-folders).
+The thesis datasets (cicids2017-*, nsl-kdd) are still recognised but not used by the paper.
 """
 
 import sys
@@ -17,8 +18,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from data.download import CICIDS2017_SUBSETS  # noqa: E402
 
-PHASE1_DEFAULT = ["cicids2017-selected", "cicids2017-patator"]
+DEFAULT_DATASETS = ["nf-unsw-nb15-v3"]
 NSL_KDD_FILES = ["KDDTrain+.txt", "KDDTest+.txt"]
+NETFLOW_V3_FILES = {
+    "nf-unsw-nb15-v3": "NF-UNSW-NB15-v3.csv",
+    "nf-ton-iot-v3": "NF-ToN-IoT-v3.csv",
+    "nf-cse-cic-ids2018-v3": "NF-CSE-CIC-IDS2018-v3.csv",
+}
 
 
 def check(dataset: str, root: Path) -> bool:
@@ -29,6 +35,9 @@ def check(dataset: str, root: Path) -> bool:
         if files is None:
             print(f"  ? unknown CICIDS2017 subset '{dataset}'")
             return False
+    elif dataset in NETFLOW_V3_FILES:
+        raw_dir = root / "data" / "raw" / "netflow-v3"
+        files = [NETFLOW_V3_FILES[dataset]]
     elif dataset == "nsl-kdd":
         raw_dir = root / "data" / "raw" / "nsl-kdd"
         files = NSL_KDD_FILES
@@ -55,13 +64,14 @@ def check(dataset: str, root: Path) -> bool:
 
 def main() -> int:
     root = Path(__file__).resolve().parent.parent
-    datasets = sys.argv[1:] or PHASE1_DEFAULT
+    datasets = sys.argv[1:] or DEFAULT_DATASETS
     results = [check(d, root) for d in datasets]
     if all(results):
         print("\nAll required raw files are present.")
         return 0
-    print("\nSome raw files are missing. CICIDS2017: download the MachineLearningCVE CSVs from "
-          "https://www.unb.ca/cic/datasets/ids-2017.html into data/raw/cicids2017/.")
+    print("\nSome raw files are missing. NetFlow-v3: download from "
+          "https://staff.itee.uq.edu.au/marius/NIDS_datasets/ into data/raw/netflow-v3/ "
+          "using the file names above.")
     return 1
 
 

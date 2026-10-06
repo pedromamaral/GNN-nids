@@ -13,7 +13,8 @@
 #   EXTRA_ARGS="--max-windows 20" scripts/run_phase1.sh     # quick smoke run
 set -euo pipefail
 
-DATASETS=${DATASETS:-"cicids2017-selected cicids2017-patator"}
+# Paper datasets (NetFlow-v3). Requires the NetFlow-v3 loader (roadmap Phase 1).
+DATASETS=${DATASETS:-"nf-unsw-nb15-v3"}
 MODELS=${MODELS:-"gcn gat"}
 TRAINING_SEEDS=${TRAINING_SEEDS:-"42 43 44 45 46"}
 ATTACK_SEEDS=${ATTACK_SEEDS:-"42 43 44 45 46"}

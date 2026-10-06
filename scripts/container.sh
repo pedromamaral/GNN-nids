@@ -7,7 +7,7 @@
 #   build        build (or rebuild) the image
 #   shell        interactive shell in the container
 #   test         run the test suite
-#   check-data   check that the raw CICIDS2017 files needed by Phase 1 are present
+#   check-data   check that the raw files needed by the experiments are present
 #   smoke        5-minute end-to-end check of Phase 1 (throwaway seed 99, writes to results/smoke/)
 #   phase1       full Phase 1 grid (scripts/run_phase1.sh; trains missing checkpoints)
 #   report       aggregate Phase 1 results and print the go/no-go verdict
@@ -54,7 +54,7 @@ case "$JOB" in
   check-data)
     CMD="python scripts/check_data.py $*" ;;
   smoke)
-    ENV_ARGS+=(-e "DATASETS=${DATASETS:-cicids2017-patator}" -e "MODELS=${MODELS:-gcn}" \
+    ENV_ARGS+=(-e "DATASETS=${DATASETS:-nf-unsw-nb15-v3}" -e "MODELS=${MODELS:-gcn}" \
                -e "TRAINING_SEEDS=99" -e "ATTACK_SEEDS=42 43" -e "TRAIN_MISSING=1" \
                -e "TRAIN_ARGS=${TRAIN_ARGS:---epochs 3}" \
                -e "EXTRA_ARGS=--max-windows 20 --output-dir results/smoke/decomposition" \
