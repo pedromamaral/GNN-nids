@@ -393,6 +393,25 @@ class TestFlowGraphBuilder(unittest.TestCase):
         out_degree = np.bincount(edge_index[0], minlength=X.shape[0])
         np.testing.assert_array_equal(out_degree, np.full(X.shape[0], k))
 
+    def test_ties_are_broken_by_index(self):
+        """Among identical flows, a node links to the earliest copies."""
+        X = np.vstack([np.repeat(self.X[:1], 10, axis=0), self.X[1:20]])
+        edge_index, _ = self.builder.build_knn_graph(X, k=3, bidirectional=False)
+        out = {int(i): sorted(edge_index[1][edge_index[0] == i].tolist()) for i in range(4)}
+        self.assertEqual(out[0], [1, 2, 3])
+        self.assertEqual(out[1], [0, 2, 3])
+        self.assertEqual(out[3], [0, 1, 2])
+
+    def test_rebuild_is_independent_of_memory_layout_and_dtype(self):
+        """kNN(X) must reproduce the stored graph whether X is a view, a copy or float64."""
+        base = np.vstack([np.repeat(self.X[:3], 8, axis=0), self.X]).astype(np.float32)
+        big = np.vstack([self.X.astype(np.float32), base, self.X.astype(np.float32)])
+        view = big[self.n_samples:self.n_samples + base.shape[0]]
+        reference, _ = self.builder.build_knn_graph(view, k=5)
+        for variant in (base.copy(), np.asfortranarray(base), base.astype(np.float64)):
+            rebuilt, _ = self.builder.build_knn_graph(variant, k=5)
+            np.testing.assert_array_equal(rebuilt, reference)
+
     def test_edge_index_format(self):
         """Test edge_index format is compatible with PyG."""
         graph = self.builder.build_graph(self.X, self.y, method="knn", k=5)

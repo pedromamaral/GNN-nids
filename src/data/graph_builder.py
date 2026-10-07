@@ -12,7 +12,7 @@ from typing import Tuple, Optional, Dict, List
 from pathlib import Path
 import torch
 from torch_geometric.data import Data
-from sklearn.neighbors import NearestNeighbors
+from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import cosine_similarity
 
 logger = logging.getLogger(__name__)
@@ -109,25 +109,14 @@ class FlowGraphBuilder:
             logger.warning(f"Cannot build kNN graph with {n_samples} sample(s)")
             return np.array([[], []], dtype=np.int64), np.array([], dtype=np.float32)
 
-        # Fit kNN model
-        knn_model = NearestNeighbors(n_neighbors=k + 1, metric=metric)  # +1 to include self
-        knn_model.fit(X)
-
-        # Get k+1 nearest neighbors (including self)
-        distances, indices = knn_model.kneighbors(X)
+        neighbors, neighbor_distances = self._knn_neighbors(X, k, metric)
 
         # Build edges, excluding self-loops
         edge_list = []
         edge_weights = []
 
         for i in range(n_samples):
-            # Drop the sample itself. With duplicate flows, i is not always
-            # returned first (or at all), so remove it by index, not position.
-            not_self = indices[i] != i
-            neighbors = indices[i][not_self][:k]
-            neighbor_distances = distances[i][not_self][:k]
-
-            for neighbor_idx, dist in zip(neighbors, neighbor_distances):
+            for neighbor_idx, dist in zip(neighbors[i], neighbor_distances[i]):
                 # Convert distance to similarity
                 if metric == "cosine":
                     # Cosine distance -> similarity
@@ -136,7 +125,7 @@ class FlowGraphBuilder:
                     # Euclidean distance -> similarity
                     similarity = 1.0 / (1.0 + dist)
 
-                edge_list.append([i, neighbor_idx])
+                edge_list.append([i, int(neighbor_idx)])
                 edge_weights.append(similarity)
 
         # Add reverse edges for bidirectional graph (avoid duplicates)
@@ -172,6 +161,48 @@ class FlowGraphBuilder:
         )
 
         return edge_index, edge_weights
+
+    # Distances closer than this are treated as ties (float noise between
+    # identical flows is ~1e-16 in float64).
+    DISTANCE_RESOLUTION = 1e-9
+    _MAX_DISTANCE_BIN = 2 ** 42
+    _ROW_CHUNK = 2048
+
+    def _knn_neighbors(self, X: np.ndarray, k: int, metric: str) -> Tuple[np.ndarray, np.ndarray]:
+        """The k nearest other samples of every sample, with a deterministic order.
+
+        NetFlow data has many identical flows, so a sample often has more than
+        k neighbours at the same distance. Which of them a generic neighbour
+        search returns depends on last-bit differences in the distance
+        computation (memory layout, BLAS path), so rebuilding the graph from
+        the same features could give a different graph. Here distances are
+        computed in float64, quantised to DISTANCE_RESOLUTION, and ties are
+        broken by sample index (earliest flow first). The sample itself is
+        always excluded.
+
+        Returns:
+            (neighbors, distances), both of shape (n_samples, k), nearest first.
+        """
+        X64 = np.ascontiguousarray(X, dtype=np.float64)
+        n_samples = X64.shape[0]
+        columns = np.arange(n_samples, dtype=np.int64)
+        neighbors = np.empty((n_samples, k), dtype=np.int64)
+        distances = np.empty((n_samples, k), dtype=np.float64)
+
+        for start in range(0, n_samples, self._ROW_CHUNK):
+            rows = np.arange(start, min(n_samples, start + self._ROW_CHUNK))
+            D = pairwise_distances(X64[rows], X64, metric=metric)
+            D[np.arange(rows.size), rows] = np.inf  # never the sample itself
+            bins = np.minimum(np.nan_to_num(D / self.DISTANCE_RESOLUTION, nan=np.inf, posinf=np.inf),
+                              self._MAX_DISTANCE_BIN)
+            keys = np.round(bins).astype(np.int64) * n_samples + columns  # unique per row
+            part = np.argpartition(keys, k - 1, axis=1)[:, :k]
+            order = np.argsort(np.take_along_axis(keys, part, axis=1), axis=1)
+            chosen = np.take_along_axis(part, order, axis=1)
+            neighbors[rows] = chosen
+            distances[rows] = np.take_along_axis(D, chosen, axis=1)
+
+        return neighbors, distances
 
     def build_similarity_graph(
         self,

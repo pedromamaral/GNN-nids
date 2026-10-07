@@ -134,6 +134,9 @@ class NetworkFlowDataset(InMemoryDataset):
             "k": self.k,
             "graph_method": "knn",
             "distance_metric": "cosine",
+            # Ties (duplicate flows) broken by index; graphs cached before this was
+            # introduced lack the key and are rejected as incompatible.
+            "knn_ties": "index",
         }
         if is_netflow_v3(self.name):
             metadata["max_flows"] = self.max_flows
