@@ -23,7 +23,7 @@ from types import ModuleType
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from data.download import CICIDS2017_SUBSETS
+from data.download import DATASET_CHOICES, DEFAULT_DATASET
 
 
 logging.basicConfig(
@@ -129,6 +129,8 @@ def build_baseline_args(
         k=k,
         rebuild_data=experiment_args.rebuild_data,
         window_size=experiment_args.window_size,
+        max_flows=getattr(experiment_args, "max_flows", None),
+        slice_start=getattr(experiment_args, "slice_start", None),
         hidden_dim=experiment_args.hidden_dim,
         dropout=experiment_args.dropout,
         epochs=experiment_args.epochs,
@@ -139,7 +141,7 @@ def build_baseline_args(
         device=experiment_args.device,
         dry_run=experiment_args.dry_run,
 
-        seed=experiment_getattr(args, "training_seed", 42),
+        seed=getattr(experiment_args, "training_seed", 42),
         deterministic=getattr(experiment_args, "deterministic", False),
     )
 
@@ -157,6 +159,8 @@ def build_feature_attack_args(
         checkpoint=checkpoint,
         k=k,
         window_size=experiment_args.window_size,
+        max_flows=getattr(experiment_args, "max_flows", None),
+        slice_start=getattr(experiment_args, "slice_start", None),
         hidden_dim=experiment_args.hidden_dim,
         dropout=experiment_args.dropout,
         attacks=experiment_args.attacks,
@@ -425,12 +429,10 @@ def parse_args() -> argparse.Namespace:
         default="gcn",
     )
 
-    cicids_choices = sorted(CICIDS2017_SUBSETS.keys())
-
     parser.add_argument(
         "--dataset",
-        choices=["nsl-kdd"] + cicids_choices,
-        default="nsl-kdd",
+        choices=DATASET_CHOICES,
+        default=DEFAULT_DATASET,
     )
 
     parser.add_argument(
@@ -473,6 +475,11 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=None,
     )
+
+    parser.add_argument("--max-flows", type=int, default=None,
+                        help="NetFlow-v3: use only this many time-contiguous flows (default: all)")
+    parser.add_argument("--slice-start", type=float, default=None,
+                        help="NetFlow-v3: start of the --max-flows slice, as a fraction of the time-sorted flows")
 
     parser.add_argument(
         "--hidden-dim",

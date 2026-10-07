@@ -25,7 +25,7 @@ from data.dataset import load_split_datasets
 from models import GCN_NIDS, GAT_NIDS
 from training.trainer import Trainer
 from torch_geometric.data import Data
-from data.download import CICIDS2017_SUBSETS
+from data.download import DATASET_CHOICES, DEFAULT_DATASET
 
 logging.basicConfig(
     level=logging.INFO,
@@ -194,6 +194,8 @@ def run_training(args: argparse.Namespace) -> dict:
                 rebuild=args.rebuild_data,
                 window_size=window_size,
                 k=args.k,
+                max_flows=getattr(args, "max_flows", None),
+                slice_start=getattr(args, "slice_start", None),
             )
 
         num_node_features = (
@@ -226,6 +228,8 @@ def run_training(args: argparse.Namespace) -> dict:
             "seed": seed,
             "deterministic": getattr(args, "deterministic", False),
             "window_size": window_size,
+            "max_flows": getattr(args, "max_flows", None),
+            "slice_start": getattr(args, "slice_start", None),
             "hidden_dim": args.hidden_dim,
             "hidden_layers": hidden_layers,
             "dropout": args.dropout,
@@ -270,6 +274,8 @@ def run_training(args: argparse.Namespace) -> dict:
                 "batch_size": training_config["batch_size"],
                 "device": training_config["device"],
                 "window_size": window_size,
+                "max_flows": getattr(args, "max_flows", None),
+                "slice_start": getattr(args, "slice_start", None),
                 "k": args.k,
                 "seed": seed,
                 "deterministic": getattr(args, "deterministic", False),
@@ -341,14 +347,17 @@ def run_training(args: argparse.Namespace) -> dict:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train and evaluate a flow-centric GNN baseline.")
     parser.add_argument("--model", choices=["gcn", "gat"], default="gcn")
-    cicids_choices = sorted(list(CICIDS2017_SUBSETS.keys()))
     parser.add_argument(
         "--dataset",
-        choices=["nsl-kdd"] + cicids_choices,
-        default="nsl-kdd",
+        choices=DATASET_CHOICES,
+        default=DEFAULT_DATASET,
     )
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--window-size", type=int, default=None)
+    parser.add_argument("--max-flows", type=int, default=None,
+                        help="NetFlow-v3: use only this many time-contiguous flows (default: all)")
+    parser.add_argument("--slice-start", type=float, default=None,
+                        help="NetFlow-v3: start of the --max-flows slice, as a fraction of the time-sorted flows")
     parser.add_argument("--k", type=int, default=5)
     parser.add_argument("--learning-rate", type=float, default=None)
     parser.add_argument("--weight-decay", type=float, default=None)

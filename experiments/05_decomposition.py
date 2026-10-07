@@ -23,7 +23,7 @@ across runs with ``experiments/05b_decomposition_report.py``.
 
 Example:
     python experiments/05_decomposition.py \\
-        --dataset cicids2017-patator --model gcn --k 5 \\
+        --dataset nf-unsw-nb15-v3 --model gcn --k 5 \\
         --checkpoint results/runs/<run>/best_checkpoint.pt --training-seed 42 \\
         --attack-seeds 42 43 44 45 46 --epsilons 0.05 0.10 --deterministic
 """
@@ -48,7 +48,7 @@ except ModuleNotFoundError:  # pragma: no cover
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from data.dataset import load_split_datasets
-from data.download import CICIDS2017_SUBSETS
+from data.download import DATASET_CHOICES
 from models import GCN_NIDS, GAT_NIDS
 from training.trainer import Trainer
 
@@ -211,12 +211,20 @@ def run_decomposition(args: argparse.Namespace) -> dict:
     hidden_dim = args.hidden_dim if args.hidden_dim is not None else int(metadata.get("hidden_dim", 64))
     dropout = args.dropout if args.dropout is not None else float(metadata.get("dropout", 0.5))
     window_size = args.window_size or metadata.get("window_size") or train_config.get("window_size", 1000)
+    max_flows = args.max_flows if args.max_flows is not None else metadata.get("max_flows")
+    slice_start = args.slice_start if args.slice_start is not None else metadata.get("slice_start")
 
     run_dir = create_run_directory(args, hidden_layers)
     csv_path = run_dir / "decomposition.csv"
 
     _, _, test_dataset = load_split_datasets(
-        name=args.dataset, root="data/graphs", rebuild=False, window_size=window_size, k=args.k
+        name=args.dataset,
+        root="data/graphs",
+        rebuild=False,
+        window_size=window_size,
+        k=args.k,
+        max_flows=max_flows,
+        slice_start=slice_start,
     )
     test_dataset = [test_dataset[i] for i in range(len(test_dataset))]
     if args.max_windows is not None:
@@ -259,6 +267,8 @@ def run_decomposition(args: argparse.Namespace) -> dict:
         "attack_seeds": args.attack_seeds,
         "checkpoint": str(args.checkpoint),
         "window_size": window_size,
+        "max_flows": max_flows,
+        "slice_start": slice_start,
         "num_windows": len(test_dataset),
         "reconstruction_check": reconstruction,
         "clean_metrics": clean_metrics,
@@ -331,8 +341,7 @@ def run_decomposition(args: argparse.Namespace) -> dict:
 
 def parse_args(argv=None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    cicids_choices = sorted(CICIDS2017_SUBSETS.keys())
-    parser.add_argument("--dataset", choices=["nsl-kdd"] + cicids_choices, required=True)
+    parser.add_argument("--dataset", choices=DATASET_CHOICES, required=True)
     parser.add_argument("--model", choices=["gcn", "gat"], required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--training-seed", type=int, required=True)
@@ -343,6 +352,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--hidden-layers", type=int, default=None, help="Default: from checkpoint metadata, else 1.")
     parser.add_argument("--dropout", type=float, default=None, help="Default: from checkpoint metadata, else 0.5.")
     parser.add_argument("--window-size", type=int, default=None)
+    parser.add_argument("--max-flows", type=int, default=None,
+                        help="NetFlow-v3 time slice; default: the one recorded in the checkpoint")
+    parser.add_argument("--slice-start", type=float, default=None,
+                        help="NetFlow-v3 time slice start; default: the one recorded in the checkpoint")
     parser.add_argument("--device", default=None)
     parser.add_argument("--attacks", nargs="+", choices=ATTACKS, default=list(ATTACKS))
     parser.add_argument("--epsilons", type=float, nargs="+", default=[0.05, 0.10])

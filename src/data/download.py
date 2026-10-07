@@ -37,6 +37,10 @@ CICIDS2017_SUBSETS = {
     ],
 }
 
+# Every name accepted by --dataset: the paper's NetFlow-v3 sets first, then the thesis datasets.
+DATASET_CHOICES = sorted(NETFLOW_V3_DATASETS) + ["nsl-kdd"] + sorted(CICIDS2017_SUBSETS)
+DEFAULT_DATASET = "nf-unsw-nb15-v3"
+
 
 class DatasetDownloader:
     """Downloads and validates NSL-KDD datasets."""
