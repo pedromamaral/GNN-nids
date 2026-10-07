@@ -48,8 +48,10 @@ class TestTabularBaselines(unittest.TestCase):
             "--device", "cpu",
             "--n-jobs", "1",
             "--xgb-estimators", "10",
-            "--mlp-epochs", "3",
-            "--mlp-batch-size", "64",
+            "--mlp-epochs", "30",
+            "--mlp-patience", "30",
+            "--mlp-learning-rate", "0.01",
+            "--mlp-batch-size", "32",
         ])
         out_dir = self.module.run(args)
 
