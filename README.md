@@ -12,10 +12,13 @@ The project investigates the robustness of flow-centric Graph Neural Network (GN
 > containers on the GPU servers.
 > New since the thesis:
 >
+> - `src/data/netflow_v3.py` loads the paper's datasets (`nf-unsw-nb15-v3`, `nf-ton-iot-v3`,
+>   `nf-cse-cic-ids2018-v3`) with a chronological 60/20/20 split and a train-only scaler.
+> - `experiments/00_tabular_baselines.py` trains XGBoost and MLP baselines on the same flows and splits.
 > - `experiments/05_decomposition.py` evaluates the same perturbed features on the original graph (A),
 >   the rebuilt graph with clean features (B) and the rebuilt graph with perturbed features (C).
-> - `experiments/05b_decomposition_report.py` aggregates the runs and applies the Phase 1 go/no-go rule.
-> - `scripts/run_phase1.sh` runs the whole Phase 1 grid.
+> - `experiments/05b_decomposition_report.py` aggregates the runs and applies the Phase 2 go/no-go rule.
+> - `scripts/run_phase1.sh` runs the whole decomposition grid.
 > - `src/attacks/construction_aware.py` adds a PGD variant that rebuilds the k-NN graph at every step.
 > - FGSM/PGD take an optional attacker-controllable `feature_mask`.
 > - `01_baseline_training.py --hidden-layers N` trains deeper models for the depth ablation.

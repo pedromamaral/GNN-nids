@@ -35,7 +35,13 @@ The paper uses only the NetFlow-v3 datasets from the University of Queensland (<
 
 Optionally, the CTU-13 `.binetflow` files (<https://www.stratosphereips.org/datasets-ctu13>) go in `data/raw/ctu13/`. NSL-KDD and CICIDS2017 (the thesis datasets) are not used by the paper.
 
-The scripts accept these dataset names only once the NetFlow-v3 loader exists (roadmap Phase 1). Until then, `check-data` confirms the files are in place, and `test` checks the environment.
+The experiments take these names with `--dataset`. Flows are sorted by `FLOW_START_MILLISECONDS` and split chronologically 60/20/20 (train is the earliest block), so no split indices need to be copied between servers. For a large file, `--max-flows N [--slice-start F]` on `00`–`05` uses N time-contiguous flows starting at fraction F of the timeline. `01` records the slice in the checkpoint, and `05` reuses it.
+
+Non-graph baselines on the same flows and splits:
+
+```bash
+GPU=0 scripts/container.sh -d run python experiments/00_tabular_baselines.py --dataset nf-unsw-nb15-v3
+```
 
 ## Running a job
 
