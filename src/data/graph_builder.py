@@ -121,9 +121,11 @@ class FlowGraphBuilder:
         edge_weights = []
 
         for i in range(n_samples):
-            # indices[i][0] is the sample itself, so skip it
-            neighbors = indices[i][1:k+1]  # k nearest neighbors (excluding self)
-            neighbor_distances = distances[i][1:k+1]
+            # Drop the sample itself. With duplicate flows, i is not always
+            # returned first (or at all), so remove it by index, not position.
+            not_self = indices[i] != i
+            neighbors = indices[i][not_self][:k]
+            neighbor_distances = distances[i][not_self][:k]
 
             for neighbor_idx, dist in zip(neighbors, neighbor_distances):
                 # Convert distance to similarity

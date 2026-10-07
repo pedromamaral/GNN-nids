@@ -384,6 +384,15 @@ class TestFlowGraphBuilder(unittest.TestCase):
         self.assertEqual(self_loops, 0)
         logger.info("✓ No self-loops test passed")
 
+    def test_duplicate_flows_get_k_neighbours_and_no_self_loops(self):
+        """Identical rows must not make a node its own neighbour (NetFlow data has many duplicates)."""
+        k = 5
+        X = np.repeat(self.X[:5], 12, axis=0)  # 5 distinct flows, 12 copies each
+        edge_index, _ = self.builder.build_knn_graph(X, k=k, bidirectional=False)
+        self.assertEqual(int(np.sum(edge_index[0] == edge_index[1])), 0)
+        out_degree = np.bincount(edge_index[0], minlength=X.shape[0])
+        np.testing.assert_array_equal(out_degree, np.full(X.shape[0], k))
+
     def test_edge_index_format(self):
         """Test edge_index format is compatible with PyG."""
         graph = self.builder.build_graph(self.X, self.y, method="knn", k=5)
