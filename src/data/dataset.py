@@ -18,6 +18,7 @@ import torch_geometric.data.data as pyg_data
 from .download import DatasetDownloader, CICIDS2017_SUBSETS
 from .preprocess import NSLKDDPreprocessor, CICIDS2017Preprocessor
 from .netflow_v3 import (
+    ARTEFACT_COLUMNS,
     NETFLOW_V3_DATASETS,
     NETFLOW_V3_RAW_SUBDIR,
     NetFlowV3Preprocessor,
@@ -142,6 +143,8 @@ class NetworkFlowDataset(InMemoryDataset):
             metadata["max_flows"] = self.max_flows
             metadata["slice_start"] = self.slice_start
             metadata["split_policy"] = "chronological"
+            # Caches built with a different feature set are rejected.
+            metadata["excluded_artefacts"] = list(ARTEFACT_COLUMNS)
         return metadata
 
     def _metadata_path(self) -> Path:

@@ -45,6 +45,14 @@ ATTACK_COLUMN = "Attack"
 IDENTIFIER_COLUMNS = ["IPV4_SRC_ADDR", "IPV4_DST_ADDR", "L4_SRC_PORT", "L4_DST_PORT", "DNS_QUERY_ID"]
 TIMESTAMP_COLUMNS = ["FLOW_START_MILLISECONDS", "FLOW_END_MILLISECONDS"]
 
+# Testbed artefacts, also never used as features. TTL encodes the hop distance
+# of the capture hosts rather than the behaviour of the flow: on
+# NF-UNSW-NB15-v3, MIN_TTL alone reaches test F1 0.999 (TTL 31 is always
+# benign, 62 always an attack). An attacker also sets the initial TTL of its
+# own packets, so it would be a trivial evasion route. See the decision log in
+# docs/PAPER_ROADMAP.md (2026-10-07).
+ARTEFACT_COLUMNS = ["MIN_TTL", "MAX_TTL"]
+
 # Codes, flags and bounded values: kept on their original scale. Every other
 # feature is a non-negative counter, size, duration, rate or IAT and gets log1p.
 NON_LOG_COLUMNS = {
@@ -53,8 +61,6 @@ NON_LOG_COLUMNS = {
     "TCP_FLAGS",
     "CLIENT_TCP_FLAGS",
     "SERVER_TCP_FLAGS",
-    "MIN_TTL",
-    "MAX_TTL",
     "TCP_WIN_MAX_IN",
     "TCP_WIN_MAX_OUT",
     "ICMP_TYPE",
@@ -86,7 +92,9 @@ def dataset_variant_id(name: str, max_flows: Optional[int] = None, slice_start: 
 
 def feature_columns(columns: List[str]) -> List[str]:
     """Feature columns of a NetFlow-v3 header, in file order."""
-    excluded = set(IDENTIFIER_COLUMNS) | set(TIMESTAMP_COLUMNS) | {LABEL_COLUMN, ATTACK_COLUMN}
+    excluded = (
+        set(IDENTIFIER_COLUMNS) | set(TIMESTAMP_COLUMNS) | set(ARTEFACT_COLUMNS) | {LABEL_COLUMN, ATTACK_COLUMN}
+    )
     return [c for c in columns if c not in excluded]
 
 

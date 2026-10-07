@@ -17,6 +17,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from data.netflow_v3 import (  # noqa: E402
+    ARTEFACT_COLUMNS,
     IDENTIFIER_COLUMNS,
     NETFLOW_V3_DATASETS,
     NON_LOG_COLUMNS,
@@ -80,9 +81,10 @@ class TestNetFlowV3Loader(unittest.TestCase):
 
     def test_feature_columns_exclude_identifiers_timestamps_and_labels(self):
         features = feature_columns(NETFLOW_V3_HEADER)
-        for col in IDENTIFIER_COLUMNS + TIMESTAMP_COLUMNS + ["Label", "Attack"]:
+        for col in IDENTIFIER_COLUMNS + TIMESTAMP_COLUMNS + ARTEFACT_COLUMNS + ["Label", "Attack"]:
             self.assertNotIn(col, features)
-        self.assertEqual(len(features), len(NETFLOW_V3_HEADER) - len(IDENTIFIER_COLUMNS) - 4)
+        self.assertNotIn("MIN_TTL", features)
+        self.assertEqual(len(features), 44)
         self.assertTrue(NON_LOG_COLUMNS.issubset(features))
 
     def test_sorted_by_start_time_with_stable_ties(self):
