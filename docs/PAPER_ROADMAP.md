@@ -53,6 +53,14 @@ Code ready (written before the dataset decision; it works on any dataset the loa
 - [x] `experiments/05b_decomposition_report.py`: mean ± std, effects, Wilcoxon go/no-go.
 - [x] `scripts/run_phase1.sh` + `scripts/container.sh phase1`: batch runner (finds or trains checkpoints).
 
+Pilots (one training seed, 2 attack seeds, a subset of test windows, ε ∈ {0.05, 0.1, 0.25, 0.5}; outputs in `results/pilot/` on the servers):
+- [x] 2026-10-07, NF-UNSW-NB15-v3, GCN, 100 windows (clean F1 0.976): induced structure has almost no effect. The structure effect (B) is at most 0.0027 F1 and the adaptive gain at most 0.009 at every ε, far below the 0.05/0.03 thresholds. This is not because the perturbations are too small: the feature effect (A) is 0.20 at ε = 0.25 and 0.79 at ε = 0.5, and 14–38% of malicious nodes' neighbours change. The GCN also trails XGBoost on clean data (0.96 vs 0.9995 on the full test set).
+- [ ] NF-ToN-IoT-v3, GCN, 300 windows (harder: XGBoost F1 0.87, and three attack classes have recall ≤ 0.32).
+- [ ] NF-UNSW-NB15-v3, GAT, 100 windows.
+- [ ] If both stay far from the thresholds, consider CTU-13 (botnets; neighbourhoods may matter more) before the full grid or the fallback paper.
+
+Tabular baselines without TTL (`00`, 5 seeds, test F1): NF-UNSW-NB15-v3 XGBoost 0.9995, MLP 0.9985. NF-ToN-IoT-v3 XGBoost ≈ 0.87, MLP ≈ 0.70–0.75 (chronological drift: 27% attacks in train, 55% in test; Backdoor recall ≈ 0). Random ±0.1σ noise drops XGBoost F1 to 0.77 (UNSW) and 0.20 (ToN): clean ease is not robustness.
+
 To do:
 - [ ] Run on NF-UNSW-NB15-v3, GCN and GAT, ε ∈ {0.05, 0.10}, 5 training × 5 attack seeds.
 - [ ] Decision recorded below. If GO, repeat on NF-ToN-IoT-v3 in Phase 3.
