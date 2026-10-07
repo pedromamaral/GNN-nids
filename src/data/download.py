@@ -1,7 +1,8 @@
 """
 Dataset download module for GNN Adversarial NIDS.
 
-This module handles downloading and storing NSL-KDD datasets.
+This module handles downloading NSL-KDD and validating manually placed
+datasets (CICIDS2017, NetFlow-v3).
 """
 
 import os
@@ -10,6 +11,8 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 from typing import Optional, List
+
+from .netflow_v3 import NETFLOW_V3_DATASETS, NETFLOW_V3_RAW_SUBDIR
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -194,6 +197,35 @@ class DatasetDownloader:
             len(csv_files),
             target_dir,
         )
+        return True
+
+    def download_netflow_v3(self, dataset_name: str, base_dir: Optional[str] = None) -> bool:
+        """Validate manual placement of a NetFlow-v3 CSV.
+
+        The files are not downloaded automatically (UQ deposit terms). Get them
+        from https://staff.itee.uq.edu.au/marius/NIDS_datasets/ and save them
+        under data/raw/netflow-v3/ with the names in NETFLOW_V3_DATASETS.
+
+        Args:
+            dataset_name: One of NETFLOW_V3_DATASETS (e.g. 'nf-unsw-nb15-v3').
+            base_dir: Directory holding the CSV. Defaults to self.base_dir.
+
+        Returns:
+            True if the CSV exists and is not empty, False otherwise.
+        """
+        filename = NETFLOW_V3_DATASETS.get(dataset_name)
+        if filename is None:
+            logger.error(f"Unknown NetFlow-v3 dataset: {dataset_name}")
+            return False
+        path = (Path(base_dir) if base_dir else self.base_dir) / filename
+        if not path.exists() or path.stat().st_size == 0:
+            logger.warning(
+                "NetFlow-v3 file missing or empty: %s. Download it from "
+                "https://staff.itee.uq.edu.au/marius/NIDS_datasets/ and save it as %s/%s.",
+                path, f"data/raw/{NETFLOW_V3_RAW_SUBDIR}", filename,
+            )
+            return False
+        logger.info(f"NetFlow-v3 file found: {path}")
         return True
 
     def download_all(self, force: bool = False) -> bool:

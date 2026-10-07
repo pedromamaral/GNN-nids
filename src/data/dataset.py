@@ -17,6 +17,14 @@ import torch_geometric.data.data as pyg_data
 
 from .download import DatasetDownloader, CICIDS2017_SUBSETS
 from .preprocess import NSLKDDPreprocessor, CICIDS2017Preprocessor
+from .netflow_v3 import (
+    NETFLOW_V3_DATASETS,
+    NETFLOW_V3_RAW_SUBDIR,
+    NetFlowV3Preprocessor,
+    dataset_variant_id,
+    is_netflow_v3,
+    load_netflow_v3,
+)
 from .graph_builder import FlowGraphBuilder
 from .splits import SplitManager
 
@@ -43,23 +51,30 @@ class NetworkFlowDataset(InMemoryDataset):
         rebuild: bool = False,
         window_size: int = 1000,
         k: int = 5,
+        max_flows: Optional[int] = None,
+        slice_start: Optional[float] = None,
     ):
         """Initialize the dataset.
 
         Args:
             root: Root directory for saving processed data.
-            name: Dataset name ('nsl-kdd' or explicit CICIDS2017 variant).
+            name: Dataset name ('nsl-kdd', a CICIDS2017 variant or a NetFlow-v3 name).
             split: Dataset split ('train', 'validation', or 'test').
             transform: PyG transform to apply to data.
             pre_transform: PyG pre-transform to apply to data.
             rebuild: Force rebuild of processed data.
             window_size: Window size for graph construction.
             k: Number of nearest neighbors for graph construction.
+            max_flows: NetFlow-v3 only: keep this many time-contiguous flows (None: all).
+            slice_start: NetFlow-v3 only: start of that slice, as a fraction of the
+                time-sorted flows.
         """
         self.name = name
         self.split = split
         self.rebuild = rebuild
         self.k = k
+        self.max_flows = max_flows
+        self.slice_start = slice_start
         # Store provided root path so properties can be used before
         # PyTorch-Geometric's InMemoryDataset.__init__ sets up `self.root`.
         self._root_path = root
@@ -98,6 +113,8 @@ class NetworkFlowDataset(InMemoryDataset):
         if data_root is not None:
             if self.name.startswith("cicids2017"):
                 return str(data_root / "raw" / "cicids2017")
+            if is_netflow_v3(self.name):
+                return str(data_root / "raw" / NETFLOW_V3_RAW_SUBDIR)
             return str(data_root / "raw")
 
         # Fallback for test / temporary directories where `data` isn't found
@@ -110,7 +127,7 @@ class NetworkFlowDataset(InMemoryDataset):
 
     def _build_config_metadata(self) -> dict:
         """Create a compatibility metadata block for the current dataset config."""
-        return {
+        metadata = {
             "dataset": self.name,
             "split": self.split,
             "window_size": self.window_size,
@@ -118,6 +135,11 @@ class NetworkFlowDataset(InMemoryDataset):
             "graph_method": "knn",
             "distance_metric": "cosine",
         }
+        if is_netflow_v3(self.name):
+            metadata["max_flows"] = self.max_flows
+            metadata["slice_start"] = self.slice_start
+            metadata["split_policy"] = "chronological"
+        return metadata
 
     def _metadata_path(self) -> Path:
         """Return the metadata file path for the current split."""
@@ -170,6 +192,8 @@ class NetworkFlowDataset(InMemoryDataset):
         # advertise the required files for that subset. Otherwise list all CSVs.
         if self.name in CICIDS2017_SUBSETS:
             return CICIDS2017_SUBSETS[self.name]
+        if is_netflow_v3(self.name):
+            return [NETFLOW_V3_DATASETS[self.name]]
         return [f.name for f in sorted(raw_dir.glob("*.csv"))]
 
     @property
@@ -204,6 +228,13 @@ class NetworkFlowDataset(InMemoryDataset):
                     "Place required CSV files manually under this directory."
                 )
             logger.info(f"CICIDS2017 raw files verified at {self.raw_dir}")
+        elif is_netflow_v3(self.name):
+            if not downloader.download_netflow_v3(self.name, base_dir=self.raw_dir):
+                raise RuntimeError(
+                    f"NetFlow-v3 file {NETFLOW_V3_DATASETS[self.name]} not found in {self.raw_dir}. "
+                    "Download it from https://staff.itee.uq.edu.au/marius/NIDS_datasets/ "
+                    "(see docs/RUNNING_ON_SERVERS.md)."
+                )
         else:
             raise ValueError(f"Unknown dataset: {self.name}")
 
@@ -326,6 +357,8 @@ class NetworkFlowDataset(InMemoryDataset):
                     )
                 preprocessor.load_preprocessed(preprocessor_state_path)
                 X, y = preprocessor.preprocess(df_split, fit=False)
+        elif is_netflow_v3(self.name):
+            X, y, preprocessor = self._process_netflow_v3(split_dir)
         else:
             raise ValueError(f"Unknown dataset: {self.name}")
 
@@ -336,10 +369,13 @@ class NetworkFlowDataset(InMemoryDataset):
                 self.processed_dir,
                 self.PREPROCESSOR_STATE_FILE,
             )
-            state = {
-                "scaler": preprocessor.scaler,
-                "feature_names": preprocessor.feature_names,
-            }
+            if hasattr(preprocessor, "get_state"):
+                state = preprocessor.get_state()
+            else:
+                state = {
+                    "scaler": preprocessor.scaler,
+                    "feature_names": preprocessor.feature_names,
+                }
             if hasattr(preprocessor, "label_encoders"):
                 state["label_encoders"] = preprocessor.label_encoders
             with open(state_path, "wb") as f:
@@ -394,6 +430,48 @@ class NetworkFlowDataset(InMemoryDataset):
         self.data = data
         self.slices = slices
         self.data_list = graphs
+
+    def _process_netflow_v3(self, split_dir: str) -> Tuple[np.ndarray, np.ndarray, NetFlowV3Preprocessor]:
+        """Load the time-sorted flows, take this split's chronological block, preprocess.
+
+        Windows are built later from consecutive rows of the block, so they are
+        temporally contiguous; the scaler is fitted on the train block only.
+        """
+        csv_path = os.path.join(self.raw_dir, NETFLOW_V3_DATASETS[self.name])
+        if not os.path.exists(csv_path):
+            raise FileNotFoundError(f"Raw data file not found: {csv_path}")
+        df = load_netflow_v3(csv_path, max_flows=self.max_flows, slice_start=self.slice_start)
+
+        variant = dataset_variant_id(self.name, self.max_flows, self.slice_start)
+        split_manager = SplitManager(variant, data_dir=split_dir)
+        train_indices, val_indices, test_indices = split_manager.create_or_load_splits(
+            dataset_name=self.name,
+            train_df=df,
+            netflow_metadata={
+                "source_file": NETFLOW_V3_DATASETS[self.name],
+                "max_flows": self.max_flows,
+                "slice_start": self.slice_start,
+            },
+        )
+        indices = {"train": train_indices, "validation": val_indices, "test": test_indices}.get(self.split)
+        if indices is None:
+            raise ValueError(f"Invalid split: {self.split}")
+        df_split = df.iloc[indices].reset_index(drop=True)
+        del df
+
+        preprocessor = NetFlowV3Preprocessor()
+        if self.split == "train":
+            X, y = preprocessor.preprocess(df_split, fit=True)
+        else:
+            state_path = os.path.join(self.processed_dir, self.PREPROCESSOR_STATE_FILE)
+            if not os.path.exists(state_path):
+                raise FileNotFoundError(
+                    f"Preprocessor state not found: {state_path}. "
+                    "Process the train split first so validation/test splits can reuse the fitted preprocessor."
+                )
+            preprocessor.load_preprocessed(state_path)
+            X, y = preprocessor.preprocess(df_split, fit=False)
+        return X, y, preprocessor
 
     def len(self) -> int:
         """Return the length of the dataset."""
@@ -491,6 +569,8 @@ class NetworkFlowDataset(InMemoryDataset):
         rebuild: bool = False,
         window_size: int = 1000,
         k: int = 5,
+        max_flows: Optional[int] = None,
+        slice_start: Optional[float] = None,
     ) -> "NetworkFlowDataset":
         """Create a network flow dataset.
 
@@ -501,6 +581,8 @@ class NetworkFlowDataset(InMemoryDataset):
             rebuild: Force rebuild of processed data.
             window_size: Window size for graph construction.
             k: Number of nearest neighbors for graph construction.
+            max_flows: NetFlow-v3 time slice size (None: all flows).
+            slice_start: NetFlow-v3 time slice start, as a fraction.
         Returns:
             NetworkFlowDataset instance.
 
@@ -520,6 +602,8 @@ class NetworkFlowDataset(InMemoryDataset):
             rebuild=rebuild,
             window_size=window_size,
             k=k,
+            max_flows=max_flows,
+            slice_start=slice_start,
         )
 
         # Load statistics
@@ -535,6 +619,8 @@ def load_split_datasets(
     rebuild: bool = False,
     window_size: int = 1000,
     k: int = 5,
+    max_flows: Optional[int] = None,
+    slice_start: Optional[float] = None,
 ) -> Tuple[NetworkFlowDataset, NetworkFlowDataset, NetworkFlowDataset]:
     """Load train, validation, and test datasets with formal split protocol.
 
@@ -544,13 +630,15 @@ def load_split_datasets(
         rebuild: Force rebuild.
         window_size: Window size for graph construction.
         k: Number of nearest neighbors for graph construction.
+        max_flows: NetFlow-v3 only: size of the time slice (None: all flows).
+        slice_start: NetFlow-v3 only: start of the slice, as a fraction.
 
     Returns:
         Tuple of (train_dataset, validation_dataset, test_dataset).
     """
     logger.info(f"Loading train, validation, and test datasets for {name}...")
 
-    dataset_root = os.path.join(root, name, f"k_{k}")
+    dataset_root = os.path.join(root, dataset_variant_id(name, max_flows, slice_start), f"k_{k}")
 
     train_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -559,6 +647,8 @@ def load_split_datasets(
         rebuild=rebuild,
         window_size=window_size,
         k=k,
+        max_flows=max_flows,
+        slice_start=slice_start,
     )
     validation_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -567,6 +657,8 @@ def load_split_datasets(
         rebuild=False,
         window_size=window_size,
         k=k,
+        max_flows=max_flows,
+        slice_start=slice_start,
     )
     test_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -575,6 +667,8 @@ def load_split_datasets(
         rebuild=False,
         window_size=window_size,
         k=k,
+        max_flows=max_flows,
+        slice_start=slice_start,
     )
 
     logger.info(

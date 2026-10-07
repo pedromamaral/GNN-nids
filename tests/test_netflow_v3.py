@@ -27,6 +27,8 @@ from data.netflow_v3 import (  # noqa: E402
     load_netflow_v3,
 )
 from data.splits import SplitManager, chronological_split  # noqa: E402
+from data.dataset import load_split_datasets  # noqa: E402
+from analysis.decomposition import check_reconstruction  # noqa: E402
 
 NETFLOW_V3_HEADER = (
     "FLOW_START_MILLISECONDS,FLOW_END_MILLISECONDS,IPV4_SRC_ADDR,L4_SRC_PORT,IPV4_DST_ADDR,L4_DST_PORT,"
@@ -264,6 +266,55 @@ class TestChronologicalSplit(unittest.TestCase):
         df = self._sorted_frame().iloc[::-1].reset_index(drop=True)
         with self.assertRaises(ValueError):
             manager.create_or_load_splits("nf-unsw-nb15-v3", train_df=df)
+
+
+class TestNetFlowV3Dataset(unittest.TestCase):
+    """End-to-end: CSV -> chronological split -> preprocessing -> windowed k-NN graphs."""
+
+    def setUp(self):
+        self.temp_dir = Path(tempfile.mkdtemp())
+        raw_dir = self.temp_dir / "data" / "raw" / "netflow-v3"
+        raw_dir.mkdir(parents=True)
+        raw = make_netflow_frame(n=400, seed=1)
+        # Exact duplicates, as in the real data: the last 60 flows repeat flow 0.
+        raw.iloc[340:, 2:] = raw.iloc[[0] * 60, 2:].to_numpy()
+        raw.to_csv(raw_dir / "NF-UNSW-NB15-v3.csv", index=False)
+        self.root = str(self.temp_dir / "data" / "graphs")
+
+    def tearDown(self):
+        shutil.rmtree(self.temp_dir)
+
+    def test_splits_windows_and_scaler(self):
+        train, val, test = load_split_datasets(name="nf-unsw-nb15-v3", root=self.root, window_size=40, k=3)
+        self.assertEqual(sum(g.num_nodes for g in train), 240)
+        self.assertEqual(sum(g.num_nodes for g in val), 80)
+        self.assertEqual(sum(g.num_nodes for g in test), 80)
+        self.assertEqual([g.num_nodes for g in train], [40] * 6)
+
+        # The scaler is the one fitted on train: train features have zero mean.
+        train_x = np.concatenate([g.x.numpy() for g in train])
+        np.testing.assert_allclose(train_x.mean(axis=0), 0.0, atol=1e-4)
+
+        # Windows follow time order: test labels are the last 20% of time-sorted labels.
+        sorted_df = load_netflow_v3(str(self.temp_dir / "data" / "raw" / "netflow-v3" / "NF-UNSW-NB15-v3.csv"))
+        test_y = np.concatenate([g.y.numpy() for g in test])
+        np.testing.assert_array_equal(test_y, sorted_df["Label"].to_numpy()[320:])
+
+    def test_reconstruction_check_passes_with_duplicate_flows(self):
+        _, _, test = load_split_datasets(name="nf-unsw-nb15-v3", root=self.root, window_size=40, k=3)
+        report = check_reconstruction([test[i] for i in range(len(test))], k=3)
+        self.assertEqual(report["mean_churn"], 0.0)
+        self.assertEqual(report["exact_fraction"], 1.0)
+
+    def test_time_slice_uses_its_own_cache_and_splits(self):
+        _, _, test_full = load_split_datasets(name="nf-unsw-nb15-v3", root=self.root, window_size=20, k=3)
+        train, val, test = load_split_datasets(
+            name="nf-unsw-nb15-v3", root=self.root, window_size=20, k=3, max_flows=100, slice_start=0.5
+        )
+        self.assertEqual(sum(g.num_nodes for g in train) + sum(g.num_nodes for g in val)
+                         + sum(g.num_nodes for g in test), 100)
+        self.assertTrue((Path(self.root) / "nf-unsw-nb15-v3_100flows_from0.5" / "k_3").exists())
+        self.assertEqual(sum(g.num_nodes for g in test_full), 80)
 
 
 if __name__ == "__main__":
