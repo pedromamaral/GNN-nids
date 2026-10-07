@@ -13,8 +13,34 @@ from pathlib import Path
 from typing import Dict, Tuple, Optional
 from sklearn.model_selection import train_test_split
 from .download import CICIDS2017_SUBSETS
+from .netflow_v3 import NETFLOW_V3_DATASETS, TIME_COLUMN
 
 logger = logging.getLogger(__name__)
+
+CHRONOLOGICAL_RATIOS = (0.60, 0.20, 0.20)
+
+
+def chronological_split(
+    n_flows: int,
+    ratios: Tuple[float, float, float] = CHRONOLOGICAL_RATIOS,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Split time-sorted flows into contiguous train/validation/test blocks.
+
+    Flow i must be the i-th flow in time. Train is the earliest block and test
+    the latest, with no shuffling, so windows built inside each block are
+    temporally contiguous and no future flow reaches training.
+    """
+    if not np.isclose(sum(ratios), 1.0):
+        raise ValueError(f"Split ratios must sum to 1.0, got {sum(ratios)}")
+    if n_flows < 3:
+        raise ValueError(f"Need at least 3 flows for a 3-way split, got {n_flows}")
+    train_end = int(round(ratios[0] * n_flows))
+    validation_end = int(round((ratios[0] + ratios[1]) * n_flows))
+    return (
+        np.arange(0, train_end, dtype=np.int64),
+        np.arange(train_end, validation_end, dtype=np.int64),
+        np.arange(validation_end, n_flows, dtype=np.int64),
+    )
 
 
 class SplitManager:
@@ -311,12 +337,53 @@ class SplitManager:
 
         self.save_split_indices(train_indices, val_indices, test_indices, metadata)
 
+    def create_chronological_splits(
+        self,
+        df: "pd.DataFrame",
+        time_column: str,
+        ratios: Tuple[float, float, float] = CHRONOLOGICAL_RATIOS,
+        metadata: Optional[Dict] = None,
+    ) -> None:
+        """Create chronological splits for a time-sorted dataframe (NetFlow-v3 policy).
+
+        Indices are positions in ``df``, which must already be sorted by
+        ``time_column``. The time range and attack fraction of each block are
+        recorded in the config.
+        """
+        times = df[time_column].to_numpy()
+        if np.any(np.diff(times) < 0):
+            raise ValueError(f"Dataframe must be sorted by {time_column} before a chronological split")
+        train_indices, val_indices, test_indices = chronological_split(len(df), ratios)
+
+        blocks = {}
+        for split_name, idx in (("train", train_indices), ("validation", val_indices), ("test", test_indices)):
+            block = {
+                "first_index": int(idx[0]),
+                "last_index": int(idx[-1]),
+                "start_time": int(times[idx[0]]),
+                "end_time": int(times[idx[-1]]),
+            }
+            if "Label" in df.columns:
+                block["attack_fraction"] = float(df["Label"].to_numpy()[idx].mean())
+            blocks[split_name] = block
+
+        full_metadata = {
+            "policy": "chronological",
+            "ratios": list(ratios),
+            "sort_key": time_column,
+            "indices_relative_to": "time_sorted_dataframe",
+            "blocks": blocks,
+        }
+        full_metadata.update(metadata or {})
+        self.save_split_indices(train_indices, val_indices, test_indices, full_metadata)
+
     def create_or_load_splits(
         self,
         dataset_name: str,
         train_df: Optional["pd.DataFrame"] = None,
         test_df: Optional["pd.DataFrame"] = None,
         cicids2017_ratios: Optional[Dict] = None,
+        netflow_metadata: Optional[Dict] = None,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Create or load splits (main entry point).
 
@@ -325,6 +392,8 @@ class SplitManager:
             train_df: Training dataframe (required for creation if splits don't exist).
             test_df: Test dataframe (required for NSL-KDD if splits don't exist).
             cicids2017_ratios: Dict with 'train', 'validation', 'test' keys (for CICIDS2017).
+            netflow_metadata: For NetFlow-v3, the source file and time slice; existing
+                splits are only reused if they were made from the same slice.
 
         Returns:
             Tuple of (train_indices, validation_indices, test_indices).
@@ -332,9 +401,15 @@ class SplitManager:
         Raises:
             ValueError: If dataset_name is invalid or required arguments missing.
         """
-        # Accept NSL-KDD and any explicit CICIDS2017 variant defined in CICIDS2017_SUBSETS
-        if dataset_name != "nsl-kdd" and dataset_name not in CICIDS2017_SUBSETS:
+        if (
+            dataset_name != "nsl-kdd"
+            and dataset_name not in CICIDS2017_SUBSETS
+            and dataset_name not in NETFLOW_V3_DATASETS
+        ):
             raise ValueError(f"Unknown dataset: {dataset_name}")
+
+        if dataset_name in NETFLOW_V3_DATASETS:
+            return self._create_or_load_netflow_splits(train_df, netflow_metadata or {})
 
         # Try to load existing splits
         if self.splits_exist():
@@ -368,4 +443,34 @@ class SplitManager:
                 test_ratio=test_ratio,
             )
 
+        return self.load_split_indices()
+
+    def _create_or_load_netflow_splits(
+        self,
+        df: Optional["pd.DataFrame"],
+        netflow_metadata: Dict,
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        if df is None:
+            raise ValueError("train_df (the time-sorted NetFlow-v3 dataframe) required for split creation")
+
+        if self.splits_exist():
+            stored = self.load_split_config()
+            stored_meta = stored.get("metadata", {})
+            mismatches = {
+                key: (stored_meta.get(key), value)
+                for key, value in netflow_metadata.items()
+                if stored_meta.get(key) != value
+            }
+            if stored.get("total_size") != len(df):
+                mismatches["total_size"] = (stored.get("total_size"), len(df))
+            if mismatches:
+                raise RuntimeError(
+                    f"Split indices in {self.split_dir} were made from different data: {mismatches}. "
+                    "Delete that directory to recreate them."
+                )
+            logger.info(f"Loading existing chronological splits for {self.dataset_name}")
+            return self.load_split_indices()
+
+        logger.info(f"Creating chronological splits for {self.dataset_name}")
+        self.create_chronological_splits(df, time_column=TIME_COLUMN, metadata=netflow_metadata)
         return self.load_split_indices()
