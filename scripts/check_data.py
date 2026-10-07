@@ -17,14 +17,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from data.download import CICIDS2017_SUBSETS  # noqa: E402
+from data.netflow_v3 import NETFLOW_V3_DATASETS as NETFLOW_V3_FILES  # noqa: E402
 
 DEFAULT_DATASETS = ["nf-unsw-nb15-v3"]
 NSL_KDD_FILES = ["KDDTrain+.txt", "KDDTest+.txt"]
-NETFLOW_V3_FILES = {
-    "nf-unsw-nb15-v3": "NF-UNSW-NB15-v3.csv",
-    "nf-ton-iot-v3": "NF-ToN-IoT-v3.csv",
-    "nf-cse-cic-ids2018-v3": "NF-CSE-CIC-IDS2018-v3.csv",
-}
 
 
 def check(dataset: str, root: Path) -> bool:
@@ -53,6 +49,10 @@ def check(dataset: str, root: Path) -> bool:
         else:
             print(f"  MISSING  {path.relative_to(root)}")
             ok = False
+
+    if dataset in NETFLOW_V3_FILES:
+        print("  ok       chronological 60/20/20 split, computed from the timestamps on first run")
+        return ok
 
     split_dir = root / "data" / "splits" / dataset
     if split_dir.exists() and any(split_dir.iterdir()):

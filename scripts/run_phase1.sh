@@ -8,12 +8,12 @@
 #
 # Usage (from the repository root, inside the Docker container or venv):
 #   scripts/run_phase1.sh
-#   DATASETS="cicids2017-patator" MODELS="gcn" TRAINING_SEEDS="42 43" scripts/run_phase1.sh
+#   DATASETS="nf-ton-iot-v3" MODELS="gcn" TRAINING_SEEDS="42 43" scripts/run_phase1.sh
 #   TRAIN_MISSING=1 scripts/run_phase1.sh
 #   EXTRA_ARGS="--max-windows 20" scripts/run_phase1.sh     # quick smoke run
 set -euo pipefail
 
-# Paper datasets (NetFlow-v3). Requires the NetFlow-v3 loader (roadmap Phase 1).
+# Paper datasets (NetFlow-v3, src/data/netflow_v3.py).
 DATASETS=${DATASETS:-"nf-unsw-nb15-v3"}
 MODELS=${MODELS:-"gcn gat"}
 TRAINING_SEEDS=${TRAINING_SEEDS:-"42 43 44 45 46"}
