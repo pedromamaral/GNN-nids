@@ -143,7 +143,9 @@ def setup_training_log(run_dir: Path) -> logging.Handler:
 
 def set_deterministic(enabled: bool) -> None:
     if enabled:
-        torch.use_deterministic_algorithms(True)
+        # warn_only: some PyG scatter kernels (GAT) have no deterministic CUDA
+        # implementation; warn instead of aborting, as in 05. Seeds stay fixed.
+        torch.use_deterministic_algorithms(True, warn_only=True)
 
         if torch.cuda.is_available():
             torch.backends.cudnn.deterministic = True
