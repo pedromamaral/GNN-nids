@@ -55,9 +55,15 @@ Code ready (written before the dataset decision; it works on any dataset the loa
 
 Pilots (one training seed, 2 attack seeds, a subset of test windows, ε ∈ {0.05, 0.1, 0.25, 0.5}; outputs in `results/pilot/` on the servers):
 - [x] 2026-10-07, NF-UNSW-NB15-v3, GCN, 100 windows (clean F1 0.976): induced structure has almost no effect. The structure effect (B) is at most 0.0027 F1 and the adaptive gain at most 0.009 at every ε, far below the 0.05/0.03 thresholds. This is not because the perturbations are too small: the feature effect (A) is 0.20 at ε = 0.25 and 0.79 at ε = 0.5, and 14–38% of malicious nodes' neighbours change. The GCN also trails XGBoost on clean data (0.96 vs 0.9995 on the full test set).
-- [ ] NF-ToN-IoT-v3, GCN, 300 windows (harder: XGBoost F1 0.87, and three attack classes have recall ≤ 0.32).
-- [ ] NF-UNSW-NB15-v3, GAT, 100 windows.
-- [ ] If both stay far from the thresholds, consider CTU-13 (botnets; neighbourhoods may matter more) before the full grid or the fallback paper.
+- [x] 2026-10-08, NF-ToN-IoT-v3, GCN, 300 windows (test F1 0.81; XGBoost 0.87): the structure effect is ≤ 0.0004 at every ε, and the adaptive gain is at most 0.019 (ε = 0.25), with 30% of malicious neighbours changed. No-go.
+- [x] 2026-10-08, NF-UNSW-NB15-v3, GAT, 100 windows (test F1 0.986): the structure effect is ≤ 0.001 and the adaptive gain ≤ 0.004. No-go.
+- [x] 2026-10-08, graph ablation (`experiments/06_graph_ablation.py`, full test sets). F1 with the k-NN graph / no edges / random graph (k = 5, mean of 3 seeds):
+  - UNSW GCN: 0.975 / 0.995 / 0.21.
+  - UNSW GAT: 0.986 / 0.995 / 0.15.
+  - ToN GCN: 0.812 / 0.814 / 0.815.
+
+  Removing the k-NN edges changes only 0.2–1.2% of predictions and never lowers F1, so the k-NN neighbourhood carries no information beyond the flow's own features: its neighbours are near-copies of it. This is why condition B is ≈ 0, and it will hold for any feature-derived k-NN graph, CTU-13 included. On UNSW, random neighbours collapse F1, so the models are sensitive to neighbours that are unlike the flow. A feature-bounded attacker cannot produce such neighbours, because the rebuilt k-NN neighbours stay close to the perturbed flow.
+- [ ] Decision on the paper direction (see the decision log once taken). CTU-13 is unlikely to change this, since the redundancy comes from the k-NN construction itself, not from the dataset.
 
 Tabular baselines without TTL (`00`, 5 seeds, test F1): NF-UNSW-NB15-v3 XGBoost 0.9995, MLP 0.9985. NF-ToN-IoT-v3 XGBoost ≈ 0.87, MLP ≈ 0.70–0.75 (chronological drift: 27% attacks in train, 55% in test; Backdoor recall ≈ 0). Random ±0.1σ noise drops XGBoost F1 to 0.77 (UNSW) and 0.20 (ToN): clean ease is not robustness.
 
