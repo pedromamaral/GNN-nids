@@ -1,0 +1,128 @@
+[
+ {
+  "query": "BS-GAT Behavior Similarity Based Graph Attention Network for Network Intrusion Detection",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2304.07226v1"
+ },
+ {
+  "query": "Enhancing intrusion detection performance using GCN-LOF: A hybrid graph-based anomaly detection approach",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Efficient Network Representation for GNN-Based Intrusion Detection",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2310.05956v1"
+ },
+ {
+  "query": "Unmasking Shortcut Learning in IoT Intrusion Detection: A Forensic, Multi-Paradigm Evaluation",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2609.28725v1"
+ },
+ {
+  "query": "Dos and Don'ts of Machine Learning in Computer Security",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2208.10605v2"
+ },
+ {
+  "query": "Applying self-supervised learning to network intrusion detection for network flows with graph neural network",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2403.01501v1"
+ },
+ {
+  "query": "TCG-IDS: Robust Network Intrusion Detection via Temporal Contrastive Graph",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Towards realistic problem-space adversarial attacks against machine learning in network intrusion detection",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Temporal Analysis of NetFlow Datasets for Network Intrusion Detection Systems",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2503.04404v3"
+ },
+ {
+  "query": "Edge weight concentration overcomes node degree blindness in graph based network intrusion detection",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Automating Botnet Detection with Graph Neural Networks",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": "2003.06344v1"
+ },
+ {
+  "query": "Flow Topology-Based Graph Convolutional Network for Intrusion Detection in Label-Limited IoT Networks",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Establishing the Contaminating Effect of Metadata Feature Inclusion in Machine-Learned Network Intrusion Detection Models",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ },
+ {
+  "query": "Application of a Dynamic Line Graph Neural Network for Intrusion Detection With Semisupervised Learning",
+  "openalex": null,
+  "doi": null,
+  "year": null,
+  "venue": null,
+  "oa": [],
+  "arxiv": null
+ }
+]

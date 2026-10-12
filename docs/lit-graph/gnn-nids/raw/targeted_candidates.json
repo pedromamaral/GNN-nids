@@ -1,0 +1,4351 @@
+[
+ {
+  "id": "https://openalex.org/W3208773001",
+  "doi": "https://doi.org/10.1109/noms54207.2022.9789878",
+  "title": "E-GraphSAGE: A Graph Neural Network based Intrusion Detection System for IoT",
+  "year": 2022,
+  "cites": 417,
+  "venue": "IEEE/IFIP Network Operations and Management Symposium (NOMS)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3217748719",
+  "doi": "https://doi.org/10.1109/jiot.2021.3130434",
+  "title": "Hierarchical Adversarial Attacks Against Graph-Neural-Network-Based IoT Network Intrusion Detection System",
+  "year": 2021,
+  "cites": 326,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4307042912",
+  "doi": "https://doi.org/10.1016/j.knosys.2022.110030",
+  "title": "Anomal-E: A self-supervised network intrusion detection system based on graph neural networks",
+  "year": 2022,
+  "cites": 262,
+  "venue": "Knowledge-Based Systems",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4393150251",
+  "doi": "https://doi.org/10.1016/j.cose.2024.103821",
+  "title": "A survey on graph neural networks for intrusion detection systems: Methods, trends and challenges",
+  "year": 2024,
+  "cites": 250,
+  "venue": "Computers & Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3212868562",
+  "doi": "https://doi.org/10.1109/tifs.2022.3208815",
+  "title": "THREATRACE: Detecting and Tracing Host-Based Threats in Node Level Through Provenance Graph Learning",
+  "year": 2022,
+  "cites": 229,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4376480418",
+  "doi": "https://doi.org/10.1109/access.2023.3275789",
+  "title": "Graph Neural Networks for Intrusion Detection: A Survey",
+  "year": 2023,
+  "cites": 228,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313378981",
+  "doi": "https://doi.org/10.1109/tifs.2022.3228493",
+  "title": "Application of a Dynamic Line Graph Neural Network for Intrusion Detection With Semisupervised Learning",
+  "year": 2022,
+  "cites": 146,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402288718",
+  "doi": "https://doi.org/10.1109/sp54263.2024.00005",
+  "title": "Kairos: Practical Intrusion Detection and Investigation using Whole-system Provenance",
+  "year": 2024,
+  "cites": 129,
+  "venue": "Proceedings - IEEE Symposium on Security and Privacy/Proceedings of the ... IEEE Symposium on Security and Privacy",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3191490876",
+  "doi": "https://doi.org/10.1145/3543146.3543171",
+  "title": "Unveiling the potential of Graph Neural Networks for robust Intrusion Detection",
+  "year": 2022,
+  "cites": 119,
+  "venue": "ACM SIGMETRICS Performance Evaluation Review",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402265033",
+  "doi": "https://doi.org/10.1109/sp54263.2024.00139",
+  "title": "Flash: A Comprehensive Approach to Intrusion Detection via Provenance Graph Representation Learning",
+  "year": 2024,
+  "cites": 112,
+  "venue": "Proceedings - IEEE Symposium on Security and Privacy/Proceedings of the ... IEEE Symposium on Security and Privacy",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285157251",
+  "doi": "https://doi.org/10.1109/tnse.2022.3184975",
+  "title": "Intrusion Detection of Industrial Internet-of-Things Based on Reconstructed Graph Neural Networks",
+  "year": 2022,
+  "cites": 110,
+  "venue": "IEEE Transactions on Network Science and Engineering",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396792110",
+  "doi": "https://doi.org/10.1016/j.comnet.2024.110495",
+  "title": "Applying self-supervised learning to network intrusion detection for network flows with graph neural network",
+  "year": 2024,
+  "cites": 103,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400976116",
+  "doi": "https://doi.org/10.1145/3664476.3664515",
+  "title": "GNN-IDS: Graph Neural Network based Intrusion Detection System",
+  "year": 2024,
+  "cites": 74,
+  "venue": "International Conference on Availability, Reliability and Security (ARES)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4406611343",
+  "doi": "https://doi.org/10.1109/tifs.2025.3530702",
+  "title": "$\\mathsf{TCG}\\text{-}\\mathsf{IDS}$ : Robust Network Intrusion Detection via Temporal Contrastive Graph Learning",
+  "year": 2025,
+  "cites": 66,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401410618",
+  "doi": "https://doi.org/10.3390/app14166932",
+  "title": "FN-GNN: A Novel Graph Embedding Approach for Enhancing Graph Neural Networks in Network Intrusion Detection Systems",
+  "year": 2024,
+  "cites": 66,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403599708",
+  "doi": "https://doi.org/10.1007/s11227-024-06471-5",
+  "title": "E-GRACL: an IoT intrusion detection system based on graph neural networks",
+  "year": 2024,
+  "cites": 64,
+  "venue": "The Journal of Supercomputing",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4225697716",
+  "doi": "https://doi.org/10.14722/ndss.2022.24107",
+  "title": "Euler: Detecting Network Lateral Movement via Scalable Temporal Graph Link Prediction",
+  "year": 2022,
+  "cites": 63,
+  "venue": "Network and Distributed System Security Symposium",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4281397359",
+  "doi": "https://doi.org/10.1007/s10489-022-03412-8",
+  "title": "Robust anomaly-based intrusion detection system for in-vehicle network by graph neural network framework",
+  "year": 2022,
+  "cites": 58,
+  "venue": "Applied Intelligence",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4377968952",
+  "doi": "https://doi.org/10.1016/j.iot.2023.100818",
+  "title": "A new concatenated Multigraph Neural Network for IoT intrusion detection",
+  "year": 2023,
+  "cites": 56,
+  "venue": "Internet of Things",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4367672248",
+  "doi": "https://doi.org/10.1016/j.cose.2023.103285",
+  "title": "NE-GConv: A lightweight node edge graph convolutional network for intrusion detection",
+  "year": 2023,
+  "cites": 49,
+  "venue": "Computers & Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4360851419",
+  "doi": "https://doi.org/10.1145/3588771",
+  "title": "Euler : Detecting Network Lateral Movement via Scalable Temporal Link Prediction",
+  "year": 2023,
+  "cites": 48,
+  "venue": "ACM Transactions on Privacy and Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4410255674",
+  "doi": "https://doi.org/10.1016/j.eswa.2025.128089",
+  "title": "XG-NID: Dual-modality network intrusion detection using a heterogeneous graph neural network and large language model",
+  "year": 2025,
+  "cites": 47,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409712865",
+  "doi": "https://doi.org/10.1186/s42400-024-00296-8",
+  "title": "BS-GAT: a network intrusion detection system based on graph neural network for edge computing",
+  "year": 2025,
+  "cites": 43,
+  "venue": "Cybersecurity",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4384931056",
+  "doi": "https://doi.org/10.3390/rs15143611",
+  "title": "N-STGAT: Spatio-Temporal Graph Neural Network Based Network Intrusion Detection for Near-Earth Remote Sensing",
+  "year": 2023,
+  "cites": 43,
+  "venue": "Remote Sensing",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3210903652",
+  "doi": "https://doi.org/10.1155/2021/4259629",
+  "title": "A Survey of Few-Shot Learning: An Effective Method for Intrusion Detection",
+  "year": 2021,
+  "cites": 41,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409130030",
+  "doi": "https://doi.org/10.1109/tifs.2025.3557741",
+  "title": "GTAE-IDS: Graph Transformer-Based Autoencoder Framework for Real-Time Network Intrusion Detection",
+  "year": 2025,
+  "cites": 40,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2982648802",
+  "doi": "https://doi.org/10.1137/1.9781611975673.78",
+  "title": "Attentional Heterogeneous Graph Neural Network: Application to Program Reidentification",
+  "year": 2019,
+  "cites": 40,
+  "venue": "Society for Industrial and Applied Mathematics eBooks",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402875760",
+  "doi": "https://doi.org/10.1016/j.cose.2024.104132",
+  "title": "Edge-featured multi-hop attention graph neural network for intrusion detection system",
+  "year": 2024,
+  "cites": 39,
+  "venue": "Computers & Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411880894",
+  "doi": "https://doi.org/10.1038/s41598-025-07956-w",
+  "title": "Advanced cloud intrusion detection framework using graph based features transformers and contrastive learning",
+  "year": 2025,
+  "cites": 38,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402263650",
+  "doi": "https://doi.org/10.1109/sp54263.2024.00253",
+  "title": "R-CAID: Embedding Root Cause Analysis within Provenance-based Intrusion Detection",
+  "year": 2024,
+  "cites": 36,
+  "venue": "Proceedings - IEEE Symposium on Security and Privacy/Proceedings of the ... IEEE Symposium on Security and Privacy",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids",
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4397001512",
+  "doi": "https://doi.org/10.1016/j.comnet.2024.110508",
+  "title": "FTG-Net-E: A hierarchical ensemble graph neural network for DDoS attack detection",
+  "year": 2024,
+  "cites": 36,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409311114",
+  "doi": "https://doi.org/10.1109/access.2025.3559325",
+  "title": "Intrusion Detection in IoT Networks Using Dynamic Graph Modeling and Graph-Based Neural Networks",
+  "year": 2025,
+  "cites": 34,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414146309",
+  "doi": "https://doi.org/10.3389/frai.2025.1625891",
+  "title": "A deep learning/machine learning approach for anomaly based network intrusion detection",
+  "year": 2025,
+  "cites": 33,
+  "venue": "Frontiers in Artificial Intelligence",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411604510",
+  "doi": "https://doi.org/10.3390/sym17070997",
+  "title": "Industrial Internet of Things Intrusion Detection System Based on Graph Neural Network",
+  "year": 2025,
+  "cites": 33,
+  "venue": "Symmetry",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4408387115",
+  "doi": "https://doi.org/10.1038/s41598-025-88054-9",
+  "title": "Graph attention and Kolmogorov\u2013Arnold network based smart grids intrusion detection",
+  "year": 2025,
+  "cites": 33,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396675456",
+  "doi": "https://doi.org/10.1007/s10586-024-04404-8",
+  "title": "Graph-ensemble fusion for enhanced IoT intrusion detection: leveraging GCN and deep learning",
+  "year": 2024,
+  "cites": 33,
+  "venue": "Cluster Computing",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411345181",
+  "doi": "https://doi.org/10.3390/info16060499",
+  "title": "Optimizing IoT Intrusion Detection\u2014A Graph Neural Network Approach with Attribute-Based Graph Construction",
+  "year": 2025,
+  "cites": 31,
+  "venue": "Information",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4378587122",
+  "doi": "https://doi.org/10.1007/978-3-031-33488-7_20",
+  "title": "Efficient Network Representation for GNN-Based Intrusion Detection",
+  "year": 2023,
+  "cites": 31,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399802427",
+  "doi": "https://doi.org/10.3390/electronics13122404",
+  "title": "Enhancing Multi-Class Attack Detection in Graph Neural Network through Feature Rearrangement",
+  "year": 2024,
+  "cites": 28,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416840327",
+  "doi": "https://doi.org/10.58346/jisis.2025.i4.035",
+  "title": "Federated Deep Graph Neural Network Algorithm for Real-Time Intrusion Detection in Heterogeneous IoT Systems",
+  "year": 2025,
+  "cites": 27,
+  "venue": "Journal of Internet Services and Information Security",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380930638",
+  "doi": "https://doi.org/10.1016/j.jisa.2023.103532",
+  "title": "Anomaly traffic detection in IoT security using graph neural networks",
+  "year": 2023,
+  "cites": 25,
+  "venue": "Journal of Information Security and Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411930154",
+  "doi": "https://doi.org/10.3390/wevj16070370",
+  "title": "AI-Driven Framework for Secure and Efficient Load Management in Multi-Station EV Charging Networks",
+  "year": 2025,
+  "cites": 23,
+  "venue": "World Electric Vehicle Journal",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405843472",
+  "doi": "https://doi.org/10.1038/s41598-024-81442-7",
+  "title": "Secure cloud computing: leveraging GNN and leader K-means for intrusion detection optimization",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405311141",
+  "doi": "https://doi.org/10.1016/j.asoc.2024.112603",
+  "title": "Network traffic analysis based on cybersecurity intrusion detection through an effective Automated Separate Guided Attention Federated Graph Neural Network",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Applied Soft Computing",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396642049",
+  "doi": "https://doi.org/10.1007/s10489-024-05404-2",
+  "title": "Embedding residuals in graph-based solutions: the E-ResSAGE and E-ResGAT algorithms. A case study in intrusion detection",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Applied Intelligence",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4379620324",
+  "doi": "https://doi.org/10.1145/3555776.3577651",
+  "title": "ARGANIDS: a novel Network Intrusion Detection System based on adversarially Regularized Graph Autoencoder",
+  "year": 2023,
+  "cites": 23,
+  "venue": "ACM/SIGAPP Symposium on Applied Computing (SAC)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4407732310",
+  "doi": "https://doi.org/10.1016/j.apenergy.2025.125439",
+  "title": "Multi-view graph contrastive representative learning for intrusion detection in EV charging station",
+  "year": 2025,
+  "cites": 22,
+  "venue": "Applied Energy",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3216081894",
+  "doi": "https://doi.org/10.48550/arxiv.2111.13597",
+  "title": "Graph-based Solutions with Residuals for Intrusion Detection: the Modified E-GraphSAGE and E-ResGAT Algorithms",
+  "year": 2021,
+  "cites": 22,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405613963",
+  "doi": "https://doi.org/10.1016/j.compeleceng.2024.109956",
+  "title": "ResACAG: A graph neural network based intrusion detection",
+  "year": 2024,
+  "cites": 20,
+  "venue": "Computers & Electrical Engineering",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412174995",
+  "doi": "https://doi.org/10.3390/electronics14142756",
+  "title": "EL-GNN: A Continual-Learning-Based Graph Neural Network for Task-Incremental Intrusion Detection Systems",
+  "year": 2025,
+  "cites": 19,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7221091099",
+  "doi": "https://doi.org/10.3390/electronics15204584",
+  "title": "Trust-Aware Federated Learning for Privacy-Preserving IoT Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220856131",
+  "doi": "https://doi.org/10.1201/9781003744627-6",
+  "title": "AI-Driven Threat Detection Architecture",
+  "year": 2026,
+  "cites": 0,
+  "venue": "CRC Press eBooks",
+  "type": "book-chapter",
+  "tags": [
+   "gnn_nids",
+   "knn_graph_ids",
+   "adv_gnn_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203565487",
+  "doi": "https://doi.org/10.1007/978-3-032-38702-8_13",
+  "title": "Breaking GNN-Based NIDS via Hard-Label Black-Box Flow Injection Attacks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220702529",
+  "doi": "https://doi.org/10.63544/8wxdhb56",
+  "title": "Explainable AI-Driven Zero-Day Malware Detection Using Hybrid Transformer-Graph Networks in Cloud-Native Environments",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Engineering and Computational Intelligence Review",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7219604126",
+  "doi": "https://doi.org/10.48084/etasr.11369",
+  "title": "A Dynamic Quorum Ensemble Intrusion Detection System for Enhanced IoT Security",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Engineering Technology & Applied Science Research",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7215048056",
+  "doi": "https://doi.org/10.3390/technologies14100624",
+  "title": "Graph-Aware Reinforcement Learning for Adaptive APT Threat Hunting in Dynamic Enterprise Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Technologies",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7221082374",
+  "doi": "https://doi.org/10.1016/j.patcog.2026.115103",
+  "title": "Reliability-aware dynamic dependency graph neural network for airborne network intrusion detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Pattern Recognition",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214943431",
+  "doi": "https://doi.org/10.3390/s26196211",
+  "title": "AI-Driven Intrusion Detection for Vehicular Networks: A Comprehensive Survey of Techniques, Datasets, Deployment Architectures, and Future Directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Sensors",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214971888",
+  "doi": "https://doi.org/10.1007/s43926-026-00487-4",
+  "title": "Intelligent security policy generation algorithm based on graph neural network and reinforcement learning for SD-WAN",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Discover Internet of Things",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214601014",
+  "doi": "https://doi.org/10.64189/ict.26318",
+  "title": "AI Approaches for Industrial Control System Cybersecurity: A Comprehensive Review of Methodological Contexts",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Information and Communications Technology Algorithms Systems and Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214014773",
+  "doi": "https://doi.org/10.1016/j.eswa.2026.134490",
+  "title": "HGIB-Pro: Heterogeneous graph contrastive neural network with information bottleneck for open-set intrusion detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213905868",
+  "doi": "https://doi.org/10.1177/1088467x261488186",
+  "title": "Online intrusion detection in computer networks using edge-aware attentive graph neural network",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Intelligent Data Analysis",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213925790",
+  "doi": "https://doi.org/10.1016/j.array.2026.101259",
+  "title": "AI-driven DNS tunneling detection using temporal aware heterogeneous GNN",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Array",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213620684",
+  "doi": "https://doi.org/10.1186/s13677-026-00981-8",
+  "title": "Integrated blockchain-federated learning framework for IOT security",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Cloud Computing Advances Systems and Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213544052",
+  "doi": "https://doi.org/10.1007/s11276-026-04221-4",
+  "title": "A novel FedLLM intrusion detection framework for privacy-preserving security in IoT enabled smart city network",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Wireless Networks",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213253845",
+  "doi": "https://doi.org/10.5281/zenodo.22764611",
+  "title": "Spatio-Temporal Graph Neural Networks for UAV Swarm Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7212259014",
+  "doi": "https://doi.org/10.25195/ijci.v52i2.808",
+  "title": "AI-Powered Cybersecurity: Emerging Trends and Challenges \u2013 A Narrative Review",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Iraqi Journal for Computers and Informatics",
+  "type": "review",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7212139181",
+  "doi": "https://doi.org/10.1201/9788743815273-5",
+  "title": "In-GPU GNN-based Intrusion Detection System",
+  "year": 2026,
+  "cites": 0,
+  "venue": "River Publishers eBooks",
+  "type": "book-chapter",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211874495",
+  "doi": "https://doi.org/10.1007/s10462-026-11683-7",
+  "title": "Graph neural networks for network intrusion detection systems: a comprehensive survey, taxonomy, and empirical evaluation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211915360",
+  "doi": "https://doi.org/10.3389/fdata.2026.1938279",
+  "title": "AI-driven cybersecurity for industrial internet of things: architectures, challenges, datasets, and future research directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Frontiers in Big Data",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202074098",
+  "doi": "https://doi.org/10.1007/s44354-026-00048-9",
+  "title": "Edge weight concentration overcomes node degree blindness in graph based network intrusion detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Discover Networks",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7210281780",
+  "doi": "https://doi.org/10.5281/zenodo.22471346",
+  "title": "Self-Organizing Graph Neural Networks for Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "preprint",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208806949",
+  "doi": "https://doi.org/10.5281/zenodo.22339159",
+  "title": "Graph Neural Networks for Anomaly Detection via Topological Distance",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "preprint",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208717535",
+  "doi": "https://doi.org/10.1002/9781394422791.ch14",
+  "title": "Graph\u2010Based Anomaly Detection for Security Applications",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "other",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208723134",
+  "doi": "https://doi.org/10.1002/9781394422791.ch13",
+  "title": "Stratified Sampling and Graph Neural Networks for Zero\u2010Day Attack Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "other",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208736023",
+  "doi": "https://doi.org/10.5281/zenodo.22290978",
+  "title": "U-XAI-IDS: A Unified Benchmark for Domain-Feasible and Adversarially-Robust Explainability in Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208743739",
+  "doi": "https://doi.org/10.1002/9781394422791.ch15",
+  "title": "Graph\u2010Based Anomaly Detection in Cybersecurity and FinTech",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "other",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7207854225",
+  "doi": "https://doi.org/10.1201/9781042026333-42",
+  "title": "Design of an Efficient Multi-Stage Graph-Based Intrusion Detection System for the Internet of Things",
+  "year": 2026,
+  "cites": 0,
+  "venue": "CRC Press eBooks",
+  "type": "book-chapter",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7217588342",
+  "doi": null,
+  "title": "Deep Reinforced Adaptive Graph Optimization Network for Intelligent Intrusion Detection in UAV Communication Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Indian Engineering Journal",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204761962",
+  "doi": "https://doi.org/10.17559/tv-20251122003150",
+  "title": "Temporal-Contextual Graph Transformer for Adaptive Intrusion Detection Systems in Internet of Things",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Tehnicki vjesnik - Technical Gazette",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204800539",
+  "doi": "https://doi.org/10.1038/s41598-026-69410-9",
+  "title": "ADA-GNetIDS: ADASYN-augmented graph neural network based learning in IDS for robust cyber attack classification",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204694893",
+  "doi": "https://doi.org/10.5281/zenodo.22171258",
+  "title": "Graph Neural Networks for Spatio-Temporal Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204715774",
+  "doi": "https://doi.org/10.66917/ijaeic.a000014",
+  "title": "Zero-Trust Graph Neural Networks: Dynamic Lateral Movement Detection and Attack Path Reconstruction in Hybrid Cloud Infrastructure",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Applied Engineering and Intelligent Computing",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204490197",
+  "doi": "https://doi.org/10.1016/j.eswa.2026.134127",
+  "title": "IoT intrusion detection based on reinforced graph contrastive learning with homophily-heterophily decoupling",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204491987",
+  "doi": "https://doi.org/10.1186/s13677-026-00965-8",
+  "title": "HospGNN-IDS: scalable graph neural network-based intrusion detection for IoT-enabled hospital networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Cloud Computing Advances Systems and Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7217541489",
+  "doi": null,
+  "title": "Edge-Aware GATv2-BiLSTM Framework for Spatiotemporal Intrusion Detection in Autonomous UAV Command-and-Control Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Intelligent Systems and Applications in Engineering",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204103912",
+  "doi": "https://doi.org/10.21203/rs.3.rs-10193764/v1",
+  "title": "MeanRadius SMOTE Based Graph Neural Network for Imbalanced Node Classification in Fault and Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Research Square",
+  "type": "preprint",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204028205",
+  "doi": "https://doi.org/10.5281/zenodo.22066482",
+  "title": "mig2002/Federated_learning_GNN: ADA-GNetIDS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "software",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204037665",
+  "doi": "https://doi.org/10.5281/zenodo.22067857",
+  "title": "Code for ADA-GNetIDS: ADASYN-Augmented Graph Neural Network based learning in IDS for robust Cyber attack classification",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "software",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204146029",
+  "doi": "https://doi.org/10.3390/electronics15173764",
+  "title": "An Explainable and Interpretable GNN Based on Temporal Time Series: An IDS Approach",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203874717",
+  "doi": "https://doi.org/10.5281/zenodo.22026998",
+  "title": "Graph Neural Networks for Zero-Day Intrusion Detection in UAV Swarms",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203796829",
+  "doi": "https://doi.org/10.1002/dac.70580",
+  "title": "An Advanced Framework Leveraging Contrastive Multilevel Graph Neural Networks With Snow Avalanches Algorithm to Enhance IoT Network Security for Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Communication Systems",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204435512",
+  "doi": "https://doi.org/10.55938/ijgasr.v5i3.474",
+  "title": "A Dynamic Graph Neural Network Framework for Advanced Persistent Threat Detection in Cloud Computing",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal for Global Academic & Scientific Research",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203613587",
+  "doi": "https://doi.org/10.3390/electronics15163667",
+  "title": "MaGOS-IDS: A Mahalanobis-Enhanced OpenMax Method for Graph Neural Network-Based Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203661583",
+  "doi": "https://doi.org/10.70917/ijcisim-2026-4819",
+  "title": "An Intelligent Fuzzy Graph-Based Framework for Network Threat Detection, Cyber Risk Assessment, and Adaptive Mitigation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Computer Information Systems and Industrial Management Applications",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213302853",
+  "doi": "https://doi.org/10.5281/zenodo.22763194",
+  "title": "Neural Cyber-Resilience: Deep Learning for Threat Detection and Critical Infrastructure Defense by Aravind Kumar Karpoorapu",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "book",
+  "tags": [
+   "gnn_nids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202384197",
+  "doi": "https://doi.org/10.7716/aem.v15i3.3111",
+  "title": "Research on the Construction and Optimization Method of Intelligent Segmentation Model for Power Users in the Context of Communication Security Standards",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Advanced Electromagnetics",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204076580",
+  "doi": "https://doi.org/10.20894/ijcnes.103.015.001.003",
+  "title": "Dual-Site Attention Hypergraph Neural Networks: Artificial Intelligence-Powered Intrusion Detection System",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Communication and Networking System",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220206296",
+  "doi": null,
+  "title": "Adaptive Graph Neural Network Model for Real-Time Intrusion and Cyber Threat Detection in Cloud Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International journal of computer science & information system.",
+  "type": "article",
+  "tags": [
+   "gnn_nids",
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202257631",
+  "doi": "https://doi.org/10.5281/zenodo.21904663",
+  "title": "AI-Driven Detection of Advanced Persistent Threats in Enterprise Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "tags": [
+   "gnn_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4312935532",
+  "doi": "https://doi.org/10.1109/tnsm.2022.3227500",
+  "title": "Flow-Based Encrypted Network Traffic Classification With Graph Neural Networks",
+  "year": 2022,
+  "cites": 134,
+  "venue": "IEEE Transactions on Network and Service Management",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3036484052",
+  "doi": "https://doi.org/10.1007/s12530-020-09347-0",
+  "title": "A graph neural network method for distributed anomaly detection in IoT",
+  "year": 2020,
+  "cites": 130,
+  "venue": "Evolving Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3033091443",
+  "doi": "https://doi.org/10.1016/j.ins.2020.03.113",
+  "title": "Multi-attributed heterogeneous graph convolutional network for bot detection",
+  "year": 2020,
+  "cites": 96,
+  "venue": "Information Sciences",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4324029729",
+  "doi": "https://doi.org/10.1016/j.iot.2023.100747",
+  "title": "XG-BoT: An explainable deep graph neural network for botnet detection and forensics",
+  "year": 2023,
+  "cites": 80,
+  "venue": "Internet of Things",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3134204681",
+  "doi": "https://doi.org/10.1145/3468791.3468814",
+  "title": "NF-GNN: Network Flow Graph Neural Networks for Malware Detection and Classification",
+  "year": 2021,
+  "cites": 76,
+  "venue": "International Conference on Scientific and Statistical Database Management",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4390005328",
+  "doi": "https://doi.org/10.1038/s43588-023-00558-4",
+  "title": "Emerging drug interaction prediction enabled by a flow-based graph neural network with biomedical network",
+  "year": 2023,
+  "cites": 73,
+  "venue": "Nature Computational Science",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3023401249",
+  "doi": "https://doi.org/10.1609/aaai.v34i01.5425",
+  "title": "Learning Geo-Contextual Embeddings for Commuting Flow Prediction",
+  "year": 2020,
+  "cites": 73,
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4319966459",
+  "doi": "https://doi.org/10.1016/j.comnet.2023.109614",
+  "title": "EC-GCN: A encrypted traffic classification framework based on multi-scale graph convolution networks",
+  "year": 2023,
+  "cites": 71,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4390035122",
+  "doi": "https://doi.org/10.1038/s43588-023-00555-7",
+  "title": "Predicting emerging drug interactions using GNNs",
+  "year": 2023,
+  "cites": 70,
+  "venue": "Nature Computational Science",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3189142404",
+  "doi": "https://doi.org/10.1109/tits.2021.3098461",
+  "title": "Spatiotemporal Dynamic Forecasting and Analysis of Regional Traffic Flow in Urban Road Networks Using Deep Learning Convolutional Neural Network",
+  "year": 2021,
+  "cites": 67,
+  "venue": "IEEE Transactions on Intelligent Transportation Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4211213044",
+  "doi": "https://doi.org/10.1109/tits.2022.3148116",
+  "title": "Exploring Human Mobility for Multi-Pattern Passenger Prediction: A Graph Learning Framework",
+  "year": 2022,
+  "cites": 66,
+  "venue": "IEEE Transactions on Intelligent Transportation Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4294690802",
+  "doi": "https://doi.org/10.1109/access.2022.3204036",
+  "title": "GCN-GAN: Integrating Graph Convolutional Network and Generative Adversarial Network for Traffic Flow Prediction",
+  "year": 2022,
+  "cites": 60,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3040320120",
+  "doi": "https://doi.org/10.3233/jifs-200694",
+  "title": "APT attack detection based on flow network analysis techniques using deep learning",
+  "year": 2020,
+  "cites": 57,
+  "venue": "Journal of Intelligent & Fuzzy Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4393219177",
+  "doi": "https://doi.org/10.1016/j.comnet.2024.110372",
+  "title": "DE-GNN: Dual embedding with graph neural network for fine-grained encrypted traffic classification",
+  "year": 2024,
+  "cites": 54,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4391418579",
+  "doi": "https://doi.org/10.1016/j.apenergy.2024.122736",
+  "title": "Localization of dummy data injection attacks in power systems considering incomplete topological information: A spatio-temporal graph wavelet convolutional neural network approach",
+  "year": 2024,
+  "cites": 52,
+  "venue": "Applied Energy",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4281651051",
+  "doi": "https://doi.org/10.1007/s10707-022-00467-0",
+  "title": "ConvGCN-RF: A hybrid learning model for commuting flow prediction considering geographical semantics and neighborhood effects",
+  "year": 2022,
+  "cites": 51,
+  "venue": "GeoInformatica",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285216302",
+  "doi": "https://doi.org/10.1109/tkde.2022.3187690",
+  "title": "STP-TrellisNets+: Spatial-Temporal Parallel TrellisNets for Multi-Step Metro Station Passenger Flow Prediction",
+  "year": 2022,
+  "cites": 50,
+  "venue": "IEEE Transactions on Knowledge and Data Engineering",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399492013",
+  "doi": "https://doi.org/10.3390/electronics13122274",
+  "title": "GNN-Based Network Traffic Analysis for the Detection of Sequential Attacks in IoT",
+  "year": 2024,
+  "cites": 49,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4398211652",
+  "doi": "https://doi.org/10.5194/essd-16-2425-2024",
+  "title": "LGHAP v2: a global gap-free aerosol optical depth and PM 2.5 concentration dataset since 2000 derived via big Earth data analytics",
+  "year": 2024,
+  "cites": 46,
+  "venue": "Earth system science data",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4366327286",
+  "doi": "https://doi.org/10.1145/3539618.3591743",
+  "title": "Normalizing Flow-based Neural Process for Few-Shot Knowledge Graph Completion",
+  "year": 2023,
+  "cites": 42,
+  "venue": "International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2950832586",
+  "doi": "https://doi.org/10.1145/3323873.3325010",
+  "title": "Deep Association",
+  "year": 2019,
+  "cites": 40,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4292381889",
+  "doi": "https://doi.org/10.1063/5.0100236",
+  "title": "Grid adaptive reduced-order model of fluid flow based on graph convolutional neural network",
+  "year": 2022,
+  "cites": 35,
+  "venue": "Physics of Fluids",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4286511452",
+  "doi": "https://doi.org/10.1016/j.physa.2022.127959",
+  "title": "Multi-point short-term prediction of station passenger flow based on temporal multi-graph convolutional network",
+  "year": 2022,
+  "cites": 35,
+  "venue": "Physica A Statistical Mechanics and its Applications",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396974593",
+  "doi": "https://doi.org/10.1016/j.drudis.2024.104024",
+  "title": "Geometric deep learning methods and applications in 3D structure-based drug design",
+  "year": 2024,
+  "cites": 33,
+  "venue": "Drug Discovery Today",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4206912047",
+  "doi": "https://doi.org/10.1155/2022/4274139",
+  "title": "GCN-ETA: High-Efficiency Encrypted Malicious Traffic Detection",
+  "year": 2022,
+  "cites": 32,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4283218438",
+  "doi": "https://doi.org/10.1155/2022/4222827",
+  "title": "Automatic Traffic Anomaly Detection on the Road Network with Spatial\u2010Temporal Graph Neural Network Representation Learning",
+  "year": 2022,
+  "cites": 32,
+  "venue": "Wireless Communications and Mobile Computing",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3093639344",
+  "doi": "https://doi.org/10.1145/3340531.3411874",
+  "title": "STP-TrellisNets: Spatial-Temporal Parallel TrellisNets for Metro Station Passenger Flow Prediction",
+  "year": 2020,
+  "cites": 32,
+  "venue": "Proceedings of the ... ACM International Conference on Information & Knowledge Management",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4200002683",
+  "doi": "https://doi.org/10.1155/2021/9513170",
+  "title": "The Prediction of Multistep Traffic Flow Based on AST-GCN-LSTM",
+  "year": 2021,
+  "cites": 31,
+  "venue": "Journal of Advanced Transportation",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401732351",
+  "doi": "https://doi.org/10.1016/j.ress.2024.110452",
+  "title": "Forecasting road network functionality states during extreme rainfall events to facilitate real-time emergency response planning",
+  "year": 2024,
+  "cites": 30,
+  "venue": "Reliability Engineering & System Safety",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4312531217",
+  "doi": "https://doi.org/10.1109/tnet.2022.3217083",
+  "title": "FlexDATE: Flexible and Disturbance-Aware Traffic Engineering With Reinforcement Learning in Software-Defined Networks",
+  "year": 2022,
+  "cites": 30,
+  "venue": "IEEE/ACM Transactions on Networking",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403741161",
+  "doi": "https://doi.org/10.1016/j.knosys.2024.112586",
+  "title": "Dynamic multi-scale spatial-temporal graph convolutional network for traffic flow prediction",
+  "year": 2024,
+  "cites": 29,
+  "venue": "Knowledge-Based Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4289533787",
+  "doi": "https://doi.org/10.1109/icde53745.2022.00058",
+  "title": "A Data-Driven Spatial-Temporal Graph Neural Network for Docked Bike Prediction",
+  "year": 2022,
+  "cites": 29,
+  "venue": "Proceedings - International Conference on Data Engineering",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3172510517",
+  "doi": "https://doi.org/10.1016/j.patrec.2021.06.003",
+  "title": "Scene image and human skeleton-based dual-stream human action recognition",
+  "year": 2021,
+  "cites": 26,
+  "venue": "Pattern Recognition Letters",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4362733507",
+  "doi": "https://doi.org/10.3390/info14040228",
+  "title": "Graph Neural Networks and Open-Government Data to Forecast Traffic Flow",
+  "year": 2023,
+  "cites": 24,
+  "venue": "Information",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392247425",
+  "doi": "https://doi.org/10.1016/j.physa.2024.129643",
+  "title": "Surrounding vehicle trajectory prediction under mixed traffic flow based on graph attention network",
+  "year": 2024,
+  "cites": 22,
+  "venue": "Physica A Statistical Mechanics and its Applications",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385653227",
+  "doi": "https://doi.org/10.14778/3603581.3603595",
+  "title": "CommunityAF: An Example-Based Community Search Method via Autoregressive Flow",
+  "year": 2023,
+  "cites": 21,
+  "venue": "Proceedings of the VLDB Endowment",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409536769",
+  "doi": "https://doi.org/10.1109/icvisp64524.2024.10959352",
+  "title": "Rectified Flow-Based Generative Transfer Learning for System Fault Diagnosis",
+  "year": 2024,
+  "cites": 20,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3173703451",
+  "doi": "https://doi.org/10.1109/cvpr46437.2021.00662",
+  "title": "Mol2Image: Improved Conditional Flow Models for Molecule to Image Synthesis",
+  "year": 2021,
+  "cites": 20,
+  "venue": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7215064985",
+  "doi": "https://doi.org/10.64388/irev10i3-1723643",
+  "title": "Graph-Theoretic Optimization of Transportation\u2013Communication Networks: A Mathematical and AI-Enabled Framework for Adaptive Intelligent Transportation Systems",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Iconic Research and Engineering Journals",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214728365",
+  "doi": "https://doi.org/10.1016/j.ress.2026.113590",
+  "title": "A novel resilience assessment and recovery strategy for multimodal passenger transport networks under typhoon disasters",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Reliability Engineering & System Safety",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214582025",
+  "doi": "https://doi.org/10.3390/sym18101623",
+  "title": "Lightweight Relation-Aware Graph Neural Networks for Network Threat Detection in the Social Internet of Things",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Symmetry",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7215086533",
+  "doi": "https://doi.org/10.13021/jssr2026.5711",
+  "title": "A Physics Informed Graph Attention Transformer with Weather Driven Delay Propagation for Air Traffic State Prediction",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Student-Scientists' Research",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211928236",
+  "doi": "https://doi.org/10.1007/s12369-026-01430-x",
+  "title": "Continuous Hand Gesture-Based Human-Robot Interaction for Indoor Mobile Robot",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Social Robotics",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211869309",
+  "doi": "https://doi.org/10.1007/978-3-032-37657-2_27",
+  "title": "Learning Generalized Hessian on Graphs for Continuous Graph Learning",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211988746",
+  "doi": "https://doi.org/10.48550/arxiv.2609.07961",
+  "title": "$\u03b1$-Graph: Attention-Infused Normalizing Flow Approach to Tractable Graph Modeling",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7206204599",
+  "doi": "https://doi.org/10.21203/rs.3.rs-10874988/v1",
+  "title": "CTDG-IDS: Continuous-time Dynamic Graph Representation Learning for Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Research Square",
+  "type": "preprint",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7210262090",
+  "doi": "https://doi.org/10.1002/wcms.70086",
+  "title": "EGNN \u2010Based Generative Models for 3D Molecular Generation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Wiley Interdisciplinary Reviews Computational Molecular Science",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204664737",
+  "doi": "https://doi.org/10.5281/zenodo.22154037",
+  "title": "Graph-Based Representation Learning for Anomaly Detection in Network Traffic",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "preprint",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204160524",
+  "doi": "https://doi.org/10.1007/s40747-026-02468-0",
+  "title": "Interpretable discovery of anisotropic dissipation limiters for hypersonic flows via flow-aligned spatiotemporal graph attention and symbolic distillation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Complex & Intelligent Systems",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203775020",
+  "doi": "https://doi.org/10.1002/ail2.70040",
+  "title": "Hybrid Graph Neural Network\u2013Reinforcement Learning Framework for Intelligent Programmable Network Automation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Applied AI Letters",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203647637",
+  "doi": "https://doi.org/10.1007/978-3-032-35579-9_21",
+  "title": "Distilling GNNs Into Symbolic Equations for Explainable Anomaly Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213303431",
+  "doi": "https://doi.org/10.63964/jatuc.43.2.2026.11",
+  "title": "Intrusion Detection System for Secure IoT-Based Healthcare Systems Based on Temporal Graph Attention",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Al-Turath University College",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204176064",
+  "doi": "https://doi.org/10.2166/hydro.2026.113",
+  "title": "A physics-informed graph neural surrogate based on flow-space decomposition for hydraulic analysis in water distribution networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Hydroinformatics",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7216834223",
+  "doi": null,
+  "title": "Graph Neural Network-Based Framework for Intelligent Cyber Threat Detection in Cloud Computing",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Next-Generation Engineering and Technology",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220884534",
+  "doi": null,
+  "title": "Optimized Graph Neural Network Framework for Intelligent Cyber Threat Identification and Security Monitoring in Cloud Platforms",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Bulletin of Applied Sciences and Technology",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7172511441",
+  "doi": "https://doi.org/10.1016/j.sasc.2026.200586",
+  "title": "Research on forecasting model of international trade flow based on GNN-SOM algorithm",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Systems and Soft Computing",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7172204203",
+  "doi": "https://doi.org/10.1007/978-3-032-34377-2_18",
+  "title": "XKG-IDS: Symbolic Graph Learning for Intrinsically Explainable IoT Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213976551",
+  "doi": "https://doi.org/10.1007/978-3-032-30963-1_47",
+  "title": "Detection of C2 Beaconing in Networks Using GNN",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in networks and systems",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202395158",
+  "doi": "https://doi.org/10.1007/s44443-026-01014-9",
+  "title": "SketchSAGE: Enabling efficient IoT network intrusion detection based on graph neural networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of King Saud University - Computer and Information Sciences",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7168156089",
+  "doi": "https://doi.org/10.17632/cdwfv3mwxc",
+  "title": "Hybrid Edge-Centric Graph Transformers: Overcoming Representation Bottlenecks in Self-Supervised Network Intrusion Detection System",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Mendeley Data",
+  "type": "dataset",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7167422686",
+  "doi": "https://doi.org/10.1016/j.eswa.2026.133547",
+  "title": "Cross-level graph learning on packet-cluster representations of encrypted traffic for network intrusion detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7170192894",
+  "doi": "https://doi.org/10.1007/s10586-026-06350-z",
+  "title": "Anomal-EF: self-supervised learning and multi-head attention based anomalous node detection in IoT networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Cluster Computing",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202339556",
+  "doi": "https://doi.org/10.67535/tsp.000003.012",
+  "title": "Botnet Command and Control Detection via Network Flow Analysis",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204145309",
+  "doi": "https://doi.org/10.1109/icce-taiwan71481.2026.11652472",
+  "title": "Tranexis: A Smart Management Platform for Predicting Traffic Flow Based on Integrated Time Domain and Spatial Domain Graph Neural Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "IEEE International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211870682",
+  "doi": "https://doi.org/10.1109/icws72778.2026.00036",
+  "title": "TRUEdge: Faithful Edge-Aware Graph Learning for Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "IEEE International Conference on Web Services (ICWS)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7212077606",
+  "doi": "https://doi.org/10.1109/mnc69143.2026.11680744",
+  "title": "Forecasting Individual NetFlows using a Predictive Masked Graph Autoencoder",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7168905304",
+  "doi": "https://doi.org/10.5281/zenodo.21387653",
+  "title": "HYBRIDATTENTIONNET: A GRAPH CONVOLUTIONAL-TRANSFORMER HYBRID ARCHITECTURE WITH MULTI-HEAD ATTENTION FOR INTELLIGENT REAL-TIME NETWORK INTRUSION DETECTION",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Theoretical and Applied Information Technology",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7169049113",
+  "doi": "https://doi.org/10.5281/zenodo.21387388",
+  "title": "HIERARCHICAL GRAPH ATTENTION NETWORK WITH BIDIRECTIONAL LSTM FOR REAL-TIME MULTI-CLASS NETWORK INTRUSION DETECTION",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Theoretical and Applied Information Technology",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165858793",
+  "doi": "https://doi.org/10.1007/s11227-026-08679-z",
+  "title": "THC-IDS: temporal Hebbian-enhanced contrastive Learning for IDS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "The Journal of Supercomputing",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165968159",
+  "doi": "https://doi.org/10.1016/j.iot.2026.102010",
+  "title": "NEXUS-IDS: From structural to semantic explainability in flow-node graph neural networks for IoT intrusion detection",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Internet of Things",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164342152",
+  "doi": "https://doi.org/10.1109/iciics67880.2026.11483603",
+  "title": "Algorithmic Model Construction for Intelligent Allocation of Medical Services From a New Technology Convergence Perspective",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Integrated Intelligence and Communication Systems (ICIICS)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164361768",
+  "doi": "https://doi.org/10.1109/iciics67880.2026.11483598",
+  "title": "Adaptative Intrusion Detection for Communication Network Using Node Centric Pruning-Graph Attention Network",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Integrated Intelligence and Communication Systems (ICIICS)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164403095",
+  "doi": "https://doi.org/10.1109/iciics67880.2026.11483484",
+  "title": "Smart City Traffic Optimization Using Adaptive Spatio-Temporal Graph Attention with Predictive Consistency Learning",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Integrated Intelligence and Communication Systems (ICIICS)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163741469",
+  "doi": "https://doi.org/10.48084/etasr.17590",
+  "title": "Adaptive Graph-Based Intrusion Detection for Internet of Medical Things (IoMT) Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Engineering Technology & Applied Science Research",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163519209",
+  "doi": "https://doi.org/10.1016/j.tre.2026.104987",
+  "title": "A novel HGCN-transformer spatio-temporal model for multi-modal freight demand forecasting and OD matrix estimation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Transportation Research Part E Logistics and Transportation Review",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163580434",
+  "doi": "https://doi.org/10.26434/chemrxiv.15004323/v1",
+  "title": "ChemDistill: Hierarchical Graph Attention Distillation with Parameter-Efficient Multi-Task Adapters for Molecular Property Prediction and Chemical Reaction Analysis",
+  "year": 2026,
+  "cites": 0,
+  "venue": "ChemRxiv",
+  "type": "preprint",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164853257",
+  "doi": "https://doi.org/10.1007/s40860-026-00272-8",
+  "title": "A graph-based Bayesian intrusion detection framework with Gibbs sampling for uncertainty-aware IoT security",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Journal of Reliable Intelligent Environments",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166104149",
+  "doi": "https://doi.org/10.1016/j.dt.2026.06.002",
+  "title": "Temporal flow-based dynamic graph neural network with robustness interpretation for DoS/DDoS IoT intrusion detection",
+  "year": 2026,
+  "cites": 2,
+  "venue": "Defence Technology",
+  "type": "article",
+  "tags": [
+   "gnn_flow",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211875951",
+  "doi": "https://doi.org/10.58532/nbennur3157c3",
+  "title": "ARTIFICIAL INTELLIGENCE AND GRAPH COLORING FOR SUSTAINABLE TECHNOLOGY",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Iterative International Publishers eBooks",
+  "type": "book-chapter",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7151512608",
+  "doi": "https://doi.org/10.1039/d5dd00363f",
+  "title": "FlowMol3: flow matching for 3D de novo small-molecule generation.",
+  "year": 2026,
+  "cites": 4,
+  "venue": "PubMed",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7161854103",
+  "doi": "https://doi.org/10.1007/s10479-026-07269-9",
+  "title": "SGCN: A Robust Subsampling-Based GCN for Large-Scale Network with Out-of-Distribution Nodes",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Annals of Operations Research",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7161117413",
+  "doi": "https://doi.org/10.1016/j.adhoc.2026.104251",
+  "title": "Spatio-temporal graph neural networks for zero-day intrusion detection in low-altitude autonomous UAV swarms",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Ad Hoc Networks",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7161299170",
+  "doi": "https://doi.org/10.1016/j.aej.2026.05.019",
+  "title": "A spatiotemporal correlation model for traffic flow based on dynamic graph attention and multi-scale feature fusion",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Alexandria Engineering Journal",
+  "type": "article",
+  "tags": [
+   "gnn_flow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413202368",
+  "doi": "https://doi.org/10.1016/j.comnet.2025.111606",
+  "title": "Enhancing intrusion detection performance using GCN-LOF: A hybrid graph-based anomaly detection approach",
+  "year": 2025,
+  "cites": 15,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409445564",
+  "doi": "https://doi.org/10.1016/j.engappai.2025.110851",
+  "title": "An adaptive graph neural network-based intrusion detection system for airborne network",
+  "year": 2025,
+  "cites": 11,
+  "venue": "Engineering Applications of Artificial Intelligence",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409503863",
+  "doi": "https://doi.org/10.1007/s11760-025-04083-x",
+  "title": "Multi-classification algorithm based on graph convolutional neural network for intrusion detection",
+  "year": 2025,
+  "cites": 5,
+  "venue": "Signal Image and Video Processing",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3172885594",
+  "doi": "https://doi.org/10.21203/rs.3.rs-515900/v1",
+  "title": "Multiple Classification Algorithm Based on Graph Convolutional Neural Network for Intrusion Detection",
+  "year": 2021,
+  "cites": 4,
+  "venue": "Research Square",
+  "type": "preprint",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7155003588",
+  "doi": "https://doi.org/10.3390/electronics15081737",
+  "title": "A Study on a Network Intrusion Detection System Based on the Fusion of SAGEConv-GNN and a Transformer Encoder",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Electronics",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7117478410",
+  "doi": "https://doi.org/10.1038/s41598-025-28359-x",
+  "title": "Osprey optimization algorithm integrated with graph neural networks for intrusion detection in wireless sensor networks",
+  "year": 2025,
+  "cites": 3,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416842396",
+  "doi": "https://doi.org/10.1007/s41060-025-00922-9",
+  "title": "Enhancing network intrusion detection using graph convolutional networks fused with traditional systems",
+  "year": 2025,
+  "cites": 3,
+  "venue": "International Journal of Data Science and Analytics",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414530272",
+  "doi": "https://doi.org/10.1007/s11235-025-01352-5",
+  "title": "MGNN-IDS: a multi-graph neural network approach for robust intrusion detection in the internet of things",
+  "year": 2025,
+  "cites": 3,
+  "venue": "Telecommunication Systems",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392910468",
+  "doi": "https://doi.org/10.1109/ccnc51664.2024.10454841",
+  "title": "Graph Autoencoders for Detecting Anomalous Intrusions in OT Networks Through Dynamic Link Detection",
+  "year": 2024,
+  "cites": 3,
+  "venue": "IEEE Consumer Communications & Networking Conference (CCNC)",
+  "type": "conference-paper",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415673958",
+  "doi": "https://doi.org/10.4218/etrij.2025-0152",
+  "title": "Graph neural network\u2010enhanced auxiliary classifier generative adversarial network framework for robust intrusion detection",
+  "year": 2025,
+  "cites": 2,
+  "venue": "ETRI Journal",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415776180",
+  "doi": "https://doi.org/10.36074/grail-of-science.18.07.2025.058",
+  "title": "GRAPH NEURAL NETWORK-BASED INTRUSION DETECTION FOR IOT: PERFORMANCE AND COMPARATIVE ANALYSIS",
+  "year": 2025,
+  "cites": 1,
+  "venue": "\u0413\u0420\u0410\u0410\u041b\u042c \u041d\u0410\u0423\u041a\u0418",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4410609169",
+  "doi": "https://doi.org/10.1109/icoact63339.2025.11004728",
+  "title": "Anomaly Detection in Network Security Using Unsupervised Graph Neural Network",
+  "year": 2025,
+  "cites": 1,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203769631",
+  "doi": "https://doi.org/10.48550/arxiv.2608.17352",
+  "title": "Cognitive Graph Intelligence for Adaptive and Robust DDoS Attack Detection in Next Generation Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7172334128",
+  "doi": "https://doi.org/10.70917/ijcisim-2026-3696",
+  "title": "Artificial Intelligence-Based Intrusion Detection Systems for Cloud and Internet of Things (IoT) Environments",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Computer Information Systems and Industrial Management Applications",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids",
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165769583",
+  "doi": "https://doi.org/10.66261/tg4asf94",
+  "title": "Machine Learning and Deep Learning-Based Intrusion Detection Systems: A Comprehensive Review of Datasets, Algorithms, Challenges, Explainability, and Future Research Directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Interdisciplinary Journal of AI Machine Learning & Data Science",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids",
+   "adv_gnn_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160218752",
+  "doi": "https://doi.org/10.20944/preprints202604.1972.v1",
+  "title": "From Flow Features to Communication Topology: Adaptive Graph Attention Network-Based IoMT Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Preprints.org",
+  "type": "preprint",
+  "tags": [
+   "knn_graph_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7161610824",
+  "doi": null,
+  "title": "CAN bus intrusion detection method based on exponentially smoothed dynamic graph",
+  "year": 2026,
+  "cites": 0,
+  "venue": "DOAJ (DOAJ: Directory of Open Access Journals)",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160872026",
+  "doi": "https://doi.org/10.1109/i3ctcon68242.2026.11507203",
+  "title": "Network Intrusion Detection System Using CGN 2 : A Sequential CNN\u2013GNN Hybrid Architecture for High-Precision Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7154615098",
+  "doi": "https://doi.org/10.1109/icvadv67766.2026.11470526",
+  "title": "A Robust Misuse-Based Intrusion Detection Using Deep Learning on UNSW-NB15 Dataset",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220383466",
+  "doi": "https://doi.org/10.48009/3_iis_2026_148",
+  "title": "A CORRELATION-GRAPH-DRIVEN ENSEMBLE INTRUSION DETECTION SYSTEM FOR IOT NETWORKS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Issues in Information Systems",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416833911",
+  "doi": "https://doi.org/10.1007/s41870-025-02898-y",
+  "title": "Efficient cyber threat detection using a hybrid super pixel guided weighted graph convolutional network and quantum-enhanced long short-term memory in IoMT application",
+  "year": 2025,
+  "cites": 0,
+  "venue": "International Journal of Information Technology",
+  "type": "article",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7123348275",
+  "doi": "https://doi.org/10.1109/slaai-icai68534.2025.11318484",
+  "title": "A Federated Graph Neural Network Approach for Intrusion Detection in 5G Network",
+  "year": 2025,
+  "cites": 0,
+  "venue": "SLAAI International Conference on Artificial Intelligence (SLAAI-ICAI)",
+  "type": "conference-paper",
+  "tags": [
+   "knn_graph_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412644990",
+  "doi": "https://doi.org/10.64252/79452g17",
+  "title": "Optimization of Graph Neural Networks for Real-Time Intrusion Detection in Dynamic Mobile Ad-Hoc Networks",
+  "year": 2025,
+  "cites": 18,
+  "venue": "International Journal of Environmental Sciences",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413149244",
+  "doi": "https://doi.org/10.1016/j.neucom.2025.131231",
+  "title": "A meta-survey of adversarial attacks against artificial intelligence algorithms, including diffusion models",
+  "year": 2025,
+  "cites": 14,
+  "venue": "Neurocomputing",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411208128",
+  "doi": "https://doi.org/10.1109/isdfs65363.2025.11012077",
+  "title": "A Zero Trust Framework with AI-Driven Identity and Intrusion Detection for Multi-Cloud MLOps",
+  "year": 2025,
+  "cites": 11,
+  "venue": "International Symposium on Digital Forensics and Security (ISDFS)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411358762",
+  "doi": "https://doi.org/10.1109/access.2025.3580569",
+  "title": "Cybersecurity in Cloud Computing AI-Driven Intrusion Detection and Mitigation Strategies",
+  "year": 2025,
+  "cites": 10,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396758721",
+  "doi": "https://doi.org/10.1145/3589334.3645457",
+  "title": "Divide, Conquer, and Coalesce: Meta Parallel Graph Neural Network for IoT Intrusion Detection at Scale",
+  "year": 2024,
+  "cites": 10,
+  "venue": "ACM Web Conference (WWW)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380361614",
+  "doi": "https://doi.org/10.1117/12.2663162",
+  "title": "Graph representation learning for context-aware network intrusion detection",
+  "year": 2023,
+  "cites": 10,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417199959",
+  "doi": "https://doi.org/10.1038/s41598-025-32087-7",
+  "title": "A privacy preserving intrusion detection framework for IIoT in 6G networks using homomorphic encryption and graph neural networks",
+  "year": 2025,
+  "cites": 8,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417089165",
+  "doi": "https://doi.org/10.1038/s41598-025-31025-x",
+  "title": "FORT-IDS: a federated, optimized, robust and trustworthy intrusion detection system for IIoT security",
+  "year": 2025,
+  "cites": 7,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412446629",
+  "doi": "https://doi.org/10.1109/icici65870.2025.11069922",
+  "title": "Federated Adversarial Learning for Scalable and Robust Zero-Day Cyber Threat Detection in IoT Networks",
+  "year": 2025,
+  "cites": 5,
+  "venue": "International Conference on Inventive Computing and Informatics (ICICI)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128591160",
+  "doi": "https://doi.org/10.3390/make8020043",
+  "title": "Towards LLM-Driven Cybersecurity in Autonomous Vehicles: A Big Data-Empowered Framework with Emerging Technologies",
+  "year": 2026,
+  "cites": 4,
+  "venue": "Machine Learning and Knowledge Extraction",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380761592",
+  "doi": "https://doi.org/10.1109/iip57348.2022.00070",
+  "title": "Auxiliary Classifier Generative Adversarial Network Assisted Intrusion Detection System",
+  "year": 2022,
+  "cites": 4,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160842760",
+  "doi": "https://doi.org/10.1038/s41598-026-48715-9",
+  "title": "An optimized graph neural network approach for robust and explainable IoT intrusion detection against adversarial attacks",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7131126576",
+  "doi": "https://doi.org/10.1109/icaic67076.2026.11395742",
+  "title": "Causal-Contrastive Graph Neural Networks for Robust, Explainable Multi-Modal Intrusion Detection",
+  "year": 2026,
+  "cites": 3,
+  "venue": "IEEE International Conference on AI in Cybersecurity (ICAIC)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416548153",
+  "doi": "https://doi.org/10.1093/comjnl/bxaf096",
+  "title": "On adversarial attack detection in intrusion detection system with graph neural network",
+  "year": 2025,
+  "cites": 3,
+  "venue": "The Computer Journal",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7139920799",
+  "doi": "https://doi.org/10.62762/ngcst.2025.333764",
+  "title": "A Graph-Aware Attention-Driven Ensemble Model for Robust Anomaly Detection in 6G-Enabled Wireless Sensor Networks",
+  "year": 2025,
+  "cites": 3,
+  "venue": "Next-Generation Computing Systems and Technologies",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417447788",
+  "doi": "https://doi.org/10.1007/978-3-032-13615-2_22",
+  "title": "Ontology-Guided Heterogeneous Graph Retrieval for Large-Language-Model Interpretation of Suricata Events",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Lecture notes in networks and systems",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7104177879",
+  "doi": "https://doi.org/10.5267/j.ijdns.2025.10.014",
+  "title": "Deep learning-driven multi-layer intrusion detection and prevention framework for resilient defense against adaptive evasion techniques in modern networks",
+  "year": 2025,
+  "cites": 2,
+  "venue": "International Journal of Data and Network Science",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416750360",
+  "doi": "https://doi.org/10.1109/nca67271.2025.00043",
+  "title": "Defending Network Intrusion Detection Systems Based on Graph Neural Networks Against Structural Adversarial Attacks",
+  "year": 2025,
+  "cites": 2,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415219573",
+  "doi": "https://doi.org/10.1007/978-981-95-3182-0_32",
+  "title": "Chaos: Robust Spatio-Temporal Fusion for Generalizable APT Provenance Tracing",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414206228",
+  "doi": "https://doi.org/10.1007/s11227-025-07821-7",
+  "title": "A robust and scalable intrusion detection framework for SDN with GAN-CL-STO",
+  "year": 2025,
+  "cites": 2,
+  "venue": "The Journal of Supercomputing",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413822395",
+  "doi": "https://doi.org/10.1109/tce.2025.3604228",
+  "title": "Hierarchical Graph Neural Networks for Resilient Intrusion Detection in Consumer IoT With Limited Labeled Data",
+  "year": 2025,
+  "cites": 2,
+  "venue": "IEEE Transactions on Consumer Electronics",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412473253",
+  "doi": "https://doi.org/10.3390/app15147915",
+  "title": "Adversarial Hierarchical-Aware Edge Attention Learning Method for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413239964",
+  "doi": "https://doi.org/10.1007/978-3-032-00639-4_15",
+  "title": "Leveraging Graph Neural Networks for Attack Detection in IoT Systems",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4387807207",
+  "doi": "https://doi.org/10.1117/12.3010362",
+  "title": "Classification of IoT intrusion detection data based on WGAN-gp and E-GraphSAGE",
+  "year": 2023,
+  "cites": 2,
+  "venue": "International Conference on Green Communication, Network, and Internet of Things (CNIoT)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7167643897",
+  "doi": "https://doi.org/10.20998/2522-9052.2026.3.09",
+  "title": "DEEP LEARNING-BASED INTRUSION DETECTION IN COMPUTER SYSTEMS AND NETWORKS: ADVANCES, HYBRIDS, AND CHALLENGES 2022\u20132026",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Advanced Information Systems",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164127802",
+  "doi": "https://doi.org/10.1007/s10586-026-06037-5",
+  "title": "Defense-Aware Temporal Graph Neural Network for fault-tolerant intrusion detection in IIoT\u20135G environments",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Cluster Computing",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128914849",
+  "doi": "https://doi.org/10.1007/s13278-026-01578-4",
+  "title": "Robust DDoS detection based on adversarial trained graph neural networks with proximal optimization",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Social Network Analysis and Mining",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7133529208",
+  "doi": "https://doi.org/10.1109/icmcsi67283.2026.11412845",
+  "title": "Deep Learning-Based Network Intrusion Detection Systems: A Comprehensive Survey of Methods, Evolution, and Research Perspectives",
+  "year": 2026,
+  "cites": 1,
+  "venue": "International Conference on Mobile Computing and Sustainable Informatics (ICMCSI)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7117450084",
+  "doi": "https://doi.org/10.1177/01445987251405490",
+  "title": "Adaptive hybrid deep learning for smart grid cybersecurity: Integrating ST-GNN, transformers, and feature fusion",
+  "year": 2025,
+  "cites": 1,
+  "venue": "Energy Exploration & Exploitation",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415744774",
+  "doi": "https://doi.org/10.1109/hpcc67675.2025.00142",
+  "title": "Counterfactual GraphLIME-Enabled Explainable Adversarial Defense for Graph-Based Intrusion Detection Using Residual GAN-FGSM Framework",
+  "year": 2025,
+  "cites": 1,
+  "venue": "IEEE International Conference on High Performance Computing and Communications (HPCC)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412405377",
+  "doi": "https://doi.org/10.1109/otcon65728.2025.11070981",
+  "title": "Hybrid Models for Ehanced Intrusion Detection on NSL KDD and KDD CUP 99 Data Set",
+  "year": 2025,
+  "cites": 1,
+  "venue": "OPJU International Technology Conference on Smart Computing for Innovation and Advancement in Industry (OTCON)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413900624",
+  "doi": "https://doi.org/10.2139/ssrn.5430774",
+  "title": "FLZT-IDS: Federated Learning with Zero-Trust Framework for Secure IoT Intrusion Detection",
+  "year": 2025,
+  "cites": 1,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7151938663",
+  "doi": "https://doi.org/10.70675/991a16e7zc601z4aabza3e4z5c450ec5c786",
+  "title": "Graph neural network-based intrusion detection for secure edge networks",
+  "year": 2024,
+  "cites": 1,
+  "venue": null,
+  "type": "dissertation",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4389385776",
+  "doi": "https://doi.org/10.1109/icscc59169.2023.10335033",
+  "title": "Security Landscape of Anomaly based Defence Mechanisms in Edge Environments",
+  "year": 2023,
+  "cites": 1,
+  "venue": "International Conference on Smart Computing and Communications (ICSCC)",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409444656",
+  "doi": "https://doi.org/10.63397/iscsitr-ijsraiml_04_01_001",
+  "title": "AI-BASED INTRUSION DETECTION SYSTEM FOR EDGE COMPUTING SECURITY",
+  "year": 2023,
+  "cites": 1,
+  "venue": "ISCSITR-INTERNATIONAL JOURNAL OF SCIENTIFIC RESEARCH IN ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4287062807",
+  "doi": "https://doi.org/10.48550/arxiv.2107.14756",
+  "title": "Unveiling the potential of Graph Neural Networks for robust Intrusion Detection",
+  "year": 2021,
+  "cites": 1,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214323040",
+  "doi": "https://doi.org/10.1007/978-981-92-5699-0_24",
+  "title": "Graph Structure Purification: A Two-Stage Defense Against Structural Adversarial Attacks on GNN-Based Network Intrusion Detection Systems",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204939476",
+  "doi": "https://doi.org/10.5120/ijcaa4c5c149f86b",
+  "title": "Robust Machine Learning Models for Cybersecurity in Critical Infrastructures A Systematic Review, Empirical Synthesis, and Framework Proposal",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Computer Applications",
+  "type": "review",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7217426660",
+  "doi": null,
+  "title": "An Overview of Various Frame Works on Learning Based Adaptive Cyber Security on Software Defined Embedded Systems",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Advance Scientific Research and Engineering Trends",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7169776980",
+  "doi": "https://doi.org/10.3389/frai.2026.1908389",
+  "title": "Editorial: AI-driven scientific discovery\u2014transforming research across disciplines",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Frontiers in Artificial Intelligence",
+  "type": "editorial",
+  "tags": [
+   "adv_gnn_ids",
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7167775184",
+  "doi": null,
+  "title": "\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432\u0438\u044f\u0432\u043b\u0435\u043d\u043d\u044f \u0432\u0442\u043e\u0440\u0433\u043d\u0435\u043d\u044c \u043d\u0430 \u043e\u0441\u043d\u043e\u0432\u0456 \u0433\u043b\u0438\u0431\u043e\u043a\u043e\u0433\u043e \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u0432 \u043a\u043e\u043c\u043f'\u044e\u0442\u0435\u0440\u043d\u0438\u0445 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 \u0456 \u043c\u0435\u0440\u0435\u0436\u0430\u0445: \u043d\u043e\u0432\u0456 \u043f\u0456\u0434\u0445\u043e\u0434\u0438, \u0433\u0456\u0431\u0440\u0438\u0434\u0438 \u0442\u0430 \u0432\u0438\u043a\u043b\u0438\u043a\u0438 2022\u20132026",
+  "year": 2026,
+  "cites": 0,
+  "venue": "The Scientific Issues of Ternopil Volodymyr Hnatiuk National Pedagogical University Series pedagogy",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166643827",
+  "doi": "https://doi.org/10.1186/s13677-026-00953-y",
+  "title": "Hybrid deep learning and graph-based intrusion detection for vehicular fog computing networks: leveraging transformers, GNNs, and GANs for enhanced security",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Cloud Computing Advances Systems and Applications",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166726613",
+  "doi": "https://doi.org/10.1016/j.comnet.2026.112493",
+  "title": "A graph data balancing approach for intrusion detection based on two-stage generation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Computer Networks",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7169213909",
+  "doi": "https://doi.org/10.5281/zenodo.21387898",
+  "title": "AT-HGNN: ADAPTIVE TEMPORAL HYPERGRAPH NEURAL NETWORK FOR REAL-TIME NETWORK INTRUSION DETECTION IN HETEROGENEOUS IOT ENVIRONMENTS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Theoretical and Applied Information Technology",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166573782",
+  "doi": "https://doi.org/10.70917/ijcisim-2026-2415",
+  "title": "Toward Resilient Smart Cities: A Systematic Comparative Survey of Blockchain-Integrated Deep Learning Architectures for IoT Authentication and Secure Communication",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Computer Information Systems and Industrial Management Applications",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211926219",
+  "doi": "https://doi.org/10.67750/ijatrd.v3.i1.002",
+  "title": "Federated Deep Learning for Privacy-Aware Intrusion Detection in IIoT: Architectures, Challenges, and Future Directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International journal of advancements in technical research and development",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163222336",
+  "doi": "https://doi.org/10.71426/jcdt.v2.i1.pp140-150",
+  "title": "A Comprehensive Systematic Review of AI-based Network Intrusion Detection Systems: Techniques, Datasets, Challenges, and Future Research Directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Computing and Data Technology",
+  "type": "review",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163002726",
+  "doi": "https://doi.org/10.5281/zenodo.20489704",
+  "title": "GRAPH NEURAL AND REINFORCEMENT LEARNING APPROACHES TO CYBERSECURITY IN NEXT-GENERATION TELECOM NETWORKS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Research",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7154938949",
+  "doi": "https://doi.org/10.62311/nesx/rb-978-81-685658-1-4",
+  "title": "Graph Neural Networks and Transformers for Advanced Cyber Threat Detection and Network Security",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "reference-entry",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7217811963",
+  "doi": null,
+  "title": "Hybrid Intelligence Model for Malicious URL Detection Using Machine Learning and Graph Neural Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "American Journal of AI Cyber Computing Management",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7208832026",
+  "doi": "https://doi.org/10.5281/zenodo.22336547",
+  "title": "Artificial Intelligence and Machine Learning for Advanced Cyber Threat Detection, Intrusion Prevention, and Automated Security Response",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Research consortium archive.",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7140200655",
+  "doi": "https://doi.org/10.20944/preprints202603.1818.v1",
+  "title": "An Agentic Reinforcement Learning Model for Polymorphic Adversarial AI Threats Using Graph Neural Defense",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Preprints.org",
+  "type": "preprint",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7140104215",
+  "doi": "https://doi.org/10.11648/j.mlr.20261101.12",
+  "title": "Data Science and Machine Learning for Cyber Intrusion Detection: A Systematic Review",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Machine Learning Research",
+  "type": "review",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7134812716",
+  "doi": "https://doi.org/10.1109/jiot.2026.3671717",
+  "title": "Robust Few-Shot Malware Detection in IoT via ACL on Heterogeneous Behavior Graphs",
+  "year": 2026,
+  "cites": 0,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7155386895",
+  "doi": "https://doi.org/10.1109/ictp67998.2026.11485086",
+  "title": "Adaptive Deep Defense: Reinforcing Network Intrusion Detection with Hybrid Transformer\u2013LSTM Models",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7127172628",
+  "doi": "https://doi.org/10.5281/zenodo.18454316",
+  "title": "BALANCING ACCURACY AND ROBUSTNESS IN INTRUSION DETECTION: AN ENSEMBLE DEEP LEARNING APPROACH",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Theoretical and Applied Information Technology",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7167457732",
+  "doi": "https://doi.org/10.5281/zenodo.19152791",
+  "title": "AI-Driven Cybersecurity Models for Intelligent Network Protection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Intelligent Systems and Future Computing",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7125612321",
+  "doi": "https://doi.org/10.2139/ssrn.6128906",
+  "title": "A Next-Generation Bayesian-Optimized AIoT IDS with Multi-Objective Feature Selection and Robust TabTransformer Enhancement",
+  "year": 2026,
+  "cites": 0,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7130640978",
+  "doi": "https://doi.org/10.47772/ijriss.2026.10190024",
+  "title": "Deep Models against Deep Threats: A Review of Deep Learning for Cyber Attack Mitigation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Research and Innovation in Social Science",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7134920859",
+  "doi": "https://doi.org/10.2139/ssrn.6169629",
+  "title": "Graph-Enhanced Large Language Models for Industrial Network Security: An Adaptive Multi-Modal Framework for Advanced Threat Intelligence",
+  "year": 2026,
+  "cites": 0,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160868824",
+  "doi": "https://doi.org/10.1007/978-981-92-0375-8_30",
+  "title": "PG-MoE: Provenance-Based Intrusion Detection via Graph Mixture-of-Experts and Spatio-Temporal Contrastive Learning",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7168282396",
+  "doi": "https://doi.org/10.1007/978-3-032-20732-6_25",
+  "title": "Strategic Detection of APTs Through Federated Spatio-Temporal Graph Learning and Stackelberg Defense",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7201840962",
+  "doi": "https://doi.org/10.5220/0015171600004103",
+  "title": "Robustness Evaluation of Graph Neural Network-Based Network Intrusion Detection Systems against Adversarial Flow Injection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Security and Cryptography",
+  "type": "conference-paper",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204562545",
+  "doi": "https://doi.org/10.32604/cmc.2026.084993",
+  "title": "TF-SAGE: Trust Filtered Graph Learning for Stable Internet of Things Intrusion Detection under Adversarial Attacks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Computers, materials & continua/Computers, materials & continua (Print)",
+  "type": "article",
+  "tags": [
+   "adv_gnn_ids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3155427574",
+  "doi": "https://doi.org/10.1109/infocom42981.2021.9488874",
+  "title": "MANDA: On Adversarial Example Detection for Network Intrusion Detection System",
+  "year": 2021,
+  "cites": 45,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4406183026",
+  "doi": "https://doi.org/10.37256/jeee.4120255738",
+  "title": "The Threat of Adversarial Attacks against Machine Learning in Network Security: A Survey",
+  "year": 2025,
+  "cites": 29,
+  "venue": "Journal of Electronics and Electrical Engineering",
+  "type": "article",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2989079566",
+  "doi": "https://doi.org/10.48550/arxiv.1911.02621",
+  "title": "The Threat of Adversarial Attacks on Machine Learning in Network Security -- A Survey",
+  "year": 2019,
+  "cites": 25,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3090913891",
+  "doi": "https://doi.org/10.1109/icccn49398.2020.9209598",
+  "title": "A Learning-based Data Augmentation for Network Anomaly Detection",
+  "year": 2020,
+  "cites": 15,
+  "venue": "Proceedings/Proceedings - International Conference on Computer Communications and Networks",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4404612323",
+  "doi": "https://doi.org/10.1145/3689932.3694757",
+  "title": "When Adversarial Perturbations meet Concept Drift: An Exploratory Analysis on ML-NIDS",
+  "year": 2024,
+  "cites": 10,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4389388065",
+  "doi": "https://doi.org/10.1109/smartgridcomm57358.2023.10333966",
+  "title": "On Evasion of Machine Learning-based Intrusion Detection in Smart Grids",
+  "year": 2023,
+  "cites": 10,
+  "venue": "IEEE International Conference on Communications, Control, and Computing Technologies for Smart Grids (SmartGridComm)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400977145",
+  "doi": "https://doi.org/10.1145/3664476.3669974",
+  "title": "Towards realistic problem-space adversarial attacks against machine learning in network intrusion detection",
+  "year": 2024,
+  "cites": 7,
+  "venue": "International Conference on Availability, Reliability and Security (ARES)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7134174628",
+  "doi": "https://doi.org/10.1016/j.jisa.2026.104409",
+  "title": "A novel perturb-ability score to mitigate evasion adversarial attacks on flow-based ML-NIDS",
+  "year": 2026,
+  "cites": 5,
+  "venue": "Journal of Information Security and Applications",
+  "type": "article",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401990456",
+  "doi": "https://doi.org/10.1109/dsn-s60304.2024.00017",
+  "title": "PANDA: Practical Adversarial Attack Against Network Intrusion Detection",
+  "year": 2024,
+  "cites": 5,
+  "venue": "IEEE/IFIP International Conference on Dependable Systems and Networks - Supplemental Volume (DSN-S)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414197291",
+  "doi": "https://doi.org/10.1109/lcn65610.2025.11146360",
+  "title": "Implementing Practical Problem-Space Adversarial Attacks on Modern Network Intrusion Detection Systems",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Conference on Local Computer Networks",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414539819",
+  "doi": "https://doi.org/10.1109/icc52391.2025.11160917",
+  "title": "Adaptive Continuous Adversarial Training (ACAT) to Enhance ML-NIDS Robustness",
+  "year": 2025,
+  "cites": 2,
+  "venue": "International Conference on Communications",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7162504853",
+  "doi": "https://doi.org/10.1145/3779208.3807482",
+  "title": "\u201cWhat is the Problem Space?\u201d Defining Host-space Adversarial Perturbations against Network Intrusion Detection Systems",
+  "year": 2026,
+  "cites": 1,
+  "venue": "ACM Asia Conference on Computer and Communications Security (ASIA CCS)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413255929",
+  "doi": "https://doi.org/10.1007/978-3-032-00644-8_14",
+  "title": "Detection of Adversarial Examples by Adversarial Training: A Study on the Suitability of FGSM for Hardening NIDS Against Problem-Space Attacks",
+  "year": 2025,
+  "cites": 1,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4404284707",
+  "doi": "https://doi.org/10.36227/techrxiv.173144803.35072777/v1",
+  "title": "Adaptive Continuous Adversarial Training (ACAT) to Enhance ML-NIDS Robustness",
+  "year": 2024,
+  "cites": 1,
+  "venue": null,
+  "type": "preprint",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160957843",
+  "doi": "https://doi.org/10.5445/ir/1000193117",
+  "title": "Attacking Learning-based Models in Smart Grids: Explainability as a Double-Edged Sword",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Repository KITopen (Karlsruhe Institute of Technology)",
+  "type": "dissertation",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7170125248",
+  "doi": null,
+  "title": "Evading ML Network Intrusion Detection Systems for Modbus TCP with Problem-Space Perturbations",
+  "year": 2026,
+  "cites": 0,
+  "venue": "IRIS UNIMORE (University of Modena and Reggio Emilia)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203764986",
+  "doi": "https://doi.org/10.32604/cmc.2026.085403",
+  "title": "LLM Enhanced Explainable Intrusion Detection System for Generating Actionable Security Insights",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Computers, materials & continua/Computers, materials & continua (Print)",
+  "type": "article",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204645013",
+  "doi": "https://doi.org/10.2139/ssrn.7370241",
+  "title": "Mitigating Evasion Attacks in Continuous Authorization for IoT-SDN within Zero Trust Frameworks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128291119",
+  "doi": null,
+  "title": "Towards problem space-constrained adversarial attacks against graph neural network based network intrusion detection systems",
+  "year": 2025,
+  "cites": 0,
+  "venue": "HAL (Le Centre pour la Communication Scientifique Directe)",
+  "type": "conference-paper",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403622224",
+  "doi": "https://doi.org/10.48550/arxiv.2409.07448",
+  "title": "A Novel Perturb-ability Score to Mitigate Evasion Adversarial Attacks on Flow-Based ML-NIDS",
+  "year": 2024,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392971607",
+  "doi": "https://doi.org/10.48550/arxiv.2403.11830",
+  "title": "Problem space structural adversarial attacks for Network Intrusion Detection Systems based on Graph Neural Networks",
+  "year": 2024,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "problem_space_nids"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4321793432",
+  "doi": "https://doi.org/10.1016/j.jnca.2023.103607",
+  "title": "A comprehensive survey on security, privacy issues and emerging defence technologies for UAVs",
+  "year": 2023,
+  "cites": 160,
+  "venue": "Journal of Network and Computer Applications",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3084110275",
+  "doi": "https://doi.org/10.1016/j.cose.2020.102022",
+  "title": "Are public intrusion datasets fit for purpose characterising the state of the art in intrusion event datasets",
+  "year": 2020,
+  "cites": 75,
+  "venue": "Computers & Security",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405499124",
+  "doi": "https://doi.org/10.1038/s41598-024-81151-1",
+  "title": "Hybrid bagging and boosting with SHAP based feature selection for enhanced predictive modeling in intrusion detection systems",
+  "year": 2024,
+  "cites": 72,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3001237301",
+  "doi": "https://doi.org/10.1109/tii.2019.2921529",
+  "title": "The Gray Analysis and Machine Learning for Device-Free Multitarget Localization in Passive UHF RFID Environments",
+  "year": 2019,
+  "cites": 66,
+  "venue": "IEEE Transactions on Industrial Informatics",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4388768383",
+  "doi": "https://doi.org/10.1002/9781394213948.ch5",
+  "title": "Artificial Intelligence for Cyber Security",
+  "year": 2023,
+  "cites": 51,
+  "venue": null,
+  "type": "other",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2805704668",
+  "doi": "https://doi.org/10.1080/08874417.2018.1477076",
+  "title": "Crypto Mining Attacks in Information Systems: An Emerging Threat to Cyber Security",
+  "year": 2018,
+  "cites": 50,
+  "venue": "Journal of Computer Information Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3185901315",
+  "doi": "https://doi.org/10.1109/jiot.2021.3100398",
+  "title": "DSLN: Securing Internet of Things Through RF Fingerprint Recognition in Low-SNR Settings",
+  "year": 2021,
+  "cites": 49,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2980967476",
+  "doi": "https://doi.org/10.1002/dac.4181",
+  "title": "A survey on privacy and access control schemes in fog computing",
+  "year": 2019,
+  "cites": 45,
+  "venue": "International Journal of Communication Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3008445684",
+  "doi": "https://doi.org/10.1109/bigdata47090.2019.9006328",
+  "title": "A Framework for Cyber Threat Intelligence Extraction from Raw Log Data",
+  "year": 2019,
+  "cites": 35,
+  "venue": "IEEE International Conference on Big Data (BigData)",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3130722243",
+  "doi": "https://doi.org/10.1109/access.2021.3058897",
+  "title": "SDN-Based Detection of Self-Propagating Ransomware: The Case of BadRabbit",
+  "year": 2021,
+  "cites": 34,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403626713",
+  "doi": "https://doi.org/10.1016/j.aej.2024.10.055",
+  "title": "IMCMK-CNN: A lightweight convolutional neural network with Multi-scale Kernels for Image-based Malware Classification",
+  "year": 2024,
+  "cites": 31,
+  "venue": "Alexandria Engineering Journal",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2949750931",
+  "doi": "https://doi.org/10.1109/comtech.2019.8737800",
+  "title": "5G Security Artifacts (DoS / DDoS and Authentication)",
+  "year": 2019,
+  "cites": 30,
+  "venue": "International Conference on Communication Technologies (ComTech)",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285145603",
+  "doi": "https://doi.org/10.1007/978-3-031-09484-2_2",
+  "title": "Establishing the Contaminating Effect of Metadata Feature Inclusion in Machine-Learned Network Intrusion Detection Models",
+  "year": 2022,
+  "cites": 28,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3212815918",
+  "doi": "https://doi.org/10.1145/3485832.3488020",
+  "title": "Reproducible and Adaptable Log Data Generation for Sound Cybersecurity Experiments",
+  "year": 2021,
+  "cites": 28,
+  "venue": "Annual Computer Security Applications Conference",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4353094200",
+  "doi": "https://doi.org/10.1016/j.cie.2023.109166",
+  "title": "Hybrid honey badger-world cup algorithm-based deep learning for malicious intrusion detection in industrial control systems",
+  "year": 2023,
+  "cites": 27,
+  "venue": "Computers & Industrial Engineering",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4318054370",
+  "doi": "https://doi.org/10.3390/sym15020337",
+  "title": "K-CTIAA: Automatic Analysis of Cyber Threat Intelligence Based on a Knowledge Graph",
+  "year": 2023,
+  "cites": 25,
+  "venue": "Symmetry",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4210987902",
+  "doi": "https://doi.org/10.1016/j.fsidi.2022.301352",
+  "title": "The case for Zero Trust Digital Forensics",
+  "year": 2022,
+  "cites": 25,
+  "venue": "Forensic Science International Digital Investigation",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3092978542",
+  "doi": "https://doi.org/10.48550/arxiv.2010.09470",
+  "title": "Dos and Don'ts of Machine Learning in Computer Security",
+  "year": 2020,
+  "cites": 24,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2899047132",
+  "doi": "https://doi.org/10.3837/tiis.2018.10.027",
+  "title": "Using weighted Support Vector Machine to address the imbalanced classes problem of Intrusion Detection System",
+  "year": 2018,
+  "cites": 20,
+  "venue": "KSII Transactions on Internet and Information Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3197481603",
+  "doi": "https://doi.org/10.1155/2021/8871230",
+  "title": "Analysis of Challenges in Modern Network Forensic Framework",
+  "year": 2021,
+  "cites": 17,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3185067500",
+  "doi": "https://doi.org/10.23919/date51398.2021.9474185",
+  "title": "VeriDevOps: Automated Protection and Prevention to Meet Security Requirements in DevOps",
+  "year": 2021,
+  "cites": 17,
+  "venue": "Design, Automation, and Test in Europe",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2986549959",
+  "doi": null,
+  "title": "Intrusion Detection for Industrial Control Systems: Evaluation Analysis and Adversarial Attacks.",
+  "year": 2019,
+  "cites": 17,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2983194513",
+  "doi": "https://doi.org/10.1109/vitecon.2019.8899368",
+  "title": "Comparing the Performance of Adaptive Boosted Classifiers in Anomaly based Intrusion Detection System for Networks",
+  "year": 2019,
+  "cites": 16,
+  "venue": "International Conference on Vision Towards Emerging Trends in Communication and Networking (ViTECoN)",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3209432575",
+  "doi": "https://doi.org/10.1155/2021/8986243",
+  "title": "Improving the Accuracy of Network Intrusion Detection with Causal Machine Learning",
+  "year": 2021,
+  "cites": 15,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2953624373",
+  "doi": "https://doi.org/10.3837/tiis.2019.06.027",
+  "title": "Recent Advances in Cryptovirology: State-of-the-Art Crypto Mining and Crypto Ransomware Attacks",
+  "year": 2019,
+  "cites": 15,
+  "venue": "KSII Transactions on Internet and Information Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402281999",
+  "doi": "https://doi.org/10.53555/kuey.v28i4.7529",
+  "title": "AI-Driven Threat Detection: Leveraging Big Data For Advanced Cybersecurity Compliance",
+  "year": 2024,
+  "cites": 14,
+  "venue": null,
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416786338",
+  "doi": "https://doi.org/10.3390/a18120749",
+  "title": "A Deterministic Comparison of Classical Machine Learning and Hybrid Deep Representation Models for Intrusion Detection on NSL-KDD and CICIDS2017",
+  "year": 2025,
+  "cites": 13,
+  "venue": "Algorithms",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4312527014",
+  "doi": "https://doi.org/10.1007/978-3-031-23020-2_7",
+  "title": "A Learning Methodology for Line-Rate Ransomware Mitigation with P4 Switches",
+  "year": 2022,
+  "cites": 13,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2888600439",
+  "doi": "https://doi.org/10.1177/1550147718795120",
+  "title": "Cryptanalysis of ultralightweight mutual authentication protocol for radio frequency identification enabled Internet of Things networks",
+  "year": 2018,
+  "cites": 13,
+  "venue": "International Journal of Distributed Sensor Networks",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2801536733",
+  "doi": "https://doi.org/10.4018/ijiit.2018040104",
+  "title": "Hybrid Analysis Technique to detect Advanced Persistent Threats",
+  "year": 2018,
+  "cites": 13,
+  "venue": "International Journal of Intelligent Information Technologies",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4225675031",
+  "doi": "https://doi.org/10.14569/ijacsa.2022.0130335",
+  "title": "Non-Repudiation-based Network Security System using Multiparty Computation",
+  "year": 2022,
+  "cites": 11,
+  "venue": "International Journal of Advanced Computer Science and Applications",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405828993",
+  "doi": "https://doi.org/10.1007/s11042-024-20489-0",
+  "title": "Authentication based vanet for data transfer: unveiling the ability of deep learning models for attack classification",
+  "year": 2024,
+  "cites": 9,
+  "venue": "Multimedia Tools and Applications",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396712838",
+  "doi": "https://doi.org/10.1109/tase.2024.3396085",
+  "title": "MF-ID: A Benchmark and Approach for Multi-Category Fine-Grained Intrusion Detection",
+  "year": 2024,
+  "cites": 9,
+  "venue": "IEEE Transactions on Automation Science and Engineering",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414871437",
+  "doi": "https://doi.org/10.1109/jiot.2025.3618153",
+  "title": "PQ-V2X: A Novel Postquantum Cryptographic Dataset for Secure Vehicular Communications",
+  "year": 2025,
+  "cites": 8,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413296519",
+  "doi": "https://doi.org/10.1016/j.future.2025.108086",
+  "title": "A formal framework for LLM-assisted automated generation of Zeek signatures from binary artifacts",
+  "year": 2025,
+  "cites": 8,
+  "venue": "Future Generation Computer Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409250912",
+  "doi": "https://doi.org/10.1016/j.eswa.2025.127414",
+  "title": "Deciphering TON-IoT threats: Meta-heuristic and deep learning for attack classification",
+  "year": 2025,
+  "cites": 8,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403760382",
+  "doi": "https://doi.org/10.1145/3643456",
+  "title": "Pitfalls in Machine Learning for Computer Security",
+  "year": 2024,
+  "cites": 8,
+  "venue": "Communications of the ACM",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402433497",
+  "doi": "https://doi.org/10.25300/misq/2024/17339",
+  "title": "RADAR: A Framework for Developing Adversarially Robust Cyber Defense AI Agents with Deep Reinforcement Learning",
+  "year": 2024,
+  "cites": 8,
+  "venue": "MIS Quarterly",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403937368",
+  "doi": "https://doi.org/10.1109/iscc61673.2024.10733700",
+  "title": "An MLOps Framework for Explainable Network Intrusion Detection with MLflow",
+  "year": 2024,
+  "cites": 8,
+  "venue": "Proceedings - IEEE Symposium on Computers and Communications/IEEE Symposium on Computers and Communications",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4306665557",
+  "doi": "https://doi.org/10.18280/ijsse.120412",
+  "title": "Comprehensive Analysis of Privacy Attacks in Online Social Network: Security Issues and Challenges",
+  "year": 2022,
+  "cites": 8,
+  "venue": "International Journal of Safety and Security Engineering",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413556166",
+  "doi": "https://doi.org/10.1109/access.2025.3602562",
+  "title": "Enhanced Intrusion Detection via Hybrid Data Resampling and Feature Optimization",
+  "year": 2025,
+  "cites": 7,
+  "venue": "IEEE Access",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4404024643",
+  "doi": "https://doi.org/10.1007/s10586-024-04840-6",
+  "title": "High-performance network attack detection in unknown scenarios based on improved vertical model",
+  "year": 2024,
+  "cites": 7,
+  "venue": "Cluster Computing",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4321230626",
+  "doi": "https://doi.org/10.1007/978-3-031-25460-4_22",
+  "title": "Challenges and Pitfalls in Generating Representative ICS Datasets in Cyber Security Research",
+  "year": 2023,
+  "cites": 7,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313418650",
+  "doi": "https://doi.org/10.1080/01969722.2022.2112542",
+  "title": "Exponential Squirrel Search Algorithm-Based Deep Classifier for Intrusion Detection in Cloud Computing with Big Data Assisted Spark Framework",
+  "year": 2022,
+  "cites": 7,
+  "venue": "Cybernetics & Systems",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4307569453",
+  "doi": "https://doi.org/10.1016/j.iot.2022.100631",
+  "title": "Scalable Collaborative Intrusion Detection in Autonomous Vehicular Networks: A hierarchical framework based on game theory",
+  "year": 2022,
+  "cites": 7,
+  "venue": "Internet of Things",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417225861",
+  "doi": "https://doi.org/10.3390/s25247519",
+  "title": "Security Audit of IoT Device Networks: A Reproducible Machine Learning Framework for Threat Detection and Performance Benchmarking",
+  "year": 2025,
+  "cites": 6,
+  "venue": "Sensors",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413072951",
+  "doi": "https://doi.org/10.1016/j.cosrev.2025.100781",
+  "title": "A comprehensive review on machine learning-based VPN detection: Scenarios, methods, and open challenges",
+  "year": 2025,
+  "cites": 6,
+  "venue": "Computer Science Review",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411674938",
+  "doi": "https://doi.org/10.1371/journal.pone.0326571",
+  "title": "Adaptive DDoS detection mode in software-defined SIP-VoIP using transfer learning with boosted meta-learner",
+  "year": 2025,
+  "cites": 6,
+  "venue": "PLoS ONE",
+  "type": "article",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405024754",
+  "doi": "https://doi.org/10.2139/ssrn.4980649",
+  "title": "AI-Driven Threat Detection: Leveraging Big Data For Advanced Cybersecurity Compliance",
+  "year": 2024,
+  "cites": 6,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "tags": [
+   "pitfalls"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7172275041",
+  "doi": "https://doi.org/10.3390/computers15080501",
+  "title": "Predictive Analytics in Cloud-Native Privilege-Escalation Detection: Enhancing Accuracy Through Temporal Graph Attention and Reinforcement Learning",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Computers",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7170138632",
+  "doi": "https://doi.org/10.1038/s41598-026-61006-7",
+  "title": "DATZ-TM: Zero-Trust intrusion detection for VANETs with temporal graph neural networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166815262",
+  "doi": "https://doi.org/10.48175/ijarsct-36883",
+  "title": "XGNN-IDS: A Comparative Study of GCN and GAT with Captum-Based Feature Attribution for Explainable Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Advanced Research in Science Communication and Technology",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203640738",
+  "doi": "https://doi.org/10.59018/042655",
+  "title": "Adaptive zero-trust cyber defence using Graph Neural Networks and Multi-Agent Reinforcement Learning",
+  "year": 2026,
+  "cites": 0,
+  "venue": "ARPN Journal of Engineering and Applied Sciences",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7216818863",
+  "doi": null,
+  "title": "CyberTrace IOT: Attack Detection and Attribution in IoT-Integrated CyberPhysical Systems",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Data Science and IoT Management System",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160184911",
+  "doi": "https://doi.org/10.1016/j.iot.2026.101957",
+  "title": "A hybrid bio-inspired encoding and feature selection for real-time IoT network intrusion detection using deep learning framework",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Internet of Things",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7159128522",
+  "doi": "https://doi.org/10.51583/ijltemas.2026.150400010",
+  "title": "RF PGNN: Random Forest Proximity Graph Neural Network for Multi Class Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal of Latest Technology in Engineering Management & Applied Science",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7135245289",
+  "doi": "https://doi.org/10.22214/ijraset.2026.77882",
+  "title": "Unified Cybersecurity Threat Detection Using Graph Neural Networks on Multi-Modal Network Data",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Journal for Research in Applied Science and Engineering Technology",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7134191290",
+  "doi": "https://doi.org/10.1002/cpe.70615",
+  "title": "Toward Intelligent Cyber Threat Detection: A Stacked Bidirectional Long Short\u2010Term Memory and Autoencoder Approach",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Concurrency and Computation Practice and Experience",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7131438190",
+  "doi": "https://doi.org/10.1109/iitcee67948.2026.11394457",
+  "title": "Comparative Study of Deep Learning Models for Multiclass Network Anomaly Detection using CICIDS2017",
+  "year": 2026,
+  "cites": 1,
+  "venue": "International Conference on Intelligent and Innovative Technologies in Computing, Electrical and Electronics (IITCEE)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7152034192",
+  "doi": "https://doi.org/10.1007/978-3-032-16995-2_42",
+  "title": "From Flows to Graphs: Benchmarking Centrality Metrics in ML-Based Intrusion Detection Systems",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in networks and systems",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7162547305",
+  "doi": "https://doi.org/10.1109/wiecon-ece69386.2025.11525900",
+  "title": "Ontology-Based Knowledge Graphs for Detecting Advanced Persistent Threats (APTs) With Neurosymbolic AI",
+  "year": 2025,
+  "cites": 0,
+  "venue": "IEEE International Women in Engineering (WIE) Conference on Electrical and Computer Engineering (WIECON-ECE)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417277139",
+  "doi": "https://doi.org/10.3390/modelling6040165",
+  "title": "TE-G-SAGE: Explainable Edge-Aware Graph Neural Networks for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 14,
+  "venue": "Modelling\u2014International Open Access Journal of Modelling in Engineering Science",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7133345529",
+  "doi": "https://doi.org/10.1109/cins67018.2025.11412117",
+  "title": "AI-Driven Intrusion Detection in Software-Defined Networks Using GNNs",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164019033",
+  "doi": "https://doi.org/10.1109/ic-eeta66496.2025.11548269",
+  "title": "IoT Detection and Authentication Using Machine Learning: A Cybersecurity Perspective",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4410824092",
+  "doi": "https://doi.org/10.22214/ijraset.2025.71415",
+  "title": "Advancing Network Security Through Deep Learning: A Hybrid Graph-Based and Temporal Approach to Anomaly and Threat Detection",
+  "year": 2025,
+  "cites": 3,
+  "venue": "International Journal for Research in Applied Science and Engineering Technology",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396820511",
+  "doi": "https://doi.org/10.48550/arxiv.2404.18328",
+  "title": "Multi-stage Attack Detection and Prediction Using Graph Neural Networks: An IoT Feasibility Study",
+  "year": 2024,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399120257",
+  "doi": "https://doi.org/10.1109/trustcom60117.2023.00095",
+  "title": "Multi-stage Attack Detection and Prediction Using Graph Neural Networks: An IoT Feasibility Study",
+  "year": 2023,
+  "cites": 7,
+  "venue": "IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)",
+  "type": "conference-paper",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203685492",
+  "doi": "https://doi.org/10.5281/zenodo.19614726",
+  "title": "AI-Augmented Cybersecurity Systems",
+  "year": 2023,
+  "cites": 0,
+  "venue": "Bio-QI Journal",
+  "type": "article",
+  "tags": [
+   "gnn_tabular_baseline"
+  ]
+ }
+]

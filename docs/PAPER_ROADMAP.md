@@ -63,6 +63,7 @@ Pilots (one training seed, 2 attack seeds, a subset of test windows, ε ∈ {0.0
   - ToN GCN: 0.812 / 0.814 / 0.815.
 
   Removing the k-NN edges changes only 0.2–1.2% of predictions and never lowers F1, so the k-NN neighbourhood carries no information beyond the flow's own features: its neighbours are near-copies of it. This is why condition B is ≈ 0, and it will hold for any feature-derived k-NN graph, CTU-13 included. On UNSW, random neighbours collapse F1, so the models are sensitive to neighbours that are unlike the flow. A feature-bounded attacker cannot produce such neighbours, because the rebuilt k-NN neighbours stay close to the perturbed flow.
+- [x] Literature review (2026-10-12): [`docs/LITERATURE_REVIEW.md`](LITERATURE_REVIEW.md). k-NN redundancy is partly pre-empted by a 2026 preprint (no mechanism, no attacks). Joint injection attacks exist (GIANT, WWW 2026), but no feature/structure/interaction decomposition and no own-flow-shaping + injection attacker; construction-as-defence is untested in NIDS.
 - [ ] Decision on the paper direction (see the decision log once taken). CTU-13 is unlikely to change this, since the redundancy comes from the k-NN construction itself, not from the dataset.
 
 Tabular baselines without TTL (`00`, 5 seeds, test F1): NF-UNSW-NB15-v3 XGBoost 0.9995, MLP 0.9985. NF-ToN-IoT-v3 XGBoost ≈ 0.87, MLP ≈ 0.70–0.75 (chronological drift: 27% attacks in train, 55% in test; Backdoor recall ≈ 0). Random ±0.1σ noise drops XGBoost F1 to 0.77 (UNSW) and 0.20 (ToN): clean ease is not robustness.

@@ -1,0 +1,4794 @@
+[
+ {
+  "id": "https://openalex.org/W2954996726",
+  "doi": "https://doi.org/10.1186/s40537-019-0197-0",
+  "title": "A survey on Image Data Augmentation for Deep Learning",
+  "year": 2019,
+  "cites": 13102,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3135028703",
+  "doi": "https://doi.org/10.1007/s42979-021-00592-x",
+  "title": "Machine Learning: Algorithms, Real-World Applications and Research Directions",
+  "year": 2021,
+  "cites": 5554,
+  "venue": "SN Computer Science",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2594475271",
+  "doi": "https://doi.org/10.48550/arxiv.1702.08608",
+  "title": "Towards A Rigorous Science of Interpretable Machine Learning",
+  "year": 2017,
+  "cites": 3100,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4288039037",
+  "doi": "https://doi.org/10.1007/s10915-022-01939-z",
+  "title": "Scientific Machine Learning Through Physics\u2013Informed Neural Networks: Where we are and What\u2019s Next",
+  "year": 2022,
+  "cites": 2776,
+  "venue": "Journal of Scientific Computing",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4213147678",
+  "doi": "https://doi.org/10.1109/access.2019.2909530",
+  "title": "Unmanned Aerial Vehicles (UAVs): A Survey on Civil Applications and Key Research Challenges",
+  "year": 2019,
+  "cites": 2508,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3023211159",
+  "doi": "https://doi.org/10.1016/j.neucom.2019.10.118",
+  "title": "A comprehensive survey on support vector machine classification: Applications, challenges and trends",
+  "year": 2020,
+  "cites": 2377,
+  "venue": "Neurocomputing",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4322576964",
+  "doi": "https://doi.org/10.1109/comst.2023.3249835",
+  "title": "On the Road to 6G: Visions, Requirements, Key Technologies, and Testbeds",
+  "year": 2023,
+  "cites": 2336,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2800788706",
+  "doi": "https://doi.org/10.1613/jair.1.11192",
+  "title": "SMOTE for Learning from Imbalanced Data: Progress and Challenges, Marking the 15-year Anniversary",
+  "year": 2018,
+  "cites": 2237,
+  "venue": "Journal of Artificial Intelligence Research",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4386142022",
+  "doi": "https://doi.org/10.1007/s12559-023-10179-8",
+  "title": "Interpreting Black-Box Models: A Review on Explainable Artificial Intelligence",
+  "year": 2023,
+  "cites": 2075,
+  "venue": "Cognitive Computation",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2958285686",
+  "doi": "https://doi.org/10.1186/s42400-019-0038-7",
+  "title": "Survey of intrusion detection systems: techniques, datasets and challenges",
+  "year": 2019,
+  "cites": 1979,
+  "venue": "Cybersecurity",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "graph neural network intrusion detection netflow",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "netflow standard feature set intrusion detection datasets",
+   "netflow standard feature set intrusion detection datasets",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2926701059",
+  "doi": "https://doi.org/10.1109/access.2019.2895334",
+  "title": "Deep Learning Approach for Intelligent Intrusion Detection System",
+  "year": 2019,
+  "cites": 1947,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2898761242",
+  "doi": "https://doi.org/10.1016/j.future.2019.05.041",
+  "title": "Towards the development of realistic botnet dataset in the Internet of Things for network forensic analytics: Bot-IoT dataset",
+  "year": 2019,
+  "cites": 1946,
+  "venue": "Future Generation Computer Systems",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3148181069",
+  "doi": "https://doi.org/10.38094/jastt20165",
+  "title": "Classification Based on Decision Tree Algorithm for Machine Learning",
+  "year": 2021,
+  "cites": 1877,
+  "venue": "Journal of Applied Science and Technology Trends",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3094948551",
+  "doi": "https://doi.org/10.1186/s40537-020-00369-8",
+  "title": "CatBoost for big data: an interdisciplinary review",
+  "year": 2020,
+  "cites": 1834,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2783741806",
+  "doi": "https://doi.org/10.1109/tetci.2017.2772792",
+  "title": "A Deep Learning Approach to Network Intrusion Detection",
+  "year": 2018,
+  "cites": 1828,
+  "venue": "IEEE Transactions on Emerging Topics in Computational Intelligence",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2747680751",
+  "doi": "https://doi.org/10.1007/s11042-022-13428-4",
+  "title": "Natural language processing: state of the art, current trends and challenges",
+  "year": 2022,
+  "cites": 1818,
+  "venue": "Multimedia Tools and Applications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3048804154",
+  "doi": "https://doi.org/10.3390/electronics9081295",
+  "title": "The k-means Algorithm: A Comprehensive Survey and Performance Evaluation",
+  "year": 2020,
+  "cites": 1718,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4291819654",
+  "doi": "https://doi.org/10.1007/s11042-022-13644-y",
+  "title": "Object detection using YOLO: challenges, architectural successors, datasets and applications",
+  "year": 2022,
+  "cites": 1536,
+  "venue": "Multimedia Tools and Applications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4210827551",
+  "doi": "https://doi.org/10.1007/s10462-022-10144-1",
+  "title": "A survey on sentiment analysis methods, applications, and challenges",
+  "year": 2022,
+  "cites": 1527,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2962814013",
+  "doi": "https://doi.org/10.1109/comst.2020.2970550",
+  "title": "Convergence of Edge Computing and Deep Learning: A Comprehensive Survey",
+  "year": 2020,
+  "cites": 1497,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2772457693",
+  "doi": "https://doi.org/10.1109/comst.2018.2844341",
+  "title": "Deep Learning for IoT Big Data and Streaming Analytics: A Survey",
+  "year": 2018,
+  "cites": 1473,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "pitfalls machine learning network intrusion detection evaluation dataset",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3045086480",
+  "doi": "https://doi.org/10.1109/access.2020.3010896",
+  "title": "6G and Beyond: The Future of Wireless Communications Systems",
+  "year": 2020,
+  "cites": 1396,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2885657717",
+  "doi": "https://doi.org/10.1016/j.sysarc.2019.02.009",
+  "title": "All one needs to know about fog computing and related edge computing paradigms: A complete survey",
+  "year": 2019,
+  "cites": 1363,
+  "venue": "Journal of Systems Architecture",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4296079469",
+  "doi": "https://doi.org/10.1109/access.2022.3207287",
+  "title": "A Survey of Ensemble Learning: Concepts, Algorithms, Applications, and Prospects",
+  "year": 2022,
+  "cites": 1308,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2789905221",
+  "doi": "https://doi.org/10.1016/j.mechatronics.2018.02.009",
+  "title": "Survey on human\u2013robot collaboration in industrial settings: Safety, intuitive interfaces and applications",
+  "year": 2018,
+  "cites": 1235,
+  "venue": "Mechatronics",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4376480418",
+  "doi": "https://doi.org/10.1109/access.2023.3275789",
+  "title": "Graph Neural Networks for Intrusion Detection: A Survey",
+  "year": 2023,
+  "cites": 228,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "graph neural network intrusion detection netflow",
+   "graph neural network intrusion detection netflow",
+   "E-GraphSAGE intrusion detection",
+   "E-GraphSAGE intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "netflow standard feature set intrusion detection datasets",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4393150251",
+  "doi": "https://doi.org/10.1016/j.cose.2024.103821",
+  "title": "A survey on graph neural networks for intrusion detection systems: Methods, trends and challenges",
+  "year": 2024,
+  "cites": 250,
+  "venue": "Computers & Security",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164524747",
+  "doi": "https://doi.org/10.5281/zenodo.20665829",
+  "title": "Graph Neural Network-Based Intrusion Detection: A Comprehensive Survey of Methods, Challenges, and Future Directions",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7211874495",
+  "doi": "https://doi.org/10.1007/s10462-026-11683-7",
+  "title": "Graph neural networks for network intrusion detection systems: a comprehensive survey, taxonomy, and empirical evaluation",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400976116",
+  "doi": "https://doi.org/10.1145/3664476.3664515",
+  "title": "GNN-IDS: Graph Neural Network based Intrusion Detection System",
+  "year": 2024,
+  "cites": 74,
+  "venue": "International Conference on Availability, Reliability and Security (ARES)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "E-GraphSAGE intrusion detection",
+   "E-GraphSAGE intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3217748719",
+  "doi": "https://doi.org/10.1109/jiot.2021.3130434",
+  "title": "Hierarchical Adversarial Attacks Against Graph-Neural-Network-Based IoT Network Intrusion Detection System",
+  "year": 2021,
+  "cites": 326,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411604510",
+  "doi": "https://doi.org/10.3390/sym17070997",
+  "title": "Industrial Internet of Things Intrusion Detection System Based on Graph Neural Network",
+  "year": 2025,
+  "cites": 33,
+  "venue": "Symmetry",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "similarity graph network flows graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4291743636",
+  "doi": "https://doi.org/10.3390/app12168162",
+  "title": "A Survey of CNN-Based Network Intrusion Detection",
+  "year": 2022,
+  "cites": 211,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "adversarial robustness graph-based network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405930342",
+  "doi": "https://doi.org/10.1007/978-3-031-74633-8_13",
+  "title": "Using Graph Neural Networks for the Detection and Explanation of Network Intrusions",
+  "year": 2024,
+  "cites": 6,
+  "venue": "Communications in computer and information science",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3205985117",
+  "doi": "https://doi.org/10.1145/3472753",
+  "title": "A Survey on Data-driven Network Intrusion Detection",
+  "year": 2021,
+  "cites": 190,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network intrusion detection netflow",
+   "graph neural network intrusion detection netflow",
+   "problem space adversarial attack network intrusion detection graph",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415593581",
+  "doi": "https://doi.org/10.1109/comst.2025.3625399",
+  "title": "Survey of Graph Neural Network for Internet of Things and NextG Networks",
+  "year": 2025,
+  "cites": 13,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399287524",
+  "doi": "https://doi.org/10.36227/techrxiv.171742564.46066868/v1",
+  "title": "Survey of Graph Neural Network for Internet of Things and NextG Networks",
+  "year": 2024,
+  "cites": 9,
+  "venue": null,
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409712865",
+  "doi": "https://doi.org/10.1186/s42400-024-00296-8",
+  "title": "BS-GAT: a network intrusion detection system based on graph neural network for edge computing",
+  "year": 2025,
+  "cites": 43,
+  "venue": "Cybersecurity",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network network intrusion detection",
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399115079",
+  "doi": "https://doi.org/10.48550/arxiv.2405.17309",
+  "title": "Survey of Graph Neural Network for Internet of Things and NextG Networks",
+  "year": 2024,
+  "cites": 2,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411345181",
+  "doi": "https://doi.org/10.3390/info16060499",
+  "title": "Optimizing IoT Intrusion Detection\u2014A Graph Neural Network Approach with Attribute-Based Graph Construction",
+  "year": 2025,
+  "cites": 31,
+  "venue": "Information",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "graph neural network intrusion detection netflow",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7169785431",
+  "doi": "https://doi.org/10.1016/j.comnet.2026.112598",
+  "title": "Graph Neural Networks and Graph Autoencoders for intrusion detection systems: A systematic review, taxonomy and comparative analysis",
+  "year": 2026,
+  "cites": 2,
+  "venue": "Computer Networks",
+  "type": "review",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3119529645",
+  "doi": "https://doi.org/10.1109/access.2021.3049249",
+  "title": "Intrusion Detection System Based on Integrated System Calls Graph and Neural Networks",
+  "year": 2021,
+  "cites": 27,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412644990",
+  "doi": "https://doi.org/10.64252/79452g17",
+  "title": "Optimization of Graph Neural Networks for Real-Time Intrusion Detection in Dynamic Mobile Ad-Hoc Networks",
+  "year": 2025,
+  "cites": 18,
+  "venue": "International Journal of Environmental Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4287062807",
+  "doi": "https://doi.org/10.48550/arxiv.2107.14756",
+  "title": "Unveiling the potential of Graph Neural Networks for robust Intrusion Detection",
+  "year": 2021,
+  "cites": 1,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2956030019",
+  "doi": "https://doi.org/10.1007/978-3-030-13057-2_8",
+  "title": "Intrusion Detection in SDN-Based Networks: Deep Recurrent Neural Network Approach",
+  "year": 2019,
+  "cites": 91,
+  "venue": "Advanced sciences and technologies for security applications",
+  "type": "book-chapter",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4225463305",
+  "doi": "https://doi.org/10.1051/itmconf/20224301003",
+  "title": "A Survey on Network Intrusion Detection using Convolutional Neural Network",
+  "year": 2022,
+  "cites": 11,
+  "venue": "ITM Web of Conferences",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415776180",
+  "doi": "https://doi.org/10.36074/grail-of-science.18.07.2025.058",
+  "title": "GRAPH NEURAL NETWORK-BASED INTRUSION DETECTION FOR IOT: PERFORMANCE AND COMPARATIVE ANALYSIS",
+  "year": 2025,
+  "cites": 1,
+  "venue": "\u0413\u0420\u0410\u0410\u041b\u042c \u041d\u0410\u0423\u041a\u0418",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412468738",
+  "doi": "https://doi.org/10.1007/s10844-025-00964-2",
+  "title": "Leveraging large language models, graph neural networks, and explainable AI for revolutionizing the next-generation network intrusion detection systems",
+  "year": 2025,
+  "cites": 10,
+  "venue": "Journal of Intelligent Information Systems",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4308605894",
+  "doi": "https://doi.org/10.1145/3570954",
+  "title": "AI-Based Intrusion Detection Systems for In-Vehicle Networks: A Survey",
+  "year": 2022,
+  "cites": 247,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202161976",
+  "doi": "https://doi.org/10.70917/ijcisim-2026-4270",
+  "title": "Artificial Intelligence-Based Intrusion Detection Using Graph Neural Networks for Internet of Things Networks",
+  "year": 2026,
+  "cites": 1,
+  "venue": "International Journal of Computer Information Systems and Industrial Management Applications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection survey",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3208773001",
+  "doi": "https://doi.org/10.1109/noms54207.2022.9789878",
+  "title": "E-GraphSAGE: A Graph Neural Network based Intrusion Detection System for IoT",
+  "year": 2022,
+  "cites": 417,
+  "venue": "IEEE/IFIP Network Operations and Management Symposium (NOMS)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "E-GraphSAGE intrusion detection",
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4307042912",
+  "doi": "https://doi.org/10.1016/j.knosys.2022.110030",
+  "title": "Anomal-E: A self-supervised network intrusion detection system based on graph neural networks",
+  "year": 2022,
+  "cites": 262,
+  "venue": "Knowledge-Based Systems",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3191490876",
+  "doi": "https://doi.org/10.1145/3543146.3543171",
+  "title": "Unveiling the potential of Graph Neural Networks for robust Intrusion Detection",
+  "year": 2022,
+  "cites": 119,
+  "venue": "ACM SIGMETRICS Performance Evaluation Review",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396792110",
+  "doi": "https://doi.org/10.1016/j.comnet.2024.110495",
+  "title": "Applying self-supervised learning to network intrusion detection for network flows with graph neural network",
+  "year": 2024,
+  "cites": 103,
+  "venue": "Computer Networks",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399881395",
+  "doi": "https://doi.org/10.1109/tdsc.2024.3417853",
+  "title": "A Privacy-Preserving Graph Neural Network for Network Intrusion Detection",
+  "year": 2024,
+  "cites": 18,
+  "venue": "IEEE Transactions on Dependable and Secure Computing",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401410618",
+  "doi": "https://doi.org/10.3390/app14166932",
+  "title": "FN-GNN: A Novel Graph Embedding Approach for Enhancing Graph Neural Networks in Network Intrusion Detection Systems",
+  "year": 2024,
+  "cites": 66,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405613963",
+  "doi": "https://doi.org/10.1016/j.compeleceng.2024.109956",
+  "title": "ResACAG: A graph neural network based intrusion detection",
+  "year": 2024,
+  "cites": 20,
+  "venue": "Computers & Electrical Engineering",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4410252980",
+  "doi": "https://doi.org/10.1016/j.procs.2025.04.618",
+  "title": "Exploring Graph Neural Networks for Robust Network Intrusion Detection",
+  "year": 2025,
+  "cites": 7,
+  "venue": "Procedia Computer Science",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285157251",
+  "doi": "https://doi.org/10.1109/tnse.2022.3184975",
+  "title": "Intrusion Detection of Industrial Internet-of-Things Based on Reconstructed Graph Neural Networks",
+  "year": 2022,
+  "cites": 110,
+  "venue": "IEEE Transactions on Network Science and Engineering",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412830329",
+  "doi": "https://doi.org/10.23919/tma66427.2025.11096992",
+  "title": "Graph Neural Networks for Graph-Level Anomaly Detection in Network Intrusion Detection",
+  "year": 2025,
+  "cites": 1,
+  "venue": "Network Traffic Measurement and Analysis Conference (TMA)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313378981",
+  "doi": "https://doi.org/10.1109/tifs.2022.3228493",
+  "title": "Application of a Dynamic Line Graph Neural Network for Intrusion Detection With Semisupervised Learning",
+  "year": 2022,
+  "cites": 146,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7210281780",
+  "doi": "https://doi.org/10.5281/zenodo.22471346",
+  "title": "Self-Organizing Graph Neural Networks for Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409311114",
+  "doi": "https://doi.org/10.1109/access.2025.3559325",
+  "title": "Intrusion Detection in IoT Networks Using Dynamic Graph Modeling and Graph-Based Neural Networks",
+  "year": 2025,
+  "cites": 34,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403599708",
+  "doi": "https://doi.org/10.1007/s11227-024-06471-5",
+  "title": "E-GRACL: an IoT intrusion detection system based on graph neural networks",
+  "year": 2024,
+  "cites": 64,
+  "venue": "The Journal of Supercomputing",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "E-GraphSAGE intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4407130096",
+  "doi": "https://doi.org/10.1109/imcom64595.2025.10857434",
+  "title": "DynKDD: Dynamic Graph-Based Network Intrusion Detection Using Graph Neural Networks",
+  "year": 2025,
+  "cites": 6,
+  "venue": "International Conference on Ubiquitous Information Management and Communication (IMCOM)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400277664",
+  "doi": "https://doi.org/10.1109/icoin59985.2024.10572124",
+  "title": "Graph Embedding for Graph Neural Network in Intrusion Detection System",
+  "year": 2024,
+  "cites": 12,
+  "venue": "International Conference on Information Networking",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4408134174",
+  "doi": "https://doi.org/10.1007/978-981-96-2376-1_26",
+  "title": "Structure Enhancement Network Intrusion Detection Based on Graph Neural Network",
+  "year": 2025,
+  "cites": 1,
+  "venue": "Communications in computer and information science",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4388280325",
+  "doi": "https://doi.org/10.1109/safeprocess58597.2023.10295926",
+  "title": "Network Intrusion Detection Based on Graph Neural Network and Ensemble Learning",
+  "year": 2023,
+  "cites": 2,
+  "venue": "CAA Symposium on Fault Detection, Supervision and Safety for Technical Processes (SAFEPROCESS)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164138101",
+  "doi": "https://doi.org/10.5281/zenodo.20622511",
+  "title": "Graph Neural Networks for Network Intrusion Detection and Classification",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "article",
+  "queries": [
+   "graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2809684781",
+  "doi": "https://doi.org/10.1186/s13174-018-0087-2",
+  "title": "A comprehensive survey on machine learning for networking: evolution, applications and research opportunities",
+  "year": 2018,
+  "cites": 1032,
+  "venue": "Journal of Internet Services and Applications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "netflow standard feature set intrusion detection datasets",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2945594226",
+  "doi": "https://doi.org/10.1016/j.iot.2019.100059",
+  "title": "Attack and anomaly detection in IoT sensors in IoT sites using machine learning approaches",
+  "year": 2019,
+  "cites": 846,
+  "venue": "Internet of Things",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3164952570",
+  "doi": "https://doi.org/10.1109/access.2021.3083060",
+  "title": "Machine Learning for Anomaly Detection: A Systematic Review",
+  "year": 2021,
+  "cites": 744,
+  "venue": "IEEE Access",
+  "type": "review",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2900633536",
+  "doi": "https://doi.org/10.1016/j.cose.2018.11.001",
+  "title": "Survey of machine learning techniques for malware analysis",
+  "year": 2018,
+  "cites": 572,
+  "venue": "Computers & Security",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3141567114",
+  "doi": "https://doi.org/10.1186/s42400-021-00077-7",
+  "title": "A critical review of intrusion detection systems in the internet of things: techniques, deployment strategy, validation strategy, attacks, public datasets and challenges",
+  "year": 2021,
+  "cites": 511,
+  "venue": "Cybersecurity",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3039222472",
+  "doi": "https://doi.org/10.1186/s40537-020-00320-x",
+  "title": "A comprehensive survey of anomaly detection techniques for high dimensional big data",
+  "year": 2020,
+  "cites": 427,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2900853407",
+  "doi": "https://doi.org/10.1109/comst.2018.2883147",
+  "title": "Towards the Deployment of Machine Learning Solutions in Network Traffic Classification: A Systematic Survey",
+  "year": 2018,
+  "cites": 371,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3000094279",
+  "doi": "https://doi.org/10.1016/j.comcom.2020.01.016",
+  "title": "Deep learning and big data technologies for IoT security",
+  "year": 2020,
+  "cites": 359,
+  "venue": "Computer Communications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4214699222",
+  "doi": "https://doi.org/10.1016/j.cose.2022.102675",
+  "title": "A systematic literature review of methods and datasets for anomaly-based network intrusion detection",
+  "year": 2022,
+  "cites": 356,
+  "venue": "Computers & Security",
+  "type": "review",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4294691140",
+  "doi": "https://doi.org/10.1109/access.2022.3204171",
+  "title": "Explainable Artificial Intelligence in CyberSecurity: A Survey",
+  "year": 2022,
+  "cites": 323,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3035311645",
+  "doi": "https://doi.org/10.1109/access.2020.3001350",
+  "title": "Anomaly-Based Intrusion Detection From Network Flow Features Using Variational Autoencoder",
+  "year": 2020,
+  "cites": 323,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392029839",
+  "doi": "https://doi.org/10.1186/s40537-024-00886-w",
+  "title": "Machine learning-based network intrusion detection for big and imbalanced data using oversampling, stacking feature embedding and feature extraction",
+  "year": 2024,
+  "cites": 299,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4283313119",
+  "doi": "https://doi.org/10.1145/3545574",
+  "title": "The Role of Machine Learning in Cybersecurity",
+  "year": 2022,
+  "cites": 278,
+  "venue": "Digital Threats Research and Practice",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400770731",
+  "doi": "https://doi.org/10.1109/comst.2024.3430368",
+  "title": "A Survey on Intelligent Internet of Things: Applications, Security, Privacy, and Future Directions",
+  "year": 2024,
+  "cites": 273,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313116287",
+  "doi": "https://doi.org/10.1109/access.2022.3216617",
+  "title": "Explainable Intrusion Detection Systems (X-IDS): A Survey of Current Methods, Challenges, and Opportunities",
+  "year": 2022,
+  "cites": 236,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4377691173",
+  "doi": "https://doi.org/10.1016/j.engappai.2023.106432",
+  "title": "Towards a machine learning-based framework for DDOS attack detection in software-defined IoT (SD-IoT) networks",
+  "year": 2023,
+  "cites": 228,
+  "venue": "Engineering Applications of Artificial Intelligence",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4388948449",
+  "doi": "https://doi.org/10.1016/j.eswa.2023.122564",
+  "title": "FlowTransformer: A transformer framework for flow-based network intrusion detection systems",
+  "year": 2023,
+  "cites": 216,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2870670057",
+  "doi": "https://doi.org/10.1109/comst.2018.2854724",
+  "title": "From Intrusion Detection to Attacker Attribution: A Comprehensive Survey of Unsupervised Methods",
+  "year": 2018,
+  "cites": 213,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4200616942",
+  "doi": "https://doi.org/10.1016/j.jksuci.2021.12.008",
+  "title": "MapReduce based intelligent model for intrusion detection using machine learning technique",
+  "year": 2021,
+  "cites": 207,
+  "venue": "Journal of King Saud University - Computer and Information Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4210659135",
+  "doi": "https://doi.org/10.3390/s22031154",
+  "title": "Classification and Explanation for Intrusion Detection System Based on Ensemble Trees and SHAP Method",
+  "year": 2022,
+  "cites": 204,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3127353117",
+  "doi": "https://doi.org/10.1109/access.2021.3086704",
+  "title": "An Exhaustive Survey on P4 Programmable Data Plane Switches: Taxonomy, Applications, Challenges, and Future Trends",
+  "year": 2021,
+  "cites": 190,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3112343206",
+  "doi": "https://doi.org/10.3390/ijerph17249347",
+  "title": "Cyberattacks Detection in IoT-Based Smart City Applications Using Machine Learning Techniques",
+  "year": 2020,
+  "cites": 185,
+  "venue": "International Journal of Environmental Research and Public Health",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7196971392",
+  "doi": "https://doi.org/10.52202/085713-3653",
+  "title": "Self-Supervised Learning of Graph Representations for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 4,
+  "venue": "neural information processing systems",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417277139",
+  "doi": "https://doi.org/10.3390/modelling6040165",
+  "title": "TE-G-SAGE: Explainable Edge-Aware Graph Neural Networks for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 14,
+  "venue": "Modelling\u2014International Open Access Journal of Modelling in Engineering Science",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409095015",
+  "doi": "https://doi.org/10.1145/3718491.3718609",
+  "title": "Intrusion Detection Method Based on a Dual-channel Graph Neural Network",
+  "year": 2024,
+  "cites": 1,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392488036",
+  "doi": "https://doi.org/10.48550/arxiv.2403.01501",
+  "title": "Applying Self-supervised Learning to Network Intrusion Detection for Network Flows with Graph Neural Network",
+  "year": 2024,
+  "cites": 2,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4384931056",
+  "doi": "https://doi.org/10.3390/rs15143611",
+  "title": "N-STGAT: Spatio-Temporal Graph Neural Network Based Network Intrusion Detection for Near-Earth Remote Sensing",
+  "year": 2023,
+  "cites": 43,
+  "venue": "Remote Sensing",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4411350295",
+  "doi": "https://doi.org/10.35377/saucis...1663435",
+  "title": "Leveraging Graph Neural Networks for IoT Attack Detection",
+  "year": 2025,
+  "cites": 3,
+  "venue": "Sakarya University Journal of Computer and Information Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7140305695",
+  "doi": "https://doi.org/10.48550/arxiv.2603.22365",
+  "title": "Q-AGNN: Quantum-Enhanced Attentive Graph Neural Network for Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7164361768",
+  "doi": "https://doi.org/10.1109/iciics67880.2026.11483598",
+  "title": "Adaptative Intrusion Detection for Communication Network Using Node Centric Pruning-Graph Attention Network",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Integrated Intelligence and Communication Systems (ICIICS)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7217949214",
+  "doi": null,
+  "title": "Towards an Efficient Network Intrusion Detection System for IoT Networks Leveraging Graph Neural Networks",
+  "year": 2024,
+  "cites": 0,
+  "venue": "OPUS - Open Publications of UTS Scholars (University of Technology Sydney)",
+  "type": "dissertation",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416750360",
+  "doi": "https://doi.org/10.1109/nca67271.2025.00043",
+  "title": "Defending Network Intrusion Detection Systems Based on Graph Neural Networks Against Structural Adversarial Attacks",
+  "year": 2025,
+  "cites": 2,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4404301064",
+  "doi": "https://doi.org/10.32604/cmc.2024.057660",
+  "title": "DIGNN-A: Real-Time Network Intrusion Detection with Integrated Neural Networks Based on Dynamic Graph",
+  "year": 2024,
+  "cites": 21,
+  "venue": "Computers, materials & continua/Computers, materials & continua (Print)",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4400315552",
+  "doi": "https://doi.org/10.1109/medcomnet62012.2024.10578278",
+  "title": "Enhancing Network Anomaly Detection Using Graph Neural Networks",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Mediterranean Communication and Computer Networking Conference (MedComNet)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392971607",
+  "doi": "https://doi.org/10.48550/arxiv.2403.11830",
+  "title": "Problem space structural adversarial attacks for Network Intrusion Detection Systems based on Graph Neural Networks",
+  "year": 2024,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7131674627",
+  "doi": "https://doi.org/10.64539/sjcs.v2i1.2026.404",
+  "title": "A Convolutional Neural Network Framework for Intelligent Intrusion Detection",
+  "year": 2026,
+  "cites": 2,
+  "venue": "Scientific Journal of Computer Science",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4390395849",
+  "doi": "https://doi.org/10.54654/isj.v3i20.984",
+  "title": "A review of neural networks for rare intrusions detection in wireless networks",
+  "year": 2023,
+  "cites": 1,
+  "venue": "Journal of Science and Technology on Information security",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416624973",
+  "doi": "https://doi.org/10.1038/s41598-025-25175-1",
+  "title": "Graph-based federated learning approach for intrusion detection in IoT networks",
+  "year": 2025,
+  "cites": 21,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3154419486",
+  "doi": null,
+  "title": "Anomaly Detection for Cybersecurity Attacks on NetFlow Data",
+  "year": 2021,
+  "cites": 0,
+  "venue": "TSpace (University of Toronto)",
+  "type": "dissertation",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4296420817",
+  "doi": "https://doi.org/10.3390/app12167986",
+  "title": "A One-Dimensional Convolutional Neural Network (1D-CNN) Based Deep Learning System for Network Intrusion Detection",
+  "year": 2022,
+  "cites": 181,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3214633399",
+  "doi": "https://doi.org/10.3233/apc210116",
+  "title": "Intrusion Detection System Using Convolutional Neural Network on UNSW NB15 Dataset",
+  "year": 2021,
+  "cites": 24,
+  "venue": "Advances in parallel computing",
+  "type": "book-chapter",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3217648337",
+  "doi": "https://doi.org/10.1109/access.2021.3129775",
+  "title": "Research Trends in Network-Based Intrusion Detection Systems: A Review",
+  "year": 2021,
+  "cites": 126,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph neural network intrusion detection netflow"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4379620324",
+  "doi": "https://doi.org/10.1145/3555776.3577651",
+  "title": "ARGANIDS: a novel Network Intrusion Detection System based on adversarially Regularized Graph Autoencoder",
+  "year": 2023,
+  "cites": 23,
+  "venue": "ACM/SIGAPP Symposium on Applied Computing (SAC)",
+  "type": "conference-paper",
+  "queries": [
+   "graph neural network intrusion detection netflow",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4390906246",
+  "doi": "https://doi.org/10.1186/s40537-023-00876-4",
+  "title": "A review of graph neural networks: concepts, architectures, techniques, challenges, datasets, applications, and future directions",
+  "year": 2024,
+  "cites": 613,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2997915791",
+  "doi": "https://doi.org/10.1609/aaai.v34i01.5466",
+  "title": "Order Matters: Semantic-Aware Neural Networks for Binary Code Similarity Detection",
+  "year": 2020,
+  "cites": 234,
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4391235397",
+  "doi": "https://doi.org/10.1109/access.2024.3358333",
+  "title": "Real-Time Plant Disease Dataset Development and Detection of Plant Disease Using Deep Learning",
+  "year": 2024,
+  "cites": 195,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3035779093",
+  "doi": "https://doi.org/10.1145/3340531.3411922",
+  "title": "Graph Prototypical Networks for Few-shot Learning on Attributed Networks",
+  "year": 2020,
+  "cites": 171,
+  "venue": "Proceedings of the ... ACM International Conference on Information & Knowledge Management",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4367319981",
+  "doi": "https://doi.org/10.1049/cit2.12216",
+  "title": "Weakly supervised machine learning",
+  "year": 2023,
+  "cites": 163,
+  "venue": "CAAI Transactions on Intelligence Technology",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4318049614",
+  "doi": "https://doi.org/10.3390/s23031352",
+  "title": "A Survey of AI-Based Anomaly Detection in IoT and Sensor Networks",
+  "year": 2023,
+  "cites": 158,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4393170771",
+  "doi": "https://doi.org/10.1109/access.2024.3381038",
+  "title": "Advancing Fake News Detection: Hybrid Deep Learning With FastText and Explainable AI",
+  "year": 2024,
+  "cites": 154,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3159151987",
+  "doi": "https://doi.org/10.3390/s21092985",
+  "title": "SMOTE-DRNN: A Deep Learning Algorithm for Botnet Detection in the Internet-of-Things Networks",
+  "year": 2021,
+  "cites": 139,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4391448402",
+  "doi": "https://doi.org/10.1007/s42484-024-00143-6",
+  "title": "Financial fraud detection using quantum graph neural networks",
+  "year": 2024,
+  "cites": 115,
+  "venue": "Quantum Machine Intelligence",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4379927591",
+  "doi": "https://doi.org/10.1145/3616855.3635767",
+  "title": "GAD-NR: Graph Anomaly Detection via Neighborhood Reconstruction",
+  "year": 2024,
+  "cites": 98,
+  "venue": "ACM International Conference on Web Search and Data Mining (WSDM)",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380682492",
+  "doi": "https://doi.org/10.3934/mbe.2023602",
+  "title": "A hybrid deep learning-based intrusion detection system for IoT networks",
+  "year": 2023,
+  "cites": 98,
+  "venue": "Mathematical Biosciences & Engineering",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection",
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4367367976",
+  "doi": "https://doi.org/10.1007/s10115-023-01860-3",
+  "title": "Cybersecurity knowledge graphs",
+  "year": 2023,
+  "cites": 96,
+  "venue": "Knowledge and Information Systems",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415918357",
+  "doi": "https://doi.org/10.1007/s44163-025-00578-1",
+  "title": "A comprehensive survey on intrusion detection systems with advances in machine learning, deep learning and emerging cybersecurity challenges",
+  "year": 2025,
+  "cites": 95,
+  "venue": "Discover Artificial Intelligence",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4381890377",
+  "doi": "https://doi.org/10.1145/3605775",
+  "title": "Deep Learning for Zero-day Malware Detection and Classification: A Survey",
+  "year": 2023,
+  "cites": 95,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4307190418",
+  "doi": "https://doi.org/10.3390/s22218085",
+  "title": "Anomaly Detection in Industrial IoT Using Distributional Reinforcement Learning and Generative Adversarial Networks",
+  "year": 2022,
+  "cites": 89,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2997001386",
+  "doi": "https://doi.org/10.1609/aaai.v34i04.5720",
+  "title": "Learning-Based Efficient Graph Similarity Computation via Multi-Scale Convolutional Set Matching",
+  "year": 2020,
+  "cites": 86,
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403731508",
+  "doi": "https://doi.org/10.3390/su16219239",
+  "title": "Graph Neural Networks for Routing Optimization: Challenges and Opportunities",
+  "year": 2024,
+  "cites": 83,
+  "venue": "Sustainability",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396949749",
+  "doi": "https://doi.org/10.1109/tifs.2024.3402148",
+  "title": "Online Self-Supervised Deep Learning for Intrusion Detection Systems",
+  "year": 2024,
+  "cites": 75,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2965563623",
+  "doi": "https://doi.org/10.24963/ijcai.2019/522",
+  "title": "Heterogeneous Graph Matching Networks for Unknown Malware Detection",
+  "year": 2019,
+  "cites": 71,
+  "venue": "International Joint Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399121544",
+  "doi": "https://doi.org/10.1145/3669906",
+  "title": "Anomaly Detection in Dynamic Graphs: A Comprehensive Survey",
+  "year": 2024,
+  "cites": 70,
+  "venue": "ACM Transactions on Knowledge Discovery from Data",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4394699061",
+  "doi": "https://doi.org/10.1109/jiot.2024.3387294",
+  "title": "Meta-IDS: Meta-Learning-Based Smart Intrusion Detection System for Internet of Medical Things (IoMT) Network",
+  "year": 2024,
+  "cites": 70,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection",
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3216081894",
+  "doi": "https://doi.org/10.48550/arxiv.2111.13597",
+  "title": "Graph-based Solutions with Residuals for Intrusion Detection: the Modified E-GraphSAGE and E-ResGAT Algorithms",
+  "year": 2021,
+  "cites": 22,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3139552648",
+  "doi": null,
+  "title": "E-GraphSAGE: A Graph Neural Network based Intrusion Detection System",
+  "year": 2021,
+  "cites": 11,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401093862",
+  "doi": "https://doi.org/10.1007/978-981-97-5606-3_3",
+  "title": "Network Traffic Intrusion Detection Strategy Based on E-GraphSAGE and LSTM",
+  "year": 2024,
+  "cites": 0,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7215334871",
+  "doi": null,
+  "title": "Hybrid Gaussian Network Intrusion Detection Method Based on CGAN and E-GraphSAGE",
+  "year": 2024,
+  "cites": 0,
+  "venue": "Instrumentation",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4387807207",
+  "doi": "https://doi.org/10.1117/12.3010362",
+  "title": "Classification of IoT intrusion detection data based on WGAN-gp and E-GraphSAGE",
+  "year": 2023,
+  "cites": 2,
+  "venue": "International Conference on Green Communication, Network, and Internet of Things (CNIoT)",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392774995",
+  "doi": "https://doi.org/10.1007/s41870-024-01746-9",
+  "title": "Enhancing IoT intrusion detection system with modified E-GraphSAGE: a graph neural network approach",
+  "year": 2024,
+  "cites": 15,
+  "venue": "International Journal of Information Technology",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165643310",
+  "doi": "https://doi.org/10.1109/icirca69024.2026.11570636",
+  "title": "E-GraphSAGE with Explainability: Edge-Centric Graph Neural Networks for IoT Intrusion Detection across Heterogeneous Datasets",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Inventive Research in Computing Applications (ICIRCA)",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160948557",
+  "doi": "https://doi.org/10.18196/jrc.v6i6.28114",
+  "title": "Edge-Sage: GraphSAGE Framework for Decentralized Intrusion Detection in Edge IoT Networks",
+  "year": 2025,
+  "cites": 0,
+  "venue": "Journal of Robotics and Control (JRC)",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409322283",
+  "doi": "https://doi.org/10.5220/0013363000003944",
+  "title": "Enhancing IoT Network Intrusion Detection with a New GraphSAGE Embedding Algorithm Using Centrality Measures",
+  "year": 2025,
+  "cites": 8,
+  "venue": "International Conference on Internet of Things, Big Data and Security (IoTBDS)",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4396642049",
+  "doi": "https://doi.org/10.1007/s10489-024-05404-2",
+  "title": "Embedding residuals in graph-based solutions: the E-ResSAGE and E-ResGAT algorithms. A case study in intrusion detection",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Applied Intelligence",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7133623380",
+  "doi": "https://doi.org/10.1109/prai67447.2025.11412600",
+  "title": "Large-Scale Network Traffic Classification Using Graph Clustering-Enhanced E-GraphSAGE",
+  "year": 2025,
+  "cites": 0,
+  "venue": "IEEE International Conference on Pattern Recognition and Artificial Intelligence (PRAI)",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7117961138",
+  "doi": "https://doi.org/10.1007/978-981-96-9682-6_27",
+  "title": "Graph-Based Techniques for Cybersecurity: A Survey on Intrusion and Vulnerability Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Lecture notes in networks and systems",
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285596339",
+  "doi": "https://doi.org/10.1155/2022/5363764",
+  "title": "E-minBatch GraphSAGE: An Industrial Internet Attack Detection Model",
+  "year": 2022,
+  "cites": 25,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412939887",
+  "doi": "https://doi.org/10.1109/tpami.2025.3595671",
+  "title": "Disentangled Dynamic Intrusion Detection",
+  "year": 2025,
+  "cites": 13,
+  "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416922646",
+  "doi": "https://doi.org/10.1109/iscipt67144.2025.11265034",
+  "title": "Network Intrusion Detection Enabled by Attention Mechanism and Hierarchical GNN",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213905868",
+  "doi": "https://doi.org/10.1177/1088467x261488186",
+  "title": "Online intrusion detection in computer networks using edge-aware attentive graph neural network",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Intelligent Data Analysis",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204761962",
+  "doi": "https://doi.org/10.17559/tv-20251122003150",
+  "title": "Temporal-Contextual Graph Transformer for Adaptive Intrusion Detection Systems in Internet of Things",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Tehnicki vjesnik - Technical Gazette",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413771043",
+  "doi": "https://doi.org/10.1186/s13638-025-02477-6",
+  "title": "Deep learning enabled intrusion detection system for IoT security",
+  "year": 2025,
+  "cites": 27,
+  "venue": "EURASIP Journal on Wireless Communications and Networking",
+  "type": "article",
+  "queries": [
+   "E-GraphSAGE intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2576683119",
+  "doi": "https://doi.org/10.1016/j.neucom.2017.01.026",
+  "title": "Machine learning on big data: Opportunities and challenges",
+  "year": 2017,
+  "cites": 1229,
+  "venue": "Neurocomputing",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4225716729",
+  "doi": "https://doi.org/10.1007/s42979-022-01043-x",
+  "title": "AI-Based Modeling: Techniques, Applications and Research Issues Towards Automation, Intelligent and Smart Systems",
+  "year": 2022,
+  "cites": 1199,
+  "venue": "SN Computer Science",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3005893373",
+  "doi": "https://doi.org/10.1145/3444690",
+  "title": "A Review on Outlier/Anomaly Detection in Time Series Data",
+  "year": 2021,
+  "cites": 1090,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3024333932",
+  "doi": "https://doi.org/10.38094/jastt1224",
+  "title": "A Comprehensive Review of Dimensionality Reduction Techniques for Feature Selection and Feature Extraction",
+  "year": 2020,
+  "cites": 926,
+  "venue": "Journal of Applied Science and Technology Trends",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3089028909",
+  "doi": "https://doi.org/10.1109/jproc.2021.3052449",
+  "title": "A Unifying Review of Deep and Shallow Anomaly Detection",
+  "year": 2021,
+  "cites": 915,
+  "venue": "Proceedings of the IEEE",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4365504037",
+  "doi": "https://doi.org/10.1186/s40537-023-00727-2",
+  "title": "A survey on deep learning tools dealing with data scarcity: definitions, challenges, solutions, tips, and applications",
+  "year": 2023,
+  "cites": 909,
+  "venue": "Journal Of Big Data",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2910096450",
+  "doi": "https://doi.org/10.1007/s10462-018-09679-z",
+  "title": "Machine Learning and Deep Learning frameworks and libraries for large-scale data mining: a survey",
+  "year": 2019,
+  "cites": 867,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3212512279",
+  "doi": "https://doi.org/10.1038/s41524-021-00650-1",
+  "title": "Atomistic Line Graph Neural Network for improved materials property predictions",
+  "year": 2021,
+  "cites": 760,
+  "venue": "npj Computational Materials",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3127597934",
+  "doi": "https://doi.org/10.1038/s41598-020-74399-w",
+  "title": "Multimodal deep learning models for early detection of Alzheimer\u2019s disease stage",
+  "year": 2021,
+  "cites": 728,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2969656782",
+  "doi": "https://doi.org/10.3390/sym11091066",
+  "title": "Deep Metric Learning: A Survey",
+  "year": 2019,
+  "cites": 700,
+  "venue": "Symmetry",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3107249503",
+  "doi": "https://doi.org/10.1016/j.apenergy.2021.116601",
+  "title": "Artificial intelligence based anomaly detection of energy consumption in buildings: A review, current trends and new perspectives",
+  "year": 2021,
+  "cites": 659,
+  "venue": "Applied Energy",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3172885594",
+  "doi": "https://doi.org/10.21203/rs.3.rs-515900/v1",
+  "title": "Multiple Classification Algorithm Based on Graph Convolutional Neural Network for Intrusion Detection",
+  "year": 2021,
+  "cites": 4,
+  "venue": "Research Square",
+  "type": "preprint",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409503863",
+  "doi": "https://doi.org/10.1007/s11760-025-04083-x",
+  "title": "Multi-classification algorithm based on graph convolutional neural network for intrusion detection",
+  "year": 2025,
+  "cites": 5,
+  "venue": "Signal Image and Video Processing",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7123348275",
+  "doi": "https://doi.org/10.1109/slaai-icai68534.2025.11318484",
+  "title": "A Federated Graph Neural Network Approach for Intrusion Detection in 5G Network",
+  "year": 2025,
+  "cites": 0,
+  "venue": "SLAAI International Conference on Artificial Intelligence (SLAAI-ICAI)",
+  "type": "conference-paper",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415905191",
+  "doi": "https://doi.org/10.15837/ijccc.2025.5.6832",
+  "title": "Intrusion Detection in Marine Networks Based on Feature Dimension Reduction and Graph Convolution",
+  "year": 2025,
+  "cites": 0,
+  "venue": "International Journal of Computers Communications & Control",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413202368",
+  "doi": "https://doi.org/10.1016/j.comnet.2025.111606",
+  "title": "Enhancing intrusion detection performance using GCN-LOF: A hybrid graph-based anomaly detection approach",
+  "year": 2025,
+  "cites": 15,
+  "venue": "Computer Networks",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7125426747",
+  "doi": "https://doi.org/10.1371/journal.pone.0340997",
+  "title": "Network intrusion detection using a hybrid graph-based convolutional network and transformer architecture",
+  "year": 2026,
+  "cites": 8,
+  "venue": "PLoS ONE",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7203769631",
+  "doi": "https://doi.org/10.48550/arxiv.2608.17352",
+  "title": "Cognitive Graph Intelligence for Adaptive and Robust DDoS Attack Detection in Next Generation Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7131304058",
+  "doi": "https://doi.org/10.3390/s26051421",
+  "title": "Graph Convolution Neural Network and Deep Q-Network Optimization-Based Intrusion Detection with Explainability Analysis",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285029861",
+  "doi": "https://doi.org/10.1109/access.2022.3189790",
+  "title": "Graph Convolutional Networks and Attention-Based Outlier Detection",
+  "year": 2022,
+  "cites": 4,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4224940435",
+  "doi": "https://doi.org/10.1155/2022/4748528",
+  "title": "An Enhanced Intrusion Detection System for IoT Networks Based on Deep Learning and Knowledge Graph",
+  "year": 2022,
+  "cites": 49,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220383466",
+  "doi": "https://doi.org/10.48009/3_iis_2026_148",
+  "title": "A CORRELATION-GRAPH-DRIVEN ENSEMBLE INTRUSION DETECTION SYSTEM FOR IOT NETWORKS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Issues in Information Systems",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414862441",
+  "doi": "https://doi.org/10.1038/s41598-025-18401-3",
+  "title": "A hybrid intrusion detection model based on dynamic spatial-temporal graph neural network in in-vehicle networks",
+  "year": 2025,
+  "cites": 7,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7172370418",
+  "doi": "https://doi.org/10.51699/cajmtcs.v7i3.954",
+  "title": "A Hybrid Graph Neural Network Framework for Cyberattack Detection Based on Network Traffic Graphs",
+  "year": 2026,
+  "cites": 0,
+  "venue": "CENTRAL ASIAN JOURNAL OF MATHEMATICAL THEORY AND COMPUTER SCIENCES",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416213584",
+  "doi": "https://doi.org/10.1080/1206212x.2025.2584106",
+  "title": "Intrusion detection using graph inspired insights",
+  "year": 2025,
+  "cites": 1,
+  "venue": "International Journal of Computers and Applications",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4224058622",
+  "doi": "https://doi.org/10.1155/2022/1942847",
+  "title": "Network Intrusion Detection Technology Based on Convolutional Neural Network and BiGRU",
+  "year": 2022,
+  "cites": 38,
+  "venue": "Computational Intelligence and Neuroscience",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7115177708",
+  "doi": "https://doi.org/10.1145/3777555.3777572",
+  "title": "Leakage-Safe Multi-View Graph Construction for Robust Intrusion Detection in Edge-IIoT Networks",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392979955",
+  "doi": "https://doi.org/10.1109/access.2024.3379201",
+  "title": "Dynamic Generative Residual Graph Convolutional Neural Networks for Electricity Theft Detection",
+  "year": 2024,
+  "cites": 30,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4387995342",
+  "doi": "https://doi.org/10.1016/j.engappai.2026.115284",
+  "title": "Network intrusion detection with edge-directed graph Multi-Head Attention Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Engineering Applications of Artificial Intelligence",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4224220262",
+  "doi": "https://doi.org/10.3390/app12094184",
+  "title": "Network Intrusion Detection Model Based on CNN and GRU",
+  "year": 2022,
+  "cites": 199,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4280523910",
+  "doi": "https://doi.org/10.3390/s22103607",
+  "title": "A New Intrusion Detection System for the Internet of Things via Deep Convolutional Neural Network and Feature Engineering",
+  "year": 2022,
+  "cites": 98,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "k-nearest neighbor graph intrusion detection graph convolutional network"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4366091323",
+  "doi": "https://doi.org/10.1007/s10462-023-10466-8",
+  "title": "Deep learning modelling techniques: current progress, applications, advantages, and challenges",
+  "year": 2023,
+  "cites": 1066,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3206824631",
+  "doi": "https://doi.org/10.3390/electronics10202470",
+  "title": "CNN Variants for Computer Vision: History, Architecture, Application, Challenges and Future Scope",
+  "year": 2021,
+  "cites": 885,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4309080560",
+  "doi": "https://doi.org/10.1007/s13042-022-01647-y",
+  "title": "A survey on federated learning: challenges and applications",
+  "year": 2022,
+  "cites": 883,
+  "venue": "International Journal of Machine Learning and Cybernetics",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2979040987",
+  "doi": "https://doi.org/10.1109/access.2019.2945545",
+  "title": "Comprehensive Review of Artificial Neural Network Applications to Pattern Recognition",
+  "year": 2019,
+  "cites": 760,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3006230761",
+  "doi": "https://doi.org/10.3390/s20041042",
+  "title": "IoT-Based Smart Irrigation Systems: An Overview on the Recent Trends on Sensors and IoT Systems for Irrigation in Precision Agriculture",
+  "year": 2020,
+  "cites": 756,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3197217317",
+  "doi": "https://doi.org/10.1007/s13735-021-00218-1",
+  "title": "A review on deep learning in medical image analysis",
+  "year": 2021,
+  "cites": 659,
+  "venue": "International Journal of Multimedia Information Retrieval",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2998074434",
+  "doi": "https://doi.org/10.1109/access.2019.2963724",
+  "title": "A Comprehensive Review on Malware Detection Approaches",
+  "year": 2020,
+  "cites": 653,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4366207344",
+  "doi": "https://doi.org/10.48550/arxiv.2304.07226",
+  "title": "BS-GAT Behavior Similarity Based Graph Attention Network for Network Intrusion Detection",
+  "year": 2023,
+  "cites": 3,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380361614",
+  "doi": "https://doi.org/10.1117/12.2663162",
+  "title": "Graph representation learning for context-aware network intrusion detection",
+  "year": 2023,
+  "cites": 10,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160218752",
+  "doi": "https://doi.org/10.20944/preprints202604.1972.v1",
+  "title": "From Flow Features to Communication Topology: Adaptive Graph Attention Network-Based IoMT Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Preprints.org",
+  "type": "preprint",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection",
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7117478410",
+  "doi": "https://doi.org/10.1038/s41598-025-28359-x",
+  "title": "Osprey optimization algorithm integrated with graph neural networks for intrusion detection in wireless sensor networks",
+  "year": 2025,
+  "cites": 3,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7202395158",
+  "doi": "https://doi.org/10.1007/s44443-026-01014-9",
+  "title": "SketchSAGE: Enabling efficient IoT network intrusion detection based on graph neural networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of King Saud University - Computer and Information Sciences",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7150983679",
+  "doi": "https://doi.org/10.52700/scir.v7i2.212",
+  "title": "GAT\u2013CNN: Graph Attention Network and Convolutional Neural Network (GAT\u2013CNN) Model for Intrusion Detection in Internet of Things Using BoT-IoT Dataset",
+  "year": 2025,
+  "cites": 1,
+  "venue": "STATISTICS COMPUTING AND INTERDISCIPLINARY RESEARCH",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4401657815",
+  "doi": "https://doi.org/10.1038/s41598-024-70032-2",
+  "title": "Federated learning for network attack detection using attention-based graph neural networks",
+  "year": 2024,
+  "cites": 96,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3148711710",
+  "doi": "https://doi.org/10.1109/access.2021.3071274",
+  "title": "Graph Neural Network: A Comprehensive Review on Non-Euclidean Space",
+  "year": 2021,
+  "cites": 229,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7108449512",
+  "doi": "https://doi.org/10.32920/29873789",
+  "title": "Botnet Detection Mechanism Using Graph Neural Network",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "other",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7108451911",
+  "doi": "https://doi.org/10.32920/29873789.v1",
+  "title": "Botnet Detection Mechanism Using Graph Neural Network",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "other",
+  "queries": [
+   "similarity graph network flows graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2767346351",
+  "doi": "https://doi.org/10.1016/j.eng.2017.05.015",
+  "title": "Intelligent Manufacturing in the Context of Industry 4.0: A Review",
+  "year": 2017,
+  "cites": 2923,
+  "venue": "Engineering",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2997099008",
+  "doi": "https://doi.org/10.1007/s41918-019-00060-4",
+  "title": "Building Safe Lithium-Ion Batteries for Electric Vehicles: A Review",
+  "year": 2019,
+  "cites": 901,
+  "venue": "Electrochemical Energy Reviews",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2981854649",
+  "doi": "https://doi.org/10.1109/access.2019.2949703",
+  "title": "A Survey on the Role of IoT in Agriculture for the Implementation of Smart Farming",
+  "year": 2019,
+  "cites": 898,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2803750062",
+  "doi": "https://doi.org/10.1109/comst.2018.2849509",
+  "title": "Survey on Multi-Access Edge Computing for Internet of Things Realization",
+  "year": 2018,
+  "cites": 803,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2962763344",
+  "doi": "https://doi.org/10.1109/sp.2018.00057",
+  "title": "Manipulating Machine Learning: Poisoning Attacks and Countermeasures for Regression Learning",
+  "year": 2018,
+  "cites": 796,
+  "venue": "Proceedings - IEEE Symposium on Security and Privacy/Proceedings of the ... IEEE Symposium on Security and Privacy",
+  "type": "conference-paper",
+  "queries": [
+   "graph attention network intrusion detection flows",
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2943160824",
+  "doi": "https://doi.org/10.3390/w11050910",
+  "title": "A Brief Review of Random Forests for Water Scientists and Practitioners and Their Recent History in Water Resources",
+  "year": 2019,
+  "cites": 776,
+  "venue": "Water",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4312767611",
+  "doi": "https://doi.org/10.1109/tnsm.2022.3213807",
+  "title": "Flow Topology-Based Graph Convolutional Network for Intrusion Detection in Label-Limited IoT Networks",
+  "year": 2022,
+  "cites": 86,
+  "venue": "IEEE Transactions on Network and Service Management",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416250149",
+  "doi": "https://doi.org/10.1109/eit67313.2025.11231931",
+  "title": "Self-Supervised Network Intrusion Detection with Graph Attention Networks",
+  "year": 2025,
+  "cites": 2,
+  "venue": "International Conference on Electronic Information Technology (EIT)",
+  "type": "conference-paper",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7155353374",
+  "doi": "https://doi.org/10.1109/cnc68716.2025.11484689",
+  "title": "Behavioral Graph Networks with Pheromone-Gated Attention for Privacy-Preserving Intrusion Detection",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402875760",
+  "doi": "https://doi.org/10.1016/j.cose.2024.104132",
+  "title": "Edge-featured multi-hop attention graph neural network for intrusion detection system",
+  "year": 2024,
+  "cites": 39,
+  "venue": "Computers & Security",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163741469",
+  "doi": "https://doi.org/10.48084/etasr.17590",
+  "title": "Adaptive Graph-Based Intrusion Detection for Internet of Medical Things (IoMT) Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Engineering Technology & Applied Science Research",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4409473851",
+  "doi": "https://doi.org/10.1109/jiot.2025.3560300",
+  "title": "GRID: Graph-Based Robust Intrusion Detection Solution for Industrial IoT Networks",
+  "year": 2025,
+  "cites": 8,
+  "venue": "IEEE Internet of Things Journal",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7125211472",
+  "doi": "https://doi.org/10.12732/ijam.v38i12s.1654",
+  "title": "AI INTRUSION DETECTION SYSTEM USING GRAPH NEURAL NETWORKS FOR SOFTWARE DEFINED NETWORKS (SDN)",
+  "year": 2025,
+  "cites": 1,
+  "venue": "International Journal of Apllied Mathematics",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415318260",
+  "doi": "https://doi.org/10.48550/arxiv.2510.07285",
+  "title": "GTCN-G: A Residual Graph-Temporal Fusion Network for Imbalanced Intrusion Detection",
+  "year": 2025,
+  "cites": 1,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7213303431",
+  "doi": "https://doi.org/10.63964/jatuc.43.2.2026.11",
+  "title": "Intrusion Detection System for Secure IoT-Based Healthcare Systems Based on Temporal Graph Attention",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Al-Turath University College",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160887495",
+  "doi": "https://doi.org/10.1109/icict68280.2026.11511016",
+  "title": "Graph Neural Network based Intrusion Detection using Temporal Attention and Encrypted Traffic Modelling",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Inventive Computation Technologies (ICICT)",
+  "type": "conference-paper",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7127173348",
+  "doi": "https://doi.org/10.1109/trustcom66490.2025.00031",
+  "title": "GTCN-G: A Residual Graph-Temporal Fusion Network for Imbalanced Intrusion Detection",
+  "year": 2025,
+  "cites": 3,
+  "venue": "IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)",
+  "type": "conference-paper",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7135379377",
+  "doi": "https://doi.org/10.1016/j.comnet.2026.112221",
+  "title": "Intrusion detection for low-altitude wireless networks: Diffusion-enhanced spatiotemporal graph network with dual self-attention",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Computer Networks",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4412473253",
+  "doi": "https://doi.org/10.3390/app15147915",
+  "title": "Adversarial Hierarchical-Aware Edge Attention Learning Method for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "graph attention network intrusion detection flows",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392353733",
+  "doi": "https://doi.org/10.1016/j.hcc.2024.100211",
+  "title": "A survey on large language model (LLM) security and privacy: The Good, The Bad, and The Ugly",
+  "year": 2024,
+  "cites": 1052,
+  "venue": "High-Confidence Computing",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3209340886",
+  "doi": "https://doi.org/10.3390/electronics10212689",
+  "title": "Artificial Neural Networks Based Optimization Techniques: A Review",
+  "year": 2021,
+  "cites": 762,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385416665",
+  "doi": "https://doi.org/10.3390/fi15080260",
+  "title": "The Power of Generative AI: A Review of Requirements, Models, Input\u2013Output Formats, Evaluation Metrics, and Challenges",
+  "year": 2023,
+  "cites": 634,
+  "venue": "Future Internet",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2996806689",
+  "doi": "https://doi.org/10.1016/j.jnca.2019.102526",
+  "title": "The rise of machine learning for detection and classification of malware: Research developments, trends and challenges",
+  "year": 2020,
+  "cites": 623,
+  "venue": "Journal of Network and Computer Applications",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2751694392",
+  "doi": "https://doi.org/10.1117/1.jrs.11.042609",
+  "title": "Comprehensive survey of deep learning in remote sensing: theories, tools, and challenges for the community",
+  "year": 2017,
+  "cites": 616,
+  "venue": "Journal of Applied Remote Sensing",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402056503",
+  "doi": "https://doi.org/10.1145/3691338",
+  "title": "Deep Learning for Time Series Anomaly Detection: A Survey",
+  "year": 2024,
+  "cites": 612,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4205471456",
+  "doi": "https://doi.org/10.1016/j.eswa.2021.116429",
+  "title": "Financial Fraud: A Review of Anomaly Detection Techniques and Recent Advances",
+  "year": 2021,
+  "cites": 609,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416548153",
+  "doi": "https://doi.org/10.1093/comjnl/bxaf096",
+  "title": "On adversarial attack detection in intrusion detection system with graph neural network",
+  "year": 2025,
+  "cites": 3,
+  "venue": "The Computer Journal",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7160842760",
+  "doi": "https://doi.org/10.1038/s41598-026-48715-9",
+  "title": "An optimized graph neural network approach for robust and explainable IoT intrusion detection against adversarial attacks",
+  "year": 2026,
+  "cites": 3,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414158491",
+  "doi": "https://doi.org/10.1201/9781003602453-52",
+  "title": "Utilizing HFE lattice defense to protect against adversarial attacks on graph neural network IoT intrusion detection",
+  "year": 2025,
+  "cites": 0,
+  "venue": "CRC Press eBooks",
+  "type": "book-chapter",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128291119",
+  "doi": null,
+  "title": "Towards problem space-constrained adversarial attacks against graph neural network based network intrusion detection systems",
+  "year": 2025,
+  "cites": 0,
+  "venue": "HAL (Le Centre pour la Communication Scientifique Directe)",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7140733821",
+  "doi": "https://doi.org/10.1109/etcom66606.2025.11436871",
+  "title": "Adversarially Robust Intrusion Detection Using Graph Neural Networks",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3168146198",
+  "doi": "https://doi.org/10.1145/3469659",
+  "title": "Modeling Realistic Adversarial Attacks against Network Intrusion Detection Systems",
+  "year": 2021,
+  "cites": 153,
+  "venue": "Digital Threats Research and Practice",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413239964",
+  "doi": "https://doi.org/10.1007/978-3-032-00639-4_15",
+  "title": "Leveraging Graph Neural Networks for Attack Detection in IoT Systems",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415673958",
+  "doi": "https://doi.org/10.4218/etrij.2025-0152",
+  "title": "Graph neural network\u2010enhanced auxiliary classifier generative adversarial network framework for robust intrusion detection",
+  "year": 2025,
+  "cites": 2,
+  "venue": "ETRI Journal",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4380761592",
+  "doi": "https://doi.org/10.1109/iip57348.2022.00070",
+  "title": "Auxiliary Classifier Generative Adversarial Network Assisted Intrusion Detection System",
+  "year": 2022,
+  "cites": 4,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4206331418",
+  "doi": "https://doi.org/10.1109/tnet.2021.3137084",
+  "title": "Adversarial Attacks Against Deep Learning-Based Network Intrusion Detection Systems and Defense Mechanisms",
+  "year": 2022,
+  "cites": 195,
+  "venue": "IEEE/ACM Transactions on Networking",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2988465456",
+  "doi": "https://doi.org/10.1109/nfv-sdn47374.2019.9040101",
+  "title": "Investigating Adversarial Attacks against Network Intrusion Detection Systems in SDNs",
+  "year": 2019,
+  "cites": 62,
+  "venue": "IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN)",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413416645",
+  "doi": "https://doi.org/10.3390/electronics14163249",
+  "title": "Enhancing Adversarial Robustness in Network Intrusion Detection: A Novel Adversarially Trained Neural Network Approach",
+  "year": 2025,
+  "cites": 23,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385973175",
+  "doi": "https://doi.org/10.1016/j.cose.2023.103433",
+  "title": "SoK: Realistic adversarial attacks and defenses for intelligent network intrusion detection",
+  "year": 2023,
+  "cites": 43,
+  "venue": "Computers & Security",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204562545",
+  "doi": "https://doi.org/10.32604/cmc.2026.084993",
+  "title": "TF-SAGE: Trust Filtered Graph Learning for Stable Internet of Things Intrusion Detection under Adversarial Attacks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Computers, materials & continua/Computers, materials & continua (Print)",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128914849",
+  "doi": "https://doi.org/10.1007/s13278-026-01578-4",
+  "title": "Robust DDoS detection based on adversarial trained graph neural networks with proximal optimization",
+  "year": 2026,
+  "cites": 1,
+  "venue": "Social Network Analysis and Mining",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4289824856",
+  "doi": "https://doi.org/10.1109/lcomm.2022.3195486",
+  "title": "Domain Adversarial Neural Network-Based Intrusion Detection System for In-Vehicle Network Variant Attacks",
+  "year": 2022,
+  "cites": 14,
+  "venue": "IEEE Communications Letters",
+  "type": "article",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7151938663",
+  "doi": "https://doi.org/10.70675/991a16e7zc601z4aabza3e4z5c450ec5c786",
+  "title": "Graph neural network-based intrusion detection for secure edge networks",
+  "year": 2024,
+  "cites": 1,
+  "venue": null,
+  "type": "dissertation",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7131126576",
+  "doi": "https://doi.org/10.1109/icaic67076.2026.11395742",
+  "title": "Causal-Contrastive Graph Neural Networks for Robust, Explainable Multi-Modal Intrusion Detection",
+  "year": 2026,
+  "cites": 3,
+  "venue": "IEEE International Conference on AI in Cybersecurity (ICAIC)",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attack graph neural network intrusion detection",
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385342469",
+  "doi": "https://doi.org/10.3390/computers12080151",
+  "title": "Convolutional Neural Networks: A Survey",
+  "year": 2023,
+  "cites": 607,
+  "venue": "Computers",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4399332528",
+  "doi": "https://doi.org/10.1145/3655693.3655714",
+  "title": "XAI-driven Adversarial Attacks on Network Intrusion Detectors",
+  "year": 2024,
+  "cites": 13,
+  "venue": "European Interdisciplinary Cybersecurity Conference (EICC)",
+  "type": "conference-paper",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3008195198",
+  "doi": "https://doi.org/10.1109/access.2020.2977007",
+  "title": "Network Intrusion Detection Based on Supervised Adversarial Variational Auto-Encoder With Regularization",
+  "year": 2020,
+  "cites": 187,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph",
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2947333088",
+  "doi": "https://doi.org/10.1109/globecom38437.2019.9014102",
+  "title": "Generative Adversarial Networks for Distributed Intrusion Detection in the Internet of Things",
+  "year": 2019,
+  "cites": 135,
+  "venue": "Globecom",
+  "type": "conference-paper",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4224312132",
+  "doi": "https://doi.org/10.1007/s40747-022-00739-0",
+  "title": "Strengthening intrusion detection system for adversarial attacks: improved handling of imbalance classification problem",
+  "year": 2022,
+  "cites": 22,
+  "venue": "Complex & Intelligent Systems",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313586675",
+  "doi": "https://doi.org/10.3390/s23010550",
+  "title": "An Imbalanced Generative Adversarial Network-Based Approach for Network Intrusion Detection in an Imbalanced Dataset",
+  "year": 2023,
+  "cites": 77,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4384917038",
+  "doi": "https://doi.org/10.1109/access.2023.3296707",
+  "title": "A Comprehensive Survey of Generative Adversarial Networks (GANs) in Cybersecurity Intrusion Detection",
+  "year": 2023,
+  "cites": 139,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3008285109",
+  "doi": "https://doi.org/10.1109/bigdatasecurity-hpsc-ids49724.2020.00020",
+  "title": "NAttack! Adversarial Attacks to bypass a GAN based classifier trained to detect Network intrusion",
+  "year": 2020,
+  "cites": 54,
+  "venue": "IEEE International Conference on Big Data Security on Cloud, IEEE International Conference on High Performance and Smart Computing, and IEEE International Conference on Intelligent Data and Security (BigDataSecurity/HPSC/IDS)",
+  "type": "conference-paper",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7162504853",
+  "doi": "https://doi.org/10.1145/3779208.3807482",
+  "title": "\u201cWhat is the Problem Space?\u201d Defining Host-space Adversarial Perturbations against Network Intrusion Detection Systems",
+  "year": 2026,
+  "cites": 1,
+  "venue": "ACM Asia Conference on Computer and Communications Security (ASIA CCS)",
+  "type": "conference-paper",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7221148921",
+  "doi": "https://doi.org/10.1007/s10791-026-10617-9",
+  "title": "Deep Kronecker hashing generative adversarial network for intrusion detection in IoT against adversarial attacks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Discover Computing",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4405626793",
+  "doi": "https://doi.org/10.48550/arxiv.2412.13880",
+  "title": "A Review of the Duality of Adversarial Learning in Network Intrusion: Attacks and Countermeasures",
+  "year": 2024,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3093931417",
+  "doi": "https://doi.org/10.1109/access.2020.3031892",
+  "title": "Network Intrusion Detection Based on Conditional Wasserstein Generative Adversarial Network and Cost-Sensitive Stacked Autoencoder",
+  "year": 2020,
+  "cites": 57,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3092093850",
+  "doi": "https://doi.org/10.1145/3320269.3384718",
+  "title": "Preparing Network Intrusion Detection Deep Learning Models with Minimal Data Using Adversarial Domain Adaptation",
+  "year": 2020,
+  "cites": 74,
+  "venue": "ACM Asia Conference on Computer and Communications Security (ASIA CCS)",
+  "type": "conference-paper",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4386065314",
+  "doi": "https://doi.org/10.1109/access.2023.3307463",
+  "title": "Anomaly-Based Intrusion on IoT Networks Using AIGAN-a Generative Adversarial Network",
+  "year": 2023,
+  "cites": 37,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "problem space adversarial attack network intrusion detection graph"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4210883322",
+  "doi": "https://doi.org/10.1038/s41467-022-27980-y",
+  "title": "Perspectives in machine learning for wildlife conservation",
+  "year": 2022,
+  "cites": 726,
+  "venue": "Nature Communications",
+  "type": "article",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7201840962",
+  "doi": "https://doi.org/10.5220/0015171600004103",
+  "title": "Robustness Evaluation of Graph Neural Network-Based Network Intrusion Detection Systems against Adversarial Flow Injection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Security and Cryptography",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4283459051",
+  "doi": "https://doi.org/10.3390/app12136451",
+  "title": "Adversarial Robust and Explainable Network Intrusion Detection Systems Based on Deep Learning",
+  "year": 2022,
+  "cites": 58,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4395097845",
+  "doi": "https://doi.org/10.1007/978-3-031-57537-2_1",
+  "title": "An Adversarial Robustness Benchmark for Enterprise Network Intrusion Detection",
+  "year": 2024,
+  "cites": 5,
+  "venue": "Lecture notes in computer science",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4417471660",
+  "doi": "https://doi.org/10.1109/mlprae67267.2025.11290821",
+  "title": "Causal Graph-Enhanced Deep Learning for Robust Anomaly Detection in Network Intrusion Detection Systems",
+  "year": 2025,
+  "cites": 0,
+  "venue": null,
+  "type": "conference-paper",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415181461",
+  "doi": "https://doi.org/10.48550/arxiv.2506.20806",
+  "title": "Poster: Enhancing GNN Robustness for Network Intrusion Detection via Agent-based Analysis",
+  "year": 2025,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4414943691",
+  "doi": "https://doi.org/10.48550/arxiv.2507.10836",
+  "title": "REAL-IoT: Characterizing GNN Intrusion Detection Robustness under Practical Adversarial Attack",
+  "year": 2025,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4389513574",
+  "doi": "https://doi.org/10.1016/j.cose.2023.103644",
+  "title": "A simple framework to enhance the adversarial robustness of deep learning-based intrusion detection system",
+  "year": 2023,
+  "cites": 72,
+  "venue": "Computers & Security",
+  "type": "article",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7163038465",
+  "doi": "https://doi.org/10.1371/journal.pone.0350737",
+  "title": "Residual-guided hybrid framework for adversarially robust deep learning-based network intrusion detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "PLoS ONE",
+  "type": "article",
+  "queries": [
+   "adversarial robustness graph-based network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2969625533",
+  "doi": "https://doi.org/10.1016/j.ijinfomgt.2019.08.002",
+  "title": "Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy",
+  "year": 2019,
+  "cites": 4541,
+  "venue": "International Journal of Information Management",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3194730353",
+  "doi": "https://doi.org/10.1007/s42979-021-00815-1",
+  "title": "Deep Learning: A Comprehensive Overview on Techniques, Taxonomy, Applications and Research Directions",
+  "year": 2021,
+  "cites": 2692,
+  "venue": "SN Computer Science",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2773446523",
+  "doi": "https://doi.org/10.1016/j.patcog.2018.07.023",
+  "title": "Wild patterns: Ten years after the rise of adversarial machine learning",
+  "year": 2018,
+  "cites": 1437,
+  "venue": "Pattern Recognition",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2885012953",
+  "doi": "https://doi.org/10.1109/comst.2020.2988293",
+  "title": "A Survey of Machine and Deep Learning Methods for Internet of Things (IoT) Security",
+  "year": 2020,
+  "cites": 1366,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2963197901",
+  "doi": "https://doi.org/10.14722/ndss.2018.23204",
+  "title": "Investigating Ad Transparency Mechanisms in Social Media: A Case Study of Facebook's Explanations",
+  "year": 2018,
+  "cites": 1349,
+  "venue": "HAL (Le Centre pour la Communication Scientifique Directe)",
+  "type": "conference-paper",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3093410479",
+  "doi": "https://doi.org/10.1002/ett.4150",
+  "title": "Network intrusion detection system: A systematic study of machine learning and deep learning approaches",
+  "year": 2020,
+  "cites": 1288,
+  "venue": "Transactions on Emerging Telecommunications Technologies",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2942091739",
+  "doi": "https://doi.org/10.1109/access.2019.2909068",
+  "title": "BadNets: Evaluating Backdooring Attacks on Deep Neural Networks",
+  "year": 2019,
+  "cites": 1238,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2980576170",
+  "doi": "https://doi.org/10.3390/app9204396",
+  "title": "Machine Learning and Deep Learning Methods for Intrusion Detection Systems: A Survey",
+  "year": 2019,
+  "cites": 1118,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey",
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3203241482",
+  "doi": "https://doi.org/10.1016/j.jobe.2021.103299",
+  "title": "Artificial intelligence in the construction industry: A review of present status, opportunities and future challenges",
+  "year": 2021,
+  "cites": 991,
+  "venue": "Journal of Building Engineering",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2748789698",
+  "doi": "https://doi.org/10.48550/arxiv.1708.06733",
+  "title": "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+  "year": 2017,
+  "cites": 972,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2883289607",
+  "doi": "https://doi.org/10.2139/ssrn.3213954",
+  "title": "Deep Fakes: A Looming Challenge for Privacy, Democracy, and National Security",
+  "year": 2018,
+  "cites": 856,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4318815561",
+  "doi": "https://doi.org/10.3390/fi15020062",
+  "title": "Adversarial Machine Learning Attacks against Intrusion Detection Systems: A Survey on Strategies and Defense",
+  "year": 2023,
+  "cites": 177,
+  "venue": "Future Internet",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4313591247",
+  "doi": "https://doi.org/10.1109/comst.2022.3233793",
+  "title": "Adversarial Machine Learning for Network Intrusion Detection Systems: A Comprehensive Survey",
+  "year": 2023,
+  "cites": 454,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3017825983",
+  "doi": "https://doi.org/10.1016/j.eswa.2021.115782",
+  "title": "Adversarial machine learning in Network Intrusion Detection Systems",
+  "year": 2021,
+  "cites": 250,
+  "venue": "Expert Systems with Applications",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3007481080",
+  "doi": "https://doi.org/10.1109/access.2020.2974752",
+  "title": "Adversarial Machine Learning Applied to Intrusion and Malware Scenarios: A Systematic Review",
+  "year": 2020,
+  "cites": 213,
+  "venue": "IEEE Access",
+  "type": "review",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4226247258",
+  "doi": "https://doi.org/10.48550/arxiv.2112.03315",
+  "title": "Adversarial Machine Learning In Network Intrusion Detection Domain: A Systematic Review",
+  "year": 2021,
+  "cites": 13,
+  "venue": "arXiv (Cornell University)",
+  "type": "review",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4379259893",
+  "doi": "https://doi.org/10.12785/ijcds/1301105",
+  "title": "Defenses for Adversarial attacks in Network Intrusion Detection System \u2013 A Survey",
+  "year": 2023,
+  "cites": 1,
+  "venue": "International Journal of Computing and Digital Systems",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2989079566",
+  "doi": "https://doi.org/10.48550/arxiv.1911.02621",
+  "title": "The Threat of Adversarial Attacks on Machine Learning in Network Security -- A Survey",
+  "year": 2019,
+  "cites": 25,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4406183026",
+  "doi": "https://doi.org/10.37256/jeee.4120255738",
+  "title": "The Threat of Adversarial Attacks against Machine Learning in Network Security: A Survey",
+  "year": 2025,
+  "cites": 29,
+  "venue": "Journal of Electronics and Electrical Engineering",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4306180880",
+  "doi": "https://doi.org/10.1371/journal.pone.0275971",
+  "title": "Adversarial attacks against supervised machine learning based network intrusion detection systems",
+  "year": 2022,
+  "cites": 57,
+  "venue": "PLoS ONE",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3158507034",
+  "doi": "https://doi.org/10.3390/jcp1020014",
+  "title": "Launching Adversarial Attacks against Network Intrusion Detection Systems for IoT",
+  "year": 2021,
+  "cites": 79,
+  "venue": "Journal of Cybersecurity and Privacy",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4220957574",
+  "doi": "https://doi.org/10.1016/j.aej.2022.02.063",
+  "title": "A machine learning-based intrusion detection for detecting internet of things network attacks",
+  "year": 2022,
+  "cites": 370,
+  "venue": "Alexandria Engineering Journal",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413349856",
+  "doi": "https://doi.org/10.1109/access.2025.3600984",
+  "title": "Adversarial Challenges in Network Intrusion Detection Systems: Research Insights and Future Prospects",
+  "year": 2025,
+  "cites": 64,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4229064199",
+  "doi": "https://doi.org/10.5815/ijwmt.2022.01.02",
+  "title": "Adversarial Machine Learning Attacks and Defenses in Network Intrusion Detection Systems",
+  "year": 2022,
+  "cites": 10,
+  "venue": "International Journal of Wireless and Microwave Technologies",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4410638774",
+  "doi": "https://doi.org/10.1109/tits.2025.3558849",
+  "title": "Advancing Intrusion Detection in V2X Networks: A Comprehensive Survey on Machine Learning, Federated Learning, and Edge AI for V2X Security",
+  "year": 2025,
+  "cites": 82,
+  "venue": "IEEE Transactions on Intelligent Transportation Systems",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3116274835",
+  "doi": "https://doi.org/10.1109/access.2020.3048198",
+  "title": "Intrusion Detection of Imbalanced Network Traffic Based on Machine Learning and Deep Learning",
+  "year": 2020,
+  "cites": 274,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4221064655",
+  "doi": "https://doi.org/10.3390/jcp2010010",
+  "title": "Functionality-Preserving Adversarial Machine Learning for Robust Classification in Cybersecurity and Intrusion Detection Domains: A Survey",
+  "year": 2022,
+  "cites": 82,
+  "venue": "Journal of Cybersecurity and Privacy",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3158456479",
+  "doi": "https://doi.org/10.3390/fi13050111",
+  "title": "Designing a Network Intrusion Detection System Based on Machine Learning for Software Defined Networks",
+  "year": 2021,
+  "cites": 271,
+  "venue": "Future Internet",
+  "type": "article",
+  "queries": [
+   "adversarial attacks machine learning network intrusion detection survey"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4383959108",
+  "doi": "https://doi.org/10.15678/eber.2023.110201",
+  "title": "The dark side of generative artificial intelligence: A critical analysis of controversies and risks of ChatGPT",
+  "year": 2023,
+  "cites": 575,
+  "venue": "Entrepreneurial Business and Economics Review",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2760560443",
+  "doi": "https://doi.org/10.1109/access.2019.2916648",
+  "title": "Unsupervised Machine Learning for Networking: Techniques, Applications and Research Challenges",
+  "year": 2019,
+  "cites": 573,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset",
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4390829176",
+  "doi": "https://doi.org/10.3390/app14020675",
+  "title": "Balancing Privacy and Progress: A Review of Privacy Challenges, Systemic Oversight, and Patient Perceptions in AI-Driven Healthcare",
+  "year": 2024,
+  "cites": 556,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2782485997",
+  "doi": "https://doi.org/10.1007/s10462-017-9611-1",
+  "title": "Selecting training sets for support vector machines: a review",
+  "year": 2018,
+  "cites": 424,
+  "venue": "Artificial Intelligence Review",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3104305579",
+  "doi": "https://doi.org/10.1145/3076253",
+  "title": "Data Science",
+  "year": 2017,
+  "cites": 406,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3157149188",
+  "doi": "https://doi.org/10.1016/j.cej.2021.130011",
+  "title": "Applications of artificial intelligence in water treatment for optimization and automation of adsorption processes: Recent advances and prospects",
+  "year": 2021,
+  "cites": 390,
+  "venue": "Chemical Engineering Journal",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4378420875",
+  "doi": "https://doi.org/10.1007/s11831-023-09928-7",
+  "title": "A Systematic Review of the Whale Optimization Algorithm: Theoretical Foundation, Improvements, and Hybridizations",
+  "year": 2023,
+  "cites": 386,
+  "venue": "Archives of Computational Methods in Engineering",
+  "type": "review",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2972552958",
+  "doi": "https://doi.org/10.1145/3329786",
+  "title": "Dynamic Malware Analysis in the Modern Era\u2014A State of the Art Survey",
+  "year": 2019,
+  "cites": 385,
+  "venue": "ACM Computing Surveys",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2890190333",
+  "doi": "https://doi.org/10.3390/app8091521",
+  "title": "Swarm Intelligence Algorithms for Feature Selection: A Review",
+  "year": 2018,
+  "cites": 375,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392715357",
+  "doi": "https://doi.org/10.1038/s44221-024-00202-z",
+  "title": "Deep learning for water quality",
+  "year": 2024,
+  "cites": 364,
+  "venue": "Nature Water",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4387340031",
+  "doi": "https://doi.org/10.7759/cureus.46454",
+  "title": "A Systematic Review of the Barriers to the Implementation of Artificial Intelligence in Healthcare",
+  "year": 2023,
+  "cites": 355,
+  "venue": "Cureus",
+  "type": "review",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2998038410",
+  "doi": "https://doi.org/10.14722/ndss.2020.24046",
+  "title": "Unicorn: Runtime Provenance-Based Detector for Advanced Persistent Threats",
+  "year": 2020,
+  "cites": 323,
+  "venue": "Network and Distributed System Security Symposium",
+  "type": "conference-paper",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3138047676",
+  "doi": "https://doi.org/10.1007/s10207-021-00545-8",
+  "title": "Robotics cyber security: vulnerabilities, attacks, countermeasures, and recommendations",
+  "year": 2021,
+  "cites": 318,
+  "venue": "International Journal of Information Security",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3001824711",
+  "doi": "https://doi.org/10.1016/j.scs.2020.102023",
+  "title": "Security and the smart city: A systematic review",
+  "year": 2020,
+  "cites": 298,
+  "venue": "Sustainable Cities and Society",
+  "type": "review",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385894332",
+  "doi": "https://doi.org/10.1109/comst.2023.3296160",
+  "title": "Low Earth Orbit Satellite Security and Reliability: Issues, Solutions, and the Road Ahead",
+  "year": 2023,
+  "cites": 292,
+  "venue": "IEEE Communications Surveys & Tutorials",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3138883064",
+  "doi": "https://doi.org/10.1088/1757-899x/1099/1/012040",
+  "title": "Fake News Detection Using Machine Learning Approaches",
+  "year": 2021,
+  "cites": 291,
+  "venue": "IOP Conference Series Materials Science and Engineering",
+  "type": "conference-paper",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2616543068",
+  "doi": "https://doi.org/10.25080/majora-342d178e-02b",
+  "title": "Proceedings of the 19th Python in Science Conference",
+  "year": 2020,
+  "cites": 287,
+  "venue": "Proceedings of the Python in Science Conferences",
+  "type": "conference-paper",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4393170828",
+  "doi": "https://doi.org/10.1109/access.2024.3381611",
+  "title": "Privacy and Security Concerns in Generative AI: A Comprehensive Survey",
+  "year": 2024,
+  "cites": 264,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4220846496",
+  "doi": "https://doi.org/10.1109/tnsm.2022.3157344",
+  "title": "The Cross-Evaluation of Machine Learning-Based Network Intrusion Detection Systems",
+  "year": 2022,
+  "cites": 134,
+  "venue": "IEEE Transactions on Network and Service Management",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2971489520",
+  "doi": "https://doi.org/10.1109/icbda.2019.8713213",
+  "title": "A Transfer Learning Approach for Network Intrusion Detection",
+  "year": 2019,
+  "cites": 66,
+  "venue": "IEEE International Conference on Big Data Analytics (ICBDA)",
+  "type": "conference-paper",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3180062783",
+  "doi": "https://doi.org/10.1109/spw53761.2021.00009",
+  "title": "Troubleshooting an Intrusion Detection Dataset: the CICIDS2017 Case Study",
+  "year": 2021,
+  "cites": 186,
+  "venue": "IEEE Security and Privacy Workshops (SPW)",
+  "type": "conference-paper",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4391931208",
+  "doi": "https://doi.org/10.48175/ijarsct-15464",
+  "title": "Network Intrusion Detection System using Machine Learning",
+  "year": 2024,
+  "cites": 0,
+  "venue": "International Journal of Advanced Research in Science Communication and Technology",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7133505081",
+  "doi": "https://doi.org/10.48336/163",
+  "title": "Machine learning for malware and intrusion detection: dataset design, cost-aware models, and research pitfalls",
+  "year": 2026,
+  "cites": 0,
+  "venue": null,
+  "type": "dissertation",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4205334018",
+  "doi": "https://doi.org/10.1109/access.2021.3137318",
+  "title": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches",
+  "year": 2021,
+  "cites": 30,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3152368265",
+  "doi": "https://doi.org/10.1109/access.2021.3068961",
+  "title": "Anomaly-Based Intrusion Detection by Machine Learning: A Case Study on Probing Attacks to an Institutional Network",
+  "year": 2021,
+  "cites": 53,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7214497137",
+  "doi": "https://doi.org/10.61356/j.nois.2026.11667",
+  "title": "A Comprehensive Survey on Machine Learning and Deep Learning Approaches for Network Intrusion Detection Systems: Techniques, Datasets, and Open Challenges",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Neutrosophic Optimization and Intelligent Systems",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4391741433",
+  "doi": "https://doi.org/10.1109/access.2024.3365140",
+  "title": "E-XAI: Evaluating Black-Box Explainable AI Frameworks for Network Intrusion Detection",
+  "year": 2024,
+  "cites": 126,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392808835",
+  "doi": "https://doi.org/10.3390/electronics13061072",
+  "title": "Learn-IDS: Bridging Gaps between Datasets and Learning-Based Network Intrusion Detection",
+  "year": 2024,
+  "cites": 14,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413130322",
+  "doi": "https://doi.org/10.63075/0vcg0093",
+  "title": "Enhanced IoT Network Security for Network intrusion detection Model based on Machine Learning Technique",
+  "year": 2025,
+  "cites": 0,
+  "venue": "Annual Methodological Archive Research Review",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220835319",
+  "doi": "https://doi.org/10.52710/anvi.v28.7455",
+  "title": "An Intelligent Machine Learning Framework for Real-Time Detection of Network Intrusions and Anomalous Activities",
+  "year": 2025,
+  "cites": 0,
+  "venue": "Advances in Nonlinear Variational Inequalities",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4406880642",
+  "doi": null,
+  "title": "Network Traffic Generation for Evaluation of Intrusion Detection Tools: Machine learning based generation of synthetic network flows",
+  "year": 2024,
+  "cites": 0,
+  "venue": "HAL (Le Centre pour la Communication Scientifique Directe)",
+  "type": "dissertation",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7220727897",
+  "doi": "https://doi.org/10.70239/arsu.2026.t85.n3.07",
+  "title": "HYBRID NETWORK INTRUSION DETECTION SYSTEM BASED ON SIGNATURE ANALYSIS AND MACHINE LEARNING METHODS",
+  "year": 2026,
+  "cites": 0,
+  "venue": "\u041d\u0430\u0443\u0447\u043d\u044b\u0439 \u0436\u0443\u0440\u043d\u0430\u043b \"\u0412\u0435\u0441\u0442\u043d\u0438\u043a \u0410\u043a\u0442\u044e\u0431\u0438\u043d\u0441\u043a\u043e\u0433\u043e \u0440\u0435\u0433\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0443\u043d\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442\u0430 \u0438\u043c\u0435\u043d\u0438 \u041a \u0416\u0443\u0431\u0430\u043d\u043e\u0432\u0430\"",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7155828205",
+  "doi": "https://doi.org/10.82227/repository.uwtsd.ac.uk.00004224",
+  "title": "Optimizing Deep Learning and Machine Learning Models for Real-Time Intrusion Detection in IoT Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "University Of Wales Trinity Saint David Research Repository (University of Wales Trinity Saint David)",
+  "type": "dissertation",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7168250796",
+  "doi": "https://doi.org/10.48550/arxiv.2607.10914",
+  "title": "SoK: Federated Learning for Intrusion Detection in Vehicular Networks",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4387986975",
+  "doi": "https://doi.org/10.1109/access.2023.3328182",
+  "title": "Transfer Learning-Based Intrusion Detection System for a Controller Area Network",
+  "year": 2023,
+  "cites": 32,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7169827928",
+  "doi": "https://doi.org/10.3844/jcssp.2026.2156.2188",
+  "title": "Ensemble Learning for Proactive Detection of Network-Intrusion-Based Insurance Fraud",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Journal of Computer Science",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4377024351",
+  "doi": "https://doi.org/10.1016/j.comnet.2023.109809",
+  "title": "DoS/DDoS-MQTT-IoT: A dataset for evaluating intrusions in IoT networks using the MQTT protocol",
+  "year": 2023,
+  "cites": 87,
+  "venue": "Computer Networks",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4392851481",
+  "doi": "https://doi.org/10.3390/info15030164",
+  "title": "A Comparison of Neural-Network-Based Intrusion Detection against Signature-Based Detection in IoT Networks",
+  "year": 2024,
+  "cites": 23,
+  "venue": "Information",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4403760382",
+  "doi": "https://doi.org/10.1145/3643456",
+  "title": "Pitfalls in Machine Learning for Computer Security",
+  "year": 2024,
+  "cites": 8,
+  "venue": "Communications of the ACM",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3125078888",
+  "doi": "https://doi.org/10.1109/access.2021.3054688",
+  "title": "Towards Effective Network Intrusion Detection: From Concept to Creation on Azure Cloud",
+  "year": 2021,
+  "cites": 69,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4402340420",
+  "doi": "https://doi.org/10.21428/e90189c8.eb32676c",
+  "title": "Attention-Based Deep Learning Frameworks for Network Intrusion Detection: An Empirical Study",
+  "year": 2024,
+  "cites": 5,
+  "venue": "International Journal of Global Innovations and Solutions (IJGIS)",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7117865966",
+  "doi": "https://doi.org/10.1016/j.vehcom.2025.100998",
+  "title": "Challenges and opportunities of synthetic data generation for machine learning-based intrusion detection systems in in-vehicle networks",
+  "year": 2026,
+  "cites": 2,
+  "venue": "Vehicular Communications",
+  "type": "article",
+  "queries": [
+   "pitfalls machine learning network intrusion detection evaluation dataset"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3161394766",
+  "doi": "https://doi.org/10.1007/s11036-021-01843-0",
+  "title": "Towards a Standard Feature Set for Network Intrusion Detection System Datasets",
+  "year": 2021,
+  "cites": 407,
+  "venue": "Mobile Networks and Applications",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3179240416",
+  "doi": "https://doi.org/10.1109/access.2021.3094024",
+  "title": "Design and Development of a Deep Learning-Based Model for Anomaly Detection in IoT Networks",
+  "year": 2021,
+  "cites": 401,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2921708219",
+  "doi": "https://doi.org/10.3390/electronics8030322",
+  "title": "Features Dimensionality Reduction Approaches for Machine Learning Based Network Intrusion Detection",
+  "year": 2019,
+  "cites": 330,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2978956219",
+  "doi": "https://doi.org/10.1145/3319535.3363217",
+  "title": "POIROT",
+  "year": 2019,
+  "cites": 303,
+  "venue": "ACM SIGSAC Conference on Computer and Communications Security (CCS)",
+  "type": "conference-paper",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2979323854",
+  "doi": "https://doi.org/10.1155/2019/1574749",
+  "title": "Smart Detection: An Online Approach for DoS/DDoS Attack Detection Using Machine Learning",
+  "year": 2019,
+  "cites": 294,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2470356888",
+  "doi": "https://doi.org/10.1007/s11416-017-0306-6",
+  "title": "Deciphering malware\u2019s use of TLS (without decryption)",
+  "year": 2017,
+  "cites": 232,
+  "venue": "Journal of Computer Virology and Hacking Techniques",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3002193070",
+  "doi": "https://doi.org/10.1155/2020/4586875",
+  "title": "A Stacking Ensemble for Network Intrusion Detection Using Heterogeneous Datasets",
+  "year": 2020,
+  "cites": 219,
+  "venue": "Security and Communication Networks",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets",
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3125372392",
+  "doi": null,
+  "title": "Towards a Standard Feature Set of NIDS Datasets.",
+  "year": 2021,
+  "cites": 22,
+  "venue": null,
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3196585642",
+  "doi": "https://doi.org/10.1016/j.bdr.2022.100359",
+  "title": "Evaluating Standard Feature Sets Towards Increased Generalisability and Explainability of ML-Based Network Intrusion Detection",
+  "year": 2022,
+  "cites": 136,
+  "venue": "Big Data Research",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415474574",
+  "doi": "https://doi.org/10.62019/h07sd615",
+  "title": "Enhancement of IoT Intrusion Detection: Evaluating ML and DL Approaches with NetFlow Datasets",
+  "year": 2025,
+  "cites": 0,
+  "venue": "The Asian Bulletin of Big Data Management",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4293065833",
+  "doi": "https://doi.org/10.3390/s22166164",
+  "title": "Examining the Suitability of NetFlow Features in Detecting IoT Network Intrusions",
+  "year": 2022,
+  "cites": 42,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4416082591",
+  "doi": "https://doi.org/10.1109/access.2026.3688204",
+  "title": "Time Matters: Temporal NetFlow Features for ML-Based Network Intrusion Detection",
+  "year": 2026,
+  "cites": 9,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4385692127",
+  "doi": "https://doi.org/10.1145/3600160.3605094",
+  "title": "Modern NetFlow network dataset with labeled attacks and detection methods",
+  "year": 2023,
+  "cites": 12,
+  "venue": "International Conference on Availability, Reliability and Security (ARES)",
+  "type": "conference-paper",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7204937340",
+  "doi": "https://doi.org/10.2139/ssrn.7386076",
+  "title": "An Entity-Window Behavioral Profiling Framework for Network Intrusion Detection: A Controlled Engineering Evaluation on Heterogeneous NetFlow Datasets",
+  "year": 2026,
+  "cites": 0,
+  "venue": "SSRN Electronic Journal",
+  "type": "preprint",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3092041085",
+  "doi": "https://doi.org/10.3390/sym12101666",
+  "title": "An Analysis of the KDD99 and UNSW-NB15 Datasets for the Intrusion Detection System",
+  "year": 2020,
+  "cites": 129,
+  "venue": "Symmetry",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4297846671",
+  "doi": "https://doi.org/10.21203/rs.3.rs-2035633/v1",
+  "title": "Feature Analysis for Machine Learning-based IoT Intrusion Detection",
+  "year": 2022,
+  "cites": 70,
+  "venue": "Research Square",
+  "type": "preprint",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4415783324",
+  "doi": "https://doi.org/10.3389/fcomp.2025.1676362",
+  "title": "Anomaly detection in netflow traffic: workflow for dataset preparation and analysis",
+  "year": 2025,
+  "cites": 2,
+  "venue": "Frontiers in Computer Science",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4389495383",
+  "doi": "https://doi.org/10.5937/vojtehg71-46058",
+  "title": "Anomaly network intrusion detection system based on NetFlow using machine/deep learning",
+  "year": 2023,
+  "cites": 2,
+  "venue": "Vojnotehnicki glasnik",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3176609646",
+  "doi": "https://doi.org/10.3390/s21134319",
+  "title": "The Proposition and Evaluation of the RoEduNet-SIMARGL2021 Network Intrusion Detection Dataset",
+  "year": 2021,
+  "cites": 49,
+  "venue": "Sensors",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7166873127",
+  "doi": "https://doi.org/10.56714/bjrs.52.1.9",
+  "title": "Intrusion Detection in Industrial IoT Networks using NetFlow and Machine Learning Techniques on the NF-ToN-IoT-v2 Dataset",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Basrah Researches Sciences",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7151801175",
+  "doi": "https://doi.org/10.1371/journal.pone.0346801",
+  "title": "A transfer-aware, deployment-oriented evaluation framework for NetFlow-based intrusion detection systems (TAN-IDS)",
+  "year": 2026,
+  "cites": 3,
+  "venue": "PLoS ONE",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4285023720",
+  "doi": "https://doi.org/10.48550/arxiv.2207.03890",
+  "title": "ENCODE: Encoding NetFlows for Network Anomaly Detection",
+  "year": 2022,
+  "cites": 1,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4395051283",
+  "doi": "https://doi.org/10.56726/irjmets52968",
+  "title": "Enhancing Network Security: Intrusion Detection with Real-time Netflow Data Using Machine Learning Techniques",
+  "year": 2024,
+  "cites": 0,
+  "venue": "International Research Journal of Modernization in Engineering Technology and Science",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3024012711",
+  "doi": "https://doi.org/10.3390/electronics9050800",
+  "title": "LITNET-2020: An Annotated Real-World Network Flow Dataset for Network Intrusion Detection",
+  "year": 2020,
+  "cites": 132,
+  "venue": "Electronics",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7128193682",
+  "doi": "https://doi.org/10.1038/s41598-026-37834-y",
+  "title": "Efficient detection of intrusions in TON-IoT dataset using hybrid feature selection approach",
+  "year": 2026,
+  "cites": 10,
+  "venue": "Scientific Reports",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4379618852",
+  "doi": "https://doi.org/10.1109/access.2023.3283567",
+  "title": "Standard Latent Space Dimension for Network Intrusion Detection Systems Datasets",
+  "year": 2023,
+  "cites": 3,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "netflow standard feature set intrusion detection datasets"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7126389196",
+  "doi": "https://doi.org/10.1186/s13677-026-00847-z",
+  "title": "Self-supervised graph neural networks for network intrusion detection in cloud-edge collaboration environments",
+  "year": 2026,
+  "cites": 6,
+  "venue": "Journal of Cloud Computing Advances Systems and Applications",
+  "type": "article",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7221057404",
+  "doi": "https://doi.org/10.1109/icitcom70739.2026.11714415",
+  "title": "Adaptive IoT Intrusion Detection System: A Graph Neural Network Based Self Supervised Learning Approach to Overcome Labeled Data Limitations",
+  "year": 2026,
+  "cites": 0,
+  "venue": "International Conference on Information Technology and Computing (ICITCOM)",
+  "type": "conference-paper",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7130677711",
+  "doi": "https://doi.org/10.1109/swc65939.2025.00104",
+  "title": "Self-Supervised Graph Multi-Head Attention Networks for Network Intrusion Detection",
+  "year": 2025,
+  "cites": 2,
+  "venue": "IEEE Smart World Congress (SWC)",
+  "type": "conference-paper",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4406611343",
+  "doi": "https://doi.org/10.1109/tifs.2025.3530702",
+  "title": "$\\mathsf{TCG}\\text{-}\\mathsf{IDS}$ : Robust Network Intrusion Detection via Temporal Contrastive Graph Learning",
+  "year": 2025,
+  "cites": 66,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "article",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413325576",
+  "doi": "https://doi.org/10.1016/j.engappai.2025.111973",
+  "title": "A network intrusion detection system based on self-supervised learning of traffic differentiation in Internet of Things",
+  "year": 2025,
+  "cites": 14,
+  "venue": "Engineering Applications of Artificial Intelligence",
+  "type": "article",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W4413173744",
+  "doi": "https://doi.org/10.1007/978-3-031-91235-1_17",
+  "title": "Enhancing Internet of Things Security Through Self-supervised Graph Neural Networks",
+  "year": 2025,
+  "cites": 7,
+  "venue": "Lecture notes in networks and systems",
+  "type": "conference-paper",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W3005805195",
+  "doi": "https://doi.org/10.1109/access.2020.2973730",
+  "title": "Network Intrusion Detection Combined Hybrid Sampling With Deep Hierarchical Network",
+  "year": 2020,
+  "cites": 450,
+  "venue": "IEEE Access",
+  "type": "article",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165042603",
+  "doi": "https://doi.org/10.48550/arxiv.2606.17109",
+  "title": "Timestamp-Aware Spatio-Temporal Graph Contrastive Learning for Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "arXiv (Cornell University)",
+  "type": "preprint",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W7165643075",
+  "doi": "https://doi.org/10.5281/zenodo.20806495",
+  "title": "Semantic-Guided Edge Enhancement for Graph Self-Supervised Learning in Network Intrusion Detection",
+  "year": 2026,
+  "cites": 0,
+  "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+  "type": "dataset",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ },
+ {
+  "id": "https://openalex.org/W2928016897",
+  "doi": "https://doi.org/10.3390/app9071392",
+  "title": "Network Intrusion Detection Based on Novel Feature Selection Model and Various Recurrent Neural Networks",
+  "year": 2019,
+  "cites": 113,
+  "venue": "Applied Sciences",
+  "type": "article",
+  "queries": [
+   "self-supervised graph neural network network intrusion detection"
+  ]
+ }
+]

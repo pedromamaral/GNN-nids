@@ -1,0 +1,62 @@
+[
+ {
+  "family": "feature-similarity (k-NN / top-k) graph",
+  "papers": 5,
+  "same_split_tabular": 1,
+  "edge_ablation": 0,
+  "identity_control": 0,
+  "feature_attack": 0,
+  "structural_attack": 0,
+  "joint_attack": 0,
+  "decomposition": 0,
+  "construction_defence": 0
+ },
+ {
+  "family": "endpoint/host flow graph (supervised)",
+  "papers": 9,
+  "same_split_tabular": 3,
+  "edge_ablation": 0,
+  "identity_control": 2,
+  "feature_attack": 3,
+  "structural_attack": 4,
+  "joint_attack": 1,
+  "decomposition": 0,
+  "construction_defence": 0
+ },
+ {
+  "family": "line graph of endpoint flows",
+  "papers": 2,
+  "same_split_tabular": 1,
+  "edge_ablation": 0,
+  "identity_control": 0,
+  "feature_attack": 1,
+  "structural_attack": 2,
+  "joint_attack": 1,
+  "decomposition": 0,
+  "construction_defence": 0
+ },
+ {
+  "family": "temporal host graph (unsupervised GIDS)",
+  "papers": 2,
+  "same_split_tabular": 2,
+  "edge_ablation": 1,
+  "identity_control": 0,
+  "feature_attack": 1,
+  "structural_attack": 2,
+  "joint_attack": 0,
+  "decomposition": 0,
+  "construction_defence": 0
+ },
+ {
+  "family": "PCAP communication-topology graph",
+  "papers": 1,
+  "same_split_tabular": 1,
+  "edge_ablation": 0,
+  "identity_control": 0,
+  "feature_attack": 0,
+  "structural_attack": 0,
+  "joint_attack": 0,
+  "decomposition": 0,
+  "construction_defence": 0
+ }
+]

@@ -141,3 +141,5 @@ checkpoints/
 # (.dockerignore is tracked: it keeps data/results/.git out of the image)
 
 .venv-test/
+# Literature-review raw harvest (regenerate with docs/lit-graph/gnn-nids/expand.py)
+docs/lit-graph/gnn-nids/raw/harvest_all.json

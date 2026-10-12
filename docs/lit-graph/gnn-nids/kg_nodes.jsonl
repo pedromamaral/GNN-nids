@@ -1,0 +1,42 @@
+{"id": "paper:egraphsage", "type": "Paper", "title": "E-GraphSAGE: A Graph Neural Network based Intrusion Detection System for IoT", "year": 2022, "venue": "IEEE/IFIP NOMS", "doi": "10.1109/noms54207.2022.9789878", "url": null, "access": "oa (arXiv:2103.16329)"}
+{"id": "method:endpoint/host flow graph (supervised)", "type": "Method", "name": "endpoint/host flow graph (supervised)"}
+{"id": "dataset:NF-BoT-IoT", "type": "Dataset", "name": "NF-BoT-IoT"}
+{"id": "dataset:NF-ToN-IoT", "type": "Dataset", "name": "NF-ToN-IoT"}
+{"id": "dataset:BoT-IoT", "type": "Dataset", "name": "BoT-IoT"}
+{"id": "dataset:ToN-IoT", "type": "Dataset", "name": "ToN-IoT"}
+{"id": "task:identity_control", "type": "Task/Problem", "name": "identity_control"}
+{"id": "paper:anomale", "type": "Paper", "title": "Anomal-E: A self-supervised network intrusion detection system based on graph neural networks", "year": 2022, "venue": "Knowledge-Based Systems", "doi": "10.1016/j.knosys.2022.110030", "url": null, "access": "oa (arXiv:2207.06819)"}
+{"id": "dataset:NF-UNSW-NB15-v2", "type": "Dataset", "name": "NF-UNSW-NB15-v2"}
+{"id": "dataset:NF-CSE-CIC-IDS2018-v2", "type": "Dataset", "name": "NF-CSE-CIC-IDS2018-v2"}
+{"id": "task:same_split_tabular", "type": "Task/Problem", "name": "same_split_tabular"}
+{"id": "paper:pujol", "type": "Paper", "title": "Unveiling the potential of Graph Neural Networks for robust Intrusion Detection", "year": 2022, "venue": "ACM SIGMETRICS PER", "doi": "10.1145/3543146.3543171", "url": null, "access": "oa (arXiv:2107.14756)"}
+{"id": "dataset:CIC-IDS2017", "type": "Dataset", "name": "CIC-IDS2017"}
+{"id": "task:feature_attack", "type": "Task/Problem", "name": "feature_attack"}
+{"id": "paper:venturi24", "type": "Paper", "title": "Problem space structural adversarial attacks for Network Intrusion Detection Systems based on Graph Neural Networks", "year": 2024, "venue": "arXiv preprint", "doi": "10.48550/arxiv.2403.11830", "url": null, "access": "oa"}
+{"id": "method:line graph of endpoint flows", "type": "Method", "name": "line graph of endpoint flows"}
+{"id": "dataset:CTU-13", "type": "Dataset", "name": "CTU-13"}
+{"id": "task:structural_attack", "type": "Task/Problem", "name": "structural_attack"}
+{"id": "paper:venturi25", "type": "Paper", "title": "Defending Network Intrusion Detection Systems Based on Graph Neural Networks Against Structural Adversarial Attacks", "year": 2025, "venue": "IEEE NCA 2025", "doi": "10.1109/nca67271.2025.00043", "url": null, "access": "oa (arXiv:2608.24454)"}
+{"id": "paper:giant", "type": "Paper", "title": "GIANT: Structure-Agnostic Practical Adversarial Attacks for Graph-based Network Intrusion Detection Systems", "year": 2026, "venue": "ACM Web Conference (WWW)", "doi": "10.1145/3774904.3792601", "url": null, "access": "oa (ACM Open, reader)"}
+{"id": "dataset:CIC-IDS2018-v2", "type": "Dataset", "name": "CIC-IDS2018-v2"}
+{"id": "task:joint_attack", "type": "Task/Problem", "name": "joint_attack"}
+{"id": "paper:mouzaoui", "type": "Paper", "title": "Towards problem space-constrained adversarial attacks against graph neural network based network intrusion detection systems", "year": 2025, "venue": "RESSI 2025 (workshop)", "doi": null, "url": "https://hal.science/hal-05478056", "access": "abstract"}
+{"id": "paper:rr", "type": "Paper", "title": "R+R: From Claims to Crashes: A Systematic Re-evaluation of Graph-Based Network Intrusion Detection Systems", "year": 2025, "venue": "ACSAC 2025", "doi": "10.1109/acsac67867.2025.00050", "url": null, "access": "institutional"}
+{"id": "method:temporal host graph (unsupervised GIDS)", "type": "Method", "name": "temporal host graph (unsupervised GIDS)"}
+{"id": "dataset:LANL", "type": "Dataset", "name": "LANL"}
+{"id": "dataset:OpTC", "type": "Dataset", "name": "OpTC"}
+{"id": "dataset:enterprise (new)", "type": "Dataset", "name": "enterprise (new)"}
+{"id": "paper:firstprinciples", "type": "Paper", "title": "A First-Principles Evaluation of Graph-Based Network Intrusion Detection Systems", "year": 2026, "venue": "arXiv preprint", "doi": null, "url": "https://arxiv.org/abs/2609.12263", "access": "oa"}
+{"id": "dataset:Campus", "type": "Dataset", "name": "Campus"}
+{"id": "task:edge_ablation", "type": "Task/Problem", "name": "edge_ablation"}
+{"id": "paper:iomt", "type": "Paper", "title": "From Flow Features to Communication Topology: Adaptive Graph Attention Network-Based IoMT Intrusion Detection", "year": 2026, "venue": "Preprints.org (not peer reviewed)", "doi": "10.20944/preprints202604.1972.v1", "url": null, "access": "oa"}
+{"id": "method:feature-similarity (k-NN / top-k) graph", "type": "Method", "name": "feature-similarity (k-NN / top-k) graph"}
+{"id": "method:PCAP communication-topology graph", "type": "Method", "name": "PCAP communication-topology graph"}
+{"id": "dataset:CICIoMT2024", "type": "Dataset", "name": "CICIoMT2024"}
+{"id": "paper:tksgf", "type": "Paper", "title": "Optimizing IoT Intrusion Detection\u2014A Graph Neural Network Approach with Attribute-Based Graph Construction", "year": 2025, "venue": "Information (MDPI)", "doi": "10.3390/info16060499", "url": null, "access": "oa (browser)"}
+{"id": "paper:bsgat", "type": "Paper", "title": "BS-GAT: a network intrusion detection system based on graph neural network for edge computing", "year": 2025, "venue": "Cybersecurity", "doi": "10.1186/s42400-024-00296-8", "url": null, "access": "abstract"}
+{"id": "paper:gcnlof", "type": "Paper", "title": "Enhancing intrusion detection performance using GCN-LOF: A hybrid graph-based anomaly detection approach", "year": 2025, "venue": "Computer Networks", "doi": "10.1016/j.comnet.2025.111606", "url": null, "access": "abstract"}
+{"id": "paper:temporalknn", "type": "Paper", "title": "An Explainable and Interpretable GNN Based on Temporal Time Series: An IDS Approach", "year": 2026, "venue": "Electronics (MDPI)", "doi": "10.3390/electronics15173764", "url": null, "access": "abstract"}
+{"id": "paper:zhou21", "type": "Paper", "title": "Hierarchical Adversarial Attacks Against Graph-Neural-Network-Based IoT Network Intrusion Detection System", "year": 2021, "venue": "IEEE Internet of Things Journal", "doi": "10.1109/jiot.2021.3130434", "url": null, "access": "secondary (described in Venturi 2024, Sec. 6)"}
+{"id": "paper:itasec23", "type": "Paper", "title": "Practical Evaluation of Graph Neural Networks in Network Intrusion Detection", "year": 2023, "venue": "ITASEC 2023 (CEUR Vol-3488)", "doi": null, "url": "https://ceur-ws.org/Vol-3488/paper29.pdf", "access": "abstract"}
+{"id": "metric:split_protocol", "type": "Metric", "name": "train/test split protocol"}
