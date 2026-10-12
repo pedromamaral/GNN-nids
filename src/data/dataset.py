@@ -17,8 +17,13 @@ import torch_geometric.data.data as pyg_data
 
 from .download import DatasetDownloader, CICIDS2017_SUBSETS
 from .preprocess import NSLKDDPreprocessor, CICIDS2017Preprocessor
+from .endpoint_graph import NODE_KEYS, build_endpoint_windows, endpoint_keys
 from .netflow_v3 import (
     ARTEFACT_COLUMNS,
+    DST_IP,
+    DST_PORT,
+    SRC_IP,
+    SRC_PORT,
     NETFLOW_V3_DATASETS,
     NETFLOW_V3_RAW_SUBDIR,
     NetFlowV3Preprocessor,
@@ -54,6 +59,8 @@ class NetworkFlowDataset(InMemoryDataset):
         k: int = 5,
         max_flows: Optional[int] = None,
         slice_start: Optional[float] = None,
+        graph: str = "knn",
+        node_key: str = "ipport",
     ):
         """Initialize the dataset.
 
@@ -69,7 +76,18 @@ class NetworkFlowDataset(InMemoryDataset):
             max_flows: NetFlow-v3 only: keep this many time-contiguous flows (None: all).
             slice_start: NetFlow-v3 only: start of that slice, as a fraction of the
                 time-sorted flows.
+            graph: "knn" (flows are nodes, k-NN in feature space) or "endpoint"
+                (NetFlow-v3 only: endpoints are nodes, flows are labelled edges).
+            node_key: For endpoint graphs: "ipport", "ip" or "isolated" (no-topology control).
         """
+        if graph not in ("knn", "endpoint"):
+            raise ValueError(f"Unknown graph construction: {graph}")
+        if graph == "endpoint" and not is_netflow_v3(name):
+            raise ValueError("Endpoint graphs are only available for the NetFlow-v3 datasets")
+        if node_key not in NODE_KEYS:
+            raise ValueError(f"Unknown node_key {node_key!r}; expected one of {NODE_KEYS}")
+        self.graph = graph
+        self.node_key = node_key
         self.name = name
         self.split = split
         self.rebuild = rebuild
@@ -128,17 +146,27 @@ class NetworkFlowDataset(InMemoryDataset):
 
     def _build_config_metadata(self) -> dict:
         """Create a compatibility metadata block for the current dataset config."""
-        metadata = {
-            "dataset": self.name,
-            "split": self.split,
-            "window_size": self.window_size,
-            "k": self.k,
-            "graph_method": "knn",
-            "distance_metric": "cosine",
-            # Ties (duplicate flows) broken by index; graphs cached before this was
-            # introduced lack the key and are rejected as incompatible.
-            "knn_ties": "index",
-        }
+        if self.graph == "endpoint":
+            metadata = {
+                "dataset": self.name,
+                "split": self.split,
+                "window_size": self.window_size,
+                "graph_method": "endpoint",
+                "node_key": self.node_key,
+                "node_features": "constant",
+            }
+        else:
+            metadata = {
+                "dataset": self.name,
+                "split": self.split,
+                "window_size": self.window_size,
+                "k": self.k,
+                "graph_method": "knn",
+                "distance_metric": "cosine",
+                # Ties (duplicate flows) broken by index; graphs cached before this was
+                # introduced lack the key and are rejected as incompatible.
+                "knn_ties": "index",
+            }
         if is_netflow_v3(self.name):
             metadata["max_flows"] = self.max_flows
             metadata["slice_start"] = self.slice_start
@@ -364,7 +392,7 @@ class NetworkFlowDataset(InMemoryDataset):
                 preprocessor.load_preprocessed(preprocessor_state_path)
                 X, y = preprocessor.preprocess(df_split, fit=False)
         elif is_netflow_v3(self.name):
-            X, y, preprocessor = self._process_netflow_v3(split_dir)
+            X, y, preprocessor, endpoints = self._process_netflow_v3(split_dir)
         else:
             raise ValueError(f"Unknown dataset: {self.name}")
 
@@ -389,16 +417,21 @@ class NetworkFlowDataset(InMemoryDataset):
             logger.info(f"Saved preprocessor state to {state_path}")
 
         # Build graphs using windowing
-        logger.info("Building flow-centric graphs with windowing...")
-        builder = FlowGraphBuilder()
-        graphs = builder.build_windowed_dataset(
-            X,
-            y,
-            window_size=self.window_size,
-            method="knn",
-            bidirectional=True,
-            k=self.k,
-        )
+        if self.graph == "endpoint":
+            logger.info("Building endpoint graphs (node_key=%s) with windowing...", self.node_key)
+            src_key, dst_key = endpoint_keys(*endpoints, node_key=self.node_key)
+            graphs = build_endpoint_windows(X, y, src_key, dst_key, window_size=self.window_size)
+        else:
+            logger.info("Building flow-centric graphs with windowing...")
+            builder = FlowGraphBuilder()
+            graphs = builder.build_windowed_dataset(
+                X,
+                y,
+                window_size=self.window_size,
+                method="knn",
+                bidirectional=True,
+                k=self.k,
+            )
 
         if len(graphs) == 0:
             raise ValueError("No graphs were created from the input data.")
@@ -408,7 +441,7 @@ class NetworkFlowDataset(InMemoryDataset):
             "num_graphs": len(graphs),
             "total_nodes": sum(graph.x.shape[0] for graph in graphs),
             "total_edges": sum(graph.edge_index.shape[1] for graph in graphs),
-            "num_features": graphs[0].x.shape[1],
+            "num_features": (graphs[0].edge_attr.shape[1] if self.graph == "endpoint" else graphs[0].x.shape[1]),
             "class_distribution": self._calculate_class_distribution(graphs),
         }
 
@@ -437,16 +470,23 @@ class NetworkFlowDataset(InMemoryDataset):
         self.slices = slices
         self.data_list = graphs
 
-    def _process_netflow_v3(self, split_dir: str) -> Tuple[np.ndarray, np.ndarray, NetFlowV3Preprocessor]:
+    def _process_netflow_v3(self, split_dir: str):
         """Load the time-sorted flows, take this split's chronological block, preprocess.
 
         Windows are built later from consecutive rows of the block, so they are
         temporally contiguous; the scaler is fitted on the train block only.
+
+        Returns:
+            (X, y, preprocessor, endpoints), where endpoints is
+            (src_ip, src_port, dst_ip, dst_port) for endpoint graphs, else None.
         """
         csv_path = os.path.join(self.raw_dir, NETFLOW_V3_DATASETS[self.name])
         if not os.path.exists(csv_path):
             raise FileNotFoundError(f"Raw data file not found: {csv_path}")
-        df = load_netflow_v3(csv_path, max_flows=self.max_flows, slice_start=self.slice_start)
+        df = load_netflow_v3(
+            csv_path, max_flows=self.max_flows, slice_start=self.slice_start,
+            with_endpoints=(self.graph == "endpoint"),
+        )
 
         variant = dataset_variant_id(self.name, self.max_flows, self.slice_start)
         split_manager = SplitManager(variant, data_dir=split_dir)
@@ -477,7 +517,10 @@ class NetworkFlowDataset(InMemoryDataset):
                 )
             preprocessor.load_preprocessed(state_path)
             X, y = preprocessor.preprocess(df_split, fit=False)
-        return X, y, preprocessor
+        endpoints = None
+        if self.graph == "endpoint":
+            endpoints = tuple(df_split[c].to_numpy() for c in (SRC_IP, SRC_PORT, DST_IP, DST_PORT))
+        return X, y, preprocessor, endpoints
 
     def len(self) -> int:
         """Return the length of the dataset."""
@@ -577,6 +620,8 @@ class NetworkFlowDataset(InMemoryDataset):
         k: int = 5,
         max_flows: Optional[int] = None,
         slice_start: Optional[float] = None,
+        graph: str = "knn",
+        node_key: str = "ipport",
     ) -> "NetworkFlowDataset":
         """Create a network flow dataset.
 
@@ -610,6 +655,8 @@ class NetworkFlowDataset(InMemoryDataset):
             k=k,
             max_flows=max_flows,
             slice_start=slice_start,
+            graph=graph,
+            node_key=node_key,
         )
 
         # Load statistics
@@ -627,6 +674,8 @@ def load_split_datasets(
     k: int = 5,
     max_flows: Optional[int] = None,
     slice_start: Optional[float] = None,
+    graph: str = "knn",
+    node_key: str = "ipport",
 ) -> Tuple[NetworkFlowDataset, NetworkFlowDataset, NetworkFlowDataset]:
     """Load train, validation, and test datasets with formal split protocol.
 
@@ -638,13 +687,16 @@ def load_split_datasets(
         k: Number of nearest neighbors for graph construction.
         max_flows: NetFlow-v3 only: size of the time slice (None: all flows).
         slice_start: NetFlow-v3 only: start of the slice, as a fraction.
+        graph: "knn" or "endpoint" (see NetworkFlowDataset).
+        node_key: Endpoint graphs only: "ipport", "ip" or "isolated".
 
     Returns:
         Tuple of (train_dataset, validation_dataset, test_dataset).
     """
     logger.info(f"Loading train, validation, and test datasets for {name}...")
 
-    dataset_root = os.path.join(root, dataset_variant_id(name, max_flows, slice_start), f"k_{k}")
+    graph_dir = f"k_{k}" if graph == "knn" else f"endpoint_{node_key}"
+    dataset_root = os.path.join(root, dataset_variant_id(name, max_flows, slice_start), graph_dir)
 
     train_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -655,6 +707,8 @@ def load_split_datasets(
         k=k,
         max_flows=max_flows,
         slice_start=slice_start,
+        graph=graph,
+        node_key=node_key,
     )
     validation_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -665,6 +719,8 @@ def load_split_datasets(
         k=k,
         max_flows=max_flows,
         slice_start=slice_start,
+        graph=graph,
+        node_key=node_key,
     )
     test_dataset = NetworkFlowDataset.create_dataset(
         name=name,
@@ -675,6 +731,8 @@ def load_split_datasets(
         k=k,
         max_flows=max_flows,
         slice_start=slice_start,
+        graph=graph,
+        node_key=node_key,
     )
 
     logger.info(

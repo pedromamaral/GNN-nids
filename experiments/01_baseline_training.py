@@ -22,7 +22,7 @@ except ModuleNotFoundError:  # pragma: no cover - exercised in lightweight test 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from data.dataset import load_split_datasets
-from models import GCN_NIDS, GAT_NIDS
+from models import GCN_NIDS, GAT_NIDS, EGraphSAGE_NIDS
 from training.trainer import Trainer
 from torch_geometric.data import Data
 from data.download import DATASET_CHOICES, DEFAULT_DATASET
@@ -58,7 +58,12 @@ def build_model(
     hidden_dim: int,
     dropout: float,
     hidden_layers: int = 1,
+    num_edge_features: int = None,
 ) -> torch.nn.Module:
+    if model_name == "egraphsage":
+        if num_edge_features is None:
+            raise ValueError("egraphsage needs num_edge_features (endpoint graphs carry flow features on edges)")
+        return EGraphSAGE_NIDS(num_node_features, num_edge_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers)
     if model_name == "gcn":
         return GCN_NIDS(num_node_features, hidden_dim, dropout=dropout, hidden_layers=hidden_layers)
     if model_name == "gat":
@@ -117,11 +122,13 @@ def create_run_directory(
     seed: int,
     base_dir: Path = Path("results") / "runs",
     hidden_layers: int = 1,
+    graph_tag: str = None,
 ) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     # 1-layer runs keep the original naming so existing checkpoints stay discoverable.
     layers_tag = f"_L{hidden_layers}" if hidden_layers != 1 else ""
-    run_name = f"{timestamp}_{dataset}_{model}_k_{k}{layers_tag}_seed_{seed}"
+    graph_tag = graph_tag or f"k_{k}"
+    run_name = f"{timestamp}_{dataset}_{model}_{graph_tag}{layers_tag}_seed_{seed}"
     run_dir = base_dir / run_name
     suffix = 0
     while run_dir.exists():
@@ -176,8 +183,15 @@ def run_training(args: argparse.Namespace) -> dict:
 
     window_size = (args.window_size if args.window_size is not None else train_config.get("window_size", 1000))
 
-    hidden_layers = getattr(args, "hidden_layers", 1)
-    run_dir = create_run_directory(args.dataset, args.model, args.k, seed, hidden_layers=hidden_layers)
+    graph = getattr(args, "graph", "knn") or "knn"
+    node_key = getattr(args, "node_key", "ipport") or "ipport"
+    if (args.model == "egraphsage") != (graph == "endpoint"):
+        raise ValueError("--model egraphsage goes with --graph endpoint; gcn/gat go with --graph knn")
+    hidden_layers = getattr(args, "hidden_layers", None)
+    if hidden_layers is None:
+        hidden_layers = 2 if args.model == "egraphsage" else 1  # E-GraphSAGE uses K=2 in the original paper
+    graph_tag = f"k_{args.k}" if graph == "knn" else f"endpoint_{node_key}_w{window_size}"
+    run_dir = create_run_directory(args.dataset, args.model, args.k, seed, hidden_layers=hidden_layers, graph_tag=graph_tag)
     run_id = run_dir.name
     timestamp = run_dir.name.split("_")[0]
 
@@ -198,6 +212,8 @@ def run_training(args: argparse.Namespace) -> dict:
                 k=args.k,
                 max_flows=getattr(args, "max_flows", None),
                 slice_start=getattr(args, "slice_start", None),
+                graph=graph,
+                node_key=node_key,
             )
 
         num_node_features = (
@@ -211,6 +227,7 @@ def run_training(args: argparse.Namespace) -> dict:
             hidden_dim=args.hidden_dim,
             dropout=args.dropout,
             hidden_layers=hidden_layers,
+            num_edge_features=(train_dataset[0].edge_attr.shape[1] if graph == "endpoint" and not args.dry_run else None),
         )
 
         trainer = Trainer(
@@ -227,6 +244,8 @@ def run_training(args: argparse.Namespace) -> dict:
             "dataset": args.dataset,
             "model": args.model,
             "k": args.k,
+            "graph": graph,
+            "node_key": node_key if graph == "endpoint" else None,
             "seed": seed,
             "deterministic": getattr(args, "deterministic", False),
             "window_size": window_size,
@@ -348,7 +367,11 @@ def run_training(args: argparse.Namespace) -> dict:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train and evaluate a flow-centric GNN baseline.")
-    parser.add_argument("--model", choices=["gcn", "gat"], default="gcn")
+    parser.add_argument("--model", choices=["gcn", "gat", "egraphsage"], default="gcn")
+    parser.add_argument("--graph", choices=["knn", "endpoint"], default="knn",
+                        help="knn: flows are nodes (k-NN in feature space); endpoint: endpoints are nodes, flows are edges")
+    parser.add_argument("--node-key", choices=["ipport", "ip", "isolated"], default="ipport",
+                        help="Endpoint graphs: node = IP:port, IP, or one private pair per flow (no-topology control)")
     parser.add_argument(
         "--dataset",
         choices=DATASET_CHOICES,
@@ -367,7 +390,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument("--device", default=None)
     parser.add_argument("--hidden-dim", type=int, default=64)
-    parser.add_argument("--hidden-layers", type=int, default=1, help="Number of message-passing layers (depth ablation).")
+    parser.add_argument("--hidden-layers", type=int, default=None,
+                        help="Number of message-passing layers (default: 1 for gcn/gat, 2 for egraphsage).")
     parser.add_argument("--dropout", type=float, default=0.5)
     parser.add_argument("--rebuild-data", action="store_true")
     parser.add_argument("--dry-run", action="store_true")

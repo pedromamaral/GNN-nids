@@ -53,6 +53,12 @@ TIMESTAMP_COLUMNS = ["FLOW_START_MILLISECONDS", "FLOW_END_MILLISECONDS"]
 # docs/PAPER_ROADMAP.md (2026-10-07).
 ARTEFACT_COLUMNS = ["MIN_TTL", "MAX_TTL"]
 
+# Endpoint columns produced by ``load_netflow_v3(..., with_endpoints=True)``: IPv4
+# addresses as integers and L4 ports. They define endpoint graphs (nodes) and are
+# never used as features.
+SRC_IP, SRC_PORT, DST_IP, DST_PORT = "SRC_IP", "SRC_PORT", "DST_IP", "DST_PORT"
+ENDPOINT_COLUMNS = [SRC_IP, SRC_PORT, DST_IP, DST_PORT]
+
 # Codes, flags and bounded values: kept on their original scale. Every other
 # feature is a non-negative counter, size, duration, rate or IAT and gets log1p.
 NON_LOG_COLUMNS = {
@@ -93,9 +99,27 @@ def dataset_variant_id(name: str, max_flows: Optional[int] = None, slice_start: 
 def feature_columns(columns: List[str]) -> List[str]:
     """Feature columns of a NetFlow-v3 header, in file order."""
     excluded = (
-        set(IDENTIFIER_COLUMNS) | set(TIMESTAMP_COLUMNS) | set(ARTEFACT_COLUMNS) | {LABEL_COLUMN, ATTACK_COLUMN}
+        set(IDENTIFIER_COLUMNS) | set(TIMESTAMP_COLUMNS) | set(ARTEFACT_COLUMNS) | set(ENDPOINT_COLUMNS)
+        | {LABEL_COLUMN, ATTACK_COLUMN}
     )
     return [c for c in columns if c not in excluded]
+
+
+def ipv4_to_int(addresses: pd.Series) -> np.ndarray:
+    """Dotted IPv4 strings to integers; anything else gets a hash above 2**32."""
+    text = addresses.astype(str)
+    parts = text.str.split(".", n=3, expand=True)
+    values = np.zeros(len(text), dtype=np.int64)
+    valid = np.zeros(len(text), dtype=bool)
+    if parts.shape[1] == 4:
+        octets = parts.apply(pd.to_numeric, errors="coerce")
+        valid = (octets.notna().all(axis=1) & octets.ge(0).all(axis=1) & octets.le(255).all(axis=1)).to_numpy()
+        weights = np.array([1 << 24, 1 << 16, 1 << 8, 1], dtype=np.int64)
+        values = (octets.fillna(0).to_numpy(dtype=np.int64) * weights).sum(axis=1)
+    if not valid.all():
+        hashed = pd.util.hash_pandas_object(text[~valid], index=False).to_numpy().astype(np.uint64)
+        values[~valid] = (hashed % np.uint64(1 << 40)).astype(np.int64) + (1 << 32)
+    return values
 
 
 def load_netflow_v3(
@@ -103,6 +127,7 @@ def load_netflow_v3(
     max_flows: Optional[int] = None,
     slice_start: Optional[float] = None,
     chunksize: int = 1_000_000,
+    with_endpoints: bool = False,
 ) -> pd.DataFrame:
     """Load a NetFlow-v3 CSV sorted by flow start time.
 
@@ -112,10 +137,14 @@ def load_netflow_v3(
         slice_start: Where the slice starts, as a fraction of the time-sorted
             flows (0.0 = earliest). Ignored when ``max_flows`` is None.
         chunksize: Rows read at a time, to bound peak memory on large files.
+        with_endpoints: Also return ``SRC_IP``, ``SRC_PORT``, ``DST_IP``,
+            ``DST_PORT`` (IPs as integers), for endpoint graphs. They are
+            excluded from ``feature_columns``.
 
     Returns:
         DataFrame with the feature columns, ``FLOW_START_MILLISECONDS``,
-        ``Label`` and ``Attack``, in chronological order, index 0..n-1.
+        ``Label`` and ``Attack`` (plus the endpoint columns if requested), in
+        chronological order, index 0..n-1.
     """
     path = Path(path)
     if not path.exists():
@@ -148,12 +177,28 @@ def load_netflow_v3(
     usecols = features + [TIME_COLUMN, LABEL_COLUMN, ATTACK_COLUMN]
     dtypes = {c: np.float64 for c in features}
     dtypes.update({TIME_COLUMN: np.int64, LABEL_COLUMN: np.int64, ATTACK_COLUMN: str})
+    raw_endpoints = ["IPV4_SRC_ADDR", "L4_SRC_PORT", "IPV4_DST_ADDR", "L4_DST_PORT"]
+    if with_endpoints:
+        missing = [c for c in raw_endpoints if c not in header]
+        if missing:
+            raise ValueError(f"{path.name} lacks endpoint columns {missing}")
+        # Ports as float: some exports write "80.0"; missing ports become -1.
+        dtypes.update({"IPV4_SRC_ADDR": str, "IPV4_DST_ADDR": str, "L4_SRC_PORT": np.float64, "L4_DST_PORT": np.float64})
+    read_cols = usecols + (raw_endpoints if with_endpoints else [])
     parts = []
-    for chunk in pd.read_csv(path, usecols=usecols, dtype=dtypes, chunksize=chunksize):
+    for chunk in pd.read_csv(path, usecols=read_cols, dtype=dtypes, chunksize=chunksize):
         chunk_rank = rank[chunk.index.to_numpy()]
         keep = chunk_rank >= 0
         if keep.any():
             part = chunk.loc[keep, usecols]
+            if with_endpoints:
+                sel = chunk.loc[keep]
+                part = part.assign(**{
+                    SRC_IP: ipv4_to_int(sel["IPV4_SRC_ADDR"]),
+                    SRC_PORT: sel["L4_SRC_PORT"].fillna(-1).to_numpy().astype(np.int64),
+                    DST_IP: ipv4_to_int(sel["IPV4_DST_ADDR"]),
+                    DST_PORT: sel["L4_DST_PORT"].fillna(-1).to_numpy().astype(np.int64),
+                })
             part.index = chunk_rank[keep]
             parts.append(part)
     df = pd.concat(parts).sort_index()
