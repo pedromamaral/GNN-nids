@@ -1,11 +1,27 @@
 # Paper roadmap: from thesis to journal
 
-Working title: *Feature Perturbations Are Structural Perturbations: Adversarial Coupling and Robust Graph Construction in Flow-Centric GNN-based Intrusion Detection*
+Working title (2026-10-12): *Robust to Features, Fragile to Structure? Decomposing Adversarial Effects in Graph-Based Network Intrusion Detection*
+(previous: *Feature Perturbations Are Structural Perturbations*; see the decision log).
 
-Target venue: *Computers & Security* (fallbacks: IEEE TNSM, Computer Networks, JNCA).
-Full rationale: `Q1_Strategy_GNN-NIDS.md` (supervisor's folder / project).
+Target venue: *Computers & Security* (fallbacks: IEEE TIFS/TDSC as stretch, ACSAC/RAID as conference route, IEEE TNSM, Computer Networks).
+Full rationale: `Q1_Strategy_GNN-NIDS.md` (supervisor's folder / project). Related work and gaps: [`docs/LITERATURE_REVIEW.md`](LITERATURE_REVIEW.md) (Avenue #1).
 
 The thesis code is frozen at tag `v1.0-thesis` (`79d3ed0`). Everything after it is paper work.
+
+## Direction: Avenue #1 (decided 2026-10-12)
+
+One paper, three parts, one protocol (NetFlow-v3, chronological 60/20/20, TTL and identifiers removed, XGBoost/MLP on the same split, 5 seeds):
+
+1. **Feature-derived k-NN graphs add nothing, and why.** Mechanism (edge-removal / random-graph ablation), and the adversarial consequence (rewiring without effect). Confirms and explains the 2026 IoMT preprint (#10 in the review). Mostly done: Phase 2 pilots + `06_graph_ablation.py`.
+2. **Endpoint graphs (E-GraphSAGE-style) against XGBoost** under the same protocol, with anonymised featureless nodes, per-window graphs, and an "isolated" no-topology control. CTU-13 split by scenario (unseen infected hosts) as the identity-leakage control.
+3. **A/B/C decomposition on endpoint graphs with a joint attacker** that shapes its own malicious flows (edge features) and injects decoy flows (structure) under one traffic-cost budget; compared with injection-only (GIANT-style) and separate evaluation (Venturi-style). Optional section: graph construction as a defence (node key, window, degree cap).
+
+Steps:
+- [ ] A1. Endpoint-graph path: loader keeps endpoints (not as features), windowed endpoint graphs, `egraphsage` model, `01 --graph endpoint`. Tests.
+- [ ] A2. Pilot: E-GraphSAGE vs XGBoost vs isolated control on NF-ToN-IoT-v3 and NF-UNSW-NB15-v3 (one seed). Go/no-go for Part 2: does topology add anything once identity is hidden?
+- [ ] A3. CTU-13 loader (scenario-disjoint split).
+- [ ] A4. Attacker: own-flow shaping + injection, traffic-cost budget; decomposition adapter for endpoint graphs.
+- [ ] A5. Full seed grid; construction-as-defence sweep if time allows; writing.
 
 ## The claim
 
@@ -144,6 +160,7 @@ Smoke run first: `EXTRA_ARGS="--max-windows 20" DATASETS=nf-unsw-nb15-v3 MODELS=
 
 | Date | Decision |
 |---|---|
+| 2026-10-12 | **Paper direction: Avenue #1** of `docs/LITERATURE_REVIEW.md`. The k-NN coupling claim is kept as Part 1 (mechanism + adversarial consequence), but the k-NN go/no-go is no-go on both datasets and both models, so the decomposition moves to endpoint graphs, where structure carries information. GIANT (WWW 2026) already does joint injection attacks; our contribution is the decomposition and an attacker that also shapes its own flows. |
 | 2026-10-07 | **TTL dropped from the features** (`MIN_TTL`, `MAX_TTL`; `ARTEFACT_COLUMNS` in `src/data/netflow_v3.py`). Evidence on NF-UNSW-NB15-v3, test split: `MIN_TTL` alone gives F1 0.9992 (depth-2 XGBoost); TTL 31 is benign in all 421,980 flows, 62 is attack in all 10,622, 254 is attack in 30,704 of 30,706. With all 46 features the tabular baselines reach F1 0.9999 (XGBoost) and 0.9992 (MLP); XGBoost's gain is dominated by `MIN_TTL` (2915 vs 38 for the next feature). **For the paper:** TTL reflects the hop distance between the testbed's attack and victim hosts, not the behaviour of the flow (a known UNSW-NB15 artefact); a detector relying on it does not transfer to other networks; and the attacker sets the initial TTL of its own packets, so it would be a one-feature evasion route that makes the adversarial analysis trivial. Without TTL, XGBoost still reaches F1 0.9995, so the dataset stays easy for clean detection; see Phase 2 pilot. |
 | 2026-10-07 | NetFlow-v3 protocol: flows sorted by start time, chronological 60/20/20, windows of 1000 consecutive flows, scaler on train only. On NF-UNSW-NB15-v3 the attack fraction is 3.0% in train and 8.7–9.3% in validation and test; every validation and test window contains attacks. k-NN ties (≈30% of flows in a window are exact duplicates) are broken by flow index, so the graph is a deterministic function of the features. `DNS_QUERY_ID` is dropped as an identifier. |
 | 2026-10-06 | Datasets: only those relevant to the paper (NetFlow-v3; CTU-13 optional). NSL-KDD and CICIDS2017 dropped entirely, including for the go/no-go run, which waits for the NetFlow-v3 loader. Phases reordered: data/protocol first, decomposition second. |
