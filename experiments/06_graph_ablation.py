@@ -8,6 +8,11 @@ On the clean test windows, the same model is evaluated with:
 
 If F1 under ``none`` and ``random`` matches ``knn``, the model ignores its
 neighbours, and no change of structure (induced or adversarial) can matter.
+
+For endpoint-graph checkpoints (``--graph endpoint`` in 01, flows are edges),
+``knn`` is the original endpoint graph, ``none`` gives every flow its own pair
+of endpoints, and ``random`` shuffles destination endpoints across flows (each
+node keeps its degree, but who talks to whom is destroyed).
 ``changed`` is the fraction of flow predictions that differ from ``knn``.
 
 Everything else (dataset, k, window size, slice, architecture) is read from
@@ -36,7 +41,7 @@ from torch_geometric.data import Data
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from data.dataset import load_split_datasets  # noqa: E402
-from models import GAT_NIDS, GCN_NIDS  # noqa: E402
+from models import EGraphSAGE_NIDS, GAT_NIDS, GCN_NIDS  # noqa: E402
 from utils.metrics import binary_classification_metrics  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -61,6 +66,22 @@ def random_graph(num_nodes: int, k: int, rng: np.random.Generator) -> torch.Tens
     return torch.as_tensor(pairs.T, dtype=torch.long)
 
 
+def with_endpoint_graph(data: Data, graph: str, rng: np.random.Generator) -> Data:
+    """Endpoint-graph variants; edge i stays flow i, so predictions stay aligned with y."""
+    edge_index, num_nodes = data.edge_index, data.num_nodes
+    if graph == "none":
+        n = edge_index.shape[1]
+        edge_index = torch.stack([torch.arange(n) * 2, torch.arange(n) * 2 + 1])
+        num_nodes = 2 * n
+    elif graph == "random":
+        perm = torch.as_tensor(rng.permutation(edge_index.shape[1]), dtype=torch.long)
+        edge_index = torch.stack([edge_index[0], edge_index[1][perm]])
+    elif graph != "knn":
+        raise ValueError(f"Unknown graph: {graph}")
+    return Data(x=torch.ones((num_nodes, data.x.shape[1])), edge_index=edge_index,
+                edge_attr=data.edge_attr, y=data.y, num_nodes=num_nodes)
+
+
 def with_graph(data: Data, graph: str, k: int, rng: np.random.Generator) -> Data:
     if graph == "knn":
         edge_index = data.edge_index
@@ -73,7 +94,12 @@ def with_graph(data: Data, graph: str, k: int, rng: np.random.Generator) -> Data
     return Data(x=data.x, edge_index=edge_index, y=data.y)
 
 
-def build_model(metadata: dict, num_features: int) -> torch.nn.Module:
+def build_model(metadata: dict, num_features: int, num_edge_features: int = None) -> torch.nn.Module:
+    if metadata["model"] == "egraphsage":
+        return EGraphSAGE_NIDS(
+            num_features, num_edge_features, int(metadata.get("hidden_dim", 64)),
+            dropout=float(metadata.get("dropout", 0.5)), hidden_layers=int(metadata.get("hidden_layers", 2)),
+        )
     cls = {"gcn": GCN_NIDS, "gat": GAT_NIDS}[metadata["model"]]
     return cls(
         num_features,
@@ -105,15 +131,23 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
         k=k,
         max_flows=metadata.get("max_flows"),
         slice_start=metadata.get("slice_start"),
+        graph=metadata.get("graph") or "knn",
+        node_key=metadata.get("node_key") or "ipport",
     )
     windows = [test[i] for i in range(len(test))]
     if args.max_windows is not None:
         windows = windows[: args.max_windows]
     y = np.concatenate([w.y.numpy() for w in windows])
 
-    model = build_model(metadata, windows[0].x.shape[1])
+    edge_attr = getattr(windows[0], "edge_attr", None)
+    model = build_model(metadata, windows[0].x.shape[1], edge_attr.shape[1] if edge_attr is not None else None)
     model.load_state_dict(checkpoint["model_state_dict"])
     model.to(device)
+
+    endpoint = (metadata.get("graph") or "knn") == "endpoint"
+
+    def variant(w, graph, rng):
+        return with_endpoint_graph(w, graph, rng) if endpoint else with_graph(w, graph, k, rng)
 
     reference = predict(model, windows, device)
     rows = []
@@ -122,13 +156,15 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
         for seed in seeds:
             rng = np.random.default_rng(seed if seed is not None else 0)
             pred = reference if graph == "knn" else predict(
-                model, [with_graph(w, graph, k, rng) for w in windows], device
+                model, [variant(w, graph, rng) for w in windows], device
             )
             metrics = binary_classification_metrics(y, pred)
             rows.append({
                 "checkpoint": str(path),
                 "dataset": metadata["dataset"],
                 "model": metadata["model"],
+                "graph_construction": metadata.get("graph") or "knn",
+                "node_key": metadata.get("node_key"),
                 "k": k,
                 "training_seed": metadata.get("seed"),
                 "graph": graph,

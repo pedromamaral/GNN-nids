@@ -48,6 +48,25 @@ class TestGraphAblation(unittest.TestCase):
         self.assertEqual(self.module.with_graph(data, "none", 3, rng).edge_index.shape, (2, 0))
         self.assertGreater(self.module.with_graph(data, "random", 3, rng).edge_index.shape[1], 0)
 
+    def test_endpoint_variants_keep_flows_aligned(self):
+        edge_index = torch.tensor([[0, 0, 1, 2], [1, 2, 2, 0]])
+        data = Data(x=torch.ones(3, 1), edge_index=edge_index, edge_attr=torch.randn(4, 5),
+                    y=torch.tensor([0, 1, 0, 1]), num_nodes=3)
+        rng = np.random.default_rng(0)
+
+        same = self.module.with_endpoint_graph(data, "knn", rng)
+        self.assertTrue(torch.equal(same.edge_index, edge_index))
+
+        none = self.module.with_endpoint_graph(data, "none", rng)
+        self.assertEqual(none.num_nodes, 8)
+        self.assertEqual(len(set(none.edge_index.flatten().tolist())), 8)
+        self.assertTrue(torch.equal(none.edge_attr, data.edge_attr))
+
+        rand = self.module.with_endpoint_graph(data, "random", rng)
+        self.assertTrue(torch.equal(rand.edge_index[0], edge_index[0]))
+        self.assertEqual(sorted(rand.edge_index[1].tolist()), sorted(edge_index[1].tolist()))
+        self.assertTrue(torch.equal(rand.y, data.y))
+
 
 if __name__ == "__main__":
     unittest.main()
