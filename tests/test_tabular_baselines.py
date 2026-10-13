@@ -73,5 +73,19 @@ class TestTabularBaselines(unittest.TestCase):
         self.assertEqual(summary["mlp"]["seeds"], "2")
 
 
+    def test_host_context_groups_by_window_and_endpoint(self):
+        X = np.array([[1.0], [3.0], [10.0], [5.0]], dtype=np.float32)
+        src = np.array([7, 7, 8, 7])
+        dst = np.array([1, 2, 1, 1])
+        out = self.module.host_context(X, src, dst, window=3)
+        self.assertEqual(out.shape, (4, 5))
+        np.testing.assert_allclose(out[:, 0], X[:, 0])
+        # Flows 0 and 1 share source 7 in window 0; flow 3 is alone in window 1.
+        np.testing.assert_allclose(out[:, 1], [2.0, 2.0, 10.0, 5.0])
+        np.testing.assert_allclose(out[:, 2], np.log1p([2, 2, 1, 1]))
+        # Destination 1: flows 0 and 2 in window 0.
+        np.testing.assert_allclose(out[:, 3], [5.5, 3.0, 5.5, 5.0])
+
+
 if __name__ == "__main__":
     unittest.main()

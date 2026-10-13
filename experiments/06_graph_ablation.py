@@ -11,8 +11,9 @@ neighbours, and no change of structure (induced or adversarial) can matter.
 
 For endpoint-graph checkpoints (``--graph endpoint`` in 01, flows are edges),
 ``knn`` is the original endpoint graph, ``none`` gives every flow its own pair
-of endpoints, and ``random`` shuffles destination endpoints across flows (each
-node keeps its degree, but who talks to whom is destroyed).
+of endpoints, ``random_dst`` / ``random_src`` shuffle the destination / source
+endpoints across flows (each node keeps its degree on that side), and ``random``
+shuffles both sides independently.
 ``changed`` is the fraction of flow predictions that differ from ``knn``.
 
 Everything else (dataset, k, window size, slice, architecture) is read from
@@ -49,6 +50,7 @@ logger = logging.getLogger("graph_ablation")
 logging.getLogger("data.graph_builder").setLevel(logging.WARNING)
 
 GRAPHS = ("knn", "none", "random")
+ENDPOINT_GRAPHS = ("knn", "none", "random_dst", "random_src", "random")
 
 
 def random_graph(num_nodes: int, k: int, rng: np.random.Generator) -> torch.Tensor:
@@ -73,9 +75,14 @@ def with_endpoint_graph(data: Data, graph: str, rng: np.random.Generator) -> Dat
         n = edge_index.shape[1]
         edge_index = torch.stack([torch.arange(n) * 2, torch.arange(n) * 2 + 1])
         num_nodes = 2 * n
-    elif graph == "random":
-        perm = torch.as_tensor(rng.permutation(edge_index.shape[1]), dtype=torch.long)
-        edge_index = torch.stack([edge_index[0], edge_index[1][perm]])
+    elif graph in ("random", "random_src", "random_dst"):
+        n = edge_index.shape[1]
+        src, dst = edge_index[0], edge_index[1]
+        if graph in ("random", "random_src"):
+            src = src[torch.as_tensor(rng.permutation(n), dtype=torch.long)]
+        if graph in ("random", "random_dst"):
+            dst = dst[torch.as_tensor(rng.permutation(n), dtype=torch.long)]
+        edge_index = torch.stack([src, dst])
     elif graph != "knn":
         raise ValueError(f"Unknown graph: {graph}")
     return Data(x=torch.ones((num_nodes, data.x.shape[1])), edge_index=edge_index,
@@ -151,8 +158,8 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
 
     reference = predict(model, windows, device)
     rows = []
-    for graph in GRAPHS:
-        seeds = args.random_seeds if graph == "random" else [None]
+    for graph in (ENDPOINT_GRAPHS if endpoint else GRAPHS):
+        seeds = args.random_seeds if graph.startswith("random") else [None]
         for seed in seeds:
             rng = np.random.default_rng(seed if seed is not None else 0)
             pred = reference if graph == "knn" else predict(

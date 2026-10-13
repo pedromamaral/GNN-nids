@@ -10,6 +10,13 @@ Example (inside the container, from the repository root):
 
     python experiments/00_tabular_baselines.py --dataset nf-unsw-nb15-v3
     python experiments/00_tabular_baselines.py --dataset nf-ton-iot-v3 --models xgboost --seeds 42 43
+    python experiments/00_tabular_baselines.py --dataset nf-ton-iot-v3 --context host --node-key ip
+
+With ``--context host`` each flow also gets the mean features and the flow
+count of the flows sharing its source endpoint, and of those sharing its
+destination endpoint, within the same window of consecutive flows (the windows
+of the endpoint-graph GNN). This is the non-graph control for endpoint GNNs:
+host context without message passing. Labels are never aggregated.
 
 Outputs in results/tabular/<timestamp>_<dataset>/:
     results.csv     one row per model x seed x split
@@ -30,6 +37,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 import numpy as np
+import pandas as pd
 import torch
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -42,6 +50,8 @@ from data.netflow_v3 import (  # noqa: E402
     dataset_variant_id,
     load_netflow_v3,
 )
+from data.endpoint_graph import endpoint_keys  # noqa: E402
+from data.netflow_v3 import DST_IP, DST_PORT, SRC_IP, SRC_PORT  # noqa: E402
 from data.splits import chronological_split  # noqa: E402
 from utils.metrics import binary_classification_metrics  # noqa: E402
 
@@ -65,10 +75,28 @@ def resolve_device(name: str) -> str:
     return name
 
 
+def host_context(X: np.ndarray, src_key: np.ndarray, dst_key: np.ndarray, window: int) -> np.ndarray:
+    """[X, mean X over same-source flows, log1p count, mean X over same-destination flows, log1p count].
+
+    Groups are (window, endpoint) with windows of ``window`` consecutive flows,
+    so a flow only sees flows that the endpoint GNN would put in the same graph.
+    """
+    win = np.arange(len(X)) // window
+    out = [X]
+    for key in (src_key, dst_key):
+        groups = pd.factorize(pd.MultiIndex.from_arrays([win, key]))[0]
+        counts = np.bincount(groups).astype(np.float32)
+        means = pd.DataFrame(X).groupby(groups, sort=True).mean().to_numpy(dtype=np.float32)
+        out.append(means[groups])
+        out.append(np.log1p(counts[groups])[:, None])
+    return np.hstack(out).astype(np.float32)
+
+
 def prepare_data(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     """Time-sorted flows -> chronological blocks -> train-fitted preprocessing."""
     csv_path = Path(args.raw_dir) / NETFLOW_V3_DATASETS[args.dataset]
-    df = load_netflow_v3(str(csv_path), max_flows=args.max_flows, slice_start=args.slice_start)
+    df = load_netflow_v3(str(csv_path), max_flows=args.max_flows, slice_start=args.slice_start,
+                         with_endpoints=(args.context == "host"))
     blocks = chronological_split(len(df))
 
     preprocessor = NetFlowV3Preprocessor()
@@ -76,6 +104,9 @@ def prepare_data(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     for split, idx in zip(("train", "validation", "test"), blocks):
         part = df.iloc[idx].reset_index(drop=True)
         X, y = preprocessor.preprocess(part, fit=(split == "train"))
+        if args.context == "host":
+            src_key, dst_key = endpoint_keys(part[SRC_IP], part[SRC_PORT], part[DST_IP], part[DST_PORT], args.node_key)
+            X = host_context(X, src_key, dst_key, args.context_window)
         data[split] = {"X": X, "y": y, "attack": part[ATTACK_COLUMN].astype(str).to_numpy()}
         logger.info("%s: %d flows, attack fraction %.4f", split, len(y), float(y.mean()))
     return data
@@ -216,6 +247,8 @@ def summarise(results: List[dict]) -> List[dict]:
 def run(args: argparse.Namespace) -> Path:
     device = resolve_device(args.device)
     variant = dataset_variant_id(args.dataset, args.max_flows, args.slice_start)
+    if args.context == "host":
+        variant += f"_host-{args.node_key}-w{args.context_window}"
     out_dir = Path(args.output_dir) / f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{variant}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -279,6 +312,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--slice-start", type=float, default=None,
                         help="start of the --max-flows slice, as a fraction of the time-sorted flows")
     parser.add_argument("--raw-dir", default=f"data/raw/{NETFLOW_V3_RAW_SUBDIR}")
+    parser.add_argument("--context", choices=["none", "host"], default="none",
+                        help="host: add same-source / same-destination aggregates per window (non-graph control)")
+    parser.add_argument("--node-key", choices=["ip", "ipport"], default="ip", help="Endpoint definition for --context host")
+    parser.add_argument("--context-window", type=int, default=10000, help="Flows per window for --context host")
     parser.add_argument("--output-dir", default="results/tabular")
     parser.add_argument("--device", default="auto", help="auto, cpu or cuda")
     parser.add_argument("--n-jobs", type=int, default=8, help="XGBoost CPU threads")

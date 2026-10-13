@@ -62,10 +62,18 @@ class TestGraphAblation(unittest.TestCase):
         self.assertEqual(len(set(none.edge_index.flatten().tolist())), 8)
         self.assertTrue(torch.equal(none.edge_attr, data.edge_attr))
 
-        rand = self.module.with_endpoint_graph(data, "random", rng)
-        self.assertTrue(torch.equal(rand.edge_index[0], edge_index[0]))
-        self.assertEqual(sorted(rand.edge_index[1].tolist()), sorted(edge_index[1].tolist()))
-        self.assertTrue(torch.equal(rand.y, data.y))
+        rand_dst = self.module.with_endpoint_graph(data, "random_dst", rng)
+        self.assertTrue(torch.equal(rand_dst.edge_index[0], edge_index[0]))
+        self.assertEqual(sorted(rand_dst.edge_index[1].tolist()), sorted(edge_index[1].tolist()))
+        self.assertTrue(torch.equal(rand_dst.y, data.y))
+
+        rand_src = self.module.with_endpoint_graph(data, "random_src", rng)
+        self.assertTrue(torch.equal(rand_src.edge_index[1], edge_index[1]))
+        self.assertEqual(sorted(rand_src.edge_index[0].tolist()), sorted(edge_index[0].tolist()))
+
+        both = self.module.with_endpoint_graph(data, "random", np.random.default_rng(3))
+        self.assertEqual(sorted(both.edge_index[0].tolist()), sorted(edge_index[0].tolist()))
+        self.assertEqual(sorted(both.edge_index[1].tolist()), sorted(edge_index[1].tolist()))
 
 
 if __name__ == "__main__":
