@@ -17,9 +17,11 @@ One paper, three parts, one protocol (NetFlow-v3, chronological 60/20/20, TTL an
 3. **A/B/C decomposition on endpoint graphs with a joint attacker** that shapes its own malicious flows (edge features) and injects decoy flows (structure) under one traffic-cost budget; compared with injection-only (GIANT-style) and separate evaluation (Venturi-style). Optional section: graph construction as a defence (node key, window, degree cap).
 
 Steps:
-- [ ] A1. Endpoint-graph path: loader keeps endpoints (not as features), windowed endpoint graphs, `egraphsage` model, `01 --graph endpoint`. Tests.
+- [x] A1. Endpoint-graph path: loader keeps endpoints (not as features), windowed endpoint graphs, `egraphsage` model, `01 --graph endpoint`. Tests. (2026-10-12)
 - [ ] A2. Pilot: E-GraphSAGE vs XGBoost vs isolated control on NF-ToN-IoT-v3 and NF-UNSW-NB15-v3 (one seed). Go/no-go for Part 2: does topology add anything once identity is hidden?
-- [ ] A3. CTU-13 loader (scenario-disjoint split).
+  - 2026-10-13, test F1 (window 10k flows, seed 42): UNSW ipport 0.997, ip 0.939, isolated 0.998 (XGBoost 0.9995): topology adds nothing. ToN ipport 0.899, **ip 0.937**, isolated 0.727 (XGBoost 0.872, MLP 0.735).
+  - Ablation of the trained ToN ip model: no edges 0.790, destinations shuffled 0.940, sources shuffled 0.910, both shuffled 0.915. The model needs a neighbourhood but not the real one, so the gain may be **window composition** (attack-heavy windows), not topology. Controls queued: `00 --context host` (same-endpoint aggregates) and `00 --context window` (window mean only). UNSW ip model collapses under any shuffle (0.00-0.04): brittle.
+- [x] A3. CTU-13 loader (scenario-disjoint split: train 1-8, val 11-12, test 9/10/13; Background = benign; windows per scenario). Data on GPUserver2 only (`*.binetflow` extracted, malware samples not). (2026-10-13)
 - [ ] A4. Attacker: own-flow shaping + injection, traffic-cost budget; decomposition adapter for endpoint graphs.
 - [ ] A5. Full seed grid; construction-as-defence sweep if time allows; writing.
 
