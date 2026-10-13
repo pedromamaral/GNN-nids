@@ -88,7 +88,10 @@ def host_context(X: np.ndarray, src_key: np.ndarray, dst_key: np.ndarray, window
     win = np.arange(len(X)) // window
     out = [X]
     for key in (src_key, dst_key):
-        groups = pd.factorize(pd.MultiIndex.from_arrays([win, key]))[0]
+        # One int64 per (window, endpoint); a pandas MultiIndex would build Python
+        # tuples and is far too slow for tens of millions of flows.
+        key_codes = pd.factorize(np.asarray(key))[0].astype(np.int64)
+        groups = pd.factorize(win.astype(np.int64) * (int(key_codes.max()) + 1) + key_codes)[0]
         counts = np.bincount(groups).astype(np.float32)
         means = pd.DataFrame(X).groupby(groups, sort=True).mean().to_numpy(dtype=np.float32)
         out.append(means[groups])
