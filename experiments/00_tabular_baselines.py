@@ -50,6 +50,7 @@ from data.netflow_v3 import (  # noqa: E402
     dataset_variant_id,
     load_netflow_v3,
 )
+from data.ctu13 import CTU13_DEFAULT_SPLIT, CTU13_NAME, CTU13_RAW_SUBDIR, Ctu13Preprocessor, load_ctu13, scenario_segments  # noqa: E402
 from data.endpoint_graph import endpoint_keys  # noqa: E402
 from data.netflow_v3 import DST_IP, DST_PORT, SRC_IP, SRC_PORT  # noqa: E402
 from data.splits import chronological_split  # noqa: E402
@@ -92,8 +93,26 @@ def host_context(X: np.ndarray, src_key: np.ndarray, dst_key: np.ndarray, window
     return np.hstack(out).astype(np.float32)
 
 
+def prepare_ctu13(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
+    """CTU-13: scenario-disjoint split, train-fitted preprocessing, per-scenario context windows."""
+    preprocessor = Ctu13Preprocessor()
+    data = {}
+    for split in ("train", "validation", "test"):
+        part = load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT[split], with_endpoints=(args.context == "host"))
+        X, y = preprocessor.preprocess(part, fit=(split == "train"))
+        if args.context == "host":
+            src_key, dst_key = endpoint_keys(part[SRC_IP], part[SRC_PORT], part[DST_IP], part[DST_PORT], args.node_key)
+            X = np.vstack([host_context(X[a:b], src_key[a:b], dst_key[a:b], args.context_window)
+                           for a, b in scenario_segments(part)])
+        data[split] = {"X": X, "y": y, "attack": part["Attack"].astype(str).to_numpy()}
+        logger.info("%s: %d flows, botnet fraction %.4f", split, len(y), float(y.mean()))
+    return data
+
+
 def prepare_data(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     """Time-sorted flows -> chronological blocks -> train-fitted preprocessing."""
+    if args.dataset == CTU13_NAME:
+        return prepare_ctu13(args)
     csv_path = Path(args.raw_dir) / NETFLOW_V3_DATASETS[args.dataset]
     df = load_netflow_v3(str(csv_path), max_flows=args.max_flows, slice_start=args.slice_start,
                          with_endpoints=(args.context == "host"))
@@ -304,7 +323,8 @@ def run(args: argparse.Namespace) -> Path:
 
 def parse_args(argv=None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="XGBoost and MLP baselines on the NetFlow-v3 flows and splits.")
-    parser.add_argument("--dataset", choices=sorted(NETFLOW_V3_DATASETS), default="nf-unsw-nb15-v3")
+    parser.add_argument("--dataset", choices=sorted(NETFLOW_V3_DATASETS) + [CTU13_NAME], default="nf-unsw-nb15-v3")
+    parser.add_argument("--ctu13-dir", default=f"data/raw/{CTU13_RAW_SUBDIR}")
     parser.add_argument("--models", nargs="+", choices=MODELS, default=list(MODELS))
     parser.add_argument("--seeds", nargs="+", type=int, default=[42, 43, 44, 45, 46])
     parser.add_argument("--max-flows", type=int, default=None,

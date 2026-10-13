@@ -17,6 +17,15 @@ import torch_geometric.data.data as pyg_data
 
 from .download import DatasetDownloader, CICIDS2017_SUBSETS
 from .preprocess import NSLKDDPreprocessor, CICIDS2017Preprocessor
+from .ctu13 import (
+    CTU13_DEFAULT_SPLIT,
+    CTU13_NAME,
+    CTU13_RAW_SUBDIR,
+    CTU13_SCENARIOS,
+    Ctu13Preprocessor,
+    load_ctu13,
+    scenario_segments,
+)
 from .endpoint_graph import NODE_KEYS, build_endpoint_windows, endpoint_keys
 from .netflow_v3 import (
     ARTEFACT_COLUMNS,
@@ -82,8 +91,8 @@ class NetworkFlowDataset(InMemoryDataset):
         """
         if graph not in ("knn", "endpoint"):
             raise ValueError(f"Unknown graph construction: {graph}")
-        if graph == "endpoint" and not is_netflow_v3(name):
-            raise ValueError("Endpoint graphs are only available for the NetFlow-v3 datasets")
+        if graph == "endpoint" and not (is_netflow_v3(name) or name == CTU13_NAME):
+            raise ValueError("Endpoint graphs are only available for the NetFlow-v3 datasets and CTU-13")
         if node_key not in NODE_KEYS:
             raise ValueError(f"Unknown node_key {node_key!r}; expected one of {NODE_KEYS}")
         self.graph = graph
@@ -134,6 +143,8 @@ class NetworkFlowDataset(InMemoryDataset):
                 return str(data_root / "raw" / "cicids2017")
             if is_netflow_v3(self.name):
                 return str(data_root / "raw" / NETFLOW_V3_RAW_SUBDIR)
+            if self.name == CTU13_NAME:
+                return str(data_root / "raw" / CTU13_RAW_SUBDIR)
             return str(data_root / "raw")
 
         # Fallback for test / temporary directories where `data` isn't found
@@ -173,6 +184,11 @@ class NetworkFlowDataset(InMemoryDataset):
             metadata["split_policy"] = "chronological"
             # Caches built with a different feature set are rejected.
             metadata["excluded_artefacts"] = list(ARTEFACT_COLUMNS)
+        if self.name == CTU13_NAME:
+            metadata["split_policy"] = "scenario-disjoint"
+            metadata["scenarios"] = CTU13_DEFAULT_SPLIT[self.split] if self.split in CTU13_DEFAULT_SPLIT else None
+            metadata["background"] = "benign"
+            metadata["windowing"] = "per-scenario"
         return metadata
 
     def _metadata_path(self) -> Path:
@@ -228,6 +244,8 @@ class NetworkFlowDataset(InMemoryDataset):
             return CICIDS2017_SUBSETS[self.name]
         if is_netflow_v3(self.name):
             return [NETFLOW_V3_DATASETS[self.name]]
+        if self.name == CTU13_NAME:
+            return [f"{n}/{CTU13_SCENARIOS[n][0]}" for n in sorted(CTU13_SCENARIOS)]
         return [f.name for f in sorted(raw_dir.glob("*.csv"))]
 
     @property
@@ -267,6 +285,14 @@ class NetworkFlowDataset(InMemoryDataset):
                 raise RuntimeError(
                     f"NetFlow-v3 file {NETFLOW_V3_DATASETS[self.name]} not found in {self.raw_dir}. "
                     "Download it from https://staff.itee.uq.edu.au/marius/NIDS_datasets/ "
+                    "(see docs/RUNNING_ON_SERVERS.md)."
+                )
+        elif self.name == CTU13_NAME:
+            missing = [f for f in self.raw_file_names if not (Path(self.raw_dir) / f).exists()]
+            if missing:
+                raise RuntimeError(
+                    f"CTU-13 files missing under {self.raw_dir}: {missing}. Extract only the *.binetflow files of "
+                    "https://mcfp.felk.cvut.cz/publicDatasets/CTU-13-Dataset/CTU-13-Dataset.tar.bz2 "
                     "(see docs/RUNNING_ON_SERVERS.md)."
                 )
         else:
@@ -393,8 +419,12 @@ class NetworkFlowDataset(InMemoryDataset):
                 X, y = preprocessor.preprocess(df_split, fit=False)
         elif is_netflow_v3(self.name):
             X, y, preprocessor, endpoints = self._process_netflow_v3(split_dir)
+        elif self.name == CTU13_NAME:
+            X, y, preprocessor, endpoints, segments = self._process_ctu13()
         else:
             raise ValueError(f"Unknown dataset: {self.name}")
+        if self.name != CTU13_NAME:
+            segments = [(0, len(y))]
 
         # Save train preprocessor state (only for train split)
         Path(self.processed_dir).mkdir(parents=True, exist_ok=True)
@@ -417,21 +447,25 @@ class NetworkFlowDataset(InMemoryDataset):
             logger.info(f"Saved preprocessor state to {state_path}")
 
         # Build graphs using windowing
+        # (one segment per CTU-13 scenario, so no window mixes two captures)
+        graphs = []
         if self.graph == "endpoint":
             logger.info("Building endpoint graphs (node_key=%s) with windowing...", self.node_key)
             src_key, dst_key = endpoint_keys(*endpoints, node_key=self.node_key)
-            graphs = build_endpoint_windows(X, y, src_key, dst_key, window_size=self.window_size)
+            for a, b in segments:
+                graphs.extend(build_endpoint_windows(X[a:b], y[a:b], src_key[a:b], dst_key[a:b], window_size=self.window_size))
         else:
             logger.info("Building flow-centric graphs with windowing...")
             builder = FlowGraphBuilder()
-            graphs = builder.build_windowed_dataset(
-                X,
-                y,
-                window_size=self.window_size,
-                method="knn",
-                bidirectional=True,
-                k=self.k,
-            )
+            for a, b in segments:
+                graphs.extend(builder.build_windowed_dataset(
+                    X[a:b],
+                    y[a:b],
+                    window_size=self.window_size,
+                    method="knn",
+                    bidirectional=True,
+                    k=self.k,
+                ))
 
         if len(graphs) == 0:
             raise ValueError("No graphs were created from the input data.")
@@ -521,6 +555,27 @@ class NetworkFlowDataset(InMemoryDataset):
         if self.graph == "endpoint":
             endpoints = tuple(df_split[c].to_numpy() for c in (SRC_IP, SRC_PORT, DST_IP, DST_PORT))
         return X, y, preprocessor, endpoints
+
+    def _process_ctu13(self):
+        """Scenario-disjoint split; scaler fitted on the training scenarios only."""
+        if self.split not in CTU13_DEFAULT_SPLIT:
+            raise ValueError(f"Invalid split: {self.split}")
+        df = load_ctu13(self.raw_dir, CTU13_DEFAULT_SPLIT[self.split], with_endpoints=(self.graph == "endpoint"))
+        preprocessor = Ctu13Preprocessor()
+        if self.split == "train":
+            X, y = preprocessor.preprocess(df, fit=True)
+        else:
+            state_path = os.path.join(self.processed_dir, self.PREPROCESSOR_STATE_FILE)
+            if not os.path.exists(state_path):
+                raise FileNotFoundError(
+                    f"Preprocessor state not found: {state_path}. Process the train split first."
+                )
+            preprocessor.load_preprocessed(state_path)
+            X, y = preprocessor.preprocess(df, fit=False)
+        endpoints = None
+        if self.graph == "endpoint":
+            endpoints = tuple(df[c].to_numpy() for c in (SRC_IP, SRC_PORT, DST_IP, DST_PORT))
+        return X, y, preprocessor, endpoints, scenario_segments(df)
 
     def len(self) -> int:
         """Return the length of the dataset."""

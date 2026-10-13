@@ -34,6 +34,10 @@ def check(dataset: str, root: Path) -> bool:
     elif dataset in NETFLOW_V3_FILES:
         raw_dir = root / "data" / "raw" / "netflow-v3"
         files = [NETFLOW_V3_FILES[dataset]]
+    elif dataset == "ctu13":
+        from data.ctu13 import CTU13_RAW_SUBDIR, CTU13_SCENARIOS
+        raw_dir = root / "data" / "raw" / CTU13_RAW_SUBDIR
+        files = [f"{n}/{CTU13_SCENARIOS[n][0]}" for n in sorted(CTU13_SCENARIOS)]
     elif dataset == "nsl-kdd":
         raw_dir = root / "data" / "raw" / "nsl-kdd"
         files = NSL_KDD_FILES
