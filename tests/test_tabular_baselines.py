@@ -87,5 +87,11 @@ class TestTabularBaselines(unittest.TestCase):
         np.testing.assert_allclose(out[:, 3], [5.5, 3.0, 5.5, 5.0])
 
 
+    def test_window_context(self):
+        X = np.array([[1.0], [3.0], [10.0]], dtype=np.float32)
+        out = self.module.window_context(X, window=2)
+        np.testing.assert_allclose(out[:, 1], [2.0, 2.0, 10.0])
+
+
 if __name__ == "__main__":
     unittest.main()

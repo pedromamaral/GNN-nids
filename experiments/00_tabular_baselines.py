@@ -17,6 +17,9 @@ count of the flows sharing its source endpoint, and of those sharing its
 destination endpoint, within the same window of consecutive flows (the windows
 of the endpoint-graph GNN). This is the non-graph control for endpoint GNNs:
 host context without message passing. Labels are never aggregated.
+``--context window`` adds only the mean features of the whole window (no
+endpoints): it tests whether a graph model's gain is just the composition of
+the time window rather than its topology.
 
 Outputs in results/tabular/<timestamp>_<dataset>/:
     results.csv     one row per model x seed x split
@@ -93,6 +96,23 @@ def host_context(X: np.ndarray, src_key: np.ndarray, dst_key: np.ndarray, window
     return np.hstack(out).astype(np.float32)
 
 
+def window_context(X: np.ndarray, window: int) -> np.ndarray:
+    """[X, mean X over the flow's window of consecutive flows]."""
+    win = np.arange(len(X)) // window
+    means = pd.DataFrame(X).groupby(win, sort=True).mean().to_numpy(dtype=np.float32)
+    return np.hstack([X, means[win]]).astype(np.float32)
+
+
+def add_context(args, X, part, segments=None):
+    segments = segments or [(0, len(X))]
+    if args.context == "none":
+        return X
+    if args.context == "window":
+        return np.vstack([window_context(X[a:b], args.context_window) for a, b in segments])
+    src_key, dst_key = endpoint_keys(part[SRC_IP], part[SRC_PORT], part[DST_IP], part[DST_PORT], args.node_key)
+    return np.vstack([host_context(X[a:b], src_key[a:b], dst_key[a:b], args.context_window) for a, b in segments])
+
+
 def prepare_ctu13(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     """CTU-13: scenario-disjoint split, train-fitted preprocessing, per-scenario context windows."""
     preprocessor = Ctu13Preprocessor()
@@ -100,10 +120,7 @@ def prepare_ctu13(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     for split in ("train", "validation", "test"):
         part = load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT[split], with_endpoints=(args.context == "host"))
         X, y = preprocessor.preprocess(part, fit=(split == "train"))
-        if args.context == "host":
-            src_key, dst_key = endpoint_keys(part[SRC_IP], part[SRC_PORT], part[DST_IP], part[DST_PORT], args.node_key)
-            X = np.vstack([host_context(X[a:b], src_key[a:b], dst_key[a:b], args.context_window)
-                           for a, b in scenario_segments(part)])
+        X = add_context(args, X, part, scenario_segments(part))
         data[split] = {"X": X, "y": y, "attack": part["Attack"].astype(str).to_numpy()}
         logger.info("%s: %d flows, botnet fraction %.4f", split, len(y), float(y.mean()))
     return data
@@ -123,9 +140,7 @@ def prepare_data(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     for split, idx in zip(("train", "validation", "test"), blocks):
         part = df.iloc[idx].reset_index(drop=True)
         X, y = preprocessor.preprocess(part, fit=(split == "train"))
-        if args.context == "host":
-            src_key, dst_key = endpoint_keys(part[SRC_IP], part[SRC_PORT], part[DST_IP], part[DST_PORT], args.node_key)
-            X = host_context(X, src_key, dst_key, args.context_window)
+        X = add_context(args, X, part)
         data[split] = {"X": X, "y": y, "attack": part[ATTACK_COLUMN].astype(str).to_numpy()}
         logger.info("%s: %d flows, attack fraction %.4f", split, len(y), float(y.mean()))
     return data
@@ -268,6 +283,8 @@ def run(args: argparse.Namespace) -> Path:
     variant = dataset_variant_id(args.dataset, args.max_flows, args.slice_start)
     if args.context == "host":
         variant += f"_host-{args.node_key}-w{args.context_window}"
+    elif args.context == "window":
+        variant += f"_window-w{args.context_window}"
     out_dir = Path(args.output_dir) / f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{variant}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -332,8 +349,9 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--slice-start", type=float, default=None,
                         help="start of the --max-flows slice, as a fraction of the time-sorted flows")
     parser.add_argument("--raw-dir", default=f"data/raw/{NETFLOW_V3_RAW_SUBDIR}")
-    parser.add_argument("--context", choices=["none", "host"], default="none",
-                        help="host: add same-source / same-destination aggregates per window (non-graph control)")
+    parser.add_argument("--context", choices=["none", "host", "window"], default="none",
+                        help="host: add same-source / same-destination aggregates per window; "
+                             "window: add the window's mean features only (non-graph controls)")
     parser.add_argument("--node-key", choices=["ip", "ipport"], default="ip", help="Endpoint definition for --context host")
     parser.add_argument("--context-window", type=int, default=10000, help="Flows per window for --context host")
     parser.add_argument("--output-dir", default="results/tabular")
