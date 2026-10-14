@@ -1,5 +1,5 @@
-# STATE — 2026-10-14 (research-do implement E013)
-Branch main · local commits 0b3aecd (mem init) + 8c72704 (E013 code), NOT PUSHED (auto mode blocked `git push`; Pedro pushes) · Phase: Avenue #1, A2 (Part 2 go/no-go).
+# STATE — 2026-10-14 (research-do implement + deploy E013)
+Branch main · pushed; servers at abd90c1+ (balanced weights fall back to ones if a class is absent; 30 tests pass on GPUserver2) · Phase: Avenue #1, A2 (Part 2 go/no-go).
 
 ## Just done
 - 00: `--xgb-device` (XGBoost device separate from --device; default = --device).
@@ -8,7 +8,8 @@ Branch main · local commits 0b3aecd (mem init) + 8c72704 (E013 code), NOT PUSHE
 - Success thresholds for C2/C4 proposed in project.md (awaiting Pedro's OK).
 
 ## Active runs
-None. GPUserver2 GPU idle, 32 GB disk; GPUserver1 GPU ~99% (others), 11 GB disk.
+E013-q2 GPUserver2 queue_e013.sh (ToN window → ToN host ip → ctu13 host ip → ctu13 GNN ip/isolated/ipport cwbal), started 10-14 ~18:45 local.
+E013-q1 GPUserver1 queue_e013.sh (ToN host ipport), started ~18:15 local. GPUserver1 GPU 100% (others).
 
 ## Latest results
 E008 ToN GNN ip 0.937 vs XGB 0.872; E009 ablation suggests window composition (K06); E011 CTU-13 GNN all-benign (K09); E012 crashed (XGB OOM, disk).
@@ -17,8 +18,7 @@ E008 ToN GNN ip 0.937 vs XGB 0.872; E009 ablation suggests window composition (K
 Is ToN's GNN gain topology, host profile or window composition? Decided by E013 (A023).
 
 ## EXACT next step
-1. Pedro: `git push origin main`.
-2. research-do deploy E013: `ssh GPUserver2 'cd ~/GNN-nids && git pull && scripts/container.sh test tests/test_training.py tests/test_tabular_baselines.py'`, then launch the queue in .mem/experiments/E013-a2c-rerun.md (queue pattern in infra.md), register rows in runs.md.
+Come back in a few hours: `research-do status` (tools/runs_status.sh). When the tabular runs finish: `research-do fetch E013` (summarize_run.py E013 GPUserverN:results/tabular/<dir> ...), then `research-think analyze E013` (A023 framing; check against C2 thresholds in project.md).
 
 ## Read next
-.mem/experiments/E013-a2c-rerun.md, .mem/infra.md, .mem/runs.md.
+.mem/runs.md, .mem/experiments/E013-a2c-rerun.md.

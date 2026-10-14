@@ -13,4 +13,4 @@ E009 | 2026-10-13 | ~f42b2fd | endpoint ablation on E008 checkpoints (06) | grap
 E010 | 2026-10-13 | ~f42b2fd | UNSW context controls (00 --context host ip / host ipport / window) | 5 seeds, w10k | XGB 1.0000 / 0.9997 / 0.9994; MLP .9996/.9981/.9982 | UNSW saturated | A009
 E011 | 2026-10-13 | ~542b225 | CTU-13: tabular plain + window, E-GraphSAGE ip | 00 5 seeds; 01 w10k s42 | XGB .5308 (window .405±.168); MLP .484 (window .217); GNN ip 0.0 (all benign) | hard; GNN degenerate | A009,A010
 E012 | 2026-10-13 | ~730be34 | batch a2c rest: ToN --context window, host ip, host ipport; ctu13 host ip; ctu13 GNN isolated, ipport | queue_a2c.sh on both servers | XGB CUDA OOM (4 runs); GNN isolated unfinished, ipport disk full | CRASHED → rerun | A009,A011
-E013 | 2026-10-14 | 8c72704 | rerun of E012: XGB on CPU (--xgb-device cpu), GNN --class-weight balanced | see card E013 | - | pending (not launched) | A009,A010,A011
+E013 | 2026-10-14 | 8c72704 | rerun of E012: XGB on CPU (--xgb-device cpu), GNN --class-weight balanced | see card E013 | - | running (launched 10-14) | A009,A010,A011

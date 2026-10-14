@@ -29,6 +29,7 @@ run "python experiments/00_tabular_baselines.py --dataset nf-ton-iot-v3 --contex
 EOF
 ssh GPUserver2 'cd ~/GNN-nids && chmod +x logs/queue_X.sh && setsid nohup logs/queue_X.sh > logs/queue_X.log 2>&1 < /dev/null &'
 ```
+- `chmod +x` the queue script BEFORE launching (2026-10-14: "Permission denied", queue silently ended). The launching ssh does not return even when detached (setsid -f): run it with Bash run_in_background and verify with tools/runs_status.sh. Server clock ≈ laptop +4-5 h (container logs in UTC).
 - Write scripts via heredoc: nested `$var` quoting inside `ssh "... container.sh run '...'"` broke once (empty --node-key).
 - Register in .mem/runs.md as `E0xx | host | queue:queue_X.sh | ... | running`; then container names as they appear.
 

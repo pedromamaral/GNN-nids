@@ -30,7 +30,7 @@ gpu=$(nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total --format=c
 echo "gpu $gpu | disk free $(df -h ~ | awk 'NR==2{print $4}')"
 live=$(docker ps --filter "name=gnn_${me}_" --format '{{.Names}}|{{.RunningFor}}')
 lastline() { tail -c 4000 "logs/$1.log" 2>/dev/null | tr '\r' '\n' | grep -v '^[[:space:]]*$' | tail -n 1 | cut -c1-100; }
-for x in $live; do n=${x%%|*}; echo "RUN   $n (${x#*|}) :: $(lastline "$n")"; done
+while IFS= read -r x; do [ -n "$x" ] || continue; n=${x%%|*}; echo "RUN   $n (${x#*|}) :: $(lastline "$n")"; done <<< "$live"
 for c in $CTRS; do
   case $c in
     queue:*) q=${c#queue:}; if pgrep -f "$q" >/dev/null; then echo "QUEUE $q alive"; else echo "QUEUE $q ended"; fi ;;
