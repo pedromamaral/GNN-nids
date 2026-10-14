@@ -64,14 +64,13 @@ class Trainer:
 
     @staticmethod
     def balanced_class_weights(dataset: Any, num_classes: int = 2) -> torch.Tensor:
-        """n / (num_classes * n_c) over all labels of ``dataset``; absent classes get weight 1."""
+        """n / (num_classes * n_c) over all labels of ``dataset``; all ones if a class is absent."""
         counts = torch.zeros(num_classes, dtype=torch.float64)
         for graph in dataset:
             counts += torch.bincount(graph.y.view(-1).long().cpu(), minlength=num_classes)[:num_classes].double()
-        weights = torch.ones(num_classes, dtype=torch.float64)
-        present = counts > 0
-        weights[present] = counts.sum() / (num_classes * counts[present])
-        return weights.float()
+        if (counts == 0).any():
+            return torch.ones(num_classes)
+        return (counts.sum() / (num_classes * counts)).float()
 
     def _resolve_device(self, device: str) -> torch.device:
         if isinstance(device, torch.device):
