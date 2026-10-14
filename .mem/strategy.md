@@ -1,6 +1,6 @@
 # Strategy (digest of docs/LITERATURE_REVIEW.md, 2026-10-12)
 
-Lit graph: docs/lit-graph/gnn-nids/ (in repo: kg_nodes/edges.jsonl, gap_matrix.json, citation_graph.graphml). Shared lit-graph root: ~/Library/CloudStorage/OneDrive-FCTNOVA/Docencia/Research/lit-graph/ (no gnn-nids topic there yet; TODO(ask) copy it?).
+Lit graph: docs/lit-graph/gnn-nids/ (in repo: kg_nodes/edges.jsonl, gap_matrix.json, citation_graph.graphml). Shared lit-graph root: ~/Library/CloudStorage/OneDrive-FCTNOVA/Docencia/Research/lit-graph/ (gnn-nids copied there 2026-10-14; repo copy is the working copy).
 
 ## Venue
 Computers & Security (main). Stretch: IEEE TIFS/TDSC. Conference route: ACSAC, RAID. Fallback for Avenue #2: Computer Networks / IEEE TNSM.

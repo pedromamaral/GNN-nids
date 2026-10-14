@@ -11,8 +11,8 @@ A006 | tried | keep TTL (MIN_TTL, MAX_TTL) as features | - | E001 | testbed arte
 A007 | dropped | optimised edge attacks (Nettack/Metattack) on k-NN graphs | C1 | - | attacker cannot edit edges of a feature-derived graph; random edges kept as upper bound | 2026-10-05
 A008 | active | A2: endpoint E-GraphSAGE vs XGBoost vs isolated control (go/no-go for Part 2) | C2 | E008,E009 | UNSW: topology adds nothing (K02); ToN ip > XGB but confounded (K06) | 2026-10-13
 A009 | active | window-composition / host-profile controls (00 --context window, host ip/ipport) to explain ToN GNN gain | C2 | E010,E012 | UNSW saturated (K02); ToN runs crashed (XGB GPU OOM) → rerun | 2026-10-14
-A010 | proposed | class-weighted (or focal) loss in Trainer for endpoint GNN on CTU-13 | C3 | E011 | ip collapsed to all-benign (K09) | 2026-10-14
-A011 | proposed | --xgb-device cpu (hist, n_jobs 16) or lower max_bin for context features (16.5M×88/134) | C2 | E012 | GPU OOM 11.6 GB > 10.7 GB free | 2026-10-14
+A010 | active | class-weighted (or focal) loss in Trainer for endpoint GNN on CTU-13 | C3 | E011,E013 | ip collapsed to all-benign (K09) | 2026-10-14
+A011 | active | --xgb-device cpu (hist, n_jobs 16) or lower max_bin for context features (16.5M×88/134) | C2 | E012,E013 | GPU OOM 11.6 GB > 10.7 GB free | 2026-10-14
 A012 | proposed | A4: joint attacker = own-flow shaping (edge features) + decoy injection (structure), traffic-cost budget; decomposition adapter for endpoint graphs | C4 | - | - | 2026-10-12
 A013 | parked | Avenue #2: construction-as-defence for endpoint graphs (node key, window, degree cap, external-endpoint policy, min flows/edge) | C5 | - | optional section; after A012 | 2026-10-12
 A014 | parked | Avenue #3: short negative-result paper on k-NN graphs (letter/workshop) | C1 | E006,E007 | folded into Part 1; #10 preprint pre-empts headline | 2026-10-12

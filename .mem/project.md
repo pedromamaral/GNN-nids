@@ -22,5 +22,5 @@ NetFlow-v3 (NF-UNSW-NB15-v3 dev, NF-ToN-IoT-v3) + CTU-13; chronological 60/20/20
 
 ## Success criteria
 - k-NN go/no-go (Phase 2, applied): GO if structure effect ≥0.05 or adaptive gain ≥0.03 (one-sided Wilcoxon p<0.05). Result: NO-GO everywhere (K05).
-- C2: a gap > 3× seed std between GNN and best tabular/context control on ToN or CTU-13. TODO(ask): confirm threshold.
-- C4: decomposition reveals a non-additive interaction term or a separate-vs-joint gap ≥0.03 F1 at equal budget. TODO(ask): confirm.
+- C2 (proposed 2026-10-14, awaiting Pedro's OK): "topology helps" iff, on ToN or CTU-13, (a) GNN(real graph) − max(isolated, XGB, MLP, window ctx, host ctx) ≥ 0.02 test F1, (b) positive in 5/5 seeds (one-sided Wilcoxon p=0.031), (c) 95% block-bootstrap CI over test windows excludes 0, and (d) shuffled-endpoint ablation costs ≥ 0.02 F1 (else the gain is window composition, not topology: K06).
+- C4 (proposed 2026-10-14, awaiting OK): at equal traffic-cost budget, |interaction| = |ΔF1(C) − ΔF1(A) − ΔF1(B)| ≥ 0.03, or joint attack beats the best separate attack by ≥ 0.03; Wilcoxon p<0.05 over 5 training × 3 attack seeds (n=15). Same 0.03 as the k-NN adaptive-gain rule. Below threshold = "separate evaluation suffices" (weaker but reportable).
