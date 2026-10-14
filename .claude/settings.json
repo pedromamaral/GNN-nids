@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./data/**)",
+      "Read(./results/**)",
+      "Read(./logs/**)",
+      "Read(./docs/lit-graph/gnn-nids/raw/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/pedroamaral/Library/CloudStorage/OneDrive-FCTNOVA/Docencia/Research/lit-graph"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "head -n 40 \"$CLAUDE_PROJECT_DIR/.mem/STATE.md\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
