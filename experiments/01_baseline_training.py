@@ -191,6 +191,9 @@ def run_training(args: argparse.Namespace) -> dict:
     if hidden_layers is None:
         hidden_layers = 2 if args.model == "egraphsage" else 1  # E-GraphSAGE uses K=2 in the original paper
     graph_tag = f"k_{args.k}" if graph == "knn" else f"endpoint_{node_key}_w{window_size}"
+    class_weight = getattr(args, "class_weight", "none")
+    if class_weight == "balanced":
+        graph_tag += "_cwbal"
     run_dir = create_run_directory(args.dataset, args.model, args.k, seed, hidden_layers=hidden_layers, graph_tag=graph_tag)
     run_id = run_dir.name
     timestamp = run_dir.name.split("_")[0]
@@ -239,6 +242,7 @@ def run_training(args: argparse.Namespace) -> dict:
             patience=training_config["patience"],
             output_dir=str(run_dir),
             batch_size=training_config["batch_size"],
+            class_weight=None if class_weight == "none" else class_weight,
         )
         trainer.metadata = {
             "dataset": args.dataset,
@@ -303,6 +307,8 @@ def run_training(args: argparse.Namespace) -> dict:
                 "hidden_dim": args.hidden_dim,
                 "hidden_layers": hidden_layers,
                 "dropout": args.dropout,
+                "class_weight": class_weight,
+                "class_weights": None if trainer.class_weights is None else trainer.class_weights.tolist(),
             },
         }
 
@@ -393,6 +399,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hidden-layers", type=int, default=None,
                         help="Number of message-passing layers (default: 1 for gcn/gat, 2 for egraphsage).")
     parser.add_argument("--dropout", type=float, default=0.5)
+    parser.add_argument("--class-weight", choices=["none", "balanced"], default="none",
+                        help="balanced: cross-entropy weighted by n / (2 n_c) from the training labels (for rare attacks, e.g. CTU-13)")
     parser.add_argument("--rebuild-data", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--seed", type=int, default=None, help="Training seed. Overrides the seed defined in base_config.yaml.")

@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Sequence, Union
 
 import torch
 from torch import nn
@@ -30,7 +30,11 @@ class Trainer:
         patience: int = 15,
         output_dir: str = "results/models",
         batch_size: int = 1,
+        class_weight: Optional[Union[str, Sequence[float]]] = None,
     ):
+        """``class_weight``: None (plain cross-entropy), "balanced" (weights
+        n / (2 n_c) from the training labels, set at the start of ``fit``) or
+        an explicit [benign, malicious] pair."""
         self.model = model
         self.device = self._resolve_device(device)
         self.model.to(self.device)
@@ -46,7 +50,28 @@ class Trainer:
         self.optimizer = Adam(
             self.model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay
         )
-        self.criterion = nn.CrossEntropyLoss()
+        self.class_weight = class_weight
+        self.class_weights: Optional[torch.Tensor] = None
+        if class_weight is not None and not isinstance(class_weight, str):
+            self._set_class_weights(torch.tensor(list(class_weight), dtype=torch.float32))
+        elif class_weight not in (None, "balanced"):
+            raise ValueError(f"class_weight must be None, 'balanced' or two floats, not {class_weight!r}")
+        self.criterion = nn.CrossEntropyLoss(weight=self.class_weights)
+
+    def _set_class_weights(self, weights: torch.Tensor) -> None:
+        self.class_weights = weights.to(self.device)
+        self.criterion = nn.CrossEntropyLoss(weight=self.class_weights)
+
+    @staticmethod
+    def balanced_class_weights(dataset: Any, num_classes: int = 2) -> torch.Tensor:
+        """n / (num_classes * n_c) over all labels of ``dataset``; absent classes get weight 1."""
+        counts = torch.zeros(num_classes, dtype=torch.float64)
+        for graph in dataset:
+            counts += torch.bincount(graph.y.view(-1).long().cpu(), minlength=num_classes)[:num_classes].double()
+        weights = torch.ones(num_classes, dtype=torch.float64)
+        present = counts > 0
+        weights[present] = counts.sum() / (num_classes * counts[present])
+        return weights.float()
 
     def _resolve_device(self, device: str) -> torch.device:
         if isinstance(device, torch.device):
@@ -87,6 +112,9 @@ class Trainer:
         dry_run: bool = False,
     ) -> Dict[str, Any]:
         num_epochs = min(self.epochs, 2) if dry_run else self.epochs
+        if self.class_weight == "balanced" and self.class_weights is None:
+            self._set_class_weights(self.balanced_class_weights(train_dataset))
+            logger.info("Balanced class weights: %s", self.class_weights.tolist())
         best_f1 = -1.0
         best_checkpoint_path = None
         patience_counter = 0

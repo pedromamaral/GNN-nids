@@ -283,6 +283,7 @@ def summarise(results: List[dict]) -> List[dict]:
 
 def run(args: argparse.Namespace) -> Path:
     device = resolve_device(args.device)
+    xgb_device = resolve_device(args.xgb_device) if args.xgb_device else device
     variant = dataset_variant_id(args.dataset, args.max_flows, args.slice_start)
     if args.context == "host":
         variant += f"_host-{args.node_key}-w{args.context_window}"
@@ -302,6 +303,7 @@ def run(args: argparse.Namespace) -> Path:
         "attack_fraction": {s: float(d["y"].mean()) for s, d in data.items()},
         "num_features": int(data["train"]["X"].shape[1]),
         "device": device,
+        "xgb_device": xgb_device,
         "args": vars(args),
         "runs": [],
     }
@@ -311,7 +313,8 @@ def run(args: argparse.Namespace) -> Path:
         for seed in args.seeds:
             set_seed(seed)
             started = time.time()
-            predict_scores, info = TRAINERS[model_name](data, seed, device, args)
+            model_device = xgb_device if model_name == "xgboost" else device
+            predict_scores, info = TRAINERS[model_name](data, seed, model_device, args)
             elapsed = time.time() - started
             for split in ("train", "validation", "test"):
                 metrics = evaluate(predict_scores(data[split]["X"]), data[split]["y"])
@@ -359,6 +362,9 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--context-window", type=int, default=10000, help="Flows per window for --context host")
     parser.add_argument("--output-dir", default="results/tabular")
     parser.add_argument("--device", default="auto", help="auto, cpu or cuda")
+    parser.add_argument("--xgb-device", default=None,
+                        help="Device for XGBoost only (auto, cpu or cuda); default: --device. "
+                             "Use cpu for the large context feature sets, which exceed the 11 GB GPU.")
     parser.add_argument("--n-jobs", type=int, default=8, help="XGBoost CPU threads")
     parser.add_argument("--xgb-estimators", type=int, default=1000)
     parser.add_argument("--xgb-max-depth", type=int, default=8)

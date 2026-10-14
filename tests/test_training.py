@@ -164,6 +164,29 @@ class TestTrainingPipeline(unittest.TestCase):
         self.assertAlmostEqual(metrics["accuracy"], 0.8)
         self.assertIsNotNone(metrics["roc_auc"])
 
+    def _trainer(self, **kwargs):
+        return Trainer(model=self.model, device="cpu", epochs=1, patience=1,
+                       output_dir=str(Path(self.temp_dir) / "cw"), batch_size=1, **kwargs)
+
+    def test_balanced_class_weights(self):
+        y = torch.tensor([0] * 9 + [1], dtype=torch.long)
+        graph = Data(x=torch.zeros(10, self.num_node_features), edge_index=torch.zeros(2, 0, dtype=torch.long), y=y)
+        weights = Trainer.balanced_class_weights([graph, graph])
+        self.assertTrue(torch.allclose(weights, torch.tensor([20 / 36, 20 / 4])))
+        only_benign = Data(x=graph.x, edge_index=graph.edge_index, y=torch.zeros(10, dtype=torch.long))
+        self.assertTrue(torch.allclose(Trainer.balanced_class_weights([only_benign]), torch.tensor([1.0, 1.0])))
+
+    def test_class_weight_modes(self):
+        self.assertIsNone(self._trainer().class_weights)
+        explicit = self._trainer(class_weight=[1.0, 3.0])
+        self.assertTrue(torch.equal(explicit.criterion.weight, torch.tensor([1.0, 3.0])))
+        balanced = self._trainer(class_weight="balanced")
+        self.assertIsNone(balanced.class_weights)
+        balanced.fit(self.dataset, self.dataset)
+        self.assertTrue(torch.allclose(balanced.criterion.weight, torch.tensor([1.0, 1.0])))  # synthetic labels are 50/50
+        with self.assertRaises(ValueError):
+            self._trainer(class_weight="inverse")
+
 
 if __name__ == "__main__":
     unittest.main()
