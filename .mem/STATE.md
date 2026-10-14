@@ -3,7 +3,7 @@ Branch main · pushed; servers at abd90c1+ (balanced weights fall back to ones i
 
 ## Just done
 - 00: `--xgb-device` (XGBoost device separate from --device; default = --device).
-- 01 + Trainer: `--class-weight none|balanced` (CE weights n/(2 n_c) from train labels; run dir tag `_cwbal`; weights logged in metrics.json). Tests added to tests/test_training.py; NOT run yet (no torch locally).
+- 01 + Trainer: `--class-weight none|balanced` (CE weights n/(2 n_c) from train labels; run dir tag `_cwbal`; weights logged in metrics.json). Tests in tests/test_training.py pass on GPUserver2.
 - Lit graph copied to OneDrive lit-graph/gnn-nids/ (+ review.md, runs.log).
 - Success thresholds for C2/C4 proposed in project.md (awaiting Pedro's OK).
 
