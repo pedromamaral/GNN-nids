@@ -33,7 +33,7 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 import torch
@@ -122,7 +122,20 @@ def predict(model: torch.nn.Module, windows: List[Data], device: torch.device) -
     return np.concatenate([model(w.to(device)).argmax(dim=-1).cpu().numpy() for w in windows])
 
 
-def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.device) -> List[Dict]:
+def window_counts(windows: List[Data], pred: np.ndarray) -> np.ndarray:
+    """Per-window (tn, fp, fn, tp), for block-bootstrap CIs over windows (C2(c))."""
+    out, start = [], 0
+    for w in windows:
+        y = w.y.numpy()
+        p = pred[start:start + len(y)]
+        start += len(y)
+        out.append([((y == 0) & (p == 0)).sum(), ((y == 0) & (p == 1)).sum(),
+                    ((y == 1) & (p == 0)).sum(), ((y == 1) & (p == 1)).sum()])
+    return np.asarray(out, dtype=np.int64)
+
+
+def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.device,
+                        counts: Optional[Dict[str, np.ndarray]] = None) -> List[Dict]:
     # Full load, like Trainer.load_checkpoint: checkpoints are written by 01 on our own servers.
     checkpoint = torch.load(path, map_location="cpu")
     metadata = checkpoint.get("metadata") or {}
@@ -166,6 +179,8 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
                 model, [variant(w, graph, rng) for w in windows], device
             )
             metrics = binary_classification_metrics(y, pred)
+            if counts is not None:
+                counts[f"{path.parent.name}|{graph}|{seed}"] = window_counts(windows, pred)
             rows.append({
                 "checkpoint": str(path),
                 "dataset": metadata["dataset"],
@@ -196,6 +211,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--random-seeds", nargs="+", type=int, default=[0, 1, 2])
     parser.add_argument("--max-windows", type=int, default=None)
     parser.add_argument("--device", default="auto")
+    parser.add_argument("--save-window-counts", action="store_true",
+                        help="also write window_counts.npz (per-window tn/fp/fn/tp per checkpoint|graph|seed)")
     parser.add_argument("--output-dir", type=Path, default=Path("results") / "graph_ablation")
     return parser.parse_args(argv)
 
@@ -208,8 +225,9 @@ def main(argv=None) -> Path:
         device = torch.device(args.device)
 
     rows: List[Dict] = []
+    counts: Optional[Dict[str, np.ndarray]] = {} if args.save_window_counts else None
     for path in args.checkpoints:
-        rows.extend(evaluate_checkpoint(path, args, device))
+        rows.extend(evaluate_checkpoint(path, args, device, counts))
 
     out_dir = args.output_dir / datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -218,6 +236,8 @@ def main(argv=None) -> Path:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
         writer.writeheader()
         writer.writerows(rows)
+    if counts:
+        np.savez_compressed(out_dir / "window_counts.npz", **counts)
     logger.info("Results in %s", out_path)
     return out_path
 

@@ -37,6 +37,12 @@ class TestGraphAblation(unittest.TestCase):
         b = self.module.random_graph(30, 3, np.random.default_rng(7))
         self.assertTrue(torch.equal(a, b))
 
+    def test_window_counts_per_window_confusion(self):
+        w1 = Data(y=torch.tensor([0, 1, 1]))
+        w2 = Data(y=torch.tensor([0, 0]))
+        out = self.module.window_counts([w1, w2], np.array([0, 1, 0, 1, 0]))
+        self.assertEqual(out.tolist(), [[1, 0, 1, 1], [1, 1, 0, 0]])
+
     def test_tiny_windows(self):
         self.assertEqual(self.module.random_graph(1, 5, np.random.default_rng(0)).shape, (2, 0))
         self.assertEqual(self.module.random_graph(3, 5, np.random.default_rng(0)).shape[1], 6)
