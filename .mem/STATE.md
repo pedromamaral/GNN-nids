@@ -17,7 +17,7 @@ None (no containers).
 Is the CTU-13 GNN gain real topology? Needs 5 seeds (A022) + shuffled-endpoint ablation (A025) to test C2(b)(c)(d). Framing leaning dataset-dependent (D11). C2/C4 thresholds in project.md still await Pedro's OK.
 
 ## EXACT next step
-`research-think ideate` (or go straight to `research-do implement`): CTU-13 only — 5-seed cwbal GNN ip/isolated/ipport (A022) + 06 shuffle ablation on the ip checkpoint on GPUserver2 (A025). Consider A026 (PR-AUC / tuned threshold) for ToN drift.
+`research-do implement E014` (no code for seeds; check 06 supports checkpoint shuffle on cwbal ip; fix bootstrap block N in card) and E015 (neighbour-aggregate feature builder in 00). A026 (PR-AUC) stays proposed. D12 revised C2/C4 thresholds.
 
 ## Read next
 .mem/experiments/E013-a2c-rerun.md, .mem/avenues.md (A022, A025, A026), .mem/project.md (C2 thresholds).

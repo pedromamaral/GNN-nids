@@ -23,8 +23,9 @@ A018 | parked | per-node neighbour churn as evasion detector (drop if AUC<0.85) 
 A019 | parked | PGD adversarial-training baseline (compare at equal clean F1) | C4,C5 | - | Venturi 2025 already does this for E-GraphSAGE | 2026-10-05
 A020 | dropped | NSL-KDD / CICIDS2017 (thesis datasets) | - | - | not relevant to paper (D02) | 2026-10-06
 A021 | parked | NF-CSE-CIC-IDS2018-v3 as 4th dataset | C2 | - | only if reviewers need more datasets | 2026-10-06
-A022 | needed-for-paper | GNN multi-seed noise (endpoint models, 5 seeds) before claiming any GNN gap | C2 | - | only seed 42 so far; now priority: CTU-13 ip/isolated/ipport cwbal x5 seeds | 2026-10-15
+A022 | active | GNN multi-seed noise (endpoint models, 5 seeds) before claiming any GNN gap | C2 | E014 | only seed 42 so far; now priority: CTU-13 ip/isolated/ipport cwbal x5 seeds | 2026-10-15
 A023 | active | Part 2 framing decision: window≈GNN → temporal-confounder finding; host≈GNN → host behavioural profile; GNN>both → topology real | C2 | E013 | ToN: host profile (K11); CTU-13: GNN ip > all controls on 1 seed (K12) → dataset-dependent, pending A022+A025 | 2026-10-15
 A024 | parked | k-NN sensitivity sweep k∈{3,5,10,15,20} (04_k_sensitivity.py) | C1 | - | graph redundant at k=5; only if reviewers ask | 2026-10-14
-A025 | needed-for-paper | CTU-13 shuffled-endpoint ablation (06 on cwbal ip checkpoint: none/random_dst/random_src/random) to test C2(d) | C2 | - | needs only existing checkpoint on GPUserver2 (cheap) | 2026-10-15
+A025 | active | CTU-13 shuffled-endpoint ablation (06 on cwbal ip checkpoint: none/random_dst/random_src/random) to test C2(d) | C2 | E014 | needs only existing checkpoint on GPUserver2 (cheap) | 2026-10-15
 A026 | proposed | threshold-free/recalibrated metric on ToN (PR-AUC, F1 at val-tuned or best threshold) since F1@0.5 breaks under drift (XGB host ip .20 vs AUC .955) | C2 | - | check not already in protocol: fixed F1@0.5 | 2026-10-15
+A027 | proposed | neighbour-aggregate XGB: own features + mean/max/count of 1-hop peers' flow features per host/window, to test whether CTU-13/ToN GNN gain is feature aggregation not message passing | C2 | E015 | extends C2(a) control set (D12); CPU, 5 seeds | 2026-10-15

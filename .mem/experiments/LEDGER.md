@@ -14,3 +14,5 @@ E010 | 2026-10-13 | ~f42b2fd | UNSW context controls (00 --context host ip / hos
 E011 | 2026-10-13 | ~542b225 | CTU-13: tabular plain + window, E-GraphSAGE ip | 00 5 seeds; 01 w10k s42 | XGB .5308 (window .405±.168); MLP .484 (window .217); GNN ip 0.0 (all benign) | hard; GNN degenerate | A009,A010
 E012 | 2026-10-13 | ~730be34 | batch a2c rest: ToN --context window, host ip, host ipport; ctu13 host ip; ctu13 GNN isolated, ipport | queue_a2c.sh on both servers | XGB CUDA OOM (4 runs); GNN isolated unfinished, ipport disk full | CRASHED → rerun | A009,A011
 E013 | 2026-10-14 | 8c72704 | rerun of E012: XGB on CPU (--xgb-device cpu), GNN --class-weight balanced | see card E013 | ToN host ipport XGB .931 ≈ GNN ip .937; CTU-13 GNN cwbal ip .844 / iso .639 / ipport .675 | ToN: host profile (K11); CTU-13 promising 1 seed (K12)  | A009,A010,A011
+E014 | 2026-10-15 | - | PLANNED: CTU-13 cwbal E-GraphSAGE ip/isolated/ipport x5 seeds + 06 shuffle ablation on ip checkpoint | GPUserver2 | - | decides C2 on CTU-13 | A022,A025
+E015 | 2026-10-15 | - | PLANNED: neighbour-aggregate XGB control, CTU-13 + ToN, 5 seeds | CPU | - | extends C2(a) | A027
