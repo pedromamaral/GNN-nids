@@ -11,3 +11,4 @@ D07 | 2026-10-13 | Endpoint graphs: nodes relabelled per window, constant node f
 D08 | 2026-10-07 | Push to `origin` (github.com/pedromamaral/GNN-nids), never to `student` (jcaeiro02) | student remote is separate | -
 D09 | 2026-10-14 | Disk policy: graph caches (data/graphs/*) deleted after each batch; keep raw data, finished results, checkpoints, logs | shared disks ≤32 GB free; ToN endpoint cache ~5.5 GB each, k-NN ToN 9.4 GB | keep all caches
 D10 | 2026-10-14 | Memory workflow: .mem/ (research-memory skill) replaces long conversations; E ids E001-E012 reconstructed from .mem/_import.md + server result dirs | credit cost of long context | -
+D11 | 2026-10-15 | Part 2 framing (A023) leaning dataset-dependent: ToN = host behavioural profile (K11), CTU-13 = topology candidate (K12) pending 5 seeds + shuffle ablation; no topology claim yet | E013 | claim topology on ToN

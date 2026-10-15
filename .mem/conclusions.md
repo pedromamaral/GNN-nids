@@ -14,6 +14,10 @@ REF | E-GraphSAGE w10k seed 42, ToN ipport/ip/isolated | 0.8990 / 0.9372 / 0.727
 REF | seed noise XGBoost | std ≤0.003 F1 | E002,E010,E011
 REF | seed noise MLP ToN | std 0.0175 | E002
 REF | seed noise GNN | NOT MEASURED (only seed 42) | A022
+REF | ToN XGB host ip / host ipport / window | 0.201±0.032 / 0.9307±0.0127 / 0.8017±0.0743 | E013
+REF | ToN MLP host ip / host ipport / window | 0.906±0.026 / 0.917±0.014 / 0.036±0.033 | E013
+REF | CTU-13 XGB host ip / MLP host ip | 0.614±0.012 / 0.617±0.025 | E013
+REF | CTU-13 E-GraphSAGE cwbal seed 42, ip/isolated/ipport | 0.844 / 0.639 / 0.675 | E013
 
 ## Conclusions
 K01 | TTL is a testbed artefact on UNSW: MIN_TTL alone F1 0.9992; TTL 31 always benign, 62 always attack; dropped (D03). Without it XGBoost still 0.9995 | E001,E002 | high | 2026-10-07
@@ -21,8 +25,10 @@ K02 | UNSW is saturated: every variant (tabular, host ip/ipport, window context,
 K03 | Clean ease ≠ robustness: random ±0.05σ noise drops UNSW XGBoost to 0.78 (±0.5σ → 0.35); ToN ±0.1σ → 0.20; UNSW LR 0.9907, depth-2 tree 0.9927 | E003 | medium (numbers from import, no json) | 2026-10-07
 K04 | k-NN graph is redundant: removing edges changes 0.2-1.2% of predictions and never lowers F1 (UNSW GCN knn/none/random 0.975/0.995/0.21; GAT 0.986/0.995/0.15; ToN GCN 0.812/0.814/0.815) — neighbours are near-copies | E007 | high | 2026-10-08
 K05 | k-NN feature-structure coupling is real (14-38% malicious neighbours rewired) but inconsequential: structure effect ≤0.005, adaptive gain ≤0.019, feature effect large (UNSW GCN 0.20 at ε=0.25) → k-NN go/no-go NO-GO on all 3 pilots | E006 | high (1 training seed, 2 attack seeds) | 2026-10-08
-K06 | ToN endpoint GNN ip (0.937) > XGBoost (0.872), but ablation shows it needs a neighbourhood, not the real one (none 0.790, shuffled dst 0.940, src 0.910, both 0.915) → suspected window-composition confounder; untested on ToN because the controls crashed | E008,E009,E012 | open | 2026-10-13
+K06 | ToN endpoint GNN ip (0.937) > XGBoost (0.872), but ablation shows it needs a neighbourhood, not the real one (none 0.790, shuffled dst 0.940, src 0.910, both 0.915) → suspected window-composition confounder; untested on ToN because the controls crashed | E008,E009,E012 | resolved by K11 | 2026-10-15
 K07 | UNSW ip endpoint model is brittle: any shuffle → F1 0.00-0.04, no edges 0.52; ipport model survives src shuffle (0.906) but not dst (0.43) | E009 | medium | 2026-10-13
 K08 | CTU-13 scenario-disjoint split is hard (XGBoost 0.53) and window context hurts (XGBoost 0.405±0.168, MLP 0.217, MLP AUC 0.65) | E011 | medium | 2026-10-13
-K09 | CTU-13 E-GraphSAGE ip collapses to all-benign (val F1 0 at every epoch, test F1 0, AUC 0.82): imbalance (~2% botnet), not evidence against GNNs; needs class weighting | E011 | low | 2026-10-13
+K09 | CTU-13 E-GraphSAGE ip collapses to all-benign (F1 0, AUC 0.82): imbalance (~2% botnet); balanced CE weights fix it (ip test F1 0.844, AUC 0.992, seed 42) | E011,E013 | medium | 2026-10-13
 K10 | ToN val F1 does not rank test F1 (isolated best val 0.961 → test 0.727; ip 0.939 → 0.937): temporal drift val→test; model selection on val is unreliable on ToN | E008 | medium | 2026-10-14
+K11 | ToN: GNN gain is host behavioural profile, not topology: XGB host-ipport .931±.013 ≥ GNN ip .937 (Δ+.006 < .02; C2(a) fails), shuffled-dst GNN .940 (C2(d) fails); window context hurts (XGB .802, MLP .036/AUC .31); F1@0.5 fragile under drift (XGB host ip .20, AUC .955) | E008,E009,E013 | medium (GNN 1 seed) | 2026-10-15
+K12 | CTU-13: host-ip context helps tabular (XGB .614, MLP .617 vs .531/.484), window hurts; GNN ip cwbal .844 vs isolated .639 / ipport .675 → possible real topology effect (+.205), but 1 seed, test≫val, no shuffle ablation → untested vs window composition | E013 | low | 2026-10-15

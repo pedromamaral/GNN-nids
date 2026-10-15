@@ -10,9 +10,9 @@ A005 | active | Avenue #1: decomposition on k-NN + endpoint graphs, joint attack
 A006 | tried | keep TTL (MIN_TTL, MAX_TTL) as features | - | E001 | testbed artefact, single-feature F1 0.9992; dropped (K01, D03) | 2026-10-07
 A007 | dropped | optimised edge attacks (Nettack/Metattack) on k-NN graphs | C1 | - | attacker cannot edit edges of a feature-derived graph; random edges kept as upper bound | 2026-10-05
 A008 | active | A2: endpoint E-GraphSAGE vs XGBoost vs isolated control (go/no-go for Part 2) | C2 | E008,E009 | UNSW: topology adds nothing (K02); ToN ip > XGB but confounded (K06) | 2026-10-13
-A009 | active | window-composition / host-profile controls (00 --context window, host ip/ipport) to explain ToN GNN gain | C2 | E010,E012 | UNSW saturated (K02); ToN runs crashed (XGB GPU OOM) → rerun | 2026-10-14
-A010 | active | class-weighted (or focal) loss in Trainer for endpoint GNN on CTU-13 | C3 | E011,E013 | ip collapsed to all-benign (K09) | 2026-10-14
-A011 | active | --xgb-device cpu (hist, n_jobs 16) or lower max_bin for context features (16.5M×88/134) | C2 | E012,E013 | GPU OOM 11.6 GB > 10.7 GB free | 2026-10-14
+A009 | tried | window-composition / host-profile controls (00 --context window, host ip/ipport) to explain ToN GNN gain | C2 | E010,E013 | UNSW saturated (K02); ToN: host ipport XGB .931 ≈ GNN (K11); CTU-13 host ctx +.08, window ctx hurts (K12) → tried | 2026-10-14
+A010 | tried | class-weighted (or focal) loss in Trainer for endpoint GNN on CTU-13 | C3 | E011,E013 | class weights fix collapse: ip F1 0→.844 (K09) → tried | 2026-10-14
+A011 | tried | --xgb-device cpu (hist, n_jobs 16) or lower max_bin for context features (16.5M×88/134) | C2 | E012,E013 | GPU OOM 11.6 GB > 10.7 GB free | 2026-10-14
 A012 | proposed | A4: joint attacker = own-flow shaping (edge features) + decoy injection (structure), traffic-cost budget; decomposition adapter for endpoint graphs | C4 | - | - | 2026-10-12
 A013 | parked | Avenue #2: construction-as-defence for endpoint graphs (node key, window, degree cap, external-endpoint policy, min flows/edge) | C5 | - | optional section; after A012 | 2026-10-12
 A014 | parked | Avenue #3: short negative-result paper on k-NN graphs (letter/workshop) | C1 | E006,E007 | folded into Part 1; #10 preprint pre-empts headline | 2026-10-12
@@ -23,6 +23,8 @@ A018 | parked | per-node neighbour churn as evasion detector (drop if AUC<0.85) 
 A019 | parked | PGD adversarial-training baseline (compare at equal clean F1) | C4,C5 | - | Venturi 2025 already does this for E-GraphSAGE | 2026-10-05
 A020 | dropped | NSL-KDD / CICIDS2017 (thesis datasets) | - | - | not relevant to paper (D02) | 2026-10-06
 A021 | parked | NF-CSE-CIC-IDS2018-v3 as 4th dataset | C2 | - | only if reviewers need more datasets | 2026-10-06
-A022 | needed-for-paper | GNN multi-seed noise (endpoint models, 5 seeds) before claiming any GNN gap | C2 | - | only seed 42 so far | 2026-10-14
-A023 | proposed | Part 2 framing decision: window≈GNN → temporal-confounder finding; host≈GNN → host behavioural profile; GNN>both → topology real | C2 | E012 rerun | waits on A009 ToN results | 2026-10-14
+A022 | needed-for-paper | GNN multi-seed noise (endpoint models, 5 seeds) before claiming any GNN gap | C2 | - | only seed 42 so far; now priority: CTU-13 ip/isolated/ipport cwbal x5 seeds | 2026-10-15
+A023 | active | Part 2 framing decision: window≈GNN → temporal-confounder finding; host≈GNN → host behavioural profile; GNN>both → topology real | C2 | E013 | ToN: host profile (K11); CTU-13: GNN ip > all controls on 1 seed (K12) → dataset-dependent, pending A022+A025 | 2026-10-15
 A024 | parked | k-NN sensitivity sweep k∈{3,5,10,15,20} (04_k_sensitivity.py) | C1 | - | graph redundant at k=5; only if reviewers ask | 2026-10-14
+A025 | needed-for-paper | CTU-13 shuffled-endpoint ablation (06 on cwbal ip checkpoint: none/random_dst/random_src/random) to test C2(d) | C2 | - | needs only existing checkpoint on GPUserver2 (cheap) | 2026-10-15
+A026 | proposed | threshold-free/recalibrated metric on ToN (PR-AUC, F1 at val-tuned or best threshold) since F1@0.5 breaks under drift (XGB host ip .20 vs AUC .955) | C2 | - | check not already in protocol: fixed F1@0.5 | 2026-10-15

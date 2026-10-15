@@ -1,5 +1,5 @@
 # STATE — 2026-10-14 (research-do implement + deploy E013)
-Branch main · pushed; servers at abd90c1+ (balanced weights fall back to ones if a class is absent; 30 tests pass on GPUserver2) · Phase: Avenue #1, A2 (Part 2 go/no-go).
+Branch main · pushed; servers at abd90c1+ (balanced weights fall back to ones if a class is absent; 30 tests pass on GPUserver2) · Phase: Avenue #1, A2 (Part 2 go/no-go); E013 analysed 10-15.
 
 ## Just done
 - 00: `--xgb-device` (XGBoost device separate from --device; default = --device).
@@ -17,7 +17,7 @@ E008 ToN GNN ip 0.937 vs XGB 0.872; E009 ablation suggests window composition (K
 Is ToN's GNN gain topology, host profile or window composition? Decided by E013 (A023).
 
 ## EXACT next step
-`research-think analyze E013` (A023 framing; check against C2 thresholds in project.md). Remember to delete data/graphs/* caches on both servers.
+`research-think ideate` (or decide directly): run A022+A025 on CTU-13 only: 5-seed cwbal GNN (ip/isolated/ipport) + shuffled-endpoint ablation on the ip checkpoint; consider A026 (PR-AUC / threshold) for ToN. Then `research-do implement`/`deploy`. Delete data/graphs/* caches on both servers.
 
 ## Read next
 .mem/runs.md, .mem/experiments/E013-a2c-rerun.md.
