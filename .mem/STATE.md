@@ -7,7 +7,7 @@ Branch main @ 74a0387 (pushed) · servers at abd90c1+ (30 tests pass) · Phase: 
 - data/graphs/* already empty on both servers (nothing to clear). Disk free: GPUserver1 11G, GPUserver2 31G.
 
 ## Active runs
-None (no containers).
+E014 queue on GPUserver2 (queue_E014.sh, started 10-15 ~21:54 server clock; tests passed). Check with tools/runs_status.sh; done when logs/queue_E014.log ends E014_DONE.
 
 ## Latest results
 - ToN: XGB host-ipport .931 ≈ GNN ip .937 (Δ+.006 < .02) and shuffled-dst .940 → host profile, not topology (K11). Window ctx hurts.
@@ -17,7 +17,7 @@ None (no containers).
 Is the CTU-13 GNN gain real topology? Needs 5 seeds (A022) + shuffled-endpoint ablation (A025) to test C2(b)(c)(d). Framing leaning dataset-dependent (D11). C2/C4 thresholds in project.md still await Pedro's OK.
 
 ## EXACT next step
-`research-do deploy E014` on GPUserver2 (pull 74a0387, run pytest tests/test_graph_ablation.py in container first; 15 x 01 ctu13 runs, then 06 --save-window-counts on all ckpts). E015 (neighbour-agg feature builder in 00) still to implement. Then A012 generalised (D13), A028.
+Later: `research-do status`, then `fetch E014` (01 metrics x15 + 06 graph_ablation.csv + window_counts.npz; summarize_run.py may need a window_counts kind), then `research-think analyze E014`. Meanwhile E015 implement.
 
 ## Read next
 .mem/experiments/E013-a2c-rerun.md, .mem/avenues.md (A022, A025, A026), .mem/project.md (C2 thresholds).
