@@ -1,5 +1,5 @@
 # STATE — 2026-10-15 (research-do status/fetch E013 + research-think analyze E013)
-Branch main @ 1d01249 (pushed) · servers at abd90c1+ (30 tests pass) · Phase: Avenue #1, A2 (Part 2 go/no-go), E013 analysed.
+Branch main @ 74a0387 (pushed) · servers at abd90c1+ (30 tests pass) · Phase: Avenue #1, A2 (Part 2 go/no-go), E013 analysed.
 
 ## Just done
 - E013 finished on both servers; fetched to .mem/results/E013.json (7 runs); runs.md cleared.
@@ -17,7 +17,7 @@ None (no containers).
 Is the CTU-13 GNN gain real topology? Needs 5 seeds (A022) + shuffled-endpoint ablation (A025) to test C2(b)(c)(d). Framing leaning dataset-dependent (D11). C2/C4 thresholds in project.md still await Pedro's OK.
 
 ## EXACT next step
-`research-do implement E014` (no code for seeds; check 06 supports checkpoint shuffle on cwbal ip; fix bootstrap block N in card) and E015 (neighbour-aggregate feature builder in 00). After E014: A012 generalised context-level attack (D13), A028 scenario-disjoint CTU-13. D12 revised C2/C4 thresholds; D13 branch-independent Part 3.
+`research-do deploy E014` on GPUserver2 (pull 74a0387, run pytest tests/test_graph_ablation.py in container first; 15 x 01 ctu13 runs, then 06 --save-window-counts on all ckpts). E015 (neighbour-agg feature builder in 00) still to implement. Then A012 generalised (D13), A028.
 
 ## Read next
 .mem/experiments/E013-a2c-rerun.md, .mem/avenues.md (A022, A025, A026), .mem/project.md (C2 thresholds).
