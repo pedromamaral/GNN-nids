@@ -17,7 +17,7 @@ None (no containers).
 Is the CTU-13 GNN gain real topology? Needs 5 seeds (A022) + shuffled-endpoint ablation (A025) to test C2(b)(c)(d). Framing leaning dataset-dependent (D11). C2/C4 thresholds in project.md still await Pedro's OK.
 
 ## EXACT next step
-`research-do implement E014` (no code for seeds; check 06 supports checkpoint shuffle on cwbal ip; fix bootstrap block N in card) and E015 (neighbour-aggregate feature builder in 00). A026 (PR-AUC) stays proposed. D12 revised C2/C4 thresholds.
+`research-do implement E014` (no code for seeds; check 06 supports checkpoint shuffle on cwbal ip; fix bootstrap block N in card) and E015 (neighbour-aggregate feature builder in 00). After E014: A012 generalised context-level attack (D13), A028 scenario-disjoint CTU-13. D12 revised C2/C4 thresholds; D13 branch-independent Part 3.
 
 ## Read next
 .mem/experiments/E013-a2c-rerun.md, .mem/avenues.md (A022, A025, A026), .mem/project.md (C2 thresholds).
