@@ -15,3 +15,5 @@ C2(a)-(d) per project.md, CTU-13 only. Record GNN seed std here (first measureme
 ## Results
 Commit: see git log `E014:`. Tests: test_window_counts_per_window_confusion (run in container at deploy).
 (results pending)
+
+- 10-16 fix 3ec549a: 06_graph_ablation.py window_counts/.cpu() (lines 129,160); rerun 06 only (01 x12 done).
