@@ -126,7 +126,7 @@ def window_counts(windows: List[Data], pred: np.ndarray) -> np.ndarray:
     """Per-window (tn, fp, fn, tp), for block-bootstrap CIs over windows (C2(c))."""
     out, start = [], 0
     for w in windows:
-        y = w.y.numpy()
+        y = w.y.cpu().numpy()
         p = pred[start:start + len(y)]
         start += len(y)
         out.append([((y == 0) & (p == 0)).sum(), ((y == 0) & (p == 1)).sum(),
@@ -157,7 +157,7 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
     windows = [test[i] for i in range(len(test))]
     if args.max_windows is not None:
         windows = windows[: args.max_windows]
-    y = np.concatenate([w.y.numpy() for w in windows])
+    y = np.concatenate([w.y.cpu().numpy() for w in windows])
 
     edge_attr = getattr(windows[0], "edge_attr", None)
     model = build_model(metadata, windows[0].x.shape[1], edge_attr.shape[1] if edge_attr is not None else None)
