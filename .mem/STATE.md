@@ -17,7 +17,7 @@ E014b on GPUserver2. Done when logs/queue_E014b.log ends E014_DONE (check tools/
 Is the CTU-13 GNN gain real topology? E014 (A022, A025). C2/C4 thresholds in project.md still await Pedro's OK.
 
 ## EXACT next step
-Later: `research-do status`; when E014_DONE: `research-do fetch E014` (summarize_run.py may need a window_counts kind), then `research-think analyze E014`. Meanwhile: E015 implement.
+`research-do implement E016` (card E016-threshold-free-ctu13.md, D14); E015 implement next (CPU, parallel). E017/A029 only if E016 gap survives.
 
 ## Read next
 .mem/experiments/E014-ctu13-seeds-shuffle.md, E015 card, .mem/avenues.md (A022, A025, A026), .mem/project.md (C2 thresholds).
