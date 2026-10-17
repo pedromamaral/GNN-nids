@@ -1,5 +1,5 @@
 # E017 Part 3 threat/cost model + A/B/C pilot on context detectors, CTU-13 (A012)
-Status: SPEC FIXED 2026-10-17 (D16, D17), not implemented. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
+Status: IMPLEMENTED 2026-10-17 (8719ee5 + 2 test fixes; tests/test_context_attack.py 11 pass in container), smoke on GPUserver2 pending, pilot not run. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
 
 ## Hypothesis
 At equal traffic-cost budget β, separate evaluation misjudges context detectors:
@@ -31,5 +31,12 @@ GO to E020 if any detector shows G ≥ .03 or |S| ≥ .03 at some β in both att
 ## Implementation notes (for research-do)
 New module src/attacks/context_attack.py (raw-space shaping, decoy insertion, projection, cost accounting) + experiments/08_context_decomposition.py (detectors × β × ρ × attack seed → csv); 00 needs a way to save/reload MLP + XGB models (or refit inside 08 for seed 42). Tests for projection validity, cost accounting, and B=0 on a context-free model.
 
+## Implementation (2026-10-17)
+- src/attacks/context_attack.py: Chunk/Plan/Context, volume_features (torch twin of raw_features, float64 bytes), host_context_t (twin of 00 host_context), project/integerize shaping + decoys, build_plan, run_attack (projected sign-PGD, `--steps`, step_frac .2, random init per attack seed).
+- experiments/08_context_decomposition.py: refits MLP/XGB host-ip + plain XGB (seed 42) via 00's trainers (00 train_mlp now exposes `.model`), loads GNN ip ckpt (`--gnn-checkpoint`), thresholds at 1% FPR on clean benign test, white-box on MLP host-ip + GNN ip, transfer MLP -> XGB host-ip/plain; grid incl. budget-matched A/B runs for S (`--no-superadd` to skip); `--replay` adds B_replay; writes rows.csv, summary.csv (delta_A/B/Cstar, G, S).
+- Choices not in the spec: budget group = (window, bot host), base = that host's botnet-flow bytes; decoy slots <= #botnet flows of the group, accepted while cumulative cheapest-feasible cost (dst reply + 60 B) fits rho*budget; delay (Dur) shaping only when rho<1; per-detector window (tab 10000, GNN from ckpt); chunks of whole windows (400k flows).
+- Not implemented: PR-AUC under attack (recall/FPR/F1 at 1% FPR and at 0.5 only).
+- Checks built in: torch host context vs 00 numpy (assert <1e-3), test features == 00's, group costs <= budgets (assert), clean beta=0 row.
+- GNN ckpt (GPUserver2): results/runs/20261015_000250_ctu13_egraphsage_endpoint_ip_w10000_cwbal_L2_seed_42/best_checkpoint.pt
 ## Results
 (pending)
