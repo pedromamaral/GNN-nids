@@ -1,5 +1,5 @@
 # E017 Part 3 threat/cost model + A/B/C pilot on context detectors, CTU-13 (A012)
-Status: IMPLEMENTED 2026-10-17 (8719ee5 + 2 test fixes; tests/test_context_attack.py 11 pass in container), smoke on GPUserver2 pending, pilot not run. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
+Status: IMPLEMENTED 2026-10-17 (8719ee5 + 2 test fixes; tests/test_context_attack.py 11 pass in container), smoke on GPUserver2 PASSED (end to end, 3 steps, chunk 1), pilot not run. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
 
 ## Hypothesis
 At equal traffic-cost budget β, separate evaluation misjudges context detectors:
@@ -38,5 +38,6 @@ New module src/attacks/context_attack.py (raw-space shaping, decoy insertion, pr
 - Not implemented: PR-AUC under attack (recall/FPR/F1 at 1% FPR and at 0.5 only).
 - Checks built in: torch host context vs 00 numpy (assert <1e-3), test features == 00's, group costs <= budgets (assert), clean beta=0 row.
 - GNN ckpt (GPUserver2): results/runs/20261015_000250_ctu13_egraphsage_endpoint_ip_w10000_cwbal_L2_seed_42/best_checkpoint.pt
+- Smoke (no claim; chunk 1 has only ~61 botnet flows): MLP torch-vs-00 max|diff| 1e-6; budgets respected; plain XGB recall identical clean vs B (sanity OK); full-data run time dominated by fits (~1 h), 08 itself seconds per chunk-config.
 ## Results
 (pending)
