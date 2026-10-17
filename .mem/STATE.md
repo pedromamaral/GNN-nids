@@ -1,25 +1,25 @@
-# STATE — 2026-10-17 (research-do status/fetch E014 + research-think analyze E014 + ideate)
-Branch main @ 7d88d45 (pushed) · Phase: Avenue #1, A2 (Part 2 go/no-go), C2 on CTU-13 undecided.
+# STATE — 2026-10-17 (research-do implement/deploy/fetch E016 + research-think analyze E016 + ideate)
+Branch main (pushed) · Phase: Avenue #1. Part 2 closed negative (D15); main thread → Part 3 (D16).
 
 ## Just done
-- E014 finished (E014_DONE), fetched -> .mem/results/E014.json (12 runs seeds 43-46 + graph_ablation 20261016_130624; seed 42 in E013.json). window_counts.npz (630 KB) left on GPUserver2:results/graph_ablation/20261016_130624/.
-- Analysed: card E014 (verdict INCONCLUSIVE), LEDGER, A022/A025 -> tried, A023 updated, K12 revised, K13 new.
-- Ideate: D14; A026 -> active (E016, card written), A027 -> active (E015), A029 proposed (E017, train-time shuffle).
-- Gotcha: zsh does not word-split $var -> use ${=specs} when passing many specs to summarize_run.py.
+- E016 implemented (71498ca: --save-scores in 00/06, experiments/07_threshold_free.py), run, fetched -> .mem/results/E016.json. REFUTED: PR-AUC GNN ip .855 < MLP host-ip .953 (5/5, all scenarios); F1@0.5 gain = threshold placement (K14).
+- D15: C2 negative on ToN + CTU-13 ("context, not topology"). D16: drift correction → Part 3; E015/A027 parked; A029 dropped.
+- Cards: E017 (Part 3 spec + pilot), E018 (class-weighted tabular CTU-13), E019 (ToN GNN 5 seeds + PR-AUC).
+- Gotcha: src/data/ is read-denied for Claude; flow alignment checked by labels in 07 instead.
 
 ## Active runs
-None. GPUserver1 idle; GPUserver2 idle (31G free). E014 containers/caches: data/graphs/* cleaned by queue.
+None. Both servers idle.
 
-## Latest results
-- CTU-13 (E014, 5 seeds): GNN ip F1 .855±.031 vs isolated .616 / ipport .656 / tabular host-ip ≤.617; seed std .029 (floor .058).
-- BUT AUC ip .993 ≈ XGB host-ip .991 < MLP host-ip .996; val gap only +.02/.05; test-time shuffle .39-.49 < isolated (out of distribution) (K13).
-- ToN: host behavioural profile, not topology (K11).
-
-## Open problem
-Is the CTU-13 F1 gain detection power or 0.5-threshold placement under drift? Best hypothesis: largely threshold/calibration (AUC parity). E016 decides; E015 tests the aggregation explanation.
+## Experiments left before writing (in order)
+1. E018 (CPU, ~2 h) and E019 (GPUserver1, ~8-10 GPU-h est.) — background closers for Part 2.
+2. E017 — Part 3 spec written in the card FIRST (think phase), then code + CTU-13 seed-42 pilot.
+3. E020 — Part 3 full: 5 training seeds × ≥2 attack seeds × 3 budgets × 4 detectors, CTU-13 + ToN.
+4. E021 — Part 1 robustness: k-NN decomposition 5 training × 5 attack seeds (A015).
+5. Check A028 is already covered by D06's scenario-disjoint split (test 9/10/13 unseen); close or define.
+Optional: A013 construction/robust-aggregation defence (C5) after E020.
 
 ## EXACT next step
-`research-do implement E016` (cheaper model): per-flow score dump flag for GNN eval (15 ckpts) + 00 tabular (XGB/MLP plain & host-ip, 5 seeds), metric/bootstrap script server-side; check identical test flows first. Then `research-do implement E015` (CPU, parallel). E017 only if E016 gap >= .058.
+`research-do implement E018` (cheaper model), then `research-do implement E019`; in parallel `research-think` on the strongest model to finish the E017 spec (threat model, controllable features, cost λ, budgets) before any Part 3 code.
 
 ## Read next
-.mem/experiments/E016-threshold-free-ctu13.md, E015-neighbour-agg-xgb.md, .mem/codebase.md, D14 in decisions.md, K13 in conclusions.md.
+.mem/experiments/E017-part3-spec-pilot.md, E018-*.md, E019-*.md, D15-D16 in decisions.md, K14 in conclusions.md.
