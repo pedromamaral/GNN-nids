@@ -7,6 +7,9 @@ Branch main (pushed) · Phase: Avenue #1. Part 2 closed negative (D15); main thr
 - Cards: E017 (Part 3 spec + pilot), E018 (class-weighted tabular CTU-13), E019 (ToN GNN 5 seeds + PR-AUC).
 - Gotcha: src/data/ is read-denied for Claude; flow alignment checked by labels in 07 instead.
 
+## E018 implemented (sha below), awaiting deploy
+Next: `research-do deploy E018` (verify E016 npz glob names first).
+
 ## Active runs
 None. Both servers idle.
 

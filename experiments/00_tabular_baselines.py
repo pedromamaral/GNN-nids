@@ -153,6 +153,14 @@ def prepare_data(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
     return data
 
 
+def class_weight_ratio(y: np.ndarray, args: argparse.Namespace) -> float:
+    """n_neg / n_pos on the training split when --class-weight balanced, else 1 (unweighted)."""
+    if args.class_weight != "balanced":
+        return 1.0
+    n_pos = max(int(y.sum()), 1)
+    return float(len(y) - n_pos) / n_pos
+
+
 def train_xgboost(data, seed: int, device: str, args: argparse.Namespace):
     import xgboost as xgb
 
@@ -169,6 +177,7 @@ def train_xgboost(data, seed: int, device: str, args: argparse.Namespace):
         early_stopping_rounds=args.xgb_early_stopping,
         random_state=seed,
         n_jobs=args.n_jobs,
+        scale_pos_weight=class_weight_ratio(data["train"]["y"], args),
     )
     model.fit(
         data["train"]["X"], data["train"]["y"],
@@ -214,7 +223,8 @@ def train_mlp(data, seed: int, device: str, args: argparse.Namespace):
     y_train = torch.from_numpy(data["train"]["y"].astype(np.float32))
     model = FlowMLP(X_train.shape[1], args.mlp_hidden, args.mlp_dropout).to(device)
     optimiser = torch.optim.Adam(model.parameters(), lr=args.mlp_learning_rate, weight_decay=args.mlp_weight_decay)
-    loss_fn = torch.nn.BCEWithLogitsLoss()
+    pos_weight = torch.tensor(class_weight_ratio(data["train"]["y"], args), device=device)
+    loss_fn = torch.nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     generator = torch.Generator().manual_seed(seed)
 
     best_f1, best_state, best_epoch, stale = -1.0, None, 0, 0
@@ -375,6 +385,8 @@ def parse_args(argv=None) -> argparse.Namespace:
                              "window: add the window's mean features only (non-graph controls)")
     parser.add_argument("--node-key", choices=["ip", "ipport"], default="ip", help="Endpoint definition for --context host")
     parser.add_argument("--context-window", type=int, default=10000, help="Flows per window for --context host")
+    parser.add_argument("--class-weight", choices=["none", "balanced"], default="none",
+                        help="balanced: XGB scale_pos_weight / MLP BCE pos_weight = n_neg/n_pos (E018)")
     parser.add_argument("--save-scores", action="store_true",
                         help="also write scores.npz: per-flow validation/test scores per model|seed (E016)")
     parser.add_argument("--output-dir", default="results/tabular")
