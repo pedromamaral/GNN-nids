@@ -15,7 +15,7 @@ None. Both servers idle.
 
 ## Experiments left before writing (in order)
 1. E018 (CPU, ~2 h) and E019 (GPUserver1, ~8-10 GPU-h est.) — background closers for Part 2.
-2. E017 — Part 3 spec written in the card FIRST (think phase), then code + CTU-13 seed-42 pilot.
+2. E017 — spec FIXED (D17, card); next: code (context_attack.py + 08) + CTU-13 seed-42 pilot.
 3. E020 — Part 3 full: 5 training seeds × ≥2 attack seeds × 3 budgets × 4 detectors, CTU-13 + ToN.
 4. E021 — Part 1 robustness: k-NN decomposition 5 training × 5 attack seeds (A015).
 5. Check A028 is already covered by D06's scenario-disjoint split (test 9/10/13 unseen); close or define.
