@@ -153,7 +153,7 @@ class TestPlanAndAttack(unittest.TestCase):
         plan = ca.build_plan(self.chunk, 0.5, 1.0, rng)
 
         def fn(X, ctx):
-            return ca.host_context_t(X, ctx)[:, 6:12].sum(1)  # source-host mean volume
+            return ca.host_context_t(X, ctx)[:, 36:42].sum(1)  # source-host mean volume
 
         res = ca.run_attack(self.chunk, plan, fn, 0.0, self.mean, self.scale, rng, "cpu", steps=8)
         clean = ca.run_attack(self.chunk, ca.build_plan(self.chunk, 0.0, 0.0, rng), fn, 0.0, self.mean, self.scale, rng, "cpu", steps=1)
