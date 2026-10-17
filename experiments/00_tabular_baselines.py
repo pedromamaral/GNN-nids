@@ -255,6 +255,7 @@ def train_mlp(data, seed: int, device: str, args: argparse.Namespace):
     def predict_scores(X: np.ndarray) -> np.ndarray:
         return _mlp_scores(model, X, device, args.mlp_batch_size)
 
+    predict_scores.model = model  # white-box access for 08_context_decomposition.py
     return predict_scores, info
 
 
