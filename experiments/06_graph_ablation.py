@@ -122,6 +122,17 @@ def predict(model: torch.nn.Module, windows: List[Data], device: torch.device) -
     return np.concatenate([model(w.to(device)).argmax(dim=-1).cpu().numpy() for w in windows])
 
 
+@torch.no_grad()
+def predict_proba(model: torch.nn.Module, windows: List[Data], device: torch.device) -> np.ndarray:
+    """P(malicious) per flow, in window order (E016 score dump)."""
+    model.eval()
+    return np.concatenate([torch.softmax(model(w.to(device)), dim=-1)[:, 1].cpu().numpy() for w in windows])
+
+
+def window_ids(windows: List[Data]) -> np.ndarray:
+    return np.concatenate([np.full(w.y.shape[0], i, dtype=np.int32) for i, w in enumerate(windows)])
+
+
 def window_counts(windows: List[Data], pred: np.ndarray) -> np.ndarray:
     """Per-window (tn, fp, fn, tp), for block-bootstrap CIs over windows (C2(c))."""
     out, start = [], 0
@@ -135,7 +146,8 @@ def window_counts(windows: List[Data], pred: np.ndarray) -> np.ndarray:
 
 
 def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.device,
-                        counts: Optional[Dict[str, np.ndarray]] = None) -> List[Dict]:
+                        counts: Optional[Dict[str, np.ndarray]] = None,
+                        scores: Optional[Dict[str, np.ndarray]] = None) -> List[Dict]:
     # Full load, like Trainer.load_checkpoint: checkpoints are written by 01 on our own servers.
     checkpoint = torch.load(path, map_location="cpu")
     metadata = checkpoint.get("metadata") or {}
@@ -144,7 +156,7 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
             raise ValueError(f"{path}: checkpoint metadata lacks '{key}' (train it with 01_baseline_training.py)")
     k = int(metadata["k"])
 
-    _, _, test = load_split_datasets(
+    _, val, test = load_split_datasets(
         name=metadata["dataset"],
         root="data/graphs",
         window_size=int(metadata.get("window_size", 1000)),
@@ -170,8 +182,16 @@ def evaluate_checkpoint(path: Path, args: argparse.Namespace, device: torch.devi
         return with_endpoint_graph(w, graph, rng) if endpoint else with_graph(w, graph, k, rng)
 
     reference = predict(model, windows, device)
+    if scores is not None:
+        # Native graph only; keys <run dir>|<split>|{score,y,window}. Validation is for threshold tuning.
+        val_windows = [val[i] for i in range(len(val))]
+        for split, ws in (("val", val_windows), ("test", windows)):
+            key = f"{path.parent.name}|{split}"
+            scores[f"{key}|score"] = predict_proba(model, ws, device).astype(np.float32)
+            scores[f"{key}|y"] = np.concatenate([w.y.cpu().numpy() for w in ws]).astype(np.int8)
+            scores[f"{key}|window"] = window_ids(ws)
     rows = []
-    for graph in (ENDPOINT_GRAPHS if endpoint else GRAPHS):
+    for graph in ([] if args.scores_only else (ENDPOINT_GRAPHS if endpoint else GRAPHS)):
         seeds = args.random_seeds if graph.startswith("random") else [None]
         for seed in seeds:
             rng = np.random.default_rng(seed if seed is not None else 0)
@@ -213,6 +233,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--device", default="auto")
     parser.add_argument("--save-window-counts", action="store_true",
                         help="also write window_counts.npz (per-window tn/fp/fn/tp per checkpoint|graph|seed)")
+    parser.add_argument("--save-scores", action="store_true",
+                        help="also write scores.npz: per-flow P(malicious), labels, window ids (val + test, native graph)")
+    parser.add_argument("--scores-only", action="store_true",
+                        help="with --save-scores: skip the none/random graph variants (no graph_ablation.csv rows)")
     parser.add_argument("--output-dir", type=Path, default=Path("results") / "graph_ablation")
     return parser.parse_args(argv)
 
@@ -224,18 +248,24 @@ def main(argv=None) -> Path:
     else:
         device = torch.device(args.device)
 
+    if args.scores_only and not args.save_scores:
+        raise SystemExit("--scores-only requires --save-scores")
     rows: List[Dict] = []
     counts: Optional[Dict[str, np.ndarray]] = {} if args.save_window_counts else None
+    scores: Optional[Dict[str, np.ndarray]] = {} if args.save_scores else None
     for path in args.checkpoints:
-        rows.extend(evaluate_checkpoint(path, args, device, counts))
+        rows.extend(evaluate_checkpoint(path, args, device, counts, scores))
 
     out_dir = args.output_dir / datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "graph_ablation.csv"
-    with out_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
-        writer.writeheader()
-        writer.writerows(rows)
+    if rows:
+        with out_path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+            writer.writeheader()
+            writer.writerows(rows)
+    if scores:
+        np.savez_compressed(out_dir / "scores.npz", **scores)
     if counts:
         np.savez_compressed(out_dir / "window_counts.npz", **counts)
     logger.info("Results in %s", out_path)

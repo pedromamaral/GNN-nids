@@ -124,7 +124,11 @@ def prepare_ctu13(args: argparse.Namespace) -> Dict[str, Dict[str, np.ndarray]]:
         part = load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT[split], with_endpoints=(args.context == "host"))
         X, y = preprocessor.preprocess(part, fit=(split == "train"))
         X = add_context(args, X, part, scenario_segments(part))
-        data[split] = {"X": X, "y": y, "attack": part["Attack"].astype(str).to_numpy()}
+        segments = scenario_segments(part)
+        scenario = np.zeros(len(y), dtype=np.int16)
+        for i, (a, b) in enumerate(segments):
+            scenario[a:b] = i  # index into CTU13_DEFAULT_SPLIT[split]
+        data[split] = {"X": X, "y": y, "attack": part["Attack"].astype(str).to_numpy(), "scenario": scenario}
         logger.info("%s: %d flows, botnet fraction %.4f", split, len(y), float(y.mean()))
     return data
 
@@ -309,6 +313,12 @@ def run(args: argparse.Namespace) -> Path:
     }
 
     results, per_class = [], []
+    scores_out: Dict[str, np.ndarray] = {}
+    if args.save_scores:
+        for split in ("validation", "test"):
+            scores_out[f"{split}|y"] = data[split]["y"].astype(np.int8)
+            if "scenario" in data[split]:
+                scores_out[f"{split}|scenario"] = data[split]["scenario"]
     for model_name in args.models:
         for seed in args.seeds:
             set_seed(seed)
@@ -320,6 +330,9 @@ def run(args: argparse.Namespace) -> Path:
                 metrics = evaluate(predict_scores(data[split]["X"]), data[split]["y"])
                 results.append({"model": model_name, "seed": seed, "split": split, **metrics})
             test_scores = predict_scores(data["test"]["X"])
+            if args.save_scores:
+                scores_out[f"{model_name}|{seed}|validation"] = predict_scores(data["validation"]["X"]).astype(np.float32)
+                scores_out[f"{model_name}|{seed}|test"] = test_scores.astype(np.float32)
             for attack, count, rate in per_class_detection(test_scores, data["test"]["attack"]):
                 per_class.append({"model": model_name, "seed": seed, "attack": attack,
                                   "flows": count, "predicted_malicious": rate})
@@ -327,6 +340,8 @@ def run(args: argparse.Namespace) -> Path:
             test_f1 = results[-1]["f1"]
             logger.info("%s seed=%d: test F1=%.4f (%.0fs)", model_name, seed, test_f1, elapsed)
 
+    if scores_out:
+        np.savez_compressed(out_dir / "scores.npz", **scores_out)
     write_csv(out_dir / "results.csv", results)
     write_csv(out_dir / "per_class.csv", per_class)
     summary = summarise(results)
@@ -360,6 +375,8 @@ def parse_args(argv=None) -> argparse.Namespace:
                              "window: add the window's mean features only (non-graph controls)")
     parser.add_argument("--node-key", choices=["ip", "ipport"], default="ip", help="Endpoint definition for --context host")
     parser.add_argument("--context-window", type=int, default=10000, help="Flows per window for --context host")
+    parser.add_argument("--save-scores", action="store_true",
+                        help="also write scores.npz: per-flow validation/test scores per model|seed (E016)")
     parser.add_argument("--output-dir", default="results/tabular")
     parser.add_argument("--device", default="auto", help="auto, cpu or cuda")
     parser.add_argument("--xgb-device", default=None,
