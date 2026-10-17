@@ -1,7 +1,8 @@
 {
   "permissions": {
     "deny": [
-      "Read(./data/**)",
+      "Read(//Users/pedroamaral/Documents/gnn-adversarial-nids/data/**)",
+
       "Read(./results/**)",
       "Read(./logs/**)",
       "Read(./docs/lit-graph/gnn-nids/raw/**)"

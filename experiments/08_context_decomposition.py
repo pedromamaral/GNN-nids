@@ -178,7 +178,7 @@ def summarize(rows: pd.DataFrame, rhos) -> pd.DataFrame:
         clean = g[g.beta == 0].recall.iloc[0]
         delta = {(r.beta, r.rho): clean - r.recall for r in g.itertuples()}
         for beta in sorted({b for b, _ in delta if b > 0}):
-            if (beta, 0.0) not in delta or (beta, 1.0) not in delta:
+            if any((beta, r) not in delta for r in rhos):  # budget-matched helper betas
                 continue
             ds = {r: delta[(beta, r)] for r in rhos if (beta, r) in delta}
             best = max(ds, key=ds.get)

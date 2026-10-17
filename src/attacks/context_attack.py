@@ -202,7 +202,7 @@ def build_plan(chunk: Chunk, beta: float, rho: float, rng: np.random.Generator,
         dec = dict(group=cand_g[keep], tpl=tpl[keep])
     g, t = dec["group"], dec["tpl"]
     return Plan(bot, g_bot, b_shape, b_decoy, base, g, g_key[g], chunk.dst_key[t], g_win[g],
-                chunk.raw[t].reshape(-1, 4), chunk.X[t, N_VOLUME:].reshape(len(t), -1))
+                chunk.raw[t], chunk.X[t][:, N_VOLUME:])
 
 
 # ---------------------------------------------------------------- attack
