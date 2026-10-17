@@ -1,5 +1,5 @@
 # E016 Threshold-free metrics + bootstrap, CTU-13 GNN vs tabular (A026)
-Status: IMPLEMENTED (71498ca), not deployed. Decides C2(a),(c) on CTU-13 after K13 (D14).
+Status: DEPLOYED 2026-10-17 (71498ca, queue_E016.sh on GPUserver2). Decides C2(a),(c) on CTU-13 after K13 (D14).
 ## Hypothesis
 H: the GNN ip gain on CTU-13 (+.199 F1@0.5, E014) is detection power, not threshold placement under drift: GNN ip - max(XGB, MLP; plain and host-ip; GNN isolated/ipport) >= .058 (2x seed std, K13) on PR-AUC AND on F1 at a validation-tuned threshold, 5/5 seeds; block-bootstrap 95% CI excludes 0.
 ## Change
