@@ -22,7 +22,7 @@ None. Both servers idle.
 Optional: A013 construction/robust-aggregation defence (C5) after E020.
 
 ## EXACT next step
-`research-do implement E018` (cheaper model), then `research-do implement E019`; in parallel `research-think` on the strongest model to finish the E017 spec (threat model, controllable features, cost λ, budgets) before any Part 3 code.
+`research-do deploy E018` (already implemented), then `research-do implement E019`, then `research-do implement E017` (spec fixed in card, D17; ~2-3 d code: src/attacks/context_attack.py + experiments/08_context_decomposition.py).
 
 ## Read next
 .mem/experiments/E017-part3-spec-pilot.md, E018-*.md, E019-*.md, D15-D16 in decisions.md, K14 in conclusions.md.
