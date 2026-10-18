@@ -9,7 +9,7 @@ For GNN-based NIDS, does evaluating feature and structure attacks separately mis
 - C1 (Part 1) Feature-derived k-NN graphs are redundant: neighbours are near-copies, so the GNN gains nothing from the graph, and an attack's induced rewiring (14-38% of neighbours) has no effect. Status: supported (K04, K05).
 - C2 (Part 2) Under one protocol (chronological split, identity hidden, XGBoost/MLP on the same flows), endpoint GNNs do / do not beat tabular baselines; any gain is due to topology rather than window composition or host profile. Status: NEGATIVE on ToN + CTU-13 — gains are host context (K11, K14, D15).
 - C3 (Part 2) Scenario-disjoint CTU-13 (unseen infected captures) as the identity-leakage control. Status: OPEN (K08, K09).
-- C4 (Part 3) A/B/C decomposition (feature / induced structure / interaction) on endpoint graphs with a joint attacker (own-flow shaping + decoy injection, one traffic-cost budget) shows separate evaluation misjudges robustness; compare with injection-only (GIANT) and separate (Venturi) evaluation. Status: not started (A012).
+- C4 (Part 3) A/B/C decomposition (feature / induced structure / interaction) on endpoint graphs with a joint attacker (own-flow shaping + decoy injection, one traffic-cost budget) shows separate evaluation misjudges robustness; compare with injection-only (GIANT) and separate (Venturi) evaluation. Status: pilot GO 2026-10-18 (K15, 1 seed): G .03-.11 on GNN ip, < .03 on host-context tabular; E020 amended (D18).
 - C5 (optional) Graph construction (node key, window, degree cap) as a training-free defence for endpoint graphs. Status: parked (A013).
 
 ## Protocol (fixed, D03/D04/D06)

@@ -1,5 +1,5 @@
 # E017 Part 3 threat/cost model + A/B/C pilot on context detectors, CTU-13 (A012)
-Status: IMPLEMENTED 2026-10-17 (8719ee5 + 2 test fixes; tests/test_context_attack.py 11 pass in container), smoke on GPUserver2 PASSED (end to end, 3 steps, chunk 1), pilot not run. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
+Status: DONE 2026-10-18 — GO (pilot criterion met; 1 training seed, no claim). IMPLEMENTED 2026-10-17 (8719ee5 + 2 test fixes; tests/test_context_attack.py 11 pass in container), smoke on GPUserver2 PASSED (end to end, 3 steps, chunk 1), pilot not run. Serves C4, G2, G3. Pilot = go/no-go for E020, no claim.
 
 ## Hypothesis
 At equal traffic-cost budget β, separate evaluation misjudges context detectors:
@@ -39,5 +39,30 @@ New module src/attacks/context_attack.py (raw-space shaping, decoy insertion, pr
 - Checks built in: torch host context vs 00 numpy (assert <1e-3), test features == 00's, group costs <= budgets (assert), clean beta=0 row.
 - GNN ckpt (GPUserver2): results/runs/20261015_000250_ctu13_egraphsage_endpoint_ip_w10000_cwbal_L2_seed_42/best_checkpoint.pt
 - Smoke (no claim; chunk 1 has only ~61 botnet flows): MLP torch-vs-00 max|diff| 1e-6; budgets respected; plain XGB recall identical clean vs B (sanity OK); full-data run time dominated by fits (~1 h), 08 itself seconds per chunk-config.
-## Results
-(pending)
+## Results (.mem/results/E017.json; run results/E017_pilot/20261017_222359 on GPUserver2, ~1 h incl. refits; training seed 42, attack seeds 0/1)
+Clean recall @1% FPR: GNN ip .904, MLP host-ip .928, XGB host-ip .624, XGB plain .617 (FPR .010 all).
+Δ = clean − attacked recall @1% FPR, seed 0 | seed 1:
+| detector | β | Δ_A | Δ_B | Δ_C* | G | S (ρ=.5) |
+|---|---|---|---|---|---|---|
+| GNN ip (white) | .05 | .029/.029 | .029/.035 | .064/.066 | .034/.031 | - |
+| GNN ip | .10 | .041/.039 | .057/.056 | .109/.101 | .052/.046 | +.042/+.032 |
+| GNN ip | .50 | .082/.085 | .149/.145 | .258/.252 | .109/.107 | +.070/+.082 (ρ=.75 +.086/+.080) |
+| MLP host-ip (white) | .05 | .458/.458 | .036/.034 | .458/.458 | .000/.000 | - |
+| MLP host-ip | .50 | .509/.510 | .167/.171 | .532/.530 | .023/.020 | −.085/−.085 (ρ=.75 −.118/−.115) |
+| XGB host-ip (transfer) | .50 | .162/.162 | .044/.048 | .182/.181 | .020/.019 | −.056/−.054 |
+| XGB plain (transfer) | .50 | .596/.599 | .000/.000 | .596/.599 | .000/.000 | −.000/−.002 |
+- B_replay (benign flows replayed, β=.5): GNN .084/.083, MLP .014/.012, XGB host-ip .067/.062, plain .000.
+- Decoy alarm rate @1% FPR (β=.5, ρ=1, seed 0): GNN .33 (replay .41), MLP .12 (replay .46), XGB host-ip .30 (replay .18). Benign FPR unchanged (.0097-.0100).
+- Noise references: attack-seed spread ≤ .01 on G and S; plain XGB (B ≡ 0 by construction) |S| ≤ .015, G ≤ .014 → transfer/rounding floor ~.015. Training-seed noise UNKNOWN (1 seed).
+## Interpretation
+- GNN ip: joint attack is superadditive. G ≥ .03 at every β, both attack seeds (.031-.109); S ≥ +.03 for β ≥ .10. At β=.5 separate evaluation (best of A, B) reports Δ .149, joint Δ .258. Decoys work on the graph even unoptimised (replay ≈ 57% of optimised B).
+- MLP host-ip: shaping dominates and saturates at the smallest budget (Δ_A .458 at β=.05 → .509 at .5); A and B overlap (S negative, down to −.118) → joint ≈ best separate (G ≤ .023 < .03). Decoys only hurt when optimised (replay ≈ 0).
+- XGB host-ip (transfer): same subadditive pattern, weaker (G ≤ .020, S ≈ −.05). Plain XGB: B = 0 exactly (sanity passed); A transfer large (.30 → .60).
+- Pattern: graph aggregation (message passing over flows of both endpoints) composes shaping and injection; mean host-context makes them substitutes.
+## Anomalies / caveats (fix in E020)
+1. Free delay: Δdur ≤ Dur costs nothing but is only allowed when shaping share > 0, so A and every C_ρ<1 get a budget-free component that B lacks. Likely cause of MLP Δ_A saturation at β=.05. Need a delay-only condition (β→0⁺) or a priced delay.
+2. PGD strength unverified: 30 steps, sign steps of .2 × share. If A is under-optimised relative to C (C has more variables), G is inflated. Need a steps check (e.g. 30 vs 100, plus A restarts) before claims.
+3. Decoys are conspicuous: 12-41% of decoys alarm at the 1% FPR point, far above benign 1%. A host-level view (host-window flagged if any flow or decoy alarms) could cancel B; E020 should report host-window recall.
+4. 1 training seed; only CTU-13. The attack module is CTU-13-specific (Argus raw fields); ToN in E020 needs a NetFlow-v3 raw-feature twin (byte/packet/duration fields, more derived features).
+## Verdict
+GO (spec criterion): G ≥ .03 on GNN ip at every β in both attack seeds; |S| ≥ .03 on GNN ip, MLP host-ip, XGB host-ip; plain XGB B ≤ .01. C4 provisionally supported for the endpoint GNN only, opposite sign (subadditive, G < .03) for host-context tabular models. Not a claim: 1 training seed, caveats 1-3 open.

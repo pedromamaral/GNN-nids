@@ -30,4 +30,4 @@ Commit .claude/settings.json if it should be shared. Then (cheaper model) `resea
 
 ## 2026-10-18 update (research-do)
 - E017 pilot finished and fetched: .mem/results/E017.json (160 metrics; dir results/E017_pilot/20261017_222359 on GPUserver2). 08 + context_attack implemented (8719ee5), tools/summarize_run.py now reads 08 summary.csv.
-- EXACT next step: `research-think analyze E017` (go/no-go for E020). Then E018/E019 deploy still pending.
+- E017 analysed: GO (K15, D18). EXACT next step: `research-do implement E020` per D18 (delay-only condition, PGD steps/restarts check on seed 42 first, host-window recall, 5 training seeds CTU-13); E018/E019 deploy still pending (CPU / GPUserver1, can run in parallel).
