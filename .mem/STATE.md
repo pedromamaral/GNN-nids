@@ -17,7 +17,7 @@ Does the GNN-ip joint-attack gain (K15) survive free delay for every condition, 
 
 ## EXACT next steps (cheap model for 1-2, /clear between phases)
 1. (done) E020 deployed.
-2. `research-do fetch E018`: `python3 tools/summarize_run.py E018 GPUserver2:results/E018_tab_plain/20261018_122627_ctu13 GPUserver2:results/E018_tab_hostip/20261018_141801_ctu13_host-ip-w10000`; E018_threshold_free.json is a 07 output (as E016: check how E016.json was built, card E016).
+2. (done) E018 fetched -> .mem/results/E018.json (tabular summaries + 07 output under `threshold_free`; local copy runs/E018/E018_threshold_free.json).
 3. (Opus) `research-think analyze E018`; later fetch/analyze E019, then E020 (strength check first: G, Δ_A must move < .01).
 Later: ToN port of the attack (NetFlow-v3 raw fields, new E id); paper-plan (Parts 1-2 settled); A028 likely covered by the scenario-disjoint CTU-13 split (close it).
 
