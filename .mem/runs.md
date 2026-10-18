@@ -3,6 +3,7 @@
 # container = gnn_pedroamaral_<job>_gpu0_<YYYYmmdd_HHMMSS> (printed by scripts/container.sh); log = ~/GNN-nids/logs/<container>.log
 
 ## Active
+E019 | GPUserver1 | queue:queue_E019.sh | 01 ToN endpoint ip/ipport/isolated x seeds 42-46 (E008 settings), 06 scores per key + rm data/graphs, 00 ToN plain/host-ip/host-ipport, 07 | 10-18 ~12:32 server clock | ~10-12 h (est., unmeasured) | results/E019_*/, results/E019_threshold_free.json; log logs/queue_E019.log (ends E019_DONE) | running (disk 11 GB free: watch)
 E020-smoke | GPUserver2 | queue:queue_E020smoke.sh | 08 --model-cache results/E020_models/seed_42 --max-chunks 1 --steps 3 --restarts 2 --delay-modes free off --replay (fits seed-42 models: ~1 h, shares CPU with E018) | 10-18 | ~1-2 h (est.) | results/E020_smoke/; log logs/queue_E020smoke.log (ends E020SMOKE_DONE) | running
 E018 | GPUserver2 | queue:queue_E018.sh | 00 ctu13 --class-weight balanced plain + host-ip (CPU XGB, seeds 42-46, --save-scores), then 07 vs E016 GNN npz | 10-18 ~(server clock) | ~2-3 h (est., unmeasured) | results/E018_tab_{plain,hostip}/, results/E018_threshold_free.json; log logs/queue_E018.log (ends E018_DONE) | running
 E017 | GPUserver2 | queue:queue_E017.sh | 08 pilot: seed 42, attack seeds 0 1, betas .05 .1 .25 .5, rhos 0-1, steps 30, --replay (refit ~1 h first) | 10-17 ~23:00 WEST | ~4-8 h (est., unmeasured) | results/E017_pilot/<ts>/{rows,summary}.csv; log logs/queue_E017.log (ends E017_DONE) | done (ran 22:2x-23:20 WEST, ~1 h; fetched -> .mem/results/E017.json)
