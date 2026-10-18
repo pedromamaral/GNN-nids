@@ -1,34 +1,25 @@
-# STATE — 2026-10-17 (E016 implement→analyze, ideate D16, E017 spec D17)
-Branch main @ a268e4a (pushed) · Phase: Avenue #1. Part 2 closed negative (D15); main thread → Part 3 (D16, D17).
+# STATE — 2026-10-18 (E017 implement→deploy→analyze; E020 implement+smoke; E018/E019 deploy)
+Branch main @ ee601d3 (pushed) · Phase: Avenue #1, Part 3 main thread (D16-D18). Part 1 settled (C1), Part 2 negative (D15).
 
-## Just done
-- E016 (71498ca: --save-scores in 00/06, experiments/07_threshold_free.py) run + fetched -> .mem/results/E016.json. REFUTED: PR-AUC GNN ip .855 < MLP host-ip .953 (5/5 seeds, all scenarios); F1@0.5 gain = threshold placement (K14).
-- D15: C2 negative on ToN + CTU-13 ("context, not topology"); project.md C2 status updated. D16: drift correction → Part 3; A027/E015 parked, A029 dropped; A012/A016/A030 active.
-- D17 + E017 card: Part 3 spec fixed (bytes cost β, raw-space increase-only shaping of Dur/TotPkts/SrcBytes, optimised decoys, 1% FPR operating point, equal-budget G/S metrics; C4 revised in project.md).
-- E018 implemented in a parallel session (1be1da7: 00 --class-weight balanced + queue script), not deployed.
-- Permissions: src/data/ now readable (Pedro changed the .claude/settings.json deny to absolute //…/data/**; UNCOMMITTED in working tree).
+## Just done (this session)
+- E017: src/attacks/context_attack.py + experiments/08_context_decomposition.py (8719ee5); pilot run + fetched (.mem/results/E017.json) + analysed: GO (K15, D18). GNN ip superadditive (G .03-.11, S up to +.086); host-context MLP/XGB subadditive (G ≤.023, S down to −.118); plain XGB B=0 (sanity).
+- E020 implemented (D18): `--delay-modes free off [coupled]`, `--restarts`, host-window recall (summary_hostwin*.csv), `--model-cache`; 00 train_xgboost/train_mlp expose `.model`; tests/test_context_attack.py 17 pass (with 00 tests). Smoke PASSED on GPUserver2; seed-42 model cache at results/E020_models/seed_42. Card .mem/experiments/E020-part3-full.md. scripts/queue_E020.sh ready.
+- E018 deployed + FINISHED (glob fix in scripts/queue_E018.sh); 07 ran, 0 label mismatches; results/E018_threshold_free.json on GPUserver2, NOT fetched.
+- E019 implemented (scripts/queue_E019.sh, config-only) + deployed on GPUserver1.
+- tools/summarize_run.py: reads 08 summary*.csv + rows.csv (limit 20000 keys); tabular branch skips dirs with rows.csv.
 
 ## Active runs
-None. Both servers idle.
-
-## Experiments left before writing (in order)
-1. E018 (CPU ~2 h) + E019 (GPUserver1, ~8-10 GPU-h est.): Part 2 closers.
-2. E017: code src/attacks/context_attack.py + experiments/08_context_decomposition.py, then CTU-13 seed-42 pilot (~3 GPU-h).
-3. E020: Part 3 full (5 training seeds × ≥2 attack seeds × 4 β × 5 ρ × 4 detectors, CTU-13 + ToN).
-4. E021: Part 1 k-NN decomposition 5 × 5 seeds (A015).
-5. A028: check if D06 scenario-disjoint split already covers it; close or define.
-Optional: A013 defence (C5) after E020.
+- E019 | GPUserver1 | queue:queue_E019.sh | 4th of 15 GNN trainings (ip seed 45) at 18:00; ~85 min/training → ETA ~Mon 10-19 12:00-14:00 server clock | log logs/queue_E019.log (ends E019_DONE). RISK: disk 5.2 GB free (caches cleared per node key).
+- GPUserver2: idle (E020 not launched).
 
 ## Open problem
-Does a joint shaping+injection attacker beat separate evaluation on context detectors (C4)? Only remaining novelty (G2/G3).
+Does the GNN-ip joint-attack gain (K15) survive free delay for every condition, stronger PGD (100 steps / 3 restarts), host-window detection, and 5 training seeds? That decides C4.
 
-## EXACT next step
-Commit .claude/settings.json if it should be shared. Then (cheaper model) `research-do deploy E018` (verify E016 npz glob names first), `research-do implement E019`, `research-do implement E017`.
+## EXACT next steps (cheap model for 1-2, /clear between phases)
+1. `research-do deploy E020` on GPUserver2: copy scripts/queue_E020.sh to logs/, chmod, setsid launch (infra.md); ETA ~15-16 h; register in runs.md.
+2. `research-do fetch E018`: `python3 tools/summarize_run.py E018 GPUserver2:results/E018_tab_plain/20261018_122627_ctu13 GPUserver2:results/E018_tab_hostip/20261018_141801_ctu13_host-ip-w10000`; E018_threshold_free.json is a 07 output (as E016: check how E016.json was built, card E016).
+3. (Opus) `research-think analyze E018`; later fetch/analyze E019, then E020 (strength check first: G, Δ_A must move < .01).
+Later: ToN port of the attack (NetFlow-v3 raw fields, new E id); paper-plan (Parts 1-2 settled); A028 likely covered by the scenario-disjoint CTU-13 split (close it).
 
 ## Read next
-.mem/experiments/E017-part3-spec-pilot.md, E018-*.md, E019-*.md, D15-D17 in decisions.md, K14 in conclusions.md.
-
-## 2026-10-18 update (research-do)
-- E017 pilot finished and fetched: .mem/results/E017.json (160 metrics; dir results/E017_pilot/20261017_222359 on GPUserver2). 08 + context_attack implemented (8719ee5), tools/summarize_run.py now reads 08 summary.csv.
-- E017 analysed: GO (K15, D18). EXACT next step: `research-do implement E020` per D18 (delay-only condition, PGD steps/restarts check on seed 42 first, host-window recall, 5 training seeds CTU-13); E018/E019 deploy still pending (CPU / GPUserver1, can run in parallel).
-- 2026-10-18: E018 deployed on GPUserver2 (queue_E018.sh; glob fix 1 commit); E019 implemented (scripts/queue_E019.sh), next `research-do deploy E019` on GPUserver1, then `research-do implement E020` (D18).
+STATE + runs.md + infra.md (deploy); E018 card + E016 card (fetch/analyze); E020 card + K15 + D18 (E020 analysis).
