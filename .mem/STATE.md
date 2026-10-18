@@ -31,3 +31,4 @@ Commit .claude/settings.json if it should be shared. Then (cheaper model) `resea
 ## 2026-10-18 update (research-do)
 - E017 pilot finished and fetched: .mem/results/E017.json (160 metrics; dir results/E017_pilot/20261017_222359 on GPUserver2). 08 + context_attack implemented (8719ee5), tools/summarize_run.py now reads 08 summary.csv.
 - E017 analysed: GO (K15, D18). EXACT next step: `research-do implement E020` per D18 (delay-only condition, PGD steps/restarts check on seed 42 first, host-window recall, 5 training seeds CTU-13); E018/E019 deploy still pending (CPU / GPUserver1, can run in parallel).
+- 2026-10-18: E018 deployed on GPUserver2 (queue_E018.sh; glob fix 1 commit); E019 implemented (scripts/queue_E019.sh), next `research-do deploy E019` on GPUserver1, then `research-do implement E020` (D18).
