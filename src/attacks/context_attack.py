@@ -109,8 +109,12 @@ def make_context(src_key, dst_key, win, device) -> Context:
 
 # ---------------------------------------------------------------- projections
 
-def project_shaping(dsrc, dpkts, ddur, raw, g, budget):
-    """Feasible raw increases: budget per group, 60 B per added packet, <= MTU per packet, Dur <= doubled."""
+def project_shaping(dsrc, dpkts, ddur, raw, g, budget, delay_ok=None):
+    """Feasible raw increases: budget per group, 60 B per added packet, <= MTU per packet, Dur <= doubled.
+
+    ``delay_ok`` (bool per flow) says where delay is allowed; default: only where the group has a
+    shaping budget (delay 'coupled' to shaping, the E017 pilot behaviour).
+    """
     dur, pkts, _, src = raw.unbind(1)
     dsrc = dsrc.clamp(min=0)
     spent = torch.zeros_like(budget).index_add_(0, g, dsrc)
@@ -119,8 +123,8 @@ def project_shaping(dsrc, dpkts, ddur, raw, g, budget):
     hi = dsrc / MIN_PKT_BYTES
     lo = torch.minimum(((src + dsrc) / MTU - pkts).clamp(min=0), hi)
     dpkts = torch.maximum(torch.minimum(dpkts, hi), lo)
-    # Delay is free but is part of shaping: no shaping share (rho = 1) means no delay either.
-    return dsrc, dpkts, ddur.clamp(min=0).minimum(dur) * (budget[g] > 0)
+    ok = (budget[g] > 0) if delay_ok is None else delay_ok
+    return dsrc, dpkts, ddur.clamp(min=0).minimum(dur) * ok
 
 
 def integerize_shaping(dsrc, dpkts, ddur, raw):
@@ -226,9 +230,9 @@ def assemble(chunk: Chunk, plan: Plan, shape, decoy, mean, scale, tX, traw, tcat
     return X
 
 
-def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit: float, mean, scale,
+def _attack_once(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit: float, mean, scale,
                rng: np.random.Generator, device, steps: int = 30, step_frac: float = 0.2,
-               optimise: bool = True) -> Dict[str, object]:
+               optimise: bool = True, delay: str = "coupled") -> Dict[str, object]:
     """Optimise (or only initialise) the attack against ``logit_fn``; return integerised perturbed flows.
 
     ``logit_fn(features, ctx)`` must return one logit per row (originals first). With
@@ -258,7 +262,9 @@ def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit:
     share = (b_shape / n_g_bot)[g_bot] if nb else zero      # bytes each botnet flow can add on average
     s_scale = [share, share / 100.0, raw_bot[:, 0].clamp(min=0.1)] if nb else [zero] * 3
     u = torch.as_tensor(rng.random((3, nb)), **f64)
-    shape = list(project_shaping(u[0] * share, u[1] * share / 100.0, u[2] * raw_bot[:, 0], raw_bot, g_bot, b_shape)) if nb else [zero] * 3
+    delay_ok = {"coupled": None, "free": torch.ones(nb, dtype=torch.bool, device=device),
+                "off": torch.zeros(nb, dtype=torch.bool, device=device)}[delay]
+    shape = list(project_shaping(u[0] * share, u[1] * share / 100.0, u[2] * raw_bot[:, 0], raw_bot, g_bot, b_shape, delay_ok)) if nb else [zero] * 3
     if m:
         d_share = (b_decoy / n_g_dec)[g_dec]
         d_scale = [d_share, d_share / 100.0, d_dur_t.clamp(min=0.1)]
@@ -269,7 +275,7 @@ def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit:
     def features(shp, dcy):
         return assemble(chunk, plan, shp, dcy, mean, scale, tX, traw, tcat, d_dst_t, d_dur_t)
 
-    if optimise and logit_fn is not None and nb and (float(b_shape.sum()) > 0 or m):
+    if optimise and logit_fn is not None and nb and (float(b_shape.sum()) > 0 or m or delay == "free"):
         bot_t = torch.as_tensor(plan.bot, device=device)
         state = shape + (decoy or [])
         scales = s_scale + (d_scale if decoy else [])
@@ -279,7 +285,7 @@ def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit:
             loss = torch.nn.functional.softplus(logit - thr_logit).mean()
             grads = torch.autograd.grad(loss, vs)
             vs = [v.detach() - step_frac * s * g.sign() for v, s, g in zip(vs, scales, grads)]
-            state = list(project_shaping(*vs[:3], raw_bot, g_bot, b_shape))
+            state = list(project_shaping(*vs[:3], raw_bot, g_bot, b_shape, delay_ok))
             if decoy:
                 state += list(project_decoys(*vs[3:], d_dst_t, d_dur_t, g_dec, b_decoy))
         shape, decoy = state[:3], (state[3:] or None)
@@ -297,3 +303,26 @@ def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit:
         "group_shape": torch.zeros(len(plan.budget_shape), dtype=torch.float64, device=device).index_add_(0, g_bot, shape[0]) if nb else None,
         "group_decoy": torch.zeros(len(plan.budget_shape), dtype=torch.float64, device=device).index_add_(0, g_dec, decoy[2] + d_dst_t) if m else None,
     }
+
+
+def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit: float, mean, scale,
+               rng: np.random.Generator, device, steps: int = 30, step_frac: float = 0.2,
+               optimise: bool = True, delay: str = "coupled", restarts: int = 1) -> Dict[str, object]:
+    """``_attack_once`` with ``restarts`` random initialisations; keeps the one with the lowest mean botnet loss.
+
+    delay: 'coupled' (delay only where the group has a shaping budget; E017 pilot), 'free'
+    (delay always allowed, also with rho = 1 and beta = 0: the delay-only attacker), 'off' (bytes only).
+    """
+    if delay not in ("coupled", "free", "off"):
+        raise ValueError(f"delay must be coupled, free or off, got {delay!r}")
+    best, best_obj = None, None
+    for _ in range(max(restarts, 1) if optimise and logit_fn is not None else 1):
+        res = _attack_once(chunk, plan, logit_fn, thr_logit, mean, scale, rng, device, steps, step_frac, optimise, delay)
+        if restarts <= 1 or logit_fn is None or not len(plan.bot):
+            return res
+        with torch.no_grad():
+            bot = torch.as_tensor(plan.bot, device=device)
+            obj = float(torch.nn.functional.softplus(logit_fn(res["X"], res["ctx"])[bot] - thr_logit).mean())
+        if best is None or obj < best_obj:
+            best, best_obj = res, obj
+    return best

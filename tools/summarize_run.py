@@ -32,8 +32,10 @@ CSV_SPECS = {
     "graph_ablation.csv": (("dataset", "model", "node_key", "graph"), ("f1", "changed")),
     "go_no_go.csv": (("dataset", "model", "epsilon"), ("structure_effect_mean", "adaptive_gain_mean")),
     # E017/E020 (08): per detector x attack seed x beta; Delta = clean recall - attacked recall at 1% FPR
-    "summary.csv": (("detector", "origin", "attack_seed", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
-    "rows.csv": (("detector", "attack_seed", "beta", "rho", "condition"), ("recall", "fpr", "recall_05", "decoy_alarm_rate")),
+    "summary.csv": (("detector", "origin", "attack_seed", "delay", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
+    "summary_hostwin.csv": (("detector", "attack_seed", "delay", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
+    "rows.csv": (("detector", "attack_seed", "delay", "beta", "rho", "condition"),
+                 ("recall", "fpr", "recall_05", "decoy_alarm_rate", "hostwin_recall", "hostwin_recall_dec")),
 }
 SHORT = {"nf-unsw-nb15-v3": "unsw", "nf-ton-iot-v3": "ton"}
 
@@ -79,7 +81,7 @@ def table_metrics(path, keys, values):
                     groups.setdefault(f"{key}/{v}", []).append(float(row[v]))
                 except (KeyError, TypeError, ValueError):
                     pass
-    return {k: {"final": sum(v) / len(v), "n": len(v)} for k, v in list(groups.items())[:3000]}
+    return {k: {"final": sum(v) / len(v), "n": len(v)} for k, v in list(groups.items())[:20000]}
 
 
 def extract(run_dir):

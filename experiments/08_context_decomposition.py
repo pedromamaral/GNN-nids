@@ -18,6 +18,7 @@ import csv
 import importlib.util
 import json
 import logging
+import pickle
 import sys
 from collections import Counter
 from datetime import datetime
@@ -131,7 +132,7 @@ def clean_threshold(det, chunks, device, fpr=0.01):
     return float(np.quantile(np.concatenate(scores), 1.0 - fpr))
 
 
-def tally(det, thr, ch, res) -> Counter:
+def tally(det, thr, ch, res, plan) -> Counter:
     s = det.score(res["X"], res["ctx"])
     orig, dec, y = s[:res["n"]], s[res["n"]:], ch.y
     c = Counter()
@@ -144,6 +145,15 @@ def tally(det, thr, ch, res) -> Counter:
     c["benign"] += int((y == 0).sum())
     c["decoys"] += res["m"]
     c["decoy_alarm"] += int((dec >= thr).sum())
+    # Host-window view (D18c): a (window, bot host) group is detected if one of its botnet flows
+    # alarms (hw_own) or, counting alarming decoys as detections of the host too, if any flow does (hw_any).
+    n_groups = len(plan.budget_shape)
+    if n_groups:
+        own = np.bincount(plan.g_bot[orig[plan.bot] >= thr], minlength=n_groups) > 0
+        dec_hit = (np.bincount(plan.dec_group[dec >= thr], minlength=n_groups) > 0) if res["m"] else np.zeros(n_groups, bool)
+        c["hw_groups"] += n_groups
+        c["hw_own"] += int(own.sum())
+        c["hw_any"] += int((own | dec_hit).sum())
     return c
 
 
@@ -155,6 +165,7 @@ def metrics(c: Counter) -> Dict[str, float]:
         "recall_05": c["tp05"] / max(c["bots"], 1), "fpr_05": c["fp05"] / max(c["benign"], 1),
         "f1_05": f1(c["tp05"], c["fp05"], c["fn05"]),
         "decoys": c["decoys"], "decoy_alarm_rate": c["decoy_alarm"] / max(c["decoys"], 1),
+        "hostwin_recall": c["hw_own"] / max(c["hw_groups"], 1), "hostwin_recall_dec": c["hw_any"] / max(c["hw_groups"], 1),
     }
 
 
@@ -170,17 +181,22 @@ def condition_grid(betas, rhos, superadd: bool):
     return sorted(grid)
 
 
-def summarize(rows: pd.DataFrame, rhos) -> pd.DataFrame:
-    """Per detector x attack seed x beta: Delta_A, Delta_B, Delta_C*, G, S (D17; Delta = clean recall - recall)."""
+def summarize(rows: pd.DataFrame, rhos, col: str = "recall") -> pd.DataFrame:
+    """Per detector x delay mode x attack seed x beta: Delta_A, Delta_B, Delta_C*, G, S (D17).
+
+    Delta = clean ``col`` - attacked ``col`` (clean = the 'clean' rows). Only A/B/C rows enter; the
+    delay-only (D) and replay rows are separate conditions.
+    """
     out = []
-    keys = ["detector", "origin", "attack_seed"]
-    for key, g in rows.groupby(keys):
-        clean = g[g.beta == 0].recall.iloc[0]
-        delta = {(r.beta, r.rho): clean - r.recall for r in g.itertuples()}
-        for beta in sorted({b for b, _ in delta if b > 0}):
+    clean = {(r.detector, r.origin, r.attack_seed): getattr(r, col) for r in rows.itertuples() if r.condition == "clean"}
+    keys = ["detector", "origin", "attack_seed", "delay"]
+    for key, g in rows[rows.condition.isin(["A", "B", "C"])].groupby(keys):
+        base = clean[key[:3]]
+        delta = {(r.beta, r.rho): base - getattr(r, col) for r in g.itertuples()}
+        for beta in sorted({b for b, _ in delta}):
             if any((beta, r) not in delta for r in rhos):  # budget-matched helper betas
                 continue
-            ds = {r: delta[(beta, r)] for r in rhos if (beta, r) in delta}
+            ds = {r: delta[(beta, r)] for r in rhos}
             best = max(ds, key=ds.get)
             s_vals = {r: ds[r] - delta[(round((1 - r) * beta, 6), 0.0)] - delta[(round(r * beta, 6), 1.0)]
                       for r in ds if 0 < r < 1 and (round((1 - r) * beta, 6), 0.0) in delta and (round(r * beta, 6), 1.0) in delta}
@@ -190,6 +206,43 @@ def summarize(rows: pd.DataFrame, rhos) -> pd.DataFrame:
                         "S_max_abs": max((abs(v) for v in s_vals.values()), default=float("nan")),
                         "S_by_rho": json.dumps({str(r): v for r, v in s_vals.items()})})
     return pd.DataFrame(out)
+
+
+def fit_models(args, device, tab, cache: Path):
+    """Fit MLP host-ip, XGB host-ip, XGB plain and the preprocessor for ``--seed``; save them in ``cache``."""
+    base = ["--dataset", "ctu13", "--ctu13-dir", args.ctu13_dir, "--context", "host", "--node-key", "ip",
+            "--context-window", str(args.context_window), "--class-weight", args.class_weight,
+            "--device", str(device), "--xgb-device", "cpu", "--n-jobs", str(args.n_jobs)]
+    targs = tab.parse_args(base)
+    data = tab.prepare_ctu13(targs)
+    mlp_predict, _ = tab.train_mlp(data, args.seed, str(device), targs)
+    xgb_host, host_info = tab.train_xgboost(data, args.seed, "cpu", targs)
+    plain = {s: {**d, "X": d["X"][:, :36]} for s, d in data.items()}
+    xgb_plain, plain_info = tab.train_xgboost(plain, args.seed, "cpu", targs)
+    pre = Ctu13Preprocessor()
+    pre.preprocess(load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["train"]), fit=True)
+    assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
+    cache.mkdir(parents=True, exist_ok=True)
+    torch.save({"state": mlp_predict.model.state_dict(), "hidden": targs.mlp_hidden, "dropout": targs.mlp_dropout},
+               cache / "mlp.pt")
+    xgb_host.model.get_booster().save_model(str(cache / "xgb_host.json"))
+    xgb_plain.model.get_booster().save_model(str(cache / "xgb_plain.json"))
+    with (cache / "scaler.pkl").open("wb") as fh:
+        pickle.dump(pre.get_state(), fh)
+    (cache / "info.json").write_text(json.dumps({"seed": args.seed, "class_weight": args.class_weight,
+                                                 "context_window": args.context_window,
+                                                 "xgb_host_best_iteration": host_info["best_iteration"],
+                                                 "xgb_plain_best_iteration": plain_info["best_iteration"]}))
+    (cache / "done").touch()
+    return data, mlp_predict, xgb_host
+
+
+def booster_predictor(path: Path, best_iteration: int, n_jobs: int):
+    import xgboost as xgb
+    bst = xgb.Booster()
+    bst.load_model(str(path))
+    bst.set_param({"nthread": n_jobs})
+    return lambda X: bst.predict(xgb.DMatrix(X), iteration_range=(0, best_iteration + 1))
 
 
 # ---------------------------------------------------------------- main
@@ -204,6 +257,12 @@ def parse_args(argv=None):
     p.add_argument("--rhos", type=float, nargs="+", default=[0.0, 0.25, 0.5, 0.75, 1.0])
     p.add_argument("--no-superadd", action="store_true", help="skip the budget-matched A/B runs needed for S")
     p.add_argument("--replay", action="store_true", help="also run B_replay (benign flows replayed unchanged, rho=1)")
+    p.add_argument("--delay-modes", nargs="+", default=["free", "off"], choices=["free", "off", "coupled"],
+                   help="free: delay allowed in every condition (also B and the delay-only D row); off: bytes only; "
+                        "coupled: E017 pilot (delay only with a shaping share)")
+    p.add_argument("--restarts", type=int, default=1, help="random initialisations per attack (best kept)")
+    p.add_argument("--model-cache", type=Path, default=None,
+                   help="directory with the fitted models for --seed (written on first use, reused afterwards)")
     p.add_argument("--steps", type=int, default=30)
     p.add_argument("--step-frac", type=float, default=0.2)
     p.add_argument("--chunk-flows", type=int, default=400_000)
@@ -223,87 +282,108 @@ def main(argv=None):
                           "cpu" if args.device == "auto" else args.device)
     tab = load_script("00_tabular_baselines.py", "tabular_baselines")
     abl = load_script("06_graph_ablation.py", "graph_ablation")
+    out_dir = args.output_dir / datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Detectors. Plain XGB = the 36 clean-feature columns of the host-ip matrix.
-    base = ["--dataset", "ctu13", "--ctu13-dir", args.ctu13_dir, "--context", "host", "--node-key", "ip",
-            "--context-window", str(args.context_window), "--class-weight", args.class_weight,
-            "--device", str(device), "--xgb-device", "cpu", "--n-jobs", str(args.n_jobs)]
-    targs = tab.parse_args(base)
-    data = tab.prepare_ctu13(targs)
-    mlp_predict, _ = tab.train_mlp(data, args.seed, str(device), targs)
-    xgb_host, _ = tab.train_xgboost(data, args.seed, "cpu", targs)
-    plain = {s: {**d, "X": d["X"][:, :36]} for s, d in data.items()}
-    xgb_plain, _ = tab.train_xgboost(plain, args.seed, "cpu", targs)
+    # Detectors, fitted once per training seed (cache) and reloaded from disk either way.
+    cache = args.model_cache or out_dir / "models"
+    data = mlp_predict = xgb_host_fit = None
+    if not (cache / "done").exists():
+        data, mlp_predict, xgb_host_fit = fit_models(args, device, tab, cache)
+    info = json.loads((cache / "info.json").read_text())
+    for key in ("seed", "class_weight", "context_window"):
+        if info[key] != getattr(args, key):
+            raise SystemExit(f"model cache {cache} was fitted with {key}={info[key]}, not {getattr(args, key)}")
+    mlp_state = torch.load(cache / "mlp.pt", map_location="cpu")
+    mlp_model = tab.FlowMLP(36 * 3 + 2, mlp_state["hidden"], mlp_state["dropout"])
+    mlp_model.load_state_dict(mlp_state["state"])
+    xgb_host = booster_predictor(cache / "xgb_host.json", info["xgb_host_best_iteration"], args.n_jobs)
+    xgb_plain = booster_predictor(cache / "xgb_plain.json", info["xgb_plain_best_iteration"], args.n_jobs)
 
     ckpt = torch.load(args.gnn_checkpoint, map_location="cpu")
     meta = ckpt["metadata"]
     if meta.get("graph") != "endpoint" or meta.get("node_key") != "ip":
         raise SystemExit("--gnn-checkpoint must be an endpoint-graph, node-key ip checkpoint")
+    if meta.get("seed") is not None and int(meta["seed"]) != args.seed:
+        logger.warning("GNN checkpoint seed %s differs from --seed %d", meta.get("seed"), args.seed)
     gnn = abl.build_model(meta, 1, 36)
     gnn.load_state_dict(ckpt["model_state_dict"])
     gnn_window = int(meta.get("window_size", 1000))
 
     pre = Ctu13Preprocessor()
-    pre.preprocess(load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["train"]), fit=True)
+    pre.load_preprocessed(str(cache / "scaler.pkl"))
     assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
     mean = torch.as_tensor(pre.scaler.mean_, dtype=torch.float64, device=device)
     scale = torch.as_tensor(pre.scaler.scale_, dtype=torch.float64, device=device)
     X, y, raw, src, dst, segments = load_test(args, pre)
-    assert np.allclose(X, data["test"]["X"][:, :36]), "test features differ from 00's"
+    if data is not None:
+        assert np.allclose(X, data["test"]["X"][:, :36]), "test features differ from 00's"
     logger.info("test: %d flows, %d botnet", len(y), int(y.sum()))
 
-    mlp = MLPDetector("mlp_host_ip", mlp_predict.model, device)
+    mlp = MLPDetector("mlp_host_ip", mlp_model, device)
     families = [
         {"name": "tab", "window": args.context_window, "white": mlp,
          "targets": [XGBDetector("xgb_host_ip", xgb_host, True), XGBDetector("xgb_plain", xgb_plain, False)]},
         {"name": "gnn", "window": gnn_window, "white": GNNDetector("gnn_ip", gnn, device), "targets": []},
     ]
-    out_dir = args.output_dir / datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    grid = condition_grid(args.betas, args.rhos, not args.no_superadd)
+    # (beta, rho, replay, delay mode, label); the clean row runs no attack (delay off, zero budgets).
+    grid = [g for g in condition_grid(args.betas, args.rhos, not args.no_superadd) if g[0] > 0]
+    configs = [(0.0, 0.0, False, "off", "clean")]
+    for mode in args.delay_modes:
+        if mode == "free":
+            configs.append((0.0, 0.0, False, mode, "D"))  # delay-only attacker
+        configs += [(b, r, False, mode, "AC" if 0 < r < 1 else "A" if r == 0 else "B") for b, r in grid]
+        if args.replay:
+            configs += [(b, 1.0, True, mode, "B_replay") for b in args.betas]
     rows = []
     for fam in families:
         chunks = make_chunks(X, y, raw, src, dst, segments, fam["window"], args.chunk_flows, args.max_chunks)
         dets = [fam["white"]] + fam["targets"]
         thr = {d.name: clean_threshold(d, chunks, device) for d in dets}
-        thr_logit = float(np.log(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6) / (1 - np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))))
+        t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
+        thr_logit = float(np.log(t / (1 - t)))
         logger.info("%s: %d chunks, thresholds at 1%% FPR: %s", fam["name"], len(chunks), thr)
-        if fam["name"] == "tab":  # the torch context path must reproduce 00's numpy path
+        if fam["name"] == "tab" and data is not None:  # the torch context path must reproduce 00's numpy path
             ch, n = chunks[0], len(chunks[0].y)
-            ours = mlp.score(torch.as_tensor(ch.X, device=device), make_context(ch.src_key, ch.dst_key, ch.win, device))
+            ctx0 = make_context(ch.src_key, ch.dst_key, ch.win, device)
+            ours = mlp.score(torch.as_tensor(ch.X, device=device), ctx0)
             ref = mlp_predict(data["test"]["X"][:n])
             logger.info("MLP torch-vs-00 max |diff| = %.2e", float(np.abs(ours - ref).max()))
             assert np.abs(ours - ref).max() < 1e-3, "torch host context does not match 00"
+            ours_x = xgb_host(host_context_t(torch.as_tensor(ch.X, device=device), ctx0).cpu().numpy())
+            logger.info("XGB booster-vs-00 max |diff| = %.2e", float(np.abs(ours_x - xgb_host_fit(data["test"]["X"][:n])).max()))
         for aseed in args.attack_seeds:
-            configs = [(b, r, False) for b, r in grid]
-            if args.replay:
-                configs += [(b, 1.0, True) for b in args.betas]
-            for beta, rho, replay in configs:
+            for beta, rho, replay, mode, label in configs:
                 tallies = {d.name: Counter() for d in dets}
                 cost_shape = cost_decoy = base_bytes = 0.0
                 for ci, ch in enumerate(chunks):
-                    rng = np.random.default_rng([aseed, ci, int(round(beta * 1e4)), int(round(rho * 100)), int(replay)])
+                    rng = np.random.default_rng([aseed, ci, int(round(beta * 1e4)), int(round(rho * 100)), int(replay),
+                                                 ["off", "free", "coupled"].index(mode)])
                     plan = build_plan(ch, beta, rho, rng, replay=replay)
                     res = run_attack(ch, plan, fam["white"].logit, thr_logit, mean, scale, rng, device,
-                                     steps=args.steps, step_frac=args.step_frac, optimise=not replay)
+                                     steps=args.steps, step_frac=args.step_frac, optimise=not replay,
+                                     delay=mode, restarts=args.restarts)
                     for key, budget in (("group_shape", plan.budget_shape), ("group_decoy", plan.budget_decoy)):
                         if res[key] is not None:
                             assert (res[key].cpu().numpy() <= budget + 1e-6).all(), f"{key} over budget"
                     cost_shape += res["cost_shape"]; cost_decoy += res["cost_decoy"]; base_bytes += float(plan.base_bytes.sum())
                     for d in dets:
-                        tallies[d.name] += tally(d, thr[d.name], ch, res)
+                        tallies[d.name] += tally(d, thr[d.name], ch, res, plan)
                     del res
-                cond = "clean" if beta == 0 else "B_replay" if replay else "A" if rho == 0 else "B" if rho == 1 else "C"
+                cond = "C" if label == "AC" else label
                 for d in dets:
                     rows.append({"family": fam["name"], "detector": d.name, "origin": "white" if d is fam["white"] else "transfer",
-                                 "attack_seed": aseed, "beta": beta, "rho": rho, "condition": cond, "threshold": thr[d.name],
-                                 "cost_shape": cost_shape, "cost_decoy": cost_decoy, "base_bytes": base_bytes,
-                                 **metrics(tallies[d.name])})
-                logger.info("%s seed=%d beta=%.4g rho=%.2f %s: %s", fam["name"], aseed, beta, rho, cond,
+                                 "train_seed": args.seed, "attack_seed": aseed, "delay": "-" if cond == "clean" else mode,
+                                 "steps": args.steps, "restarts": args.restarts, "beta": beta, "rho": rho, "condition": cond,
+                                 "threshold": thr[d.name], "cost_shape": cost_shape, "cost_decoy": cost_decoy,
+                                 "base_bytes": base_bytes, **metrics(tallies[d.name])})
+                logger.info("%s aseed=%d delay=%s beta=%.4g rho=%.2f %s: %s", fam["name"], aseed, mode, beta, rho, cond,
                             {d.name: round(rows[-len(dets) + i]["recall"], 4) for i, d in enumerate(dets)})
                 pd.DataFrame(rows).to_csv(out_dir / "rows.csv", index=False)
     df = pd.DataFrame(rows)
-    summarize(df[df.condition != "B_replay"], args.rhos).to_csv(out_dir / "summary.csv", index=False)
+    for col, name in (("recall", "summary.csv"), ("hostwin_recall", "summary_hostwin.csv"),
+                      ("hostwin_recall_dec", "summary_hostwin_dec.csv")):
+        summarize(df, args.rhos, col).to_csv(out_dir / name, index=False)
     (out_dir / "config.json").write_text(json.dumps({**vars(args), "gnn_window": gnn_window, "gnn_meta": {k: v for k, v in meta.items() if isinstance(v, (int, float, str, type(None)))}},
                                                     indent=2, default=str))
     logger.info("Results in %s", out_dir)

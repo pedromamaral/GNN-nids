@@ -189,6 +189,7 @@ def train_xgboost(data, seed: int, device: str, args: argparse.Namespace):
     def predict_scores(X: np.ndarray) -> np.ndarray:
         return model.predict_proba(X)[:, 1]
 
+    predict_scores.model = model  # booster export for 08_context_decomposition.py
     return predict_scores, info
 
 

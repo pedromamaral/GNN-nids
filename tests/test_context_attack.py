@@ -168,14 +168,72 @@ class TestSummary(unittest.TestCase):
         self.assertIn((0.05, 0.0), grid)
         self.assertIn((0.05, 1.0), grid)
         recall = {(0.0, 0.0): 0.9, (0.1, 0.0): 0.8, (0.1, 1.0): 0.9, (0.1, 0.5): 0.7, (0.05, 0.0): 0.85, (0.05, 1.0): 0.9}
-        rows = pd.DataFrame([{"detector": "d", "origin": "white", "attack_seed": 0, "beta": b, "rho": r, "recall": v}
-                             for (b, r), v in recall.items()])
+        cond = lambda b, r: "clean" if b == 0 else "A" if r == 0 else "B" if r == 1 else "C"  # noqa: E731
+        rows = pd.DataFrame([{"detector": "d", "origin": "white", "attack_seed": 0, "delay": "free", "beta": b, "rho": r,
+                              "condition": cond(b, r), "recall": v} for (b, r), v in recall.items()]
+                            + [{"detector": "d", "origin": "white", "attack_seed": 0, "delay": "free", "beta": 0.0, "rho": 0.0,
+                                "condition": "D", "recall": 0.1}])  # delay-only row must not disturb the clean baseline
         out = m.summarize(rows, [0.0, 0.5, 1.0]).iloc[0]
         self.assertAlmostEqual(out.delta_A, 0.1)
         self.assertAlmostEqual(out.delta_B, 0.0)
         self.assertAlmostEqual(out.delta_Cstar, 0.2)
         self.assertAlmostEqual(out.G, 0.1)
         self.assertAlmostEqual(out.S_max_abs, 0.2 - 0.05 - 0.0)
+
+
+class TestDelayAndRestarts(unittest.TestCase):
+    def setUp(self):
+        self.chunk, _, _, self.mean, self.scale = make_chunk(np.random.default_rng(4))
+        self.fn = lambda X, ctx: -X[:, 0]  # noqa: E731  lower logit = longer Dur
+        self.bots = self.chunk.y == 1
+
+    def dur_gain(self, beta, rho, delay):
+        rng = np.random.default_rng(0)
+        plan = ca.build_plan(self.chunk, beta, rho, rng)
+        res = ca.run_attack(self.chunk, plan, self.fn, 0.0, self.mean, self.scale, rng, "cpu", steps=5, delay=delay)
+        return float((res["X"][:len(self.bots)][torch.as_tensor(self.bots), 0] - torch.as_tensor(self.chunk.X[self.bots, 0])).mean())
+
+    def test_delay_modes(self):
+        self.assertGreater(self.dur_gain(0.0, 0.0, "free"), 0.0)      # delay-only attacker, no bytes
+        self.assertGreater(self.dur_gain(0.5, 1.0, "free"), 0.0)      # B keeps free delay
+        self.assertEqual(self.dur_gain(0.5, 1.0, "coupled"), 0.0)     # pilot behaviour: no shaping share, no delay
+        self.assertEqual(self.dur_gain(0.5, 0.0, "off"), 0.0)         # bytes only
+        self.assertGreater(self.dur_gain(0.5, 0.0, "coupled"), 0.0)
+        with self.assertRaises(ValueError):
+            self.dur_gain(0.5, 0.0, "bogus")
+
+    def test_restarts_not_worse(self):
+        fn = lambda X, ctx: -X[:, 3]  # noqa: E731
+        plan = ca.build_plan(self.chunk, 0.5, 0.0, np.random.default_rng(0))
+        bot = torch.as_tensor(plan.bot)
+
+        def loss(restarts):
+            res = ca.run_attack(self.chunk, plan, fn, 0.0, self.mean, self.scale, np.random.default_rng(1), "cpu",
+                                steps=3, restarts=restarts)
+            return float(torch.nn.functional.softplus(fn(res["X"], res["ctx"])[bot]).mean())
+
+        self.assertLessEqual(loss(4), loss(1) + 1e-9)
+
+
+class TestHostWindow(unittest.TestCase):
+    def test_tally_host_window(self):
+        m = load("context_decomposition", "08_context_decomposition.py")
+        chunk, *_ = make_chunk(np.random.default_rng(5))
+        plan = ca.build_plan(chunk, 0.5, 1.0, np.random.default_rng(0))
+
+        class Det:  # alarms on every original botnet flow, silent on decoys
+            def score(self, X, ctx):
+                s = torch.zeros(X.shape[0])
+                s[:len(chunk.y)][torch.as_tensor(chunk.y == 1)] = 1.0
+                return s.numpy()
+
+        res = {"X": torch.zeros(len(chunk.y) + len(plan.dec_group), 36), "ctx": None, "n": len(chunk.y), "m": len(plan.dec_group)}
+        c = m.tally(Det(), 0.5, chunk, res, plan)
+        self.assertEqual(c["hw_own"], c["hw_groups"])
+        self.assertEqual(c["tp1"], int((chunk.y == 1).sum()))
+        met = m.metrics(c)
+        self.assertEqual(met["hostwin_recall"], 1.0)
+        self.assertEqual(met["decoy_alarm_rate"], 0.0)
 
 
 if __name__ == "__main__":
