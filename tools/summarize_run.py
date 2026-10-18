@@ -31,6 +31,8 @@ TEST_KEYS = ("f1", "roc_auc", "precision", "recall")
 CSV_SPECS = {
     "graph_ablation.csv": (("dataset", "model", "node_key", "graph"), ("f1", "changed")),
     "go_no_go.csv": (("dataset", "model", "epsilon"), ("structure_effect_mean", "adaptive_gain_mean")),
+    # E017/E020 (08): per detector x attack seed x beta; Delta = clean recall - attacked recall at 1% FPR
+    "summary.csv": (("detector", "origin", "attack_seed", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
 }
 SHORT = {"nf-unsw-nb15-v3": "unsw", "nf-ton-iot-v3": "ton"}
 
@@ -76,7 +78,7 @@ def table_metrics(path, keys, values):
                     groups.setdefault(f"{key}/{v}", []).append(float(row[v]))
                 except (KeyError, TypeError, ValueError):
                     pass
-    return {k: {"final": sum(v) / len(v), "n": len(v)} for k, v in list(groups.items())[:60]}
+    return {k: {"final": sum(v) / len(v), "n": len(v)} for k, v in list(groups.items())[:400]}
 
 
 def extract(run_dir):
@@ -116,7 +118,7 @@ def extract(run_dir):
         else:
             rec["kind"], rec["status"] = "generic", "finished"
             rec["metrics"] = numeric_leaves(m)
-    elif summary_path.exists() and (d / "config.json").exists():
+    elif summary_path.exists() and (d / "config.json").exists() and not (d / "rows.csv").exists():
         rec["kind"], rec["status"] = "tabular", "finished"
         cfg = json.loads((d / "config.json").read_text())
         args = cfg.get("args", {})

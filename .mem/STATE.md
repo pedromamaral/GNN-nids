@@ -27,3 +27,7 @@ Commit .claude/settings.json if it should be shared. Then (cheaper model) `resea
 
 ## Read next
 .mem/experiments/E017-part3-spec-pilot.md, E018-*.md, E019-*.md, D15-D17 in decisions.md, K14 in conclusions.md.
+
+## 2026-10-18 update (research-do)
+- E017 pilot finished and fetched: .mem/results/E017.json (160 metrics; dir results/E017_pilot/20261017_222359 on GPUserver2). 08 + context_attack implemented (8719ee5), tools/summarize_run.py now reads 08 summary.csv.
+- EXACT next step: `research-think analyze E017` (go/no-go for E020). Then E018/E019 deploy still pending.
