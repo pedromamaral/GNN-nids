@@ -15,7 +15,7 @@ Branch main @ 6fba678 (pushed) · Phase: Avenue #1, Part 3 main thread (D16-D18)
 Does the GNN-ip joint-attack gain (K15) survive free delay off, stronger PGD (100 steps / 3 restarts), host-window detection, and 5 training seeds? That decides C4.
 
 ## EXACT next steps (cheap model for do-phases, /clear between phases)
-1. `research-do status` (when ETAs pass) → `research-do fetch E019` / `fetch E020` (E020: summarize_run reads 08 summary*.csv + rows.csv).
+1. Both finished (status 10-21) → `research-do fetch E019` / `fetch E020` (E020: summarize_run reads 08 summary*.csv + rows.csv).
 2. (Opus) `research-think analyze E019`, then `analyze E020` (strength check first: G, Δ_A must move < .01 between steps30 and steps100/restarts3).
 Later: ToN port of the attack (NetFlow-v3 raw fields, new E id); paper-plan (Parts 1-2 settled); close A028 (covered by scenario-disjoint CTU-13 split).
 
