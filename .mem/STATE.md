@@ -16,7 +16,7 @@ Does the GNN-ip joint-attack gain (K15) survive free delay off, stronger PGD (10
 
 ## EXACT next steps (cheap model for do-phases, /clear between phases)
 1. E019 + E020 fetched (10-22). summarize_run table_metrics empty-group bug fixed.
-2. (Opus) `research-think analyze E019` (ready), then `analyze E020` (strength check first: G, Δ_A must move < .01 between steps30 and steps100/restarts3).
+2. E019 analysed 10-22 (SUPPORTED, K11 high, Part 2 closed). (Opus) `research-think analyze E020` (strength check first: G, Δ_A must move < .01 between steps30 and steps100/restarts3).
 Later: ToN port of the attack (NetFlow-v3 raw fields, new E id); paper-plan (Parts 1-2 settled); close A028 (covered by scenario-disjoint CTU-13 split).
 
 ## Read next
