@@ -78,9 +78,10 @@ def table_metrics(path, keys, values):
             key = "/".join(SHORT.get(row.get(k, ""), row.get(k, "")) or "-" for k in keys)
             for v in values:
                 try:
-                    groups.setdefault(f"{key}/{v}", []).append(float(row[v]))
+                    x = float(row[v])
                 except (KeyError, TypeError, ValueError):
-                    pass
+                    continue
+                groups.setdefault(f"{key}/{v}", []).append(x)
     return {k: {"final": sum(v) / len(v), "n": len(v)} for k, v in list(groups.items())[:20000]}
 
 
