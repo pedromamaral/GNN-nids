@@ -1,23 +1,23 @@
-# STATE — 2026-10-18 (E018 fetched + analysed; E019/E020 running)
-Branch main @ 6fba678 (pushed) · Phase: Avenue #1, Part 3 main thread (D16-D18). Part 1 settled (C1), Part 2 negative (D15, now on every metric).
+# STATE — 2026-10-22 (E019 analysed; E020 fetched, awaiting analysis)
+Branch main @ 7b5388a (pushed) · Phase: Avenue #1, Part 3 main thread (D16-D18). Part 1 settled (C1); Part 2 CLOSED negative on both datasets, 5 seeds + PR-AUC (K11, K14, D15).
 
 ## Just done (this session)
-- E018 fetched: .mem/results/E018.json (tabular summaries + 07 output under key `threshold_free`; local copy runs/E018/E018_threshold_free.json). Note: .mem/results/ is gitignored (local only).
-- E018 analysed: SUPPORTED (A030 tried). Class-weighted tabular closes GNN F1@0.5 gap +.199 → +.051 (CI [−.035,+.139], 3/5 seeds); PR-AUC gap −.074 vs MLP host-ip cw (CI excl 0). K14 revised; card + LEDGER written.
-- E020 checked: queue alive on GPUserver2 at 19:45 (tab aseed=1 delay=off rows); ssh launcher exit 255 was harmless.
-- TODO: LEDGER E018 sha is a placeholder (`71498ca+cw`) — replace with the commit that added `--class-weight`.
+- status: E019 (GPUserver1) and E020 (GPUserver2) both finished cleanly (logs end E019_DONE / E020_DONE, 0 error lines).
+- fetch E019 -> .mem/results/E019.json (15 GNN runs from results/runs/ + 3 tabular; 07 output under key `threshold_free`; 3 `incomplete` entries = scores.npz-only dirs, harmless).
+- fetch E020 -> .mem/results/E020.json (main seeds 42-46 + strength_steps100 + strength_restarts3; summary.csv/hostwin/rows.csv metrics, 4576 keys per main run).
+- tools/summarize_run.py: fixed ZeroDivisionError in table_metrics (empty group from blank CSV cells).
+- analyze E019: SUPPORTED. ToN GNN ip PR-AUC .903 < XGB host-ipport .954 (gap −.051, 5/5, CI [−.115,−.007]); F1@0.5 .883±.096. K11 -> high; A016 tried; REF GNN seed noise filled; project.md C2 closed.
 
 ## Active runs
-- E019 | GPUserver1 | queue:queue_E019.sh | 15 GNN trainings (~85 min each) then 06/00/07 | ETA ~Mon 10-19 12:00-14:00 server clock | log logs/queue_E019.log (ends E019_DONE). RISK: disk ~5 GB free.
-- E020 | GPUserver2 | queue:queue_E020.sh | seed-42 strength checks (steps100, restarts3) then main grid seeds 42-46 | ETA ~10-19 morning-midday | log logs/queue_E020.log (ends E020_DONE).
+None. Disk: GPUserver1 8 GB free, GPUserver2 31 GB.
 
 ## Open problem
-Does the GNN-ip joint-attack gain (K15) survive free delay off, stronger PGD (100 steps / 3 restarts), host-window detection, and 5 training seeds? That decides C4.
+Does the GNN-ip joint-attack gain (K15: G .03-.11, S up to +.086, 1 seed) survive free delay off, stronger PGD (steps100 / restarts3), host-window detection, and 5 training seeds? That decides C4.
 
-## EXACT next steps (cheap model for do-phases, /clear between phases)
-1. E019 + E020 fetched (10-22). summarize_run table_metrics empty-group bug fixed.
-2. E019 analysed 10-22 (SUPPORTED, K11 high, Part 2 closed). (Opus) `research-think analyze E020` (strength check first: G, Δ_A must move < .01 between steps30 and steps100/restarts3).
-Later: ToN port of the attack (NetFlow-v3 raw fields, new E id); paper-plan (Parts 1-2 settled); close A028 (covered by scenario-disjoint CTU-13 split).
+## EXACT next step
+1. (Opus, fresh session) `research-think analyze E020`. Order: (a) strength check — G and Δ_A must move < .01 between steps30 (main seed 42) and steps100 / restarts3; if not, attack is too weak and the main grid is unreliable; (b) delay off vs free; (c) G/S per detector averaged over attack seeds within each training seed, 5/5 rule + Wilcoxon (project.md C4 criterion); (d) host-window summaries (summary_hostwin*.csv).
+2. Then `research-think ideate` or `paper-plan` depending on C4 verdict. Later: ToN port of the attack (new E id); close A028.
+- Minor TODOs: LEDGER E018 sha placeholder (`71498ca+cw`) -> commit that added `--class-weight`; 07 mismatch dict lacks ip/42 for E019 (check before the ToN table goes into the paper).
 
 ## Read next
-STATE + runs.md + infra.md (status/fetch); E019 card + E016/E018 cards (E019 analysis); E020 card + K15 + D17/D18 (E020 analysis).
+STATE + E020 card + E017 card + K15 + D17/D18 + project.md C4 criterion; .mem/results/E020.json via a short python aggregation (never print whole file — 4576 keys/run).
