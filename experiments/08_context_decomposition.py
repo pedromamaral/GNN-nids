@@ -132,6 +132,19 @@ def clean_threshold(det, chunks, device, fpr=0.01):
     return float(np.quantile(np.concatenate(scores), 1.0 - fpr))
 
 
+def clean_stats(det, chunks, device, thr):
+    """Clean-performance predictors for E021: test PR-AUC, recall at the 1%-FPR threshold, mean malicious logit margin."""
+    from sklearn.metrics import average_precision_score
+    scores, labels = [], []
+    for ch in chunks:
+        ctx = make_context(ch.src_key, ch.dst_key, ch.win, device)
+        scores.append(det.score(torch.as_tensor(ch.X, device=device), ctx)); labels.append(ch.y)
+    s, y = np.concatenate(scores), np.concatenate(labels)
+    logit = lambda v: np.log(np.clip(v, 1e-6, 1 - 1e-6) / (1 - np.clip(v, 1e-6, 1 - 1e-6)))  # noqa: E731
+    return {"test_pr_auc": float(average_precision_score(y, s)), "test_recall_at_1pct_fpr": float((s[y == 1] > thr).mean()),
+            "mean_malicious_logit_margin": float(logit(s[y == 1]).mean() - logit(thr)), "threshold": float(thr)}
+
+
 def tally(det, thr, ch, res, plan) -> Counter:
     s = det.score(res["X"], res["ctx"])
     orig, dec, y = s[:res["n"]], s[res["n"]:], ch.y
@@ -204,6 +217,8 @@ def summarize(rows: pd.DataFrame, rhos, col: str = "recall") -> pd.DataFrame:
                         "delta_Cstar": ds[best], "rho_star": best,
                         "G": ds[best] - max(ds[0.0], ds[1.0]),
                         "S_max_abs": max((abs(v) for v in s_vals.values()), default=float("nan")),
+                        "S_signed_mean": float(np.mean(list(s_vals.values()))) if s_vals else float("nan"),
+                        **{f"S_rho{r}": v for r, v in s_vals.items()},
                         "S_by_rho": json.dumps({str(r): v for r, v in s_vals.items()})})
     return pd.DataFrame(out)
 
@@ -215,24 +230,28 @@ def fit_models(args, device, tab, cache: Path):
             "--device", str(device), "--xgb-device", "cpu", "--n-jobs", str(args.n_jobs)]
     targs = tab.parse_args(base)
     data = tab.prepare_ctu13(targs)
-    mlp_predict, _ = tab.train_mlp(data, args.seed, str(device), targs)
-    xgb_host, host_info = tab.train_xgboost(data, args.seed, "cpu", targs)
-    plain = {s: {**d, "X": d["X"][:, :36]} for s, d in data.items()}
-    xgb_plain, plain_info = tab.train_xgboost(plain, args.seed, "cpu", targs)
+    mlp_predict, mlp_info = tab.train_mlp(data, args.seed, str(device), targs)
+    xgb_host = None
+    if not args.no_xgb:
+        xgb_host, host_info = tab.train_xgboost(data, args.seed, "cpu", targs)
+        plain = {s: {**d, "X": d["X"][:, :36]} for s, d in data.items()}
+        xgb_plain, plain_info = tab.train_xgboost(plain, args.seed, "cpu", targs)
     pre = Ctu13Preprocessor()
     pre.preprocess(load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["train"]), fit=True)
     assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
     cache.mkdir(parents=True, exist_ok=True)
     torch.save({"state": mlp_predict.model.state_dict(), "hidden": targs.mlp_hidden, "dropout": targs.mlp_dropout},
                cache / "mlp.pt")
-    xgb_host.model.get_booster().save_model(str(cache / "xgb_host.json"))
-    xgb_plain.model.get_booster().save_model(str(cache / "xgb_plain.json"))
+    if not args.no_xgb:
+        xgb_host.model.get_booster().save_model(str(cache / "xgb_host.json"))
+        xgb_plain.model.get_booster().save_model(str(cache / "xgb_plain.json"))
     with (cache / "scaler.pkl").open("wb") as fh:
         pickle.dump(pre.get_state(), fh)
     (cache / "info.json").write_text(json.dumps({"seed": args.seed, "class_weight": args.class_weight,
                                                  "context_window": args.context_window,
-                                                 "xgb_host_best_iteration": host_info["best_iteration"],
-                                                 "xgb_plain_best_iteration": plain_info["best_iteration"]}))
+                                                 "mlp_best_validation_f1": mlp_info["best_validation_f1"],
+                                                 **({} if args.no_xgb else {"xgb_host_best_iteration": host_info["best_iteration"],
+                                                                            "xgb_plain_best_iteration": plain_info["best_iteration"]})}))
     (cache / "done").touch()
     return data, mlp_predict, xgb_host
 
@@ -263,6 +282,7 @@ def parse_args(argv=None):
     p.add_argument("--restarts", type=int, default=1, help="random initialisations per attack (best kept)")
     p.add_argument("--model-cache", type=Path, default=None,
                    help="directory with the fitted models for --seed (written on first use, reused afterwards)")
+    p.add_argument("--no-xgb", action="store_true", help="E021: skip the XGB detectors (not fitted, not attacked)")
     p.add_argument("--steps", type=int, default=30)
     p.add_argument("--step-frac", type=float, default=0.2)
     p.add_argument("--chunk-flows", type=int, default=400_000)
@@ -297,8 +317,10 @@ def main(argv=None):
     mlp_state = torch.load(cache / "mlp.pt", map_location="cpu")
     mlp_model = tab.FlowMLP(36 * 3 + 2, mlp_state["hidden"], mlp_state["dropout"])
     mlp_model.load_state_dict(mlp_state["state"])
-    xgb_host = booster_predictor(cache / "xgb_host.json", info["xgb_host_best_iteration"], args.n_jobs)
-    xgb_plain = booster_predictor(cache / "xgb_plain.json", info["xgb_plain_best_iteration"], args.n_jobs)
+    xgb_host = xgb_plain = None
+    if not args.no_xgb:
+        xgb_host = booster_predictor(cache / "xgb_host.json", info["xgb_host_best_iteration"], args.n_jobs)
+        xgb_plain = booster_predictor(cache / "xgb_plain.json", info["xgb_plain_best_iteration"], args.n_jobs)
 
     ckpt = torch.load(args.gnn_checkpoint, map_location="cpu")
     meta = ckpt["metadata"]
@@ -323,7 +345,7 @@ def main(argv=None):
     mlp = MLPDetector("mlp_host_ip", mlp_model, device)
     families = [
         {"name": "tab", "window": args.context_window, "white": mlp,
-         "targets": [XGBDetector("xgb_host_ip", xgb_host, True), XGBDetector("xgb_plain", xgb_plain, False)]},
+         "targets": [] if args.no_xgb else [XGBDetector("xgb_host_ip", xgb_host, True), XGBDetector("xgb_plain", xgb_plain, False)]},
         {"name": "gnn", "window": gnn_window, "white": GNNDetector("gnn_ip", gnn, device), "targets": []},
     ]
     # (beta, rho, replay, delay mode, label); the clean row runs no attack (delay off, zero budgets).
@@ -336,6 +358,7 @@ def main(argv=None):
         if args.replay:
             configs += [(b, 1.0, True, mode, "B_replay") for b in args.betas]
     rows = []
+    clean_info = {}
     for fam in families:
         chunks = make_chunks(X, y, raw, src, dst, segments, fam["window"], args.chunk_flows, args.max_chunks)
         dets = [fam["white"]] + fam["targets"]
@@ -343,6 +366,7 @@ def main(argv=None):
         t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
         thr_logit = float(np.log(t / (1 - t)))
         logger.info("%s: %d chunks, thresholds at 1%% FPR: %s", fam["name"], len(chunks), thr)
+        clean_info[fam["white"].name] = clean_stats(fam["white"], chunks, device, thr[fam["white"].name])
         if fam["name"] == "tab" and data is not None:  # the torch context path must reproduce 00's numpy path
             ch, n = chunks[0], len(chunks[0].y)
             ctx0 = make_context(ch.src_key, ch.dst_key, ch.win, device)
@@ -350,8 +374,9 @@ def main(argv=None):
             ref = mlp_predict(data["test"]["X"][:n])
             logger.info("MLP torch-vs-00 max |diff| = %.2e", float(np.abs(ours - ref).max()))
             assert np.abs(ours - ref).max() < 1e-3, "torch host context does not match 00"
-            ours_x = xgb_host(host_context_t(torch.as_tensor(ch.X, device=device), ctx0).cpu().numpy())
-            logger.info("XGB booster-vs-00 max |diff| = %.2e", float(np.abs(ours_x - xgb_host_fit(data["test"]["X"][:n])).max()))
+            if not args.no_xgb:
+                ours_x = xgb_host(host_context_t(torch.as_tensor(ch.X, device=device), ctx0).cpu().numpy())
+                logger.info("XGB booster-vs-00 max |diff| = %.2e", float(np.abs(ours_x - xgb_host_fit(data["test"]["X"][:n])).max()))
         for aseed in args.attack_seeds:
             for beta, rho, replay, mode, label in configs:
                 tallies = {d.name: Counter() for d in dets}
@@ -384,6 +409,12 @@ def main(argv=None):
     for col, name in (("recall", "summary.csv"), ("hostwin_recall", "summary_hostwin.csv"),
                       ("hostwin_recall_dec", "summary_hostwin_dec.csv")):
         summarize(df, args.rhos, col).to_csv(out_dir / name, index=False)
+    gm = Path(args.gnn_checkpoint).parent / "metrics.json"
+    if gm.exists():
+        gv = json.loads(gm.read_text()).get("validation", {})
+        clean_info["gnn_ip"]["val_f1"] = gv.get("f1")
+    clean_info["mlp_host_ip"]["val_f1"] = info.get("mlp_best_validation_f1")
+    (out_dir / "clean_stats.json").write_text(json.dumps({"train_seed": args.seed, **clean_info}, indent=2))
     (out_dir / "config.json").write_text(json.dumps({**vars(args), "gnn_window": gnn_window, "gnn_meta": {k: v for k, v in meta.items() if isinstance(v, (int, float, str, type(None)))}},
                                                     indent=2, default=str))
     logger.info("Results in %s", out_dir)
