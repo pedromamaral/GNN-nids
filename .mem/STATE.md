@@ -13,9 +13,10 @@ E021 queue on GPUserver2 (launched 2026-10-23, log logs/queue_E021.log, ends E02
 Is GNN robustness to shaping a training-seed lottery (E021, A031)? Plus paper closers C3 (E022) and C1 grid (E023).
 
 ## EXACT next step
-1. (cheaper model) `research-do implement E022` (CTU-13 unseen-scenario split; record split choice as D#) and `implement E023` (k-NN 5x5 grid, config-only); queue on GPUserver1 sequentially (E022 needs CTU-13 data, only on GPUserver2: check infra before choosing host).
-2. Later: `research-do status` then `fetch E021` -> `research-think analyze E021` -> `strategy` -> `paper-plan`.
-- Note: E021 MLP unweighted (E020 caches), GNN cwbal; val PR-AUC not in 01 metrics -> test clean PR-AUC used; MLP val F1 null for seeds 42-46.
+1. `research-do implement E023` (k-NN 5x5 grid, config-only).
+2. `research-do deploy E022` after E021 is running/finished: queue_E022.sh self-waits for E021_DONE on GPUserver2 (launch it early; it sleeps). First 01 run with CTU13_SPLIT=unseen is the real smoke test: check status soon after start.
+3. Later: `status`, `fetch E021` / `E022`, then `research-think analyze`.
+- Notes: E021 MLP unweighted (E020 caches), GNN cwbal; E022 split in D21 (family-disjoint, host IPs not controlled).
 
 ## Read next
 STATE + E021/E022/E023 cards + codebase.md + infra.md (for queue scripts); D20; K15.
