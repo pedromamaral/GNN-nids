@@ -23,6 +23,7 @@ hidden from the models instead.
 """
 
 import logging
+import os
 import pickle
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
@@ -54,11 +55,14 @@ CTU13_SCENARIOS: Dict[int, Tuple[str, str]] = {
     12: ("capture20110819.binetflow", "NSIS.ay"),
     13: ("capture20110815-3.binetflow", "Virut"),
 }
-CTU13_DEFAULT_SPLIT: Dict[str, List[int]] = {
-    "train": [1, 2, 3, 4, 5, 6, 7, 8],
-    "validation": [11, 12],
-    "test": [9, 10, 13],
+CTU13_SPLITS: Dict[str, Dict[str, List[int]]] = {
+    "default": {"train": [1, 2, 3, 4, 5, 6, 7, 8], "validation": [11, 12], "test": [9, 10, 13]},
+    # E022 (D21): the test captures are botnet families absent from training (Menti, Sogou, Murlo, NSIS.ay);
+    # train/validation hold only Neris, Rbot and Virut captures.
+    "unseen": {"train": [1, 2, 3, 4, 5, 9, 10, 13], "validation": [11], "test": [6, 7, 8, 12]},
 }
+# ``CTU13_SPLIT=unseen`` (environment) switches every consumer; the default is the E013-E021 split.
+CTU13_DEFAULT_SPLIT: Dict[str, List[int]] = CTU13_SPLITS[os.environ.get("CTU13_SPLIT", "default")]
 
 TIME_COLUMN = "START_MS"
 LABEL_COLUMN = "Label"
