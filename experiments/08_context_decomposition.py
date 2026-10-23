@@ -411,8 +411,9 @@ def main(argv=None):
         summarize(df, args.rhos, col).to_csv(out_dir / name, index=False)
     gm = Path(args.gnn_checkpoint).parent / "metrics.json"
     if gm.exists():
-        gv = json.loads(gm.read_text()).get("validation", {})
+        gv = json.loads(gm.read_text()).get("metrics", {}).get("validation", {})
         clean_info["gnn_ip"]["val_f1"] = gv.get("f1")
+        clean_info["gnn_ip"]["val_roc_auc"] = gv.get("roc_auc")
     clean_info["mlp_host_ip"]["val_f1"] = info.get("mlp_best_validation_f1")
     (out_dir / "clean_stats.json").write_text(json.dumps({"train_seed": args.seed, **clean_info}, indent=2))
     (out_dir / "config.json").write_text(json.dumps({**vars(args), "gnn_window": gnn_window, "gnn_meta": {k: v for k, v in meta.items() if isinstance(v, (int, float, str, type(None)))}},
