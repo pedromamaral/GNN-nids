@@ -7,16 +7,15 @@ Branch main (sha: see `git log -1`) · Phase: Avenue #1, Part 3 reframed (D19, D
 - Files: E020 card (results+verdict), LEDGER E020-E023, K15 revised (high), A012 updated, project.md C4 status, D19, D20; avenues A031 active, A015/A028 active, A032 stealthy decoys + A033 ToN port proposed; cards E021/E022/E023 created.
 
 ## Active runs
-None. Disk: GPUserver1 7.6 GB free (clean data/graphs/* before E022/E023), GPUserver2 31 GB.
+E021 queue on GPUserver2 (launched 2026-10-23, log logs/queue_E021.log, ends E021_DONE). Impl sha 67a18c8 (08 --no-xgb, signed S cols, clean_stats.json). E022/E023 not yet implemented.
 
 ## Open problem
 Is GNN robustness to shaping a training-seed lottery (E021, A031)? Plus paper closers C3 (E022) and C1 grid (E023).
 
 ## EXACT next step
-1. (cheaper model) `research-do implement E021` — config/queue only: seeds 47-56 GNN cwbal ip + MLP host-ip cache; 08 reduced grid (gnn_ip, mlp_host_ip; delay off; β .1/.5; ρ 0/.5/1 + budget-matched A/B; attack seeds 0,1); add signed S per ρ to 08 summary; save clean_stats.json per seed. Target GPUserver2.
-2. Same session or next: `research-do implement E022` (CTU-13 unseen-scenario split; record split choice as D#) and `implement E023` (k-NN 5×5 grid, config-only); target GPUserver1 sequentially.
-3. After results: `research-think analyze E021` → then `research-think strategy` (paper is becoming an evaluation-methodology paper) → `paper-plan`.
-- Minor TODOs: LEDGER E018 sha placeholder (`71498ca+cw`); 07 mismatch dict lacks ip/42 for E019.
+1. (cheaper model) `research-do implement E022` (CTU-13 unseen-scenario split; record split choice as D#) and `implement E023` (k-NN 5x5 grid, config-only); queue on GPUserver1 sequentially (E022 needs CTU-13 data, only on GPUserver2: check infra before choosing host).
+2. Later: `research-do status` then `fetch E021` -> `research-think analyze E021` -> `strategy` -> `paper-plan`.
+- Note: E021 MLP unweighted (E020 caches), GNN cwbal; val PR-AUC not in 01 metrics -> test clean PR-AUC used; MLP val F1 null for seeds 42-46.
 
 ## Read next
 STATE + E021/E022/E023 cards + codebase.md + infra.md (for queue scripts); D20; K15.

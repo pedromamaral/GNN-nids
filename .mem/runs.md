@@ -13,3 +13,4 @@ E014 | GPUserver2 | queue:queue_E014.sh | pytest test_graph_ablation, then 01 ct
 
 ## Recently ended
 E012-a2c | GPUserver1+2 | queue:queue_a2c.sh | 00 ToN/ctu13 context controls + 01 ctu13 endpoint ×3 | 10-13 ~12:40 | - | logs/queue_a2c.log | crashed (XGB OOM ×4, disk full ×1, isolated unfinished)
+E021 | GPUserver2 | queue:queue_E021.sh | 01 ctu13 endpoint ip cwbal seeds 47-56, then 08 reduced grid (gnn_ip, mlp_host_ip, delay off, no-xgb) x seeds 42-56 | 2026-10-23 ~15:40 UTC (server) | ~several h (unmeasured) | results/E021/seed_<s>/<ts>/, results/E021_models/ ; log logs/queue_E021.log (ends E021_DONE) | smoke ok (seed 42, 3 steps) | running
