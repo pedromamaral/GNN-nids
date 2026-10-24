@@ -13,5 +13,3 @@ E014 | GPUserver2 | queue:queue_E014.sh | pytest test_graph_ablation, then 01 ct
 
 ## Recently ended
 E012-a2c | GPUserver1+2 | queue:queue_a2c.sh | 00 ToN/ctu13 context controls + 01 ctu13 endpoint ×3 | 10-13 ~12:40 | - | logs/queue_a2c.log | crashed (XGB OOM ×4, disk full ×1, isolated unfinished)
-E021 | GPUserver2 | queue:queue_E021.sh | 01 ctu13 endpoint ip cwbal seeds 47-56, then 08 reduced grid (gnn_ip, mlp_host_ip, delay off, no-xgb) x seeds 42-56 | 2026-10-23 ~15:40 UTC (server) | ~several h (unmeasured) | results/E021/seed_<s>/<ts>/, results/E021_models/ ; log logs/queue_E021.log (ends E021_DONE) | smoke ok (seed 42, 3 steps) | finished (E021_DONE, 2026-10-24); fetch pending
-E022 | GPUserver2 | queue:queue_E022.sh (launched 2026-10-23, sleeping until E021_DONE; log logs/queue_E022.log, ends E022_DONE) | CTU13_SPLIT=unseen: 01 GNN ip/isolated cwbal x5, 06 scores, 00 tab plain/host-ip, 07; waits E021_DONE | - | - | results/E022_* | implemented, split verified | finished (E022_DONE, 2026-10-24); fetch pending

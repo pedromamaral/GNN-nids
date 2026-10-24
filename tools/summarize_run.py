@@ -10,7 +10,7 @@ absolute). For a remote spec this script is piped to the server's python3
 Understood layouts:
     gnn      results/runs/<run>/metrics.json (01_baseline_training.py)
     tabular  results/tabular/<run>/summary.csv + config.json (00_tabular_baselines.py)
-    generic  any other dir with *.json: numeric leaves, at most 40
+    generic  any other dir with *.json: numeric leaves, at most 40; a .json file path: all its numeric leaves
 A dir without its final file is reported as `incomplete`.
 
 Runs already in E###.json are replaced by (host, dir); others are kept, so a
@@ -32,7 +32,8 @@ CSV_SPECS = {
     "graph_ablation.csv": (("dataset", "model", "node_key", "graph"), ("f1", "changed")),
     "go_no_go.csv": (("dataset", "model", "epsilon"), ("structure_effect_mean", "adaptive_gain_mean")),
     # E017/E020 (08): per detector x attack seed x beta; Delta = clean recall - attacked recall at 1% FPR
-    "summary.csv": (("detector", "origin", "attack_seed", "delay", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
+    "summary.csv": (("detector", "origin", "attack_seed", "delay", "beta"),
+                    ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs", "S_signed_mean", "S_rho0.5")),
     "summary_hostwin.csv": (("detector", "attack_seed", "delay", "beta"), ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs")),
     "rows.csv": (("detector", "attack_seed", "delay", "beta", "rho", "condition"),
                  ("recall", "fpr", "recall_05", "decoy_alarm_rate", "hostwin_recall", "hostwin_recall_dec")),
@@ -88,6 +89,10 @@ def table_metrics(path, keys, values):
 def extract(run_dir):
     """Compact record for one run directory (runs where the data lives)."""
     d = Path(os.path.expanduser(run_dir))
+    if d.is_file() and d.suffix == ".json":  # E022: one threshold-free JSON, all numeric leaves
+        rec = {"dir": run_dir, "started": None, "status": "finished", "kind": "generic", "config": {},
+               "metrics": numeric_leaves(json.loads(d.read_text()), limit=5000), "artifacts": [d.name], "log_tail": None}
+        return rec
     rec = {"dir": run_dir, "started": started_from_name(d.name), "status": "missing",
            "kind": None, "config": {}, "metrics": {}, "artifacts": [], "log_tail": None}
     if not d.is_dir():
@@ -144,6 +149,8 @@ def extract(run_dir):
         for f, (keys, values) in CSV_SPECS.items():
             if (d / f).exists():
                 rec["metrics"].update(table_metrics(d / f, keys, values))
+        if (d / "clean_stats.json").exists():  # E021: per-seed clean predictors
+            numeric_leaves(json.loads((d / "clean_stats.json").read_text()), "clean_stats/", rec["metrics"], limit=100)
     else:
         jsons = sorted(d.glob("*.json"))
         if jsons:

@@ -7,15 +7,15 @@ Branch main (sha: see `git log -1`) · Phase: Avenue #1, Part 3 reframed (D19, D
 - Files: E020 card (results+verdict), LEDGER E020-E023, K15 revised (high), A012 updated, project.md C4 status, D19, D20; avenues A031 active, A015/A028 active, A032 stealthy decoys + A033 ToN port proposed; cards E021/E022/E023 created.
 
 ## Active runs
-None. E021 (15 seeds, results/E021/seed_<s>/, 15 summary.csv) and E022 (results/E022_*, E022_threshold_free.json) FINISHED on GPUserver2 (2026-10-24), not yet fetched. Disk GPUserver2 31 GB free; clean data/graphs done by queue.
+None. E021 and E022 fetched -> .mem/results/E021.json (15 seeds, 5400 metrics incl. clean_stats/ and signed S) and E022.json (threshold-free, 826 metrics). Raw on GPUserver2 results/E021*, results/E022*.
 
 ## Open problem
 Is GNN robustness to shaping a training-seed lottery (E021, A031)? Plus paper closers C3 (E022) and C1 grid (E023).
 
 ## EXACT next step
-1. `research-do fetch E021` and `fetch E022` (E021 needs summarize support for results/E021/seed_*/*/{summary.csv,clean_stats.json}; extend tools/summarize_run.py if needed).
-2. `research-do implement E023` (k-NN 5x5 grid, config-only) if still wanted; GPUserver1 free.
-3. `research-think analyze E021`, `analyze E022`, then `strategy`.
+1. `research-think analyze E021` (strongest model), then `analyze E022`; write verdicts to cards/LEDGER/conclusions.
+2. Then `research-think strategy` -> `paper-plan`. `research-do implement E023` (k-NN 5x5 grid) still open; GPUserver1/2 idle.
+- tools/summarize_run.py now handles E021 table dirs (+clean_stats.json, signed S) and a .json file path (E022).
 
 ## Read next
 STATE + E021/E022/E023 cards + codebase.md + infra.md (for queue scripts); D20; K15.
