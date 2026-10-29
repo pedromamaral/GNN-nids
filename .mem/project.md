@@ -1,6 +1,7 @@
 # Project
 
-**Working title:** Robust to Features, Fragile to Structure? Decomposing Adversarial Effects in Graph-Based Network Intrusion Detection. Target: Computers & Security (D05). Detail: docs/PAPER_ROADMAP.md.
+**Working title (D22, 2026-10-29):** Pitfalls in Evaluating Graph-Based Network Intrusion Detection: Redundant Graphs, Host Context, and Seed-Dependent Robustness (placeholder). Old title "Robust to Features, Fragile to Structure?" dropped: every branch answered no. Target: Computers & Security (D05). Detail: docs/PAPER_ROADMAP.md.
+**Framing (D22):** evaluation-methodology paper. Four findings: k-NN graphs redundant (C1) · endpoint-GNN gains = host context, not transferable (C2, C3) · separate equal-budget attack evaluation suffices (C4) · robustness is a seed lottery invisible to clean/val metrics (K16). Closers: E023 (C1 seeds), E024 (ToN Part 3, A033).
 
 ## Research question
 For GNN-based NIDS, does evaluating feature and structure attacks separately misjudge the robustness of the deployed system, and does the answer depend on where the graph comes from (feature-derived k-NN vs endpoint/address graphs)?
