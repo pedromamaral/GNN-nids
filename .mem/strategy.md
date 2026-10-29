@@ -1,6 +1,6 @@
 # Strategy (digest of docs/LITERATURE_REVIEW.md, 2026-10-12; revised 2026-10-29 after D22)
 
-Lit graph: docs/lit-graph/gnn-nids/ (in repo: kg_nodes/edges.jsonl, gap_matrix.json, citation_graph.graphml). Shared lit-graph root: ~/Library/CloudStorage/OneDrive-FCTNOVA/Docencia/Research/lit-graph/ (gnn-nids copied there 2026-10-14; repo copy is the working copy). No strategy-plan.md yet → run research-strategist (revision) in Cowork, pointing to .mem/avenues.md + .mem/conclusions.md.
+Lit graph: docs/lit-graph/gnn-nids/ (in repo: kg_nodes/edges.jsonl, gap_matrix.json, citation_graph.graphml). Shared lit-graph root: ~/Library/CloudStorage/OneDrive-FCTNOVA/Docencia/Research/lit-graph/ (gnn-nids copied there 2026-10-14; repo copy is the working copy). Strategy plan: docs/lit-graph/gnn-nids/strategy-plan.md (rev 1, 2026-10-29; digest at top). Verdict: PUBLISHABLE in C&S after closers E023, E024, E022 CIs, A035.
 
 ## Venue
 Computers & Security (main). Stretch: IEEE TIFS/TDSC. Conference route: ACSAC, RAID. Fallback for Avenue #2: Computer Networks / IEEE TNSM.
@@ -24,10 +24,12 @@ Evaluation-methodology paper on GNN-NIDS. Same chronological split, identity hid
 - #10 "From Flow Features to Communication Topology" (Preprints.org 2026): CICIoMT2024, window level, RF baseline; k-NN redundancy claim, no mechanism, no attacks.
 - GIANT (WWW 2026, doi 10.1145/3774904.3792601): joint injection (endpoints + features of injected flows), injection-only, random 80/20 split, no tabular baselines, no k-NN graphs.
 - Venturi et al. 2024 (arXiv 2403.11830): feature and structural attacks evaluated separately; GNN robust to features, one injected flow collapses E-GraphSAGE. Venturi 2025 (NCA): adversarial-training defence.
-- R+R ACSAC 2025 / arXiv 2609.12263: critique of unsupervised temporal host-graph GIDS; encoder-free control ranks first on 2/4 datasets; 2 crafted edges evade. Closest in spirit to the D22 framing (methodology critique) → differentiate: supervised flow-level GNNs, adversarial decomposition, seed variance.
+- R+R ACSAC 2025 (doi 10.1109/acsac67867.2025.00050) and, separately, Zhao & Hassan arXiv 2609.12263 (CCS '26 format, 'First-Principles Evaluation of GIDS'): critiques of unsupervised temporal GIDS; encoder-free PCA control ranks first on 2/4 datasets; 2 crafted edges evade; no host-context control, attacks single-run. (Earlier versions of this file conflated the two.)
+- Mouzaoui et al. SECRYPT 2026: flow-injection only, X-IIoTID; combined feature+structure listed as future work (supports G3). Galli/Venturi et al. NCA 2025 (arXiv 2608.24454): adversarial training of E-GraphSAGE on CTU-13 + ToN.
+- Berhili et al., Computers & Security 2026: evaluation-protocol inflation, tabular only → venue precedent for a protocol paper. Closest in spirit to the D22 framing (methodology critique) → differentiate: supervised flow-level GNNs, adversarial decomposition, seed variance.
 - Arp et al., Dos and Don'ts of ML in Computer Security (USENIX Sec 2022, doi 10.48550/arxiv.2010.09470): pitfall taxonomy. Our findings instantiate it for GNN-NIDS.
 - E-GraphSAGE (Lo et al., NOMS 2022): random 70/30, reported baselines, source IPs remapped. Pujol-Perich 2022: accuracy similar to MLP/RF, robust to size/IAT shifts.
-- To check in revision: underspecification (D'Amour et al.); NIDS benchmark-flaw papers since 2023; any GNN-NIDS work reporting seed variance or unseen-family splits.
+- Checked 2026-10-29 (strategist rev 1): C5/G6 phenomenon is known — D'Amour et al. JMLR 2022; Ennadir et al. NeurIPS 2024 (init scheme changes GNN robustness at similar clean acc); Le & Cao arXiv 2601.13303 (seed variance of certified robustness). Claim the NIDS instance, magnitude, GNN-vs-tabular contrast and consequence, not the phenomenon. No GNN-NIDS paper found reporting robustness over training seeds or unseen-family splits with context controls.
 
 ## Publishability check (2026-10-29)
 | item | status |
@@ -39,6 +41,7 @@ Evaluation-methodology paper on GNN-NIDS. Same chronological split, identity hid
 | reproducibility | configs/queue scripts/shas per run; fixed protocol D03/D04/D06 |
 | venue fit | good as a methodology paper (D22) |
 Verdict: **iterate** (E023, E024) → paper-plan.
+2026-10-29 strategist rev 1: **publishable (C&S) after closers** E023, E024, E022 bootstrap CIs, A035 host-disjoint check; stretch ACSAC/RAID needs A034 (+A036). Kill rules in strategy-plan digest.
 
 ## Strongest baselines (our protocol, results/*.json)
 REF lines live in conclusions.md. Literature numbers are on random splits and not comparable (TODO: extract their F1s into REF lines if a comparison table is needed).

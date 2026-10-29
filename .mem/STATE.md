@@ -15,9 +15,10 @@ Branch main (sha: see `git log -1`) · Phase: Avenue #1, closers before paper-pl
 Do K15 (separate suffices) and K16 (seed lottery) generalise beyond CTU-13? → E024 (ToN port of Part 3, A033). Is K16 novel given underspecification (D'Amour et al.)? → strategist revision.
 
 ## EXACT next step
-1. `research-do implement E024` (cheaper model): port 08 joint attack to NetFlow-v3 ToN features (card E024-ton-part3.md, spec D17).
+1. E024 implemented (sha 12fab85); smoke on GPUserver1 (logs/queue_E024_smoke.log, ends E024_SMOKE_DONE) -> check tail; if OK `research-do deploy E024` (`scripts/queue_E024.sh`, 5 seeds). Pre-existing test failure test_k_sensitivity (Trainer mock/yaml), unrelated.
 2. `research-do status` → when E023_DONE: `research-do fetch E023`, then `research-think analyze E023`.
-3. Pedro in Cowork: `research-strategist` revision (underspecification + NIDS evaluation-pitfall literature), pointing to .mem/avenues.md + .mem/conclusions.md.
+3. DONE 2026-10-29: strategist rev 1 → docs/lit-graph/gnn-nids/strategy-plan.md: publishable in C&S after E023, E024, E022 CIs, A035 (new, host-disjoint check). A034/A036 optional stretch.
+3b. `research-do implement A035` (check whether E022 saved per-flow scores + src IPs; else re-score ckpts).
 4. After E023 + E024: `research-think paper-plan` (paper.md is stale: still says C2 OPEN / C4 not started).
 - Small TODO: re-export E022 block-bootstrap CIs into E022.json.
 
