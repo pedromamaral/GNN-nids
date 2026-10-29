@@ -150,7 +150,7 @@ def extract(run_dir):
             if (d / f).exists():
                 rec["metrics"].update(table_metrics(d / f, keys, values))
         if (d / "clean_stats.json").exists():  # E021: per-seed clean predictors
-            numeric_leaves(json.loads((d / "clean_stats.json").read_text()), "clean_stats/", rec["metrics"], limit=100)
+            rec["metrics"].update(numeric_leaves(json.loads((d / "clean_stats.json").read_text()), "clean_stats/"))
     else:
         jsons = sorted(d.glob("*.json"))
         if jsons:
