@@ -32,6 +32,54 @@ DECOY_MIN_SRC = 60    # a decoy has at least one outgoing packet
 
 
 @dataclass
+class Space:
+    """Which standardised columns the attacker's raw fields drive, and how (one per dataset).
+
+    ``volume(dur, pkts, tot, src, ref, aux, mean, scale)`` returns the standardised values of the
+    columns ``vol_idx`` for flows with the given raw fields. ``ref`` = (dur, pkts, tot, src) of the
+    clean flow (for decoys: of the template) and ``aux`` its clean raw values of the extra columns
+    that the space needs (None when it needs none).
+    """
+    vol_idx: np.ndarray
+    volume: Callable
+
+
+def _ctu13_volume(dur, pkts, tot, src, ref, aux, mean, scale):
+    return volume_features(dur, pkts, tot, src, mean, scale)
+
+
+def netflow_space(feature_names, ratio_floor: float = 1.0) -> "Space":
+    """NetFlow-v3 (ToN): raw Dur = FLOW_DURATION_MILLISECONDS, TotPkts = IN + OUT packets, TotBytes = IN + OUT
+    bytes, SrcBytes = IN_BYTES. Added packets and bytes are client->server, so OUT_* stay fixed. Columns driven:
+    IN_BYTES, OUT_BYTES, IN_PKTS, FLOW_DURATION_MILLISECONDS, DURATION_IN (+ the duration delta) and the two
+    src->dst rate columns, rescaled by (bytes ratio) / (duration ratio). Packet-size histograms, min/max packet
+    length and IATs are NOT recomputed (E024 card, limitation L1). ``aux`` = clean raw
+    [IN_PKTS, OUT_PKTS, DURATION_IN, SRC_TO_DST_SECOND_BYTES, SRC_TO_DST_AVG_THROUGHPUT].
+    """
+    names = list(feature_names)
+    cols = ["IN_BYTES", "OUT_BYTES", "IN_PKTS", "FLOW_DURATION_MILLISECONDS", "DURATION_IN",
+            "SRC_TO_DST_SECOND_BYTES", "SRC_TO_DST_AVG_THROUGHPUT"]
+    idx = np.array([names.index(c) for c in cols])
+
+    def volume(dur, pkts, tot, src, ref, aux, mean, scale):
+        r_dur, r_pkts, r_tot, r_src = ref
+        in_pkts, out_pkts, dur_in, sec_bytes, thr = aux.unbind(1)
+        dst = (tot - src).clamp(min=0)
+        rate = (src + ratio_floor) / (r_src + ratio_floor) * (r_dur + 1.0) / (dur + 1.0)
+        raw = [src, dst, (in_pkts + pkts - r_pkts).clamp(min=0), dur, (dur_in + dur - r_dur).clamp(min=0),
+               sec_bytes * rate, thr * rate]
+        v = torch.log1p(torch.stack([c.clamp(min=0) for c in raw], dim=1))
+        i = torch.as_tensor(idx, device=v.device)
+        return (v - mean[i]) / scale[i]
+
+    return Space(idx, volume)
+
+
+CTU13_SPACE = Space(np.arange(N_VOLUME), _ctu13_volume)
+NETFLOW_AUX_COLUMNS = ["IN_PKTS", "OUT_PKTS", "DURATION_IN", "SRC_TO_DST_SECOND_BYTES", "SRC_TO_DST_AVG_THROUGHPUT"]
+
+
+@dataclass
 class Chunk:
     """Consecutive whole windows of the test flows (detector-specific window size)."""
     X: np.ndarray          # (n, 36) clean standardised features
@@ -40,6 +88,7 @@ class Chunk:
     src_key: np.ndarray    # (n,) int64 source host
     dst_key: np.ndarray    # (n,) int64 destination host
     win: np.ndarray        # (n,) int64 window id, non-decreasing, unique across scenarios
+    aux: Optional[np.ndarray] = None   # (n, A) clean raw extras for Space.volume (NetFlow-v3 only)
 
 
 @dataclass
@@ -66,7 +115,8 @@ class Plan:
     dec_dst_key: np.ndarray
     dec_win: np.ndarray
     dec_raw: np.ndarray           # (m, 4) Dur, TotPkts, TotBytes, SrcBytes of the template
-    dec_cat: np.ndarray           # (m, 36 - N_VOLUME) copied categorical features
+    dec_cat: np.ndarray           # (m, F) full feature rows of the templates (volume columns are overwritten)
+    dec_aux: Optional[np.ndarray] = None
 
 
 # ---------------------------------------------------------------- features
@@ -173,10 +223,11 @@ def build_plan(chunk: Chunk, beta: float, rho: float, rng: np.random.Generator,
     """
     bot = np.flatnonzero(chunk.y == 1)
     empty = np.zeros(0, dtype=np.int64)
-    n_cat = chunk.X.shape[1] - N_VOLUME
+    n_feat = chunk.X.shape[1]
     if bot.size == 0:
         z = np.zeros(0)
-        return Plan(bot, empty, z, z, z, empty, empty, empty, empty, np.zeros((0, 4)), np.zeros((0, n_cat), np.float32))
+        return Plan(bot, empty, z, z, z, empty, empty, empty, empty, np.zeros((0, 4)), np.zeros((0, n_feat), np.float32),
+                    None if chunk.aux is None else np.zeros((0, chunk.aux.shape[1])))
     codes = pd.factorize(chunk.src_key[bot])[0].astype(np.int64)
     g_bot = pd.factorize(chunk.win[bot] * (int(codes.max()) + 1) + codes)[0]
     n_g = int(g_bot.max()) + 1
@@ -206,7 +257,7 @@ def build_plan(chunk: Chunk, beta: float, rho: float, rng: np.random.Generator,
         dec = dict(group=cand_g[keep], tpl=tpl[keep])
     g, t = dec["group"], dec["tpl"]
     return Plan(bot, g_bot, b_shape, b_decoy, base, g, g_key[g], chunk.dst_key[t], g_win[g],
-                chunk.raw[t], chunk.X[t][:, N_VOLUME:])
+                chunk.raw[t], chunk.X[t], None if chunk.aux is None else chunk.aux[t])
 
 
 # ---------------------------------------------------------------- attack
@@ -214,25 +265,37 @@ def build_plan(chunk: Chunk, beta: float, rho: float, rng: np.random.Generator,
 LogitFn = Callable[[torch.Tensor, Context], torch.Tensor]
 
 
-def assemble(chunk: Chunk, plan: Plan, shape, decoy, mean, scale, tX, traw, tcat, tdst, tdur):
-    """Perturbed features: originals (n, 36) followed by decoys (m, 36). Differentiable in shape/decoy."""
+def assemble(chunk: Chunk, plan: Plan, shape, decoy, mean, scale, tX, traw, tcat, tdst, tdur,
+             space: Space = CTU13_SPACE, taux=None, daux=None):
+    """Perturbed features: originals (n, F) followed by decoys (m, F). Differentiable in shape/decoy."""
     X = tX
+    cols = torch.as_tensor(space.vol_idx, device=X.device)
     if plan.bot.size:
         dsrc, dpkts, ddur = shape
         bot = torch.as_tensor(plan.bot, device=X.device)
-        dur, pkts, tot, src = traw[bot].unbind(1)
-        vol = volume_features(dur + ddur, pkts + dpkts, tot + dsrc, src + dsrc, mean, scale)
-        X = X.index_put((bot,), torch.cat([vol.to(X.dtype), X[bot, N_VOLUME:]], dim=1))
+        ref = traw[bot].unbind(1)
+        dur, pkts, tot, src = ref
+        vol = space.volume(dur + ddur, pkts + dpkts, tot + dsrc, src + dsrc, ref, None if taux is None else taux[bot], mean, scale)
+        rows = X[bot].clone()
+        rows[:, cols] = vol.to(X.dtype)
+        X = X.index_put((bot,), rows)
     if decoy is not None and tcat.shape[0]:
         d_dur, d_pkts, d_src = decoy
-        vol = volume_features(d_dur, d_pkts, d_src + tdst, d_src, mean, scale)
-        X = torch.cat([X, torch.cat([vol.to(X.dtype), tcat], dim=1)], dim=0)
+        vol = space.volume(d_dur, d_pkts, d_src + tdst, d_src, traw_dec(plan, X), daux, mean, scale)
+        rows = tcat.clone()
+        rows[:, cols] = vol.to(X.dtype)
+        X = torch.cat([X, rows], dim=0)
     return X
+
+
+def traw_dec(plan: Plan, like: torch.Tensor):
+    """(dur, pkts, tot, src) of the decoy templates as float64 tensors on ``like``'s device."""
+    return torch.as_tensor(plan.dec_raw, dtype=torch.float64, device=like.device).unbind(1)
 
 
 def _attack_once(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit: float, mean, scale,
                rng: np.random.Generator, device, steps: int = 30, step_frac: float = 0.2,
-               optimise: bool = True, delay: str = "coupled") -> Dict[str, object]:
+               optimise: bool = True, delay: str = "coupled", space: Space = CTU13_SPACE) -> Dict[str, object]:
     """Optimise (or only initialise) the attack against ``logit_fn``; return integerised perturbed flows.
 
     ``logit_fn(features, ctx)`` must return one logit per row (originals first). With
@@ -244,6 +307,8 @@ def _attack_once(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logi
     tX = torch.as_tensor(chunk.X, **f32)
     traw = torch.as_tensor(chunk.raw, **f64)
     tcat = torch.as_tensor(plan.dec_cat, **f32)
+    taux = None if chunk.aux is None else torch.as_tensor(chunk.aux, **f64)
+    daux = None if plan.dec_aux is None else torch.as_tensor(plan.dec_aux, **f64)
     draw = torch.as_tensor(plan.dec_raw, **f64)
     d_dur_t, d_pkts_t, d_tot_t, d_src_t = draw.unbind(1) if m else (traw[:0, 0],) * 4
     d_dst_t = (d_tot_t - d_src_t).clamp(min=0)
@@ -273,7 +338,7 @@ def _attack_once(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logi
         decoy = None
 
     def features(shp, dcy):
-        return assemble(chunk, plan, shp, dcy, mean, scale, tX, traw, tcat, d_dst_t, d_dur_t)
+        return assemble(chunk, plan, shp, dcy, mean, scale, tX, traw, tcat, d_dst_t, d_dur_t, space, taux, daux)
 
     if optimise and logit_fn is not None and nb and (float(b_shape.sum()) > 0 or m or delay == "free"):
         bot_t = torch.as_tensor(plan.bot, device=device)
@@ -307,7 +372,8 @@ def _attack_once(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logi
 
 def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit: float, mean, scale,
                rng: np.random.Generator, device, steps: int = 30, step_frac: float = 0.2,
-               optimise: bool = True, delay: str = "coupled", restarts: int = 1) -> Dict[str, object]:
+               optimise: bool = True, delay: str = "coupled", restarts: int = 1,
+               space: Space = CTU13_SPACE) -> Dict[str, object]:
     """``_attack_once`` with ``restarts`` random initialisations; keeps the one with the lowest mean botnet loss.
 
     delay: 'coupled' (delay only where the group has a shaping budget; E017 pilot), 'free'
@@ -317,7 +383,7 @@ def run_attack(chunk: Chunk, plan: Plan, logit_fn: Optional[LogitFn], thr_logit:
         raise ValueError(f"delay must be coupled, free or off, got {delay!r}")
     best, best_obj = None, None
     for _ in range(max(restarts, 1) if optimise and logit_fn is not None else 1):
-        res = _attack_once(chunk, plan, logit_fn, thr_logit, mean, scale, rng, device, steps, step_frac, optimise, delay)
+        res = _attack_once(chunk, plan, logit_fn, thr_logit, mean, scale, rng, device, steps, step_frac, optimise, delay, space)
         if restarts <= 1 or logit_fn is None or not len(plan.bot):
             return res
         with torch.no_grad():

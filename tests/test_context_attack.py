@@ -236,5 +236,55 @@ class TestHostWindow(unittest.TestCase):
         self.assertEqual(met["decoy_alarm_rate"], 0.0)
 
 
+class TestNetflowSpace(unittest.TestCase):
+    """E024: NetFlow-v3 feature space (raw -> driven columns)."""
+
+    def setUp(self):
+        from data.netflow_v3 import NetFlowV3Preprocessor
+        sys.path.insert(0, str(Path(__file__).parent))
+        from test_netflow_v3 import make_netflow_frame
+        rng = np.random.default_rng(5)
+        df = make_netflow_frame(600, seed=5)
+        for c in ("IN_BYTES", "OUT_BYTES", "IN_PKTS", "OUT_PKTS", "FLOW_DURATION_MILLISECONDS", "DURATION_IN"):
+            df[c] = df[c].abs() + 100.0
+        pre = NetFlowV3Preprocessor()
+        X, _ = pre.preprocess(df, fit=True)
+        self.names, self.pre, self.X = pre.feature_names, pre, X
+        clean = np.expm1(pre.transform_raw(df, fit=False))
+        col = lambda c: clean[:, self.names.index(c)]  # noqa: E731
+        self.raw = np.stack([col("FLOW_DURATION_MILLISECONDS"), col("IN_PKTS") + col("OUT_PKTS"),
+                             col("IN_BYTES") + col("OUT_BYTES"), col("IN_BYTES")], axis=1)
+        self.aux = np.stack([col(c) for c in ca.NETFLOW_AUX_COLUMNS], axis=1)
+        self.mean = torch.as_tensor(pre.scaler.mean_, dtype=torch.float64)
+        self.scale = torch.as_tensor(pre.scaler.scale_, dtype=torch.float64)
+        y = (rng.random(600) < 0.3).astype(np.int64)
+        src = np.where(y == 1, rng.integers(0, 3, 600), rng.integers(100, 140, 600)).astype(np.int64)
+        dst = rng.integers(200, 230, 600).astype(np.int64)
+        self.chunk = ca.Chunk(X, self.raw, y, src, dst, np.arange(600) // 100, self.aux)
+        self.space = ca.netflow_space(self.names)
+
+    def test_identity_reproduces_clean_columns(self):
+        r = torch.as_tensor(self.raw)
+        vol = self.space.volume(*r.unbind(1), r.unbind(1), torch.as_tensor(self.aux), self.mean, self.scale)
+        np.testing.assert_allclose(vol.numpy(), self.X[:, self.space.vol_idx], atol=2e-5)
+
+    def test_attack_changes_only_driven_columns_of_bot_flows(self):
+        rng = np.random.default_rng(0)
+        plan = ca.build_plan(self.chunk, 0.5, 0.5, rng)
+        self.assertEqual(plan.dec_cat.shape[1], self.X.shape[1])
+        fn = lambda X, ctx: -X[:, int(self.space.vol_idx[0])]  # noqa: E731  more IN_BYTES = lower logit
+        res = ca.run_attack(self.chunk, plan, fn, 0.0, self.mean, self.scale, rng, "cpu", steps=8, delay="off", space=self.space)
+        X = res["X"].numpy()
+        self.assertEqual(X.shape, (len(self.chunk.y) + res["m"], self.X.shape[1]))
+        other = np.setdiff1d(np.arange(self.X.shape[1]), self.space.vol_idx)
+        np.testing.assert_allclose(X[: len(self.chunk.y)][:, other], self.X[:, other], atol=1e-6)
+        benign = self.chunk.y == 0
+        np.testing.assert_allclose(X[: len(self.chunk.y)][benign], self.X[benign], atol=1e-6)
+        self.assertGreater(res["cost_shape"], 0.0)
+        for g, b in ((res["group_shape"], plan.budget_shape), (res["group_decoy"], plan.budget_decoy)):
+            if g is not None:
+                self.assertTrue((g.numpy() <= b + 1e-6).all())
+
+
 if __name__ == "__main__":
     unittest.main()

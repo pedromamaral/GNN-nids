@@ -33,10 +33,13 @@ from torch_geometric.data import Data
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from attacks.context_attack import Chunk, N_VOLUME, build_plan, host_context_t, make_context, run_attack  # noqa: E402
+from attacks.context_attack import (CTU13_SPACE, NETFLOW_AUX_COLUMNS, Chunk, N_VOLUME, build_plan, host_context_t,  # noqa: E402
+                                    make_context, netflow_space, run_attack)
 from data.ctu13 import CTU13_DEFAULT_SPLIT, Ctu13Preprocessor, load_ctu13, scenario_segments  # noqa: E402
 from data.endpoint_graph import endpoint_keys  # noqa: E402
-from data.netflow_v3 import DST_IP, DST_PORT, SRC_IP, SRC_PORT  # noqa: E402
+from data.netflow_v3 import (DST_IP, DST_PORT, NETFLOW_V3_DATASETS, SRC_IP, SRC_PORT,  # noqa: E402
+                             NetFlowV3Preprocessor, load_netflow_v3)
+from data.splits import chronological_split  # noqa: E402
 
 logger = logging.getLogger("context_decomposition")
 VOLUME_NAMES = ["log_Dur", "log_TotPkts", "log_TotBytes", "log_SrcBytes", "log_DstBytes", "log_BytesPerPkt"]
@@ -96,16 +99,39 @@ class XGBDetector:
 
 # ---------------------------------------------------------------- data
 
-def load_test(args, scaler_source: Ctu13Preprocessor):
+def is_ton(args) -> bool:
+    return args.dataset != "ctu13"
+
+
+def netflow_splits(args, with_endpoints: bool):
+    """(train, test) frames of a NetFlow-v3 dataset under the chronological 60/20/20 protocol."""
+    df = load_netflow_v3(str(Path(args.raw_dir) / NETFLOW_V3_DATASETS[args.dataset]), with_endpoints=with_endpoints)
+    tr, _, te = chronological_split(len(df))
+    return df.iloc[tr].reset_index(drop=True), df.iloc[te].reset_index(drop=True)
+
+
+def load_test(args, scaler_source):
+    """Standardised test features, raw attacker fields (Dur, TotPkts, TotBytes, SrcBytes), host keys, segments, aux."""
+    if is_ton(args):
+        _, df = netflow_splits(args, True)
+        X, y = scaler_source.preprocess(df, fit=False)
+        names = scaler_source.feature_names
+        clean = np.expm1(scaler_source.transform_raw(df, fit=False))   # clean raw values after the inf/NaN fill
+        col = lambda c: clean[:, names.index(c)]  # noqa: E731
+        raw = np.stack([col("FLOW_DURATION_MILLISECONDS"), col("IN_PKTS") + col("OUT_PKTS"),
+                        col("IN_BYTES") + col("OUT_BYTES"), col("IN_BYTES")], axis=1)
+        aux = np.stack([col(c) for c in NETFLOW_AUX_COLUMNS], axis=1)
+        src, dst = endpoint_keys(df[SRC_IP], df[SRC_PORT], df[DST_IP], df[DST_PORT], "ip")
+        return X, y, raw, src, dst, [(0, len(y))], aux
     df = load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["test"], with_endpoints=True)
     X, y = scaler_source.preprocess(df, fit=False)
     src, dst = endpoint_keys(df[SRC_IP], df[SRC_PORT], df[DST_IP], df[DST_PORT], "ip")
     raw = np.stack([df[c].fillna(0).clip(lower=0).to_numpy(dtype=np.float64)
                     for c in ("Dur", "TotPkts", "TotBytes", "SrcBytes")], axis=1)
-    return X, y, raw, src, dst, scenario_segments(df)
+    return X, y, raw, src, dst, scenario_segments(df), None
 
 
-def make_chunks(X, y, raw, src, dst, segments, window: int, chunk_flows: int, max_chunks=None) -> List[Chunk]:
+def make_chunks(X, y, raw, src, dst, segments, window: int, chunk_flows: int, max_chunks=None, aux=None) -> List[Chunk]:
     """Whole windows (per scenario, as 00 / the endpoint dataset), grouped into chunks of ~chunk_flows."""
     win = np.empty(len(y), dtype=np.int64)
     offset = 0
@@ -117,7 +143,7 @@ def make_chunks(X, y, raw, src, dst, segments, window: int, chunk_flows: int, ma
     for a, b in segments:
         for s in range(a, b, step):
             e = min(s + step, b)
-            chunks.append(Chunk(X[s:e], raw[s:e], y[s:e], src[s:e], dst[s:e], win[s:e]))
+            chunks.append(Chunk(X[s:e], raw[s:e], y[s:e], src[s:e], dst[s:e], win[s:e], None if aux is None else aux[s:e]))
     return chunks[:max_chunks] if max_chunks else chunks
 
 
@@ -223,22 +249,35 @@ def summarize(rows: pd.DataFrame, rhos, col: str = "recall") -> pd.DataFrame:
     return pd.DataFrame(out)
 
 
+def check_names(args, pre):
+    if is_ton(args):
+        netflow_space(pre.feature_names)   # raises if a driven column is missing
+        assert all(c in pre.feature_names for c in NETFLOW_AUX_COLUMNS)
+    else:
+        assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
+
+
 def fit_models(args, device, tab, cache: Path):
     """Fit MLP host-ip, XGB host-ip, XGB plain and the preprocessor for ``--seed``; save them in ``cache``."""
-    base = ["--dataset", "ctu13", "--ctu13-dir", args.ctu13_dir, "--context", "host", "--node-key", "ip",
+    base = ["--dataset", args.dataset, "--ctu13-dir", args.ctu13_dir, "--raw-dir", args.raw_dir, "--context", "host", "--node-key", "ip",
             "--context-window", str(args.context_window), "--class-weight", args.class_weight,
             "--device", str(device), "--xgb-device", "cpu", "--n-jobs", str(args.n_jobs)]
     targs = tab.parse_args(base)
-    data = tab.prepare_ctu13(targs)
+    if is_ton(args):  # the scaler first, so the full frame is freed before 00 builds the context features
+        pre = NetFlowV3Preprocessor()
+        pre.preprocess(netflow_splits(args, False)[0], fit=True)
+    else:
+        pre = Ctu13Preprocessor()
+        pre.preprocess(load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["train"]), fit=True)
+    data = tab.prepare_data(targs)
+    n_feat = len(pre.feature_names)
     mlp_predict, mlp_info = tab.train_mlp(data, args.seed, str(device), targs)
     xgb_host = None
     if not args.no_xgb:
         xgb_host, host_info = tab.train_xgboost(data, args.seed, "cpu", targs)
-        plain = {s: {**d, "X": d["X"][:, :36]} for s, d in data.items()}
+        plain = {s: {**d, "X": d["X"][:, :n_feat]} for s, d in data.items()}
         xgb_plain, plain_info = tab.train_xgboost(plain, args.seed, "cpu", targs)
-    pre = Ctu13Preprocessor()
-    pre.preprocess(load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["train"]), fit=True)
-    assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
+    check_names(args, pre)
     cache.mkdir(parents=True, exist_ok=True)
     torch.save({"state": mlp_predict.model.state_dict(), "hidden": targs.mlp_hidden, "dropout": targs.mlp_dropout},
                cache / "mlp.pt")
@@ -268,6 +307,9 @@ def booster_predictor(path: Path, best_iteration: int, n_jobs: int):
 
 def parse_args(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--dataset", choices=["ctu13"] + sorted(NETFLOW_V3_DATASETS), default="ctu13",
+                   help="ctu13 (E017-E021) or a NetFlow-v3 dataset (E024: nf-ton-iot-v3)")
+    p.add_argument("--raw-dir", default="data/raw/netflow-v3")
     p.add_argument("--ctu13-dir", default="data/raw/ctu13/CTU-13-Dataset")
     p.add_argument("--gnn-checkpoint", type=Path, required=True)
     p.add_argument("--seed", type=int, default=42, help="training seed of the refitted MLP / XGB")
@@ -315,7 +357,11 @@ def main(argv=None):
         if info[key] != getattr(args, key):
             raise SystemExit(f"model cache {cache} was fitted with {key}={info[key]}, not {getattr(args, key)}")
     mlp_state = torch.load(cache / "mlp.pt", map_location="cpu")
-    mlp_model = tab.FlowMLP(36 * 3 + 2, mlp_state["hidden"], mlp_state["dropout"])
+    pre = NetFlowV3Preprocessor() if is_ton(args) else Ctu13Preprocessor()
+    pre.load_preprocessed(str(cache / "scaler.pkl"))
+    check_names(args, pre)
+    n_feat = len(pre.feature_names)
+    mlp_model = tab.FlowMLP(n_feat * 3 + 2, mlp_state["hidden"], mlp_state["dropout"])
     mlp_model.load_state_dict(mlp_state["state"])
     xgb_host = xgb_plain = None
     if not args.no_xgb:
@@ -328,18 +374,16 @@ def main(argv=None):
         raise SystemExit("--gnn-checkpoint must be an endpoint-graph, node-key ip checkpoint")
     if meta.get("seed") is not None and int(meta["seed"]) != args.seed:
         logger.warning("GNN checkpoint seed %s differs from --seed %d", meta.get("seed"), args.seed)
-    gnn = abl.build_model(meta, 1, 36)
+    gnn = abl.build_model(meta, 1, n_feat)
     gnn.load_state_dict(ckpt["model_state_dict"])
     gnn_window = int(meta.get("window_size", 1000))
 
-    pre = Ctu13Preprocessor()
-    pre.load_preprocessed(str(cache / "scaler.pkl"))
-    assert pre.feature_names[:N_VOLUME] == VOLUME_NAMES, pre.feature_names[:N_VOLUME]
+    space = netflow_space(pre.feature_names) if is_ton(args) else CTU13_SPACE
     mean = torch.as_tensor(pre.scaler.mean_, dtype=torch.float64, device=device)
     scale = torch.as_tensor(pre.scaler.scale_, dtype=torch.float64, device=device)
-    X, y, raw, src, dst, segments = load_test(args, pre)
+    X, y, raw, src, dst, segments, aux = load_test(args, pre)
     if data is not None:
-        assert np.allclose(X, data["test"]["X"][:, :36]), "test features differ from 00's"
+        assert np.allclose(X, data["test"]["X"][:, :n_feat]), "test features differ from 00's"
     logger.info("test: %d flows, %d botnet", len(y), int(y.sum()))
 
     mlp = MLPDetector("mlp_host_ip", mlp_model, device)
@@ -360,7 +404,7 @@ def main(argv=None):
     rows = []
     clean_info = {}
     for fam in families:
-        chunks = make_chunks(X, y, raw, src, dst, segments, fam["window"], args.chunk_flows, args.max_chunks)
+        chunks = make_chunks(X, y, raw, src, dst, segments, fam["window"], args.chunk_flows, args.max_chunks, aux)
         dets = [fam["white"]] + fam["targets"]
         thr = {d.name: clean_threshold(d, chunks, device) for d in dets}
         t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
@@ -387,7 +431,7 @@ def main(argv=None):
                     plan = build_plan(ch, beta, rho, rng, replay=replay)
                     res = run_attack(ch, plan, fam["white"].logit, thr_logit, mean, scale, rng, device,
                                      steps=args.steps, step_frac=args.step_frac, optimise=not replay,
-                                     delay=mode, restarts=args.restarts)
+                                     delay=mode, restarts=args.restarts, space=space)
                     for key, budget in (("group_shape", plan.budget_shape), ("group_decoy", plan.budget_decoy)):
                         if res[key] is not None:
                             assert (res[key].cpu().numpy() <= budget + 1e-6).all(), f"{key} over budget"
