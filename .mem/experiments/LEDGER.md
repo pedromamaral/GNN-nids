@@ -23,4 +23,4 @@ E019 | 2026-10-21 | queue_E019.sh (config-only) | ToN E-GraphSAGE endpoint ip/ip
 E020 | 2026-10-23 | queue_E020.sh (E017 code + delay/restarts/hostwin) | Part 3 full: joint shaping+decoy, 4 detectors, CTU-13 | 5 training seeds x 2 attack seeds, delay free/off, β .05-.5, ρ 0-1; strength check s42 | PGD converged (≤.004); GNN ip S β.5ρ.5 +.084 (s42) / −.06..−.12 (43-46), G≥.03 1/5; MLP host-ip S<0 5/5; delay-only Δ≤.005 | REFUTED: K15 superadditivity = seed-42 artefact; separate eval suffices | A012
 E021 | 2026-10-23 | - | PLANNED: training-seed variance of robustness (15 GNN seeds + MLP host-ip, A/B/C β .1/.5) | - | - | - | A031
 E022 | 2026-10-23 | - | PLANNED: CTU-13 unseen infected scenarios (C3) | - | - | - | A028
-E023 | 2026-10-23 | - | PLANNED: k-NN full grid 5x5 UNSW GCN+GAT (C1) | - | - | - | A015
+E023 | 2026-10-23 | - | IMPLEMENTED (queue_E023.sh): k-NN full grid 5x5 UNSW GCN+GAT (C1) | - | - | - | A015
