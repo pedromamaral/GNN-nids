@@ -1,5 +1,5 @@
 # E023 k-NN decomposition full grid, UNSW GCN+GAT (A015)
-Status: IMPLEMENTED 2026-10-29 (not yet launched). Serves C1 (robustness of K04/K05).
+Status: RUNNING 2026-10-29 (launched GPUserver1, container gnn_pedroamaral_phase1_gpu0_20261029_214223). Serves C1 (robustness of K04/K05).
 ## Hypothesis
 K04/K05 hold at 5 training × 5 attack seeds: structure effect < .05 and adaptive gain < .03 at ε ∈ {0.05, 0.10} for GCN and GAT (one-sided Wilcoxon over training seeds, attack seeds averaged within).
 ## Change
