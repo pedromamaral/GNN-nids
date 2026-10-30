@@ -9,13 +9,14 @@ Branch main (sha: see `git log -1`) · Phase: Avenue #1, closers before paper-pl
 - Files: E021/E022 cards, LEDGER (E021, E022, E024 planned), conclusions K15 rev, K16, K17; avenues A028/A031 tried, A015/A033 needed-for-paper, A034 parked; project.md C3/C4/title; decisions D22; new card E024-ton-part3.md.
 
 ## Active runs
+- E024 GPUserver1 (ToN Part 3 port, queue_E024.sh, log logs/queue_E024.log ends E024_DONE), started 10-30 ~18:03 server clock. Smoke clean (MLP torch-vs-00 diff 2.3e-4). Disk on GPUserver1 only 4.7 GB free.
 - E023 GPUserver1 (k-NN 5×5 grid UNSW GCN+GAT, queue_E023.sh, log logs/queue_E023.log ends E023_DONE), started 10-29 ~21:42 server clock, ETA unmeasured.
 
 ## Open problem
 Do K15 (separate suffices) and K16 (seed lottery) generalise beyond CTU-13? → E024 (ToN port of Part 3, A033). Is K16 novel given underspecification (D'Amour et al.)? → strategist revision.
 
 ## EXACT next step
-1. E024 implemented (sha 12fab85); smoke on GPUserver1 (logs/queue_E024_smoke.log, ends E024_SMOKE_DONE) -> check tail; if OK `research-do deploy E024` (`scripts/queue_E024.sh`, 5 seeds). Pre-existing test failure test_k_sensitivity (Trainer mock/yaml), unrelated.
+1. E024 deployed (sha 12fab85) -> `research-do status`, then `fetch E024` (needs summarize_run.py to read results/E024/seed_*/ like E021) when E024_DONE. Pre-existing test failure test_k_sensitivity (Trainer mock/yaml), unrelated.
 2. `research-do status` → when E023_DONE: `research-do fetch E023`, then `research-think analyze E023`.
 3. DONE 2026-10-29: strategist rev 1 → docs/lit-graph/gnn-nids/strategy-plan.md: publishable in C&S after E023, E024, E022 CIs, A035 (new, host-disjoint check). A034/A036 optional stretch.
 3b. `research-do implement A035` (check whether E022 saved per-flow scores + src IPs; else re-score ckpts).
