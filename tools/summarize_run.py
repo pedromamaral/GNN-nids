@@ -31,6 +31,10 @@ TEST_KEYS = ("f1", "roc_auc", "precision", "recall")
 CSV_SPECS = {
     "graph_ablation.csv": (("dataset", "model", "node_key", "graph"), ("f1", "changed")),
     "go_no_go.csv": (("dataset", "model", "epsilon"), ("structure_effect_mean", "adaptive_gain_mean")),
+    # E023 (05b): A/B/C effects over training x attack seeds, per dataset x model x eps x attack
+    "decomposition_effects.csv": (("dataset", "model", "epsilon", "attack"),
+                                  ("feature_mean", "feature_std", "structure_mean", "structure_std",
+                                   "combined_mean", "combined_std", "interaction_mean", "interaction_std")),
     # E017/E020 (08): per detector x attack seed x beta; Delta = clean recall - attacked recall at 1% FPR
     "summary.csv": (("detector", "origin", "attack_seed", "delay", "beta"),
                     ("delta_A", "delta_B", "delta_Cstar", "G", "S_max_abs", "S_signed_mean", "S_rho0.5")),

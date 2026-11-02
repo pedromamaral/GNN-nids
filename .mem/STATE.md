@@ -7,13 +7,13 @@ Branch main, sha 5b59860 (+ this commit) · Phase: Avenue #1 closers before pape
 - Files: card E024 (spec, limitation L1), LEDGER E024, runs.md, codebase unchanged (module map same; 08 now dataset-generic).
 
 ## Active runs
-None. E023 (GPUserver1, k-NN 5x5 UNSW GCN+GAT) finished (E023_DONE in logs/queue_E023.log), NOT fetched. runs_status.sh wrongly prints queues as "ended" while alive (matches first container name) — check pgrep.
+None. E023 (GPUserver1, k-NN 5x5 UNSW GCN+GAT) finished (E023_DONE in logs/queue_E023.log), fetched 11-02 (.mem/results/E023.json; summarize_run.py now reads decomposition_effects.csv). runs_status.sh wrongly prints queues as "ended" while alive (matches first container name) — check pgrep.
 
 ## Open problem
 Do K15 / K16 generalise to ToN? (E024 criteria in card: K15 G>=.03 in <=1/5 GNN seeds and S<0 on host-ip 5/5; K16 GNN CV(Delta_A, beta .5)>=.3 and MLP CV<.15; else report dataset dependence.) Is K16 novel given underspecification (D'Amour et al.)?
 
 ## EXACT next step
-1. `research-do fetch E023` (cheap model; use bash for multi-spec calls, zsh doesn't word-split), then `research-think analyze E024` and `analyze E023` (strong model, one phase per session).
+1. `research-think analyze E024` and `analyze E023` (E023.json has only the aggregated report; per-seed dirs under GPUserver1:results/decomposition/<ts>_..._seed_N can be fetched if analysis needs seed spread; use bash for multi-spec calls, zsh doesn't word-split) (strong model, one phase per session).
 2. `research-do implement A035` (host-disjoint check: does E022 have per-flow scores + src IPs, else re-score ckpts).
 3. Then `research-think paper-plan` (paper.md stale: still says C2 OPEN / C4 not started). Small TODO: re-export E022 block-bootstrap CIs into E022.json.
 - Caveats: GPUserver1 disk ~4.6 GB free; results/E024_models and E024_smoke are small. Fix runs_status.sh queue detection (optional).
