@@ -1,26 +1,22 @@
-# STATE — 2026-10-29 (E021+E022 analysed; strategy → D22 reframe; E023 running)
-Branch main (sha: see `git log -1`) · Phase: Avenue #1, closers before paper-plan. Part 1 C1 pending E023; C2 negative (K11, K14); C3 closed (K17); C4 'separate suffices' (K15); seed lottery (K16).
+# STATE — 2026-11-02 (E024 fetched; E023 finished, not fetched)
+Branch main, sha 5b59860 (+ this commit) · Phase: Avenue #1 closers before paper-plan. Part 1 C1 pending E023 analysis; C2 negative (K11, K14); C3 closed (K17); C4 'separate suffices' (K15); seed lottery (K16).
 
 ## Just done (this session)
-- analyze E021: GNN-ip Δ_A β.5 .388±.180 over 15 seeds (CV .46, ×30, attack noise ≤.006). No clean/val predictor |ρ|>.54. MLP host-ip CV .10, ρ .93 with clean recall. G≥.03 1/15 → K15 holds. New K16.
-- summarize_run.py: clean_stats merge bug fixed (limit=100 hit by 360 table metrics; commit b6ad608). E021.json re-fetched (5575 metrics).
-- analyze E022 (unseen families 6/7/8/12): PR-AUC XGB host-ip .670 vs plain .117 (+.55, 5/5); GNN ip .129 ≈ plain. Leakage refuted, C3 closed → K17. Bootstrap CIs not in JSON (fetch TODO).
-- strategy: D22 reframes the paper as evaluation-methodology (k-NN redundant · host context not topology · separate eval suffices · seed lottery). New title placeholder in project.md. strategy.md revised: G6 + underspecification novelty threat + publishability table, verdict iterate.
-- Files: E021/E022 cards, LEDGER (E021, E022, E024 planned), conclusions K15 rev, K16, K17; avenues A028/A031 tried, A015/A033 needed-for-paper, A034 parked; project.md C3/C4/title; decisions D22; new card E024-ton-part3.md.
+- implement E024 (sha 12fab85): `Space` abstraction in src/attacks/context_attack.py (CTU13_SPACE default, netflow_space for ToN); 08 `--dataset nf-ton-iot-v3`; scripts/queue_E024.sh (SMOKE=1 mode); tests TestNetflowSpace (193 pass on GPUserver1; test_k_sensitivity failure is pre-existing, Trainer mock/yaml).
+- smoke clean (MLP torch-vs-00 diff 2.3e-4) -> deploy -> E024_DONE 10-31 00:16 server clock (~1.2 h/seed) -> fetch: .mem/results/E024.json, 5 runs (s42-s46), 732 metrics each incl. clean_stats. No interpretation yet.
+- Files: card E024 (spec, limitation L1), LEDGER E024, runs.md, codebase unchanged (module map same; 08 now dataset-generic).
 
 ## Active runs
-- E023 GPUserver1 (k-NN 5×5 grid UNSW GCN+GAT, queue_E023.sh, log logs/queue_E023.log ends E023_DONE), started 10-29 ~21:42 server clock, ETA unmeasured.
+None. E023 (GPUserver1, k-NN 5x5 UNSW GCN+GAT) finished (E023_DONE in logs/queue_E023.log), NOT fetched. runs_status.sh wrongly prints queues as "ended" while alive (matches first container name) — check pgrep.
 
 ## Open problem
-Do K15 (separate suffices) and K16 (seed lottery) generalise beyond CTU-13? → E024 (ToN port of Part 3, A033). Is K16 novel given underspecification (D'Amour et al.)? → strategist revision.
+Do K15 / K16 generalise to ToN? (E024 criteria in card: K15 G>=.03 in <=1/5 GNN seeds and S<0 on host-ip 5/5; K16 GNN CV(Delta_A, beta .5)>=.3 and MLP CV<.15; else report dataset dependence.) Is K16 novel given underspecification (D'Amour et al.)?
 
 ## EXACT next step
-1. E024 done + fetched (.mem/results/E024.json, 5 seeds; summarize with bash, not zsh word-splitting) -> `research-think analyze E024` (criteria in card: K15 G>=.03 in <=1/5 and S<0 5/5 on host-ip; K16 GNN CV>=.3, MLP CV<.15). Pre-existing test failure test_k_sensitivity (Trainer mock/yaml), unrelated.
-2. `research-do status` → when E023_DONE: `research-do fetch E023`, then `research-think analyze E023`.
-3. DONE 2026-10-29: strategist rev 1 → docs/lit-graph/gnn-nids/strategy-plan.md: publishable in C&S after E023, E024, E022 CIs, A035 (new, host-disjoint check). A034/A036 optional stretch.
-3b. `research-do implement A035` (check whether E022 saved per-flow scores + src IPs; else re-score ckpts).
-4. After E023 + E024: `research-think paper-plan` (paper.md is stale: still says C2 OPEN / C4 not started).
-- Small TODO: re-export E022 block-bootstrap CIs into E022.json.
+1. `research-do fetch E023` (cheap model; use bash for multi-spec calls, zsh doesn't word-split), then `research-think analyze E024` and `analyze E023` (strong model, one phase per session).
+2. `research-do implement A035` (host-disjoint check: does E022 have per-flow scores + src IPs, else re-score ckpts).
+3. Then `research-think paper-plan` (paper.md stale: still says C2 OPEN / C4 not started). Small TODO: re-export E022 block-bootstrap CIs into E022.json.
+- Caveats: GPUserver1 disk ~4.6 GB free; results/E024_models and E024_smoke are small. Fix runs_status.sh queue detection (optional).
 
 ## Read next
-STATE + E024 card + D17 + D22 + codebase.md + infra.md (for implement); K15, K16.
+STATE + INDEX; E024 card + results/E024.json via summarize (never cat); K15, K16, D17, D22; strategy-plan.md (docs/lit-graph/gnn-nids/).
