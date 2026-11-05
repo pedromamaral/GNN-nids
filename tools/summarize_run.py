@@ -155,6 +155,9 @@ def extract(run_dir):
                 rec["metrics"].update(table_metrics(d / f, keys, values))
         if (d / "clean_stats.json").exists():  # E021: per-seed clean predictors
             rec["metrics"].update(numeric_leaves(json.loads((d / "clean_stats.json").read_text()), "clean_stats/"))
+    elif (d / "clean_op.json").exists():  # E025: clean-only operating-point diagnostic (no attack tables)
+        rec["kind"], rec["status"] = "clean_op", "finished"
+        rec["metrics"].update(numeric_leaves(json.loads((d / "clean_op.json").read_text()), "clean_op/"))
     else:
         jsons = sorted(d.glob("*.json"))
         if jsons:

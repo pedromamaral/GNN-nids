@@ -56,6 +56,7 @@ def load_script(filename: str, name: str):
 
 class MLPDetector:
     white_box = True
+    use_logit = False   # E025: score on logits (float32 sigmoid saturates on ToN) instead of probabilities
 
     def __init__(self, name, model, device):
         self.name, self.model, self.device = name, model.to(device).eval(), device
@@ -65,11 +66,13 @@ class MLPDetector:
 
     @torch.no_grad()
     def score(self, X, ctx):
-        return torch.sigmoid(self.logit(X, ctx)).cpu().numpy()
+        z = self.logit(X, ctx)
+        return (z if self.use_logit else torch.sigmoid(z)).cpu().numpy()
 
 
 class GNNDetector:
     white_box = True
+    use_logit = False
 
     def __init__(self, name, model, device):
         self.name, self.model, self.device = name, model.to(device).eval(), device
@@ -82,11 +85,13 @@ class GNNDetector:
 
     @torch.no_grad()
     def score(self, X, ctx):
-        return torch.sigmoid(self.logit(X, ctx)).cpu().numpy()
+        z = self.logit(X, ctx)
+        return (z if self.use_logit else torch.sigmoid(z)).cpu().numpy()
 
 
 class XGBDetector:
     white_box = False
+    use_logit = False
 
     def __init__(self, name, predict, host):
         self.name, self.predict, self.host = name, predict, host
@@ -94,7 +99,7 @@ class XGBDetector:
     @torch.no_grad()
     def score(self, X, ctx):
         feats = host_context_t(X, ctx) if self.host else X
-        return self.predict(feats.cpu().numpy())
+        return self.predict(feats.cpu().numpy(), margin=self.use_logit)
 
 
 # ---------------------------------------------------------------- data
@@ -103,17 +108,20 @@ def is_ton(args) -> bool:
     return args.dataset != "ctu13"
 
 
-def netflow_splits(args, with_endpoints: bool):
-    """(train, test) frames of a NetFlow-v3 dataset under the chronological 60/20/20 protocol."""
+def netflow_splits(args, with_endpoints: bool, part=None):
+    """(train, test) frames of a NetFlow-v3 dataset under the chronological 60/20/20 protocol; ``part`` in train/val/test returns one frame."""
     df = load_netflow_v3(str(Path(args.raw_dir) / NETFLOW_V3_DATASETS[args.dataset]), with_endpoints=with_endpoints)
-    tr, _, te = chronological_split(len(df))
+    tr, va, te = chronological_split(len(df))
+    if part is not None:
+        return df.iloc[{"train": tr, "val": va, "test": te}[part]].reset_index(drop=True)
     return df.iloc[tr].reset_index(drop=True), df.iloc[te].reset_index(drop=True)
 
 
-def load_test(args, scaler_source):
-    """Standardised test features, raw attacker fields (Dur, TotPkts, TotBytes, SrcBytes), host keys, segments, aux."""
+def load_test(args, scaler_source, part="test"):
+    """Standardised test features, raw attacker fields (Dur, TotPkts, TotBytes, SrcBytes), host keys, segments, aux.
+    ``part="val"`` (NetFlow-v3 only) gives the validation split, for the E025 clean-only diagnostic."""
     if is_ton(args):
-        _, df = netflow_splits(args, True)
+        df = netflow_splits(args, True, part=part)
         X, y = scaler_source.preprocess(df, fit=False)
         names = scaler_source.feature_names
         clean = np.expm1(scaler_source.transform_raw(df, fit=False))   # clean raw values after the inf/NaN fill
@@ -123,6 +131,7 @@ def load_test(args, scaler_source):
         aux = np.stack([col(c) for c in NETFLOW_AUX_COLUMNS], axis=1)
         src, dst = endpoint_keys(df[SRC_IP], df[SRC_PORT], df[DST_IP], df[DST_PORT], "ip")
         return X, y, raw, src, dst, [(0, len(y))], aux
+    assert part == "test", "validation split is only wired for NetFlow-v3"
     df = load_ctu13(args.ctu13_dir, CTU13_DEFAULT_SPLIT["test"], with_endpoints=True)
     X, y = scaler_source.preprocess(df, fit=False)
     src, dst = endpoint_keys(df[SRC_IP], df[SRC_PORT], df[DST_IP], df[DST_PORT], "ip")
@@ -158,7 +167,7 @@ def clean_threshold(det, chunks, device, fpr=0.01):
     return float(np.quantile(np.concatenate(scores), 1.0 - fpr))
 
 
-def clean_stats(det, chunks, device, thr):
+def clean_stats(det, chunks, device, thr, logit_space=False):
     """Clean-performance predictors for E021: test PR-AUC, recall at the 1%-FPR threshold, mean malicious logit margin."""
     from sklearn.metrics import average_precision_score
     scores, labels = [], []
@@ -166,16 +175,49 @@ def clean_stats(det, chunks, device, thr):
         ctx = make_context(ch.src_key, ch.dst_key, ch.win, device)
         scores.append(det.score(torch.as_tensor(ch.X, device=device), ctx)); labels.append(ch.y)
     s, y = np.concatenate(scores), np.concatenate(labels)
-    logit = lambda v: np.log(np.clip(v, 1e-6, 1 - 1e-6) / (1 - np.clip(v, 1e-6, 1 - 1e-6)))  # noqa: E731
-    return {"test_pr_auc": float(average_precision_score(y, s)), "test_recall_at_1pct_fpr": float((s[y == 1] > thr).mean()),
+    logit = (lambda v: v) if logit_space else (lambda v: np.log(np.clip(v, 1e-6, 1 - 1e-6) / (1 - np.clip(v, 1e-6, 1 - 1e-6))))  # noqa: E731
+    return {"test_pr_auc": float(average_precision_score(y, s)), "test_recall_at_1pct_fpr": float((s[y == 1] >= thr).mean()),
             "mean_malicious_logit_margin": float(logit(s[y == 1]).mean() - logit(thr)), "threshold": float(thr)}
 
 
-def tally(det, thr, ch, res, plan) -> Counter:
+def clean_operating_points(det, chunks, vchunks, device) -> Dict[str, float]:
+    """E025: clean recall at 1% / 5% FPR on logits (``det.use_logit`` must be True), thresholds from test-benign and val-benign,
+    realised test FPR, saturation ties, and the val threshold matched to val recall .9. Also the E024 probability-space point."""
+    def collect(cs):
+        z, y = [], []
+        for ch in cs:
+            ctx = make_context(ch.src_key, ch.dst_key, ch.win, device)
+            z.append(det.score(torch.as_tensor(ch.X, device=device), ctx)); y.append(ch.y)
+        return np.concatenate(z).astype(np.float64), np.concatenate(y)
+    zt, yt = collect(chunks)
+    zv, yv = collect(vchunks)
+    bt, mt, bv, mv = zt[yt == 0], zt[yt == 1], zv[yv == 0], zv[yv == 1]
+    prob = lambda z: torch.sigmoid(torch.as_tensor(z, dtype=torch.float32)).numpy()  # noqa: E731
+    pt = prob(zt)
+    out: Dict[str, float] = {"n_test_benign": int(len(bt)), "n_test_malicious": int(len(mt)),
+                             "n_val_benign": int(len(bv)), "n_val_malicious": int(len(mv)),
+                             "tie_frac_benign": float((pt[yt == 0] >= 1 - 1e-7).mean()),
+                             "tie_frac_malicious": float((pt[yt == 1] >= 1 - 1e-7).mean()),
+                             "recall_at_logit0": float((mt >= 0).mean()), "fpr_at_logit0": float((bt >= 0).mean())}
+    for tag, fpr in (("1", 0.01), ("5", 0.05)):
+        q = 1.0 - fpr
+        thr_t, thr_v = float(np.quantile(bt, q)), float(np.quantile(bv, q))
+        out.update({f"thr_test_{tag}": thr_t, f"recall_test_thr_{tag}": float((mt >= thr_t).mean()), f"fpr_test_thr_{tag}": float((bt >= thr_t).mean()),
+                    f"thr_val_{tag}": thr_v, f"recall_val_thr_{tag}": float((mt >= thr_v).mean()), f"fpr_val_thr_{tag}": float((bt >= thr_v).mean())})
+    pb = pt[yt == 0]
+    pthr = float(np.quantile(pb, 0.99))
+    out.update({"prob_thr_1": pthr, "prob_recall_1": float((pt[yt == 1] >= pthr).mean()), "prob_fpr_1": float((pb >= pthr).mean())})
+    thr90 = float(np.quantile(mv, 0.1))   # val recall .9
+    out.update({"thr_val_recall90": thr90, "val_recall_at_thr90": float((mv >= thr90).mean()),
+                "recall_test_thr_r90": float((mt >= thr90).mean()), "fpr_test_thr_r90": float((bt >= thr90).mean())})
+    return out
+
+
+def tally(det, thr, ch, res, plan, half=0.5) -> Counter:
     s = det.score(res["X"], res["ctx"])
     orig, dec, y = s[:res["n"]], s[res["n"]:], ch.y
     c = Counter()
-    for tag, t in (("1", thr), ("05", 0.5)):
+    for tag, t in (("1", thr), ("05", half)):
         pos = orig >= t
         c[f"tp{tag}"] += int((pos & (y == 1)).sum())
         c[f"fp{tag}"] += int((pos & (y == 0)).sum())
@@ -300,7 +342,7 @@ def booster_predictor(path: Path, best_iteration: int, n_jobs: int):
     bst = xgb.Booster()
     bst.load_model(str(path))
     bst.set_param({"nthread": n_jobs})
-    return lambda X: bst.predict(xgb.DMatrix(X), iteration_range=(0, best_iteration + 1))
+    return lambda X, margin=False: bst.predict(xgb.DMatrix(X), iteration_range=(0, best_iteration + 1), output_margin=margin)
 
 
 # ---------------------------------------------------------------- main
@@ -325,6 +367,10 @@ def parse_args(argv=None):
     p.add_argument("--model-cache", type=Path, default=None,
                    help="directory with the fitted models for --seed (written on first use, reused afterwards)")
     p.add_argument("--no-xgb", action="store_true", help="E021: skip the XGB detectors (not fitted, not attacked)")
+    p.add_argument("--score-space", choices=["prob", "logit"], default="prob",
+                   help="prob: E017-E024 (thresholds on sigmoid probabilities); logit: logits / XGB margins (E025, E026), threshold 0.5 -> 0")
+    p.add_argument("--clean-only", action="store_true",
+                   help="E025: no attack; clean operating-point diagnostic (NetFlow-v3 only), writes clean_op.json and exits")
     p.add_argument("--steps", type=int, default=30)
     p.add_argument("--step-frac", type=float, default=0.2)
     p.add_argument("--chunk-flows", type=int, default=400_000)
@@ -403,19 +449,40 @@ def main(argv=None):
             configs += [(b, 1.0, True, mode, "B_replay") for b in args.betas]
     rows = []
     clean_info = {}
+    clean_op = {}
+    logit_space = args.score_space == "logit" or args.clean_only
+    val_data = None
+    if args.clean_only:
+        if not is_ton(args):
+            raise SystemExit("--clean-only is wired for NetFlow-v3 datasets")
+        val_data = load_test(args, pre, part="val")
+        logger.info("val: %d flows, %d malicious", len(val_data[1]), int(val_data[1].sum()))
     for fam in families:
         chunks = make_chunks(X, y, raw, src, dst, segments, fam["window"], args.chunk_flows, args.max_chunks, aux)
         dets = [fam["white"]] + fam["targets"]
+        for d in dets:
+            d.use_logit = logit_space
+        if args.clean_only:
+            vchunks = make_chunks(*val_data[:6], fam["window"], args.chunk_flows, args.max_chunks, val_data[6])
+            for d in dets:
+                clean_op[d.name] = clean_operating_points(d, chunks, vchunks, device)
+                logger.info("%s clean_op: %s", d.name, {k: round(v, 4) for k, v in clean_op[d.name].items() if isinstance(v, float)})
+            continue
         thr = {d.name: clean_threshold(d, chunks, device) for d in dets}
-        t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
-        thr_logit = float(np.log(t / (1 - t)))
+        if logit_space:
+            thr_logit, half = float(thr[fam["white"].name]), 0.0
+        else:
+            t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
+            thr_logit, half = float(np.log(t / (1 - t))), 0.5
         logger.info("%s: %d chunks, thresholds at 1%% FPR: %s", fam["name"], len(chunks), thr)
-        clean_info[fam["white"].name] = clean_stats(fam["white"], chunks, device, thr[fam["white"].name])
+        clean_info[fam["white"].name] = clean_stats(fam["white"], chunks, device, thr[fam["white"].name], logit_space)
         if fam["name"] == "tab" and data is not None:  # the torch context path must reproduce 00's numpy path
             ch, n = chunks[0], len(chunks[0].y)
             ctx0 = make_context(ch.src_key, ch.dst_key, ch.win, device)
             ours = mlp.score(torch.as_tensor(ch.X, device=device), ctx0)
             ref = mlp_predict(data["test"]["X"][:n])
+            if logit_space:
+                ours = 1.0 / (1.0 + np.exp(-ours.astype(np.float64)))
             logger.info("MLP torch-vs-00 max |diff| = %.2e", float(np.abs(ours - ref).max()))
             assert np.abs(ours - ref).max() < 1e-3, "torch host context does not match 00"
             if not args.no_xgb:
@@ -437,7 +504,7 @@ def main(argv=None):
                             assert (res[key].cpu().numpy() <= budget + 1e-6).all(), f"{key} over budget"
                     cost_shape += res["cost_shape"]; cost_decoy += res["cost_decoy"]; base_bytes += float(plan.base_bytes.sum())
                     for d in dets:
-                        tallies[d.name] += tally(d, thr[d.name], ch, res, plan)
+                        tallies[d.name] += tally(d, thr[d.name], ch, res, plan, half)
                     del res
                 cond = "C" if label == "AC" else label
                 for d in dets:
@@ -449,6 +516,10 @@ def main(argv=None):
                 logger.info("%s aseed=%d delay=%s beta=%.4g rho=%.2f %s: %s", fam["name"], aseed, mode, beta, rho, cond,
                             {d.name: round(rows[-len(dets) + i]["recall"], 4) for i, d in enumerate(dets)})
                 pd.DataFrame(rows).to_csv(out_dir / "rows.csv", index=False)
+    if args.clean_only:
+        (out_dir / "clean_op.json").write_text(json.dumps({"train_seed": args.seed, "dataset": args.dataset, **clean_op}, indent=2))
+        (out_dir / "config.json").write_text(json.dumps({**vars(args), "gnn_window": gnn_window}, indent=2, default=str))
+        return
     df = pd.DataFrame(rows)
     for col, name in (("recall", "summary.csv"), ("hostwin_recall", "summary_hostwin.csv"),
                       ("hostwin_recall_dec", "summary_hostwin_dec.csv")):
