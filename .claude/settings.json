@@ -3,7 +3,7 @@
     "deny": [
       "Read(//Users/pedroamaral/Documents/gnn-adversarial-nids/data/**)",
 
-      "Read(./results/**)",
+      "Read(//Users/pedroamaral/Documents/gnn-adversarial-nids/results/**)",
       "Read(./logs/**)",
       "Read(./docs/lit-graph/gnn-nids/raw/**)"
     ],
