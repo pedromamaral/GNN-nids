@@ -114,6 +114,9 @@ def main():
     ap.add_argument("--gnn", action="append", default=[], metavar="LABEL=NPZ")
     ap.add_argument("--tab", action="append", default=[], metavar="LABEL=NPZ")
     ap.add_argument("--target", default="ip")
+    ap.add_argument("--pairs", nargs="*", default=[], metavar="A,B",
+                    help="extra paired gaps A - B (model labels as printed, e.g. hostip_cw:xgboost,plain_cw:xgboost), "
+                         "same bootstrap; written to pair_gaps")
     ap.add_argument("--block", type=int, default=10)
     ap.add_argument("--resamples", type=int, default=10000)
     ap.add_argument("--bins", type=int, default=512)
@@ -208,6 +211,18 @@ def main():
         lo, hi = np.percentile(mean_boot, [2.5, 97.5])
         result["gaps"][m] = {"best_competitor": comp, "per_seed": gaps, "mean": float(np.mean(list(gaps.values()))),
                              "min_seed": float(min(gaps.values())), "ci95_mean": [float(lo), float(hi)]}
+    result["pair_gaps"] = {}
+    for pair in a.pairs:
+        la, lb = pair.split(",")
+        if la not in labels or lb not in labels:
+            raise SystemExit(f"--pairs {pair}: unknown label (have {labels})")
+        for m in ("pr_auc", "f1_05", "f1_tuned"):
+            gaps = {s: point[(la, s)][m] - point[(lb, s)][m] for s in seeds}
+            mean_boot = np.mean([boot[m][(la, s)] - boot[m][(lb, s)] for s in seeds], axis=0)
+            lo, hi = np.percentile(mean_boot, [2.5, 97.5])
+            result["pair_gaps"].setdefault(f"{la}-{lb}", {})[m] = {
+                "per_seed": gaps, "mean": float(np.mean(list(gaps.values()))), "min_seed": float(min(gaps.values())),
+                "positive_seeds": int(sum(g > 0 for g in gaps.values())), "ci95_lo": float(lo), "ci95_hi": float(hi)}
     result["roc_auc_means"] = {l: mean_metric(l, "roc_auc") for l in labels}
     result["means"] = {m: {l: mean_metric(l, m) for l in labels} for m in METRICS}
 
@@ -218,6 +233,8 @@ def main():
         print(f"  {m:9s} " + "  ".join(f"{l}={v:.3f}" for l, v in result["means"][m].items()))
     for m, g in result["gaps"].items():
         print(f"gap {m}: vs {g['best_competitor']} mean={g['mean']:+.3f} min_seed={g['min_seed']:+.3f} CI95={g['ci95_mean']}")
+    for pair, g in result["pair_gaps"].items():
+        print(f"pair {pair}: " + "  ".join(f"{m} {v['mean']:+.3f} [{v['ci95_lo']:+.3f},{v['ci95_hi']:+.3f}] {v['positive_seeds']}/{len(seeds)}" for m, v in g.items()))
     print(f"written {a.out}")
 
 
