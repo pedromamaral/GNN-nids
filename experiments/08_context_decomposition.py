@@ -369,6 +369,9 @@ def parse_args(argv=None):
     p.add_argument("--no-xgb", action="store_true", help="E021: skip the XGB detectors (not fitted, not attacked)")
     p.add_argument("--score-space", choices=["prob", "logit"], default="prob",
                    help="prob: E017-E024 (thresholds on sigmoid probabilities); logit: logits / XGB margins (E025, E026), threshold 0.5 -> 0")
+    p.add_argument("--target-fpr", type=float, default=0.01,
+                   help="operating point: threshold = (1 - target FPR) quantile of clean test-benign scores (0.01: E017-E024; 0.05: E026). "
+                        "Output keys named *_1pct_fpr then hold the value at this FPR (see config.json)")
     p.add_argument("--clean-only", action="store_true",
                    help="E025: no attack; clean operating-point diagnostic (NetFlow-v3 only), writes clean_op.json and exits")
     p.add_argument("--steps", type=int, default=30)
@@ -468,13 +471,13 @@ def main(argv=None):
                 clean_op[d.name] = clean_operating_points(d, chunks, vchunks, device)
                 logger.info("%s clean_op: %s", d.name, {k: round(v, 4) for k, v in clean_op[d.name].items() if isinstance(v, float)})
             continue
-        thr = {d.name: clean_threshold(d, chunks, device) for d in dets}
+        thr = {d.name: clean_threshold(d, chunks, device, args.target_fpr) for d in dets}
         if logit_space:
             thr_logit, half = float(thr[fam["white"].name]), 0.0
         else:
             t = float(np.clip(thr[fam["white"].name], 1e-6, 1 - 1e-6))
             thr_logit, half = float(np.log(t / (1 - t))), 0.5
-        logger.info("%s: %d chunks, thresholds at 1%% FPR: %s", fam["name"], len(chunks), thr)
+        logger.info("%s: %d chunks, thresholds at %g%% FPR: %s", fam["name"], len(chunks), 100 * args.target_fpr, thr)
         clean_info[fam["white"].name] = clean_stats(fam["white"], chunks, device, thr[fam["white"].name], logit_space)
         if fam["name"] == "tab" and data is not None:  # the torch context path must reproduce 00's numpy path
             ch, n = chunks[0], len(chunks[0].y)
